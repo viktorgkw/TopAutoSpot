@@ -1,6 +1,6 @@
 # TopAutoSpot🚦
 
-## Table of contents
+## Table of contentsℹ️
 <strong>[About](#about)
 <br />
 [Building the project](#building-the-project)
@@ -12,19 +12,19 @@
 [License](#license)</strong>
 <br />
 
-## About
+## About📝
 <strong>
 TopAutoSpot is a website where people can trade, sell, buy or auction their vehicles,
 <br />
 The project was started by a student who had to make thesis so he decided to turn it into a big project.
 </strong>
 
-## Building the project
+## Building the project⚙️
 <strong>In order to build the project you will have to...</strong>
 <br />
 TODO
 
-## Contributing
+## Contributing🧑‍🔧
 <strong>Before contributing to the project you should email the TSC for collaborator access.
 <br />
 If you get approved then you can start contributing to the project.
@@ -34,17 +34,17 @@ Note that the project is very strict so we need people that ensure they will wri
 All kinds of leaks about the project are sued.
 </strong>
 
-## Current team members
+## Current team members🧑
 ### Technical Steering Committee
 > <a href="https://github.com/viktorgkw">Viktor Georgakiev</a>
 
 ### Contributors
 > Nobody has contributed for this project at this point.
 
-## Built with
+## Built with💻
 <strong>ASP.NET Core (.NET 7)</strong>
 <br />
 <strong>Bootstrap</strong>
 
-## License
+## License📃
 <strong>TopAutoSpot is available under the <a href="https://choosealicense.com/licenses/bsd-3-clause/">BSD 3</a> license.</strong>
