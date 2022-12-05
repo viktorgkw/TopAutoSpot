@@ -49,7 +49,7 @@ All kinds of leaks about the project are sued.
 <strong>Bootstrap</strong>
 
 ## Database Schema📊
-<a href="https://github.com/viktorgkw/TopAutoSpot/blob/main/Content/App%20Database%20Schema.jpg"></a>
+![Application Database Schema](/Content/to/appDbSchema.jpg)
 
 ## License📃
 <strong>TopAutoSpot is available under the <a href="https://choosealicense.com/licenses/bsd-3-clause/">BSD 3</a> license.</strong>
