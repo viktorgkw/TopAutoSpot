@@ -47,7 +47,7 @@ All kinds of leaks about the project are sued.
 <strong>This is a rough scheme of the application's database:</strong>
 <br />
 <br />
-<img src="./Content/appDbSchema.jpg">
+<img src="./Content/UpdatedDatabaseSchema.jpg">
 
 ## License📃
 <strong>TopAutoSpot is available under the <a href="https://choosealicense.com/licenses/bsd-3-clause/">BSD 3</a> license.</strong>
