@@ -22,9 +22,8 @@ Vehicles can be from type: Cars, Trucks, Boats, Motocycles, Trailers, Buses and 
 </strong>
 
 ## Building the project⚙️
-<strong>In order to build the project you will have to...</strong>
+<strong>In order to build the project you will have to... TODO</strong>
 <br />
-TODO
 
 ## Contributing🧑‍🔧
 <strong>Before contributing to the project you should email the TSC for collaborator access.
@@ -37,11 +36,7 @@ All kinds of leaks about the project are sued.
 </strong>
 
 ## Current team members🧑
-### Technical Steering Committee
-> <a href="https://github.com/viktorgkw">Viktor Georgakiev</a>
-
-### Contributors
-> Nobody has contributed for this project at this point.
+<a href="https://github.com/viktorgkw">Viktor Georgakiev</a>
 
 ## Built with💻
 <strong>ASP.NET Core (.NET 7)</strong>
@@ -50,6 +45,7 @@ All kinds of leaks about the project are sued.
 
 ## Database Schema📊
 <strong>This is a rough scheme of the application's database:</strong>
+<br />
 <br />
 <img src="./Content/appDbSchema.jpg">
 
