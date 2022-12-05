@@ -49,6 +49,8 @@ All kinds of leaks about the project are sued.
 <strong>Bootstrap</strong>
 
 ## Database Schema📊
+<strong>This is a rough scheme of the application's database:</strong>
+<br />
 <img src="./Content/appDbSchema.jpg">
 
 ## License📃
