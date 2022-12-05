@@ -16,9 +16,9 @@
 <strong>
 TopAutoSpot is a website where people can trade, sell, buy or auction their vehicles.
 <br />
-Each user will be notified via email when something happens with their listings or things they are interested in.
+Each user will be notified via email when something happens with their listings or listings they are interested in.
 <br />
-Vehicles can be from type: Cars, Trucks, Boats, Motocycles, Trailers, Buses and Vehicle parts.
+Vehicles can be from type: Cars, Trucks, Caravans, Boats, Motocycles, Trailers, Buses and Vehicle parts.
 </strong>
 
 ## Building the project⚙️
