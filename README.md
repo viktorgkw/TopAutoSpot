@@ -49,7 +49,7 @@ All kinds of leaks about the project are sued.
 <strong>Bootstrap</strong>
 
 ## Database Schema📊
-![Application Database Schema](/Content/to/appDbSchema.jpg)
+<img src="/Content/to/appDbSchema.jpg" alt="Application Database Schema" title="Application Database Schema">
 
 ## License📃
 <strong>TopAutoSpot is available under the <a href="https://choosealicense.com/licenses/bsd-3-clause/">BSD 3</a> license.</strong>
