@@ -44,7 +44,7 @@ All kinds of leaks about the project are sued.
 <strong>Bootstrap</strong>
 
 ## Database Schema📊
-<strong>This is a rough scheme of the application's database:</strong>
+<strong>This MIGHT be the latest stable schema of the database:</strong>
 <br />
 <br />
 <img src="./Content/UpdatedDatabaseSchema.jpg">
