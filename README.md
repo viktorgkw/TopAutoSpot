@@ -16,15 +16,14 @@
 <strong>
 TopAutoSpot is a website where people can trade, sell, buy or auction their vehicles.
 <br />
-Each user will be notified via email when something happens with their listings or things they are interested in.
+Each user will be notified via email when something happens with their listings or listings they are interested in.
 <br />
-Vehicles can be from type: Cars, Trucks, Boats, Motocycles, Trailers, Buses and Vehicle parts.
+Vehicles can be from type: Cars, Trucks, Caravans, Boats, Motocycles, Trailers and Buses.
 </strong>
 
 ## Building the project⚙️
-<strong>In order to build the project you will have to...</strong>
+<strong>In order to build the project you will have to... TODO</strong>
 <br />
-TODO
 
 ## Contributing🧑‍🔧
 <strong>Before contributing to the project you should email the TSC for collaborator access.
@@ -37,11 +36,7 @@ All kinds of leaks about the project are sued.
 </strong>
 
 ## Current team members🧑
-### Technical Steering Committee
-> <a href="https://github.com/viktorgkw">Viktor Georgakiev</a>
-
-### Contributors
-> Nobody has contributed for this project at this point.
+<a href="https://github.com/viktorgkw">Viktor Georgakiev</a>
 
 ## Built with💻
 <strong>ASP.NET Core (.NET 7)</strong>
@@ -49,6 +44,9 @@ All kinds of leaks about the project are sued.
 <strong>Bootstrap</strong>
 
 ## Database Schema📊
+<strong>This is a rough scheme of the application's database:</strong>
+<br />
+<br />
 <img src="./Content/appDbSchema.jpg">
 
 ## License📃
