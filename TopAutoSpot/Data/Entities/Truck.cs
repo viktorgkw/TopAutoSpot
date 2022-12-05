@@ -1,8 +1,6 @@
-﻿using TopAutoSpot.Data.Entities.Abstractions;
-
-namespace TopAutoSpot.Data.Entities
+﻿namespace TopAutoSpot.Data.Entities
 {
-    public class Car : IVehicle
+    public class Truck
     {
         public Guid Id { get; set; }
         public string Make { get; set; }
@@ -12,6 +10,8 @@ namespace TopAutoSpot.Data.Entities
         public double? Mileage { get; set; }
         public string Transmission { get; set; }
         public string EngineType { get; set; }
+        public int Payload { get; set; }
+        public int AxlesCount { get; set; }
         public string EuroStandart { get; set; }
     }
 }

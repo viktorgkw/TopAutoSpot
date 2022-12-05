@@ -1,8 +1,6 @@
-﻿using TopAutoSpot.Data.Entities.Abstractions;
-
-namespace TopAutoSpot.Data.Entities
+﻿namespace TopAutoSpot.Data.Entities
 {
-    public class Car : IVehicle
+    public class Motorcycle
     {
         public Guid Id { get; set; }
         public string Make { get; set; }
@@ -12,6 +10,8 @@ namespace TopAutoSpot.Data.Entities
         public double? Mileage { get; set; }
         public string Transmission { get; set; }
         public string EngineType { get; set; }
-        public string EuroStandart { get; set; }
+        public double CubicCapacity { get; set; }
+        public int EngineStrokes { get; set; }
+        public string CoolingType { get; set; }
     }
 }
