@@ -1,4 +1,5 @@
-﻿using TopAutoSpot.Data;
+﻿using TopAutoSpot.BL.Services.Utilities;
+using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
 namespace TopAutoSpot.BL.Services
@@ -27,6 +28,8 @@ namespace TopAutoSpot.BL.Services
 
                 if (foundListing != null)
                 {
+                    VehicleRemover.RemoveVehicle(foundListing, db);
+
                     db.Listings.Remove(foundListing);
                     db.SaveChanges();
                 }
@@ -57,8 +60,6 @@ namespace TopAutoSpot.BL.Services
 
                 if (foundListing != null)
                 {
-                    foundListing.VehicleId = updatedListing.VehicleId;
-                    foundListing.Category = updatedListing.Category;
                     foundListing.Title = updatedListing.Title;
                     foundListing.Description = updatedListing.Description;
                     foundListing.Price = updatedListing.Price;
