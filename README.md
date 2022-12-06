@@ -47,7 +47,7 @@ All kinds of leaks about the project are sued.
 <strong>This MIGHT be the latest stable schema of the database:</strong>
 <br />
 <br />
-<img src="./Content/DatabaseSchemaV3.jpg">
+<img src="./Content/LatestDbSchema.jpg">
 
 ## License📃
 <strong>TopAutoSpot is available under the <a href="https://choosealicense.com/licenses/bsd-3-clause/">BSD 3</a> license.</strong>
