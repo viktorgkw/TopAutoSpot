@@ -8,16 +8,16 @@ namespace TopAutoSpot.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string>
     {
-        public ApplicationDbContext() { }
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
             InitializeAdministrator();
         }
 
+        public ApplicationDbContext() { }
+
         // Main Tables
-        public DbSet<User> Users { get; set; }
+        public override DbSet<User> Users { get; set; }
         public DbSet<Listing> Listings { get; set; }
 
         // Not sure if needed tables
@@ -30,18 +30,23 @@ namespace TopAutoSpot.Data
 
         private void InitializeAdministrator()
         {
-            this.Users.Add(new User()
+            if (!this.Users.Any())
             {
-                Id = new Guid().ToString(),
-                PasswordHash = "admin",
-                UserName = "admin",
-                Email = "admin@gmail.com",
-                PhoneNumber = "1234567890",
-                FirstName = "admin",
-                LastName = "admin",
-                Role = RoleTypes.Administrator.ToString(),
-                Listings = new List<Listing>(),
-            });
+                this.Users.Add(new User()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    PasswordHash = "admin",
+                    UserName = "admin",
+                    Email = "admin@gmail.com",
+                    PhoneNumber = "1234567890",
+                    FirstName = "admin",
+                    LastName = "admin",
+                    Role = RoleTypes.Administrator.ToString(),
+                    Listings = new List<Listing>(),
+                });
+
+                this.SaveChanges();
+            }
         }
     }
 }
