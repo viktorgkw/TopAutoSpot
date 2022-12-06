@@ -9,6 +9,10 @@
 <br />
 [Built with](#built-with)
 <br />
+[Database Schema](#database-schema)
+<br />
+[Page Prototypes Schema](#page-prototypes-schema)
+<br />
 [License](#license)</strong>
 <br />
 
@@ -44,10 +48,10 @@ All kinds of leaks about the project are sued.
 <strong>Bootstrap</strong>
 
 ## Database Schema📊
-<strong>This MIGHT be the latest stable schema of the database:</strong>
-<br />
-<br />
-<img src="./Content/LatestDbSchema.jpg">
+<img src="./Content/DatabaseSchemas/LatestDbSchema.jpg">
+
+## Page Prototypes Schema📄
+<img src="./Content/PagesPrototypesSchemas/LatestPagesSchema.jpg">
 
 ## License📃
 <strong>TopAutoSpot is available under the <a href="https://choosealicense.com/licenses/bsd-3-clause/">BSD 3</a> license.</strong>
