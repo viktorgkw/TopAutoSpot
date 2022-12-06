@@ -1,10 +1,11 @@
-﻿using TopAutoSpot.Data.Entities.Abstractions;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TopAutoSpot.Data.Entities
 {
-    public class Trailer : IVehicle
+    public class Trailer
     {
-        public Guid Id { get; set; }
+        [Key]
+        public string Id { get; set; }
         public DateTime ManufactoreDate { get; set; }
         public double Payload { get; set; }
         public int AxleCount { get; set; }

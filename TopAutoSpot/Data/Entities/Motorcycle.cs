@@ -1,8 +1,11 @@
-﻿namespace TopAutoSpot.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TopAutoSpot.Data.Entities
 {
     public class Motorcycle
     {
-        public Guid Id { get; set; }
+        [Key]
+        public string Id { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
         public DateTime ManufactoreDate { get; set; }
