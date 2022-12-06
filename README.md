@@ -1,7 +1,7 @@
 # TopAutoSpot🚦
 
 ## Table of contentsℹ️
-<strong>[About](#about)
+><strong>[About](#about)
 <br />
 [Building the project](#building-the-project)
 <br />
@@ -17,8 +17,7 @@
 <br />
 
 ## About📝
-<strong>
-TopAutoSpot is a website where people can trade, sell, buy or auction their vehicles.
+<strong>TopAutoSpot is a website where people can trade, sell, buy or auction their vehicles.
 <br />
 Each user will be notified via email when something happens with their listings or listings they are interested in.
 <br />
