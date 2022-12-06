@@ -1,7 +1,7 @@
 # TopAutoSpot🚦
 
 ## Table of contentsℹ️
-><strong>[About](#about)
+<strong>[About](#about)
 <br />
 [Building the project](#building-the-project)
 <br />
@@ -13,11 +13,13 @@
 <br />
 [Page Prototypes Schema](#page-prototypes-schema)
 <br />
-[License](#license)</strong>
+[License](#license)
 <br />
+</strong>
 
 ## About📝
-<strong>TopAutoSpot is a website where people can trade, sell, buy or auction their vehicles.
+<strong>
+TopAutoSpot is a website where people can trade, sell, buy or auction their vehicles.
 <br />
 Each user will be notified via email when something happens with their listings or listings they are interested in.
 <br />
@@ -25,11 +27,14 @@ Vehicles can be from type: Cars, Trucks, Caravans, Boats, Motocycles, Trailers a
 </strong>
 
 ## Building the project⚙️
-<strong>In order to build the project you will have to... TODO</strong>
+<strong>
+In order to build the project you will have to... TODO
+</strong>
 <br />
 
 ## Contributing🧑‍🔧
-<strong>Before contributing to the project you should email the TSC for collaborator access.
+<strong>
+Before contributing to the project you should email the TSC for collaborator access.
 <br />
 If you get approved then you can start contributing to the project.
 <br />
@@ -53,4 +58,6 @@ All kinds of leaks about the project are sued.
 <img src="./Content/PagesPrototypesSchemas/LatestPagesSchema.jpg">
 
 ## License📃
-<strong>TopAutoSpot is available under the <a href="https://choosealicense.com/licenses/bsd-3-clause/">BSD 3</a> license.</strong>
+<strong>
+TopAutoSpot is available under the <a href="https://choosealicense.com/licenses/bsd-3-clause/">BSD 3</a> license.
+</strong>
