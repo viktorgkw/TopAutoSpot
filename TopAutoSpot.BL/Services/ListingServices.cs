@@ -1,42 +1,76 @@
-﻿using TopAutoSpot.Data.Entities;
+﻿using TopAutoSpot.Data;
+using TopAutoSpot.Data.Entities;
 
 namespace TopAutoSpot.BL.Services
 {
     public class ListingServices : IService<Listing>
     {
-        public void Add(Listing TEntity)
+        public void Add(Listing listing)
         {
-            throw new NotImplementedException();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                db.Listings.Add(listing);
+                db.SaveChanges();
+            }
         }
 
-        public void Delete(Listing TEntity)
+        public void Delete(Listing listingToDelete)
         {
-            throw new NotImplementedException();
+            DeleteById(listingToDelete.Id);
         }
 
-        public void DeleteById(string TId)
+        public void DeleteById(string listingToDeleteId)
         {
-            throw new NotImplementedException();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var foundListing = db.Listings.FirstOrDefault(l => l.Id == listingToDeleteId);
+
+                if (foundListing != null)
+                {
+                    db.Listings.Remove(foundListing);
+                    db.SaveChanges();
+                }
+            }
         }
 
         public List<Listing> GetAll()
         {
-            throw new NotImplementedException();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                return db.Listings.ToList();
+            }
         }
 
-        public Listing GetById(string TId)
+        public Listing GetById(string listingId)
         {
-            throw new NotImplementedException();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                return db.Listings.FirstOrDefault(l => l.Id == listingId);
+            }
         }
 
-        public void Update(string TId, Listing UpdatedTEntity)
+        public void Update(string listingToUpdateId, Listing updatedListing)
         {
-            throw new NotImplementedException();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var foundListing = db.Listings.FirstOrDefault(l => l.Id == listingToUpdateId);
+
+                if (foundListing != null)
+                {
+                    foundListing.VehicleId = updatedListing.VehicleId;
+                    foundListing.Category = updatedListing.Category;
+                    foundListing.Title = updatedListing.Title;
+                    foundListing.Description = updatedListing.Description;
+                    foundListing.Price = updatedListing.Price;
+
+                    db.SaveChanges();
+                }
+            }
         }
 
-        public void Update(Listing ToUpdateTEntity, Listing UpdatedTEntity)
+        public void Update(Listing listingToUpdate, Listing updatedListing)
         {
-            throw new NotImplementedException();
+            Update(listingToUpdate.Id, updatedListing);
         }
     }
 }

@@ -1,42 +1,92 @@
-﻿using TopAutoSpot.Data.Entities;
+﻿using TopAutoSpot.Data;
+using TopAutoSpot.Data.Entities;
 
 namespace TopAutoSpot.BL.Services
 {
     public class UserServices : IService<User>
     {
-        public void Add(User TEntity)
+        public void Add(User user)
         {
-            throw new NotImplementedException();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
         }
 
-        public void Delete(User TEntity)
+        public void Delete(User userToDelete)
         {
-            throw new NotImplementedException();
+            DeleteById(userToDelete.Id);
         }
 
-        public void DeleteById(string TId)
+        public void DeleteById(string userToDeleteId)
         {
-            throw new NotImplementedException();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var foundUser = db.Users.FirstOrDefault(u => u.Id == userToDeleteId);
+
+                if (foundUser != null)
+                {
+                    db.Remove(foundUser);
+                    db.SaveChanges();
+                }
+            }
         }
 
         public List<User> GetAll()
         {
-            throw new NotImplementedException();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                return db.Users.ToList();
+            }
         }
 
-        public User GetById(string TId)
+        public User GetById(string userId)
         {
-            throw new NotImplementedException();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                return db.Users.FirstOrDefault(u => u.Id == userId);
+            }
         }
 
-        public void Update(string TId, User UpdatedTEntity)
+        public void Update(string userToUpdateId, User updatedUser)
         {
-            throw new NotImplementedException();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var foundUser = db.Users.FirstOrDefault(u => u.Id == userToUpdateId);
+
+                if (foundUser != null)
+                {
+                    foundUser.Email = updatedUser.Email;
+                    foundUser.PasswordHash = updatedUser.PasswordHash;
+                    foundUser.PhoneNumber = updatedUser.PhoneNumber;
+                    foundUser.UserName = updatedUser.UserName;
+                    foundUser.FirstName = updatedUser.FirstName;
+                    foundUser.LastName = updatedUser.LastName;
+                    foundUser.Role = updatedUser.Role;
+                    foundUser.Listings = updatedUser.Listings;
+                }
+            }
         }
 
-        public void Update(User ToUpdateTEntity, User UpdatedTEntity)
+        public void Update(User userToUpdate, User updatedUser)
         {
-            throw new NotImplementedException();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var foundUser = db.Users.FirstOrDefault(u => u == userToUpdate);
+
+                if (foundUser != null)
+                {
+                    foundUser.Email = updatedUser.Email;
+                    foundUser.PasswordHash = updatedUser.PasswordHash;
+                    foundUser.PhoneNumber = updatedUser.PhoneNumber;
+                    foundUser.UserName = updatedUser.UserName;
+                    foundUser.FirstName = updatedUser.FirstName;
+                    foundUser.LastName = updatedUser.LastName;
+                    foundUser.Role = updatedUser.Role;
+                    foundUser.Listings = updatedUser.Listings;
+                }
+            }
         }
     }
 }
