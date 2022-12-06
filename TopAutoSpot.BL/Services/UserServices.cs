@@ -72,6 +72,8 @@ namespace TopAutoSpot.BL.Services
                     foundUser.FirstName = updatedUser.FirstName;
                     foundUser.LastName = updatedUser.LastName;
                     foundUser.Role = updatedUser.Role;
+
+                    db.SaveChanges();
                 }
             }
         }
