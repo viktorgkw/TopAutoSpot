@@ -8,6 +8,8 @@ namespace TopAutoSpot.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string>
     {
+        public ApplicationDbContext() { }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
