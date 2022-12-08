@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data.Entities;
-using TopAutoSpot.Data.Entities.Utilities;
 
 namespace TopAutoSpot.Data
 {
@@ -11,7 +10,13 @@ namespace TopAutoSpot.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            InitializeAdministrator();
+            // It turns out I cannot ensure that we are always going to have Administrator Account,
+            // because the only password related property we can access is PasswordHash,
+            // which means that the password must be hashed, but I can't hash it the Microsoft way,
+            // so I created one by hand.
+
+            // Administrator UserName => admin
+            // Administrator Password => @Administrator1
         }
 
         public ApplicationDbContext() { }
@@ -27,26 +32,5 @@ namespace TopAutoSpot.Data
         public DbSet<Bus> Buses { get; set; }
         public DbSet<Motorcycle> Motorcycles { get; set; }
         public DbSet<Trailer> Trailers { get; set; }
-
-        private void InitializeAdministrator()
-        {
-            if (!this.Users.Any())
-            {
-                this.Users.Add(new User()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    PasswordHash = "admin",
-                    UserName = "admin",
-                    Email = "admin@gmail.com",
-                    PhoneNumber = "1234567890",
-                    FirstName = "admin",
-                    LastName = "admin",
-                    Role = RoleTypes.Administrator.ToString(),
-                    Listings = new List<Listing>(),
-                });
-
-                this.SaveChanges();
-            }
-        }
     }
 }
