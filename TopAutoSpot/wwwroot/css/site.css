@@ -20,3 +20,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.bg-nav-button {
+    background-color: #3fc473;
+}

@@ -60,13 +60,8 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
         {
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "FirstName")]
-            public string FirstName { get; set; }
-
-            [Required]
-            [DataType(DataType.Text)]
-            [Display(Name = "LastName")]
-            public string LastName { get; set; }
+            [Display(Name = "UserName")]
+            public string UserName { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -111,15 +106,11 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                string username = Input.FirstName + Input.LastName +
-                    string.Join("", user.Id.Take(3).ToArray());
 
-                await _userStore.SetUserNameAsync(user, username, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.Role = RoleTypes.User.ToString();
                 user.Listings = new List<Listing>();
-                user.FirstName = Input.FirstName;
-                user.LastName = Input.LastName;
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
