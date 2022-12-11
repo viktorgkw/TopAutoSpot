@@ -1,12 +1,21 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    @*Metadata*@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    @*Website Title*@
     <title>@ViewData["Title"] - TopAutoSpot</title>
+
+    @*Bootstrap and CSS linking*@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TopAutoSpot.styles.css" asp-append-version="true" />
+
+    @*Font*@
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
     <header>
@@ -23,9 +32,9 @@
                         </li>
 
                         @*
-                            TODO: Make it so when somebody clicks on My Listings
-                            without being logged in to redirect him to new View
-                            which is "In order to use this you must login or register etc.."
+                        TODO: Make it so when somebody clicks on My Listings
+                        without being logged in to redirect him to new View
+                        which is "In order to use this you must login or register etc.."
                         *@
 
                         @if (User.Identity.IsAuthenticated)
