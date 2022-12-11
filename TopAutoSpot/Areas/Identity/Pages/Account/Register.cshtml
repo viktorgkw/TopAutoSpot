@@ -4,46 +4,67 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="row">
-    <div class="col-md-4 mx-auto">
-        <div class="text-center text-capitalize">
-            <h1>Create an account</h1>
-        </div>
-
-        <br />
-
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="Mario" />
-                <label asp-for="Input.UserName">UserName</label>
-                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="text-center text-capitalize">
+                <h1>Create an account</h1>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-success">Register</button>
-        </form>
 
-        <br />
+            <br />
 
-        <div class="p">
-            <a asp-page="./Login" class="text-decoration-none btn text-light btn-dark rounded">Already have an account?</a>
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="Mario" />
+                    <label asp-for="Input.UserName">UserName</label>
+                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.Email">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.Password">Password</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-success">Register</button>
+            </form>
+
+            <br />
+
+            <div class="p">
+                <a asp-page="./Login" class="text-decoration-none btn text-light btn-dark rounded">Already have an account?</a>
+            </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6 mx-auto my-auto">
+            <div class="text-center text-capitalize pt-2">
+                <h1>You are already logged in!</h1>
+
+                <br />
+
+                <img class="img-fluid rounded-3 pb-4" src="~/gifs/alreadyLoggedIn.gif" alt="Already Logged In Gif" />
+
+                <br />
+
+                <a asp-page="Index" class="text-decoration-none btn fw-bold text-light btn-dark rounded">Go Back</a>
+            </div>
+        </div>
+    </div>
+}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
