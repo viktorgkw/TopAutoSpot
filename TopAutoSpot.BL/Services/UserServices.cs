@@ -1,4 +1,5 @@
-﻿using TopAutoSpot.BL.Services.Utilities;
+﻿using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.BL.Services.Utilities;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
@@ -6,12 +7,12 @@ namespace TopAutoSpot.BL.Services
 {
     public class UserServices : IService<User>
     {
-        public void Add(User user)
+        public async void Add(User user)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                db.Users.Add(user);
-                db.SaveChanges();
+                await db.Users.AddAsync(user);
+                await db.SaveChangesAsync();
             }
         }
 
@@ -20,11 +21,11 @@ namespace TopAutoSpot.BL.Services
             DeleteById(userToDelete.Id);
         }
 
-        public void DeleteById(string userToDeleteId)
+        public async void DeleteById(string userToDeleteId)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var foundUser = db.Users.FirstOrDefault(u => u.Id == userToDeleteId);
+                var foundUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userToDeleteId);
 
                 if (foundUser != null)
                 {
@@ -37,32 +38,32 @@ namespace TopAutoSpot.BL.Services
 
                     foundUser.Listings.RemoveAll(l => l.Id != null);
                     db.Remove(foundUser);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
             }
         }
 
-        public List<User> GetAll()
+        public async Task<List<User>> GetAll()
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                return db.Users.ToList();
+                return await db.Users.ToListAsync();
             }
         }
 
-        public User GetById(string userId)
+        public async Task<User> GetById(string userId)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                return db.Users.FirstOrDefault(u => u.Id == userId);
+                return await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
             }
         }
 
-        public void Update(string userToUpdateId, User updatedUser)
+        public async void Update(string userToUpdateId, User updatedUser)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var foundUser = db.Users.FirstOrDefault(u => u.Id == userToUpdateId);
+                var foundUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userToUpdateId);
 
                 if (foundUser != null)
                 {
@@ -73,7 +74,7 @@ namespace TopAutoSpot.BL.Services
                     foundUser.LastName = updatedUser.LastName;
                     foundUser.Role = updatedUser.Role;
 
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
             }
         }

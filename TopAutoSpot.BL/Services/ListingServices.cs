@@ -1,4 +1,5 @@
-﻿using TopAutoSpot.BL.Services.Utilities;
+﻿using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.BL.Services.Utilities;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
@@ -6,12 +7,12 @@ namespace TopAutoSpot.BL.Services
 {
     public class ListingServices : IService<Listing>
     {
-        public void Add(Listing listing)
+        public async void Add(Listing listing)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                db.Listings.Add(listing);
-                db.SaveChanges();
+                await db.Listings.AddAsync(listing);
+                await db.SaveChangesAsync();
             }
         }
 
@@ -20,43 +21,43 @@ namespace TopAutoSpot.BL.Services
             DeleteById(listingToDelete.Id);
         }
 
-        public void DeleteById(string listingToDeleteId)
+        public async void DeleteById(string listingToDeleteId)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var foundListing = db.Listings.FirstOrDefault(l => l.Id == listingToDeleteId);
+                var foundListing = await db.Listings.FirstOrDefaultAsync(l => l.Id == listingToDeleteId);
 
                 if (foundListing != null)
                 {
                     VehicleRemover.RemoveVehicle(foundListing, db);
 
                     db.Listings.Remove(foundListing);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
             }
         }
 
-        public List<Listing> GetAll()
+        public async Task<List<Listing>> GetAll()
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                return db.Listings.ToList();
+                return await db.Listings.ToListAsync();
             }
         }
 
-        public Listing GetById(string listingId)
+        public async Task<Listing> GetById(string listingId)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                return db.Listings.FirstOrDefault(l => l.Id == listingId);
+                return await db.Listings.FirstOrDefaultAsync(l => l.Id == listingId);
             }
         }
 
-        public void Update(string listingToUpdateId, Listing updatedListing)
+        public async void Update(string listingToUpdateId, Listing updatedListing)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var foundListing = db.Listings.FirstOrDefault(l => l.Id == listingToUpdateId);
+                var foundListing = await db.Listings.FirstOrDefaultAsync(l => l.Id == listingToUpdateId);
 
                 if (foundListing != null)
                 {
@@ -64,7 +65,7 @@ namespace TopAutoSpot.BL.Services
                     foundListing.Description = updatedListing.Description;
                     foundListing.Price = updatedListing.Price;
 
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
             }
         }

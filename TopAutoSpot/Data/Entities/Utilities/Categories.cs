@@ -5,8 +5,8 @@
     {
         Cars,
         Trucks,
-        Bus,
-        Motorcycle,
+        Buses,
+        Motorcycles,
         Boats,
         Trailers
     }

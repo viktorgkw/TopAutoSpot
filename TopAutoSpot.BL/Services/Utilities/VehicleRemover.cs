@@ -1,49 +1,49 @@
 ﻿using TopAutoSpot.Data.Entities.Utilities;
 using TopAutoSpot.Data.Entities;
 using TopAutoSpot.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace TopAutoSpot.BL.Services.Utilities
 {
     public static class VehicleRemover
     {
-        public static void RemoveVehicle(Listing listing, ApplicationDbContext db)
+        public static async void RemoveVehicle(Listing listing, ApplicationDbContext db)
         {
             if (listing.Category == Categories.Cars.ToString())
             {
-                var foundCar = db.Cars.First(car => car.Id == listing.VehicleId);
+                var foundCar = await db.Cars.FirstAsync(car => car.Id == listing.VehicleId);
                 db.Cars.Remove(foundCar);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
-            else if (listing.Category == Categories.Bus.ToString())
+            else if (listing.Category == Categories.Buses.ToString())
             {
-                var foundBus = db.Buses.First(bus => bus.Id == listing.VehicleId);
+                var foundBus = await db.Buses.FirstAsync(bus => bus.Id == listing.VehicleId);
                 db.Buses.Remove(foundBus);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             else if (listing.Category == Categories.Trailers.ToString())
             {
-                var foundTrailer = db.Trailers.First(trailer => trailer.Id == listing.VehicleId);
+                var foundTrailer = await db.Trailers.FirstAsync(trailer => trailer.Id == listing.VehicleId);
                 db.Trailers.Remove(foundTrailer);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             else if (listing.Category == Categories.Trucks.ToString())
             {
-                var foundTruck = db.Trucks.First(truck => truck.Id == listing.VehicleId);
+                var foundTruck = await db.Trucks.FirstAsync(truck => truck.Id == listing.VehicleId);
                 db.Trucks.Remove(foundTruck);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             else if (listing.Category == Categories.Boats.ToString())
             {
-                var foundBoat = db.Boats.First(boat => boat.Id == listing.VehicleId);
+                var foundBoat = await db.Boats.FirstAsync(boat => boat.Id == listing.VehicleId);
                 db.Boats.Remove(foundBoat);
-                db.SaveChanges();
-
+                await db.SaveChangesAsync();
             }
-            else if (listing.Category == Categories.Motorcycle.ToString())
+            else if (listing.Category == Categories.Motorcycles.ToString())
             {
-                var foundMotorcycle = db.Motorcycles.First(motorcycle => motorcycle.Id == listing.VehicleId);
+                var foundMotorcycle = await db.Motorcycles.FirstAsync(motorcycle => motorcycle.Id == listing.VehicleId);
                 db.Motorcycles.Remove(foundMotorcycle);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
     }
