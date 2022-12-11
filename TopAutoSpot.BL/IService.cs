@@ -2,8 +2,8 @@
 {
     interface IService<TService>
     {
-        List<TService> GetAll();
-        TService GetById(string TId);
+        Task<List<TService>> GetAll();
+        Task<TService> GetById(string TId);
         void Add(TService TEntity);
         void Delete(TService TEntity);
         void DeleteById(string TId);
