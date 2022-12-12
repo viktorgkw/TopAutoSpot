@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
@@ -20,7 +19,10 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddDefaultUI();
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages()
+    .AddRazorPagesOptions(options => {
+        options.RootDirectory = "/Views";
+    });
 
 var app = builder.Build();
 
