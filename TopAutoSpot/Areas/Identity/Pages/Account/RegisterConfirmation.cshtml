@@ -8,16 +8,16 @@
 @{
     if (@Model.DisplayConfirmAccountLink)
     {
-<p>
-    <h3 class="text-danger fw-bold">Don't forget your username! This is what you are going to log in with!</h3>
-    <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
+        <p>
+            <h3 class="text-danger fw-bold">Don't forget your username! This is what you are going to log in with!</h3>
+            <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
+        </p>
     }
     else
     {
-<p>
-        Please check your email to confirm your account.
-</p>
+        <p>
+            Please check your email to confirm your account.
+        </p>
     }
 }
 

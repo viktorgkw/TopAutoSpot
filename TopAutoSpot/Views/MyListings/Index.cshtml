@@ -1,0 +1,24 @@
+﻿@page
+@inject UserManager<User> UserManager
+@model TopAutoSpot.Views.MyListings.IndexModel
+@{
+    ViewData["Title"] = "My Listings";
+
+    UserManager.Users.First(u => u.UserName == User.Identity.Name).Listings = new List<Listing>();
+}
+
+<div>
+    <h1>My Listings</h1>
+
+    <p><i>Here you will see your own listings.</i></p>
+
+    @if (User.Identity.IsAuthenticated &&
+                    UserManager.Users.First(u => u.UserName == User.Identity.Name).Listings.Count == 0)
+    {
+        <p class="text-warning"><i>No listings? Make one!</i></p>
+    }
+    else
+    {
+        // Print all user Listings
+    }
+</div>

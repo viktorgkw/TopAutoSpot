@@ -8,6 +8,6 @@ namespace TopAutoSpot.Data.Entities
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string Role { get; set; }
-        public List<Listing> Listings { get; set; }
+        public List<Listing> Listings { get; set; } = new List<Listing>();
     }
 }
