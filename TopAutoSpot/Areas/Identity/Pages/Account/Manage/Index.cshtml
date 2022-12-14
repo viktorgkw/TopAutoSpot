@@ -1,11 +1,11 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Main Settings";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h2 class="fw-bold mb-4 text-success">Manage Username and Password</h2>
+<h2 class="fw-bold mb-4 text-success">@ViewData["Title"]</h2>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
     <div class="col-md-6 mx-auto">
