@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     @*Metadata*@
@@ -27,7 +30,6 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-
                         @*TODO: Make it so when somebody clicks on My Listings
                         without being logged in to redirect him to new View
                         which is "In order to use this you must login or register etc.."*@
@@ -44,9 +46,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-light bg-nav-button fw-bold rounded px-3 mx-1" asp-page="/Auction/Index">Auction</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light bg-nav-button fw-bold rounded px-3 mx-1" asp-page="/MyListings/Index">My Listings</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light bg-nav-button fw-bold rounded px-3 mx-1" asp-page="/MyListings/Index">My Listings</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
