@@ -1,19 +1,20 @@
 ﻿@page
 @model PersonalDataModel
 @{
-    ViewData["Title"] = "Personal Data";
+    ViewData["Title"] = "Personal Data Settings";
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<h2 class="fw-bold mb-3 text-danger">@ViewData["Title"]</h2>
+<h2 class="fw-bold pb-4 text-danger">@ViewData["Title"]</h2>
 
 <div class="row">
     <div class="col-md-6 mx-auto">
-        <h4 class="fw-bold text-danger">Your account contains personal data that you have given us.</h4>
-        <br />
-        <h4 class="fw-bold text-danger">Deleting this data will permanently remove your account, and this cannot be recovered.</h4>
+        <div class="alert alert-warning" role="alert">
+            <p class="fw-bold text-danger">Deleting this data will permanently remove and close your account, and this cannot be recovered.</p>
+        </div>
+
         <p>
-            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger fw-bold mt-3">Delete</a>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger fw-bold mt-2">Delete</a>
         </p>
     </div>
 </div>

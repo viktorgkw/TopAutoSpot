@@ -3,22 +3,40 @@
 @model TopAutoSpot.Views.MyListings.IndexModel
 @{
     ViewData["Title"] = "My Listings";
+    var foundUser = UserManager.Users.First(u => u.UserName == User.Identity.Name);
 
-    UserManager.Users.First(u => u.UserName == User.Identity.Name).Listings = new List<Listing>();
+    if (foundUser.Listings == null)
+    {
+        foundUser.Listings = new List<Listing>();
+    }
 }
 
 <div>
-    <h1>My Listings</h1>
+    <div>
+        <h1>My Listings</h1>
 
-    <p><i>Here you will see your own listings.</i></p>
+        <p><i>Here you will see your own listings.</i></p>
 
-    @if (User.Identity.IsAuthenticated &&
-                    UserManager.Users.First(u => u.UserName == User.Identity.Name).Listings.Count == 0)
-    {
-        <p class="text-warning"><i>No listings? Make one!</i></p>
-    }
-    else
-    {
-        // Print all user Listings
-    }
+        @if (User.Identity.IsAuthenticated &&
+        UserManager.Users.First(u => u.UserName == User.Identity.Name).Listings.Count == 0)
+        {
+            <p class="text-warning"><i>No listings? Make one!</i></p>
+        }
+        else
+        {
+            <a href="#" class="text-light btn-warning btn fw-bold mb-5">Add another Listing!</a>
+
+            <div class="listings">
+                @foreach (var listing in foundUser.Listings)
+                {
+                    <div class="single-listing">
+                        <h1>@listing.Title</h1>
+                        <h2>@listing.Price</h2>
+                        <h2>@listing.Category</h2>
+                        <h2>@listing.CreatedBy</h2>
+                    </div>
+                }
+            </div>
+        }
+    </div>
 </div>
