@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TopAutoSpot;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
@@ -8,8 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
+ConnectionStringStaticClass.ConnectionString = connectionString;
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString, 
+    sqlServerOptionsAction: sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure(
+        maxRetryCount: 5,
+        maxRetryDelay: TimeSpan.FromSeconds(30),
+        errorNumbersToAdd: null);
+    }));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -19,8 +30,12 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddDefaultUI();
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddMvc();
+
 builder.Services.AddRazorPages()
-    .AddRazorPagesOptions(options => {
+    .AddRazorPagesOptions(options =>
+    {
         options.RootDirectory = "/Views";
     });
 

@@ -16,5 +16,6 @@ namespace TopAutoSpot.Data.Entities
         public int Payload { get; set; }
         public int AxlesCount { get; set; }
         public string EuroStandart { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

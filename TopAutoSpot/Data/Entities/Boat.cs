@@ -15,5 +15,6 @@ namespace TopAutoSpot.Data.Entities
         public double Width { get; set; }
         public double Height { get; set; }
         public string? Material { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

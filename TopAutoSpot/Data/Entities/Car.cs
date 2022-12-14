@@ -14,5 +14,6 @@ namespace TopAutoSpot.Data.Entities
         public string Transmission { get; set; }
         public string EngineType { get; set; }
         public string EuroStandart { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

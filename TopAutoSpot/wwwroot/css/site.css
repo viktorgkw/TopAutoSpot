@@ -12,6 +12,11 @@ html {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+/*Hardcoded - Fix Later*/
+main{
+    height: 800px;
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -20,6 +25,13 @@ html {
 body {
     margin-bottom: 60px;
     font-family: 'Play', sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 .bg-nav-button {

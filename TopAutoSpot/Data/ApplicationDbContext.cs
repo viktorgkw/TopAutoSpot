@@ -10,16 +10,9 @@ namespace TopAutoSpot.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            // It turns out I cannot ensure that we are always going to have Administrator Account,
-            // because the only password related property we can access is PasswordHash,
-            // which means that the password must be hashed, but I can't hash it the Microsoft way,
-            // so I created one by hand.
-
             // Administrator UserName => admin
             // Administrator Password => @Administrator1
         }
-
-        public ApplicationDbContext() { }
 
         // Main Tables
         public override DbSet<User> Users { get; set; }
