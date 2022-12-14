@@ -7,13 +7,16 @@ namespace TopAutoSpot.BL.Services
 {
     public class UserServices : IService<User>
     {
+        private ApplicationDbContext _context;
+        public UserServices(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public async void Add(User user)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                await db.Users.AddAsync(user);
-                await db.SaveChangesAsync();
-            }
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
         }
 
         public void Delete(User userToDelete)
@@ -23,59 +26,47 @@ namespace TopAutoSpot.BL.Services
 
         public async void DeleteById(string userToDeleteId)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            var foundUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == userToDeleteId);
+
+            if (foundUser != null)
             {
-                var foundUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userToDeleteId);
+                var userListings = foundUser.Listings.ToList();
 
-                if (foundUser != null)
+                foreach (var listing in userListings)
                 {
-                    var userListings = foundUser.Listings.ToList();
-
-                    foreach (var listing in userListings)
-                    {
-                        VehicleRemover.RemoveVehicle(listing, db);
-                    }
-
-                    foundUser.Listings.RemoveAll(l => l.Id != null);
-                    db.Remove(foundUser);
-                    await db.SaveChangesAsync();
+                    VehicleRemover.RemoveVehicle(listing, _context);
                 }
+
+                foundUser.Listings.RemoveAll(l => l.Id != null);
+                _context.Remove(foundUser);
+                await _context.SaveChangesAsync();
             }
         }
 
         public async Task<List<User>> GetAll()
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                return await db.Users.ToListAsync();
-            }
+            return await _context.Users.ToListAsync();
         }
 
         public async Task<User> GetById(string userId)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                return await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
-            }
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
         }
 
         public async void Update(string userToUpdateId, User updatedUser)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            var foundUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == userToUpdateId);
+
+            if (foundUser != null)
             {
-                var foundUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userToUpdateId);
+                foundUser.Email = updatedUser.Email;
+                foundUser.PhoneNumber = updatedUser.PhoneNumber;
+                foundUser.UserName = updatedUser.UserName;
+                foundUser.FirstName = updatedUser.FirstName;
+                foundUser.LastName = updatedUser.LastName;
+                foundUser.Role = updatedUser.Role;
 
-                if (foundUser != null)
-                {
-                    foundUser.Email = updatedUser.Email;
-                    foundUser.PhoneNumber = updatedUser.PhoneNumber;
-                    foundUser.UserName = updatedUser.UserName;
-                    foundUser.FirstName = updatedUser.FirstName;
-                    foundUser.LastName = updatedUser.LastName;
-                    foundUser.Role = updatedUser.Role;
-
-                    await db.SaveChangesAsync();
-                }
+                await _context.SaveChangesAsync();
             }
         }
 

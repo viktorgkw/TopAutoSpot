@@ -7,13 +7,16 @@ namespace TopAutoSpot.BL.Services
 {
     public class ListingServices : IService<Listing>
     {
+        private ApplicationDbContext _context;
+        public ListingServices(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public async void Add(Listing listing)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                await db.Listings.AddAsync(listing);
-                await db.SaveChangesAsync();
-            }
+            await _context.Listings.AddAsync(listing);
+            await _context.SaveChangesAsync();
         }
 
         public void Delete(Listing listingToDelete)
@@ -23,50 +26,38 @@ namespace TopAutoSpot.BL.Services
 
         public async void DeleteById(string listingToDeleteId)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            var foundListing = await _context.Listings.FirstOrDefaultAsync(l => l.Id == listingToDeleteId);
+
+            if (foundListing != null)
             {
-                var foundListing = await db.Listings.FirstOrDefaultAsync(l => l.Id == listingToDeleteId);
+                VehicleRemover.RemoveVehicle(foundListing, _context);
 
-                if (foundListing != null)
-                {
-                    VehicleRemover.RemoveVehicle(foundListing, db);
-
-                    db.Listings.Remove(foundListing);
-                    await db.SaveChangesAsync();
-                }
+                _context.Listings.Remove(foundListing);
+                await _context.SaveChangesAsync();
             }
         }
 
         public async Task<List<Listing>> GetAll()
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                return await db.Listings.ToListAsync();
-            }
+            return await _context.Listings.ToListAsync();
         }
 
         public async Task<Listing> GetById(string listingId)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                return await db.Listings.FirstOrDefaultAsync(l => l.Id == listingId);
-            }
+            return await _context.Listings.FirstOrDefaultAsync(l => l.Id == listingId);
         }
 
         public async void Update(string listingToUpdateId, Listing updatedListing)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            var foundListing = await _context.Listings.FirstOrDefaultAsync(l => l.Id == listingToUpdateId);
+
+            if (foundListing != null)
             {
-                var foundListing = await db.Listings.FirstOrDefaultAsync(l => l.Id == listingToUpdateId);
+                foundListing.Title = updatedListing.Title;
+                foundListing.Description = updatedListing.Description;
+                foundListing.Price = updatedListing.Price;
 
-                if (foundListing != null)
-                {
-                    foundListing.Title = updatedListing.Title;
-                    foundListing.Description = updatedListing.Description;
-                    foundListing.Price = updatedListing.Price;
-
-                    await db.SaveChangesAsync();
-                }
+                await _context.SaveChangesAsync();
             }
         }
 

@@ -20,11 +20,13 @@
         @if (User.Identity.IsAuthenticated &&
         UserManager.Users.First(u => u.UserName == User.Identity.Name).Listings.Count == 0)
         {
-            <p class="text-warning"><i>No listings? Make one!</i></p>
+            @*TODO => Add routing*@
+            <p class="text-warning"><i>No listings? <a class="btn btn-outline-warning fw-bold" asp-page="">Make one!</a></i></p>
         }
         else
         {
-            <a href="#" class="text-light btn-warning btn fw-bold mb-5">Add another Listing!</a>
+            @*TODO => Add routing*@
+            <a class="text-light btn-warning btn fw-bold mb-5" asp-page="">Add another Listing!</a>
 
             <div class="listings">
                 @foreach (var listing in foundUser.Listings)

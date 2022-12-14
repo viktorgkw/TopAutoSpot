@@ -16,5 +16,6 @@ namespace TopAutoSpot.Data.Entities
         public double CubicCapacity { get; set; }
         public int EngineStrokes { get; set; }
         public string CoolingType { get; set; }
+        public string CreatedBy { get; set; }
     }
 }
