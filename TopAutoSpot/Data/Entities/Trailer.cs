@@ -11,7 +11,7 @@ namespace TopAutoSpot.Data.Entities
         public string Title { get; set; }
         public string? Description { get; set; }
         public double Price { get; set; }
-        public DateTime ManufactoreDate { get; set; }
+        public DateTime ManufactureDate { get; set; }
         public double Payload { get; set; }
         public int AxleCount { get; set; }
     }

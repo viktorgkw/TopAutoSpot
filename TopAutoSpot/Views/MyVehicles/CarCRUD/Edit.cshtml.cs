@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
-namespace TopAutoSpot.Views.TrailerModelCRUD
+namespace TopAutoSpot.Views.MyVehicles.CarCRUD
 {
     public class EditModel : PageModel
     {
@@ -21,21 +21,21 @@ namespace TopAutoSpot.Views.TrailerModelCRUD
         }
 
         [BindProperty]
-        public Trailer Trailer { get; set; } = default!;
+        public Car Car { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _context.Trailers == null)
+            if (id == null || _context.Cars == null)
             {
                 return NotFound();
             }
 
-            var trailer =  await _context.Trailers.FirstOrDefaultAsync(m => m.Id == id);
-            if (trailer == null)
+            var car =  await _context.Cars.FirstOrDefaultAsync(m => m.Id == id);
+            if (car == null)
             {
                 return NotFound();
             }
-            Trailer = trailer;
+            Car = car;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace TopAutoSpot.Views.TrailerModelCRUD
                 return Page();
             }
 
-            _context.Attach(Trailer).State = EntityState.Modified;
+            _context.Attach(Car).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace TopAutoSpot.Views.TrailerModelCRUD
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TrailerExists(Trailer.Id))
+                if (!CarExists(Car.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace TopAutoSpot.Views.TrailerModelCRUD
             return RedirectToPage("./Index");
         }
 
-        private bool TrailerExists(string id)
+        private bool CarExists(string id)
         {
-          return (_context.Trailers?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Cars?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

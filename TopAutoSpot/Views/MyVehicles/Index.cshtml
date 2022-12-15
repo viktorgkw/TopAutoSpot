@@ -11,28 +11,49 @@
 <hr />
 
 <p class="text-info fw-bold">Add new:</p>
-@*TODO => Add routing*@
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="/CarModelCRUD/Create">Car</a>
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="/TruckModelCRUD/Create">Truck</a>
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="/TrailerModelCRUD/Create">Trailer</a>
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="/MotorcycleModelCRUD/Create">Motorcycle</a>
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="/BoatModelCRUD/Create">Boat</a>
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="/BusModelCRUD/Create">Bus</a>
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="/MyVehicles/CarCRUD/Create">Car</a>
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="">Truck</a>
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="">Trailer</a>
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="">Motorcycle</a>
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="">Boat</a>
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="">Bus</a>
 <hr />
-
-@*Add /$id*@
-<a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Details">R</a>
-<a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Edit">U</a>
-<a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Delete">D</a>
-<a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Index">I</a>
-
 <br />
 
 @if (Model.OverallCount == 0)
 {
+    // No vehicles available.
     <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicles.gif" />
 }
 else
 {
     // Display all available vehicles.
+    <div class="all-vehicles">
+        @foreach (var vehicle in Model.Cars)
+        {
+            <h1>@vehicle.Title</h1>
+            <h2>@vehicle.Make</h2>
+            <h3>@vehicle.Model</h3>
+        }
+        @foreach (var vehicle in Model.Motorcycles)
+        {
+
+        }
+        @foreach (var vehicle in Model.Trailers)
+        {
+
+        }
+        @foreach (var vehicle in Model.Trucks)
+        {
+
+        }
+        @foreach (var vehicle in Model.Buses)
+        {
+
+        }
+        @foreach (var vehicle in Model.Boats)
+        {
+
+        }
+    </div>
 }

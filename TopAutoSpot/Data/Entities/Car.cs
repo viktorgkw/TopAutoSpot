@@ -13,7 +13,7 @@ namespace TopAutoSpot.Data.Entities
         public double Price { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
-        public DateTime ManufactoreDate { get; set; }
+        public DateTime ManufactureDate { get; set; }
         public int? HorsePower { get; set; }
         public double? Mileage { get; set; }
         public string Transmission { get; set; }
