@@ -6,6 +6,11 @@ namespace TopAutoSpot.Data.Entities
     {
         [Key]
         public string Id { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string Title { get; set; }
+        public string? Description { get; set; }
+        public double Price { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
         public DateTime ManufactoreDate { get; set; }
@@ -16,6 +21,5 @@ namespace TopAutoSpot.Data.Entities
         public double CubicCapacity { get; set; }
         public int EngineStrokes { get; set; }
         public string CoolingType { get; set; }
-        public string CreatedBy { get; set; }
     }
 }
