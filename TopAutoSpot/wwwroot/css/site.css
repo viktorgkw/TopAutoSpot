@@ -12,9 +12,8 @@ html {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-/*Hardcoded - Fix Later*/
 main{
-    height: 800px;
+    height: auto;
 }
 
 html {
