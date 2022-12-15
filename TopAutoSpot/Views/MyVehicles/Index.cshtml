@@ -4,4 +4,45 @@
     ViewData["Title"] = "My Vehicles";
 }
 
-<h1>Page => @ViewData["Title"]</h1>
+<h1 class="mb-3 mt-4">@ViewData["Title"]</h1>
+<hr />
+
+<p><i>Here you will see all your vehicles.</i></p>
+<hr />
+<br />
+
+@if (Model.OverallCount > 0)
+{
+    // Cars
+    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="/CarModelCRUD/Create">Add another Car!</a>
+    
+    // Trucks
+    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="">Add another Car!</a>
+    
+    // Trailers
+    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="">Add another Car!</a>
+    
+    // Motorcycles
+    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="">Add another Car!</a>
+    
+    // Boats
+    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="">Add another Car!</a>
+    
+    // Buses
+    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="">Add another Car!</a>
+}
+else
+{
+    <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicles.gif" />
+
+    <br />
+
+    <a class="btn btn-outline-info fw-bold mt-2 mb-5" asp-page="">Add one!</a>
+
+    <a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Create">C</a>
+    // Add /$id
+    <a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Details">R</a>
+    <a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Edit">U</a>
+    <a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Delete">D</a>
+    <a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Index">I</a>
+}

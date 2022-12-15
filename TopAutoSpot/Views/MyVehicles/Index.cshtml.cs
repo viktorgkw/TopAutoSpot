@@ -20,6 +20,8 @@ namespace TopAutoSpot.Views.MyVehicles
         public List<Trailer> Trailers { get; private set; }
         public List<Truck> Trucks { get; private set; }
 
+        public int OverallCount { get; private set; }
+
         public async Task OnGetAsync()
         {
             var currentUser = _context.Users
@@ -48,6 +50,9 @@ namespace TopAutoSpot.Views.MyVehicles
             Trucks = await _context.Trucks
                     .Where(truck => truck.CreatedBy == currentUser.Id)
                     .ToListAsync();
+
+            OverallCount = Boats.Count + Buses.Count + Cars.Count +
+                    Motorcycles.Count + Trailers.Count + Trucks.Count;
         }
     }
 }
