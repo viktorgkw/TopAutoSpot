@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
-namespace TopAutoSpot.Views.BoatModelCRUD
+namespace TopAutoSpot.Views.MyVehicles.CarCRUD
 {
     public class DeleteModel : PageModel
     {
@@ -20,40 +20,40 @@ namespace TopAutoSpot.Views.BoatModelCRUD
         }
 
         [BindProperty]
-      public Boat Boat { get; set; } = default!;
+      public Car Car { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _context.Boats == null)
+            if (id == null || _context.Cars == null)
             {
                 return NotFound();
             }
 
-            var boat = await _context.Boats.FirstOrDefaultAsync(m => m.Id == id);
+            var car = await _context.Cars.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (boat == null)
+            if (car == null)
             {
                 return NotFound();
             }
             else 
             {
-                Boat = boat;
+                Car = car;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string id)
         {
-            if (id == null || _context.Boats == null)
+            if (id == null || _context.Cars == null)
             {
                 return NotFound();
             }
-            var boat = await _context.Boats.FindAsync(id);
+            var car = await _context.Cars.FindAsync(id);
 
-            if (boat != null)
+            if (car != null)
             {
-                Boat = boat;
-                _context.Boats.Remove(Boat);
+                Car = car;
+                _context.Cars.Remove(Car);
                 await _context.SaveChangesAsync();
             }
 

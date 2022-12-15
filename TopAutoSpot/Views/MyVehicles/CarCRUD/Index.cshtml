@@ -1,5 +1,5 @@
 ﻿@page
-@model TopAutoSpot.Views.BoatModelCRUD.IndexModel
+@model TopAutoSpot.Views.MyVehicles.CarCRUD.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,52 +14,49 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].CreatedBy)
+                @Html.DisplayNameFor(model => model.Car[0].CreatedBy)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].CreatedAt)
+                @Html.DisplayNameFor(model => model.Car[0].CreatedAt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].Title)
+                @Html.DisplayNameFor(model => model.Car[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].Description)
+                @Html.DisplayNameFor(model => model.Car[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].Price)
+                @Html.DisplayNameFor(model => model.Car[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].Make)
+                @Html.DisplayNameFor(model => model.Car[0].Make)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].Model)
+                @Html.DisplayNameFor(model => model.Car[0].Model)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].ManufactoreDate)
+                @Html.DisplayNameFor(model => model.Car[0].ManufactureDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].HorsePower)
+                @Html.DisplayNameFor(model => model.Car[0].HorsePower)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].EngineType)
+                @Html.DisplayNameFor(model => model.Car[0].Mileage)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].EngineCount)
+                @Html.DisplayNameFor(model => model.Car[0].Transmission)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].Width)
+                @Html.DisplayNameFor(model => model.Car[0].EngineType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boat[0].Height)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Boat[0].Material)
+                @Html.DisplayNameFor(model => model.Car[0].EuroStandart)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Boat) {
+@foreach (var item in Model.Car) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedBy)
@@ -83,25 +80,22 @@
                 @Html.DisplayFor(modelItem => item.Model)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ManufactoreDate)
+                @Html.DisplayFor(modelItem => item.ManufactureDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.HorsePower)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Mileage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transmission)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.EngineType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EngineCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Width)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Height)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Material)
+                @Html.DisplayFor(modelItem => item.EuroStandart)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

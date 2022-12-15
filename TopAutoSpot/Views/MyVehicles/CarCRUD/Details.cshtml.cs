@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
-namespace TopAutoSpot.Views.TruckModelCRUD
+namespace TopAutoSpot.Views.MyVehicles.CarCRUD
 {
     public class DetailsModel : PageModel
     {
@@ -19,23 +19,23 @@ namespace TopAutoSpot.Views.TruckModelCRUD
             _context = context;
         }
 
-      public Truck Truck { get; set; } = default!; 
+      public Car Car { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _context.Trucks == null)
+            if (id == null || _context.Cars == null)
             {
                 return NotFound();
             }
 
-            var truck = await _context.Trucks.FirstOrDefaultAsync(m => m.Id == id);
-            if (truck == null)
+            var car = await _context.Cars.FirstOrDefaultAsync(m => m.Id == id);
+            if (car == null)
             {
                 return NotFound();
             }
             else 
             {
-                Truck = truck;
+                Car = car;
             }
             return Page();
         }

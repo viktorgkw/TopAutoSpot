@@ -1,5 +1,5 @@
 ﻿@page
-@model TopAutoSpot.Views.CarModelCRUD.EditModel
+@model TopAutoSpot.Views.MyVehicles.CarCRUD.EditModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -50,9 +50,9 @@
                 <span asp-validation-for="Car.Model" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Car.ManufactoreDate" class="control-label"></label>
-                <input asp-for="Car.ManufactoreDate" class="form-control" />
-                <span asp-validation-for="Car.ManufactoreDate" class="text-danger"></span>
+                <label asp-for="Car.ManufactureDate" class="control-label"></label>
+                <input asp-for="Car.ManufactureDate" class="form-control" />
+                <span asp-validation-for="Car.ManufactureDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Car.HorsePower" class="control-label"></label>
