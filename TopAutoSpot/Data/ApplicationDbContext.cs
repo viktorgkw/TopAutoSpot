@@ -14,11 +14,7 @@ namespace TopAutoSpot.Data
             // Administrator Password => @Administrator1
         }
 
-        // Main Tables
         public override DbSet<User> Users { get; set; }
-        public DbSet<Listing> Listings { get; set; }
-
-        // Not sure if needed tables
         public DbSet<Car> Cars { get; set; }
         public DbSet<Truck> Trucks { get; set; }
         public DbSet<Boat> Boats { get; set; }

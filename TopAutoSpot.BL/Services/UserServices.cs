@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TopAutoSpot.BL.Services.Utilities;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
@@ -30,14 +29,6 @@ namespace TopAutoSpot.BL.Services
 
             if (foundUser != null)
             {
-                var userListings = foundUser.Listings.ToList();
-
-                foreach (var listing in userListings)
-                {
-                    VehicleRemover.RemoveVehicle(listing, _context);
-                }
-
-                foundUser.Listings.RemoveAll(l => l.Id != null);
                 _context.Remove(foundUser);
                 await _context.SaveChangesAsync();
             }
