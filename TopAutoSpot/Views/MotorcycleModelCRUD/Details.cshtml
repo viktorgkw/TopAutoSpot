@@ -1,0 +1,109 @@
+﻿@page
+@model TopAutoSpot.Views.MotorcycleModelCRUD.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Motorcycle</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.CreatedBy)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.CreatedBy)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.CreatedAt)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.CreatedAt)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.Make)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.Make)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.Model)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.Model)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.ManufactoreDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.ManufactoreDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.HorsePower)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.HorsePower)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.Mileage)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.Mileage)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.Transmission)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.Transmission)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.EngineType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.EngineType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.CubicCapacity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.CubicCapacity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.EngineStrokes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.EngineStrokes)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycle.CoolingType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycle.CoolingType)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Motorcycle?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

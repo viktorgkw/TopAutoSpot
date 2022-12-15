@@ -9,40 +9,30 @@
 
 <p><i>Here you will see all your vehicles.</i></p>
 <hr />
+
+<p class="text-info fw-bold">Add new:</p>
+@*TODO => Add routing*@
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="/CarModelCRUD/Create">Car</a>
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="/TruckModelCRUD/Create">Truck</a>
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="/TrailerModelCRUD/Create">Trailer</a>
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="/MotorcycleModelCRUD/Create">Motorcycle</a>
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="/BoatModelCRUD/Create">Boat</a>
+<a class="btn btn-outline-info fw-bold mt-2" asp-page="/BusModelCRUD/Create">Bus</a>
+<hr />
+
+@*Add /$id*@
+<a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Details">R</a>
+<a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Edit">U</a>
+<a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Delete">D</a>
+<a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Index">I</a>
+
 <br />
 
-@if (Model.OverallCount > 0)
+@if (Model.OverallCount == 0)
 {
-    // Cars
-    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="/CarModelCRUD/Create">Add another Car!</a>
-    
-    // Trucks
-    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="">Add another Car!</a>
-    
-    // Trailers
-    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="">Add another Car!</a>
-    
-    // Motorcycles
-    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="">Add another Car!</a>
-    
-    // Boats
-    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="">Add another Car!</a>
-    
-    // Buses
-    <a class="text-light btn-warning btn fw-bold mt-5 mb-5" asp-page="">Add another Car!</a>
+    <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicles.gif" />
 }
 else
 {
-    <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicles.gif" />
-
-    <br />
-
-    <a class="btn btn-outline-info fw-bold mt-2 mb-5" asp-page="">Add one!</a>
-
-    <a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Create">C</a>
-    // Add /$id
-    <a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Details">R</a>
-    <a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Edit">U</a>
-    <a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Delete">D</a>
-    <a class="btn btn-outline-warning fw-bold mt-3 mb-3" asp-page="/CarModelCRUD/Index">I</a>
+    // Display all available vehicles.
 }

@@ -1,0 +1,114 @@
+﻿@page
+@model TopAutoSpot.Views.BoatModelCRUD.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].Make)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].ManufactoreDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].HorsePower)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].EngineType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].EngineCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].Width)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].Height)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat[0].Material)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Boat) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManufactoreDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HorsePower)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EngineType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EngineCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Width)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Height)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Material)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
