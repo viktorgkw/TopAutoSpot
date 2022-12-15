@@ -1,0 +1,110 @@
+﻿@page
+@model TopAutoSpot.Views.BusModelCRUD.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Bus</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Bus.Id" />
+            <div class="form-group">
+                <label asp-for="Bus.CreatedBy" class="control-label"></label>
+                <input asp-for="Bus.CreatedBy" class="form-control" />
+                <span asp-validation-for="Bus.CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.CreatedAt" class="control-label"></label>
+                <input asp-for="Bus.CreatedAt" class="form-control" />
+                <span asp-validation-for="Bus.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.Title" class="control-label"></label>
+                <input asp-for="Bus.Title" class="form-control" />
+                <span asp-validation-for="Bus.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.Description" class="control-label"></label>
+                <input asp-for="Bus.Description" class="form-control" />
+                <span asp-validation-for="Bus.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.Price" class="control-label"></label>
+                <input asp-for="Bus.Price" class="form-control" />
+                <span asp-validation-for="Bus.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.Make" class="control-label"></label>
+                <input asp-for="Bus.Make" class="form-control" />
+                <span asp-validation-for="Bus.Make" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.Model" class="control-label"></label>
+                <input asp-for="Bus.Model" class="form-control" />
+                <span asp-validation-for="Bus.Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.ManufactoreDate" class="control-label"></label>
+                <input asp-for="Bus.ManufactoreDate" class="form-control" />
+                <span asp-validation-for="Bus.ManufactoreDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.HorsePower" class="control-label"></label>
+                <input asp-for="Bus.HorsePower" class="form-control" />
+                <span asp-validation-for="Bus.HorsePower" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.Mileage" class="control-label"></label>
+                <input asp-for="Bus.Mileage" class="form-control" />
+                <span asp-validation-for="Bus.Mileage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.Transmission" class="control-label"></label>
+                <input asp-for="Bus.Transmission" class="form-control" />
+                <span asp-validation-for="Bus.Transmission" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.EngineType" class="control-label"></label>
+                <input asp-for="Bus.EngineType" class="form-control" />
+                <span asp-validation-for="Bus.EngineType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.EuroStandart" class="control-label"></label>
+                <input asp-for="Bus.EuroStandart" class="form-control" />
+                <span asp-validation-for="Bus.EuroStandart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.AxlesCount" class="control-label"></label>
+                <input asp-for="Bus.AxlesCount" class="form-control" />
+                <span asp-validation-for="Bus.AxlesCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.SeatsCount" class="control-label"></label>
+                <input asp-for="Bus.SeatsCount" class="form-control" />
+                <span asp-validation-for="Bus.SeatsCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus.LoadCapacity" class="control-label"></label>
+                <input asp-for="Bus.LoadCapacity" class="form-control" />
+                <span asp-validation-for="Bus.LoadCapacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
