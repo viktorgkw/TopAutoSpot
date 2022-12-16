@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
-namespace TopAutoSpot.Views.MyVehicles.CarCRUD
+namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
 {
     public class CreateModel : PageModel
     {
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        protected readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public CreateModel(ApplicationDbContext context)
         {
@@ -22,20 +21,18 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
         }
 
         [BindProperty]
-        public Car Car { get; set; } = default!;
+        public Motorcycle Motorcycle { get; set; } = default!;
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || _context.Cars == null || Car == null)
+            if (!ModelState.IsValid || _context.Motorcycles == null || Motorcycle == null)
             {
-                var errors = ModelState.Where(a => a.Value.Errors.Count > 0)
-                .Select(b => new { b.Key, b.Value.Errors })
-                .ToArray();
                 return Page();
             }
 
-            Car.CreatedBy = _context.Users.FirstAsync(u => u.UserName == User.Identity.Name).Result.Id;
-            _context.Cars.Add(Car);
+            Motorcycle.CreatedBy = _context.Users
+                .FirstAsync(u => u.UserName == User.Identity.Name).Result.Id;
+            _context.Motorcycles.Add(Motorcycle);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/MyVehicles/Index");

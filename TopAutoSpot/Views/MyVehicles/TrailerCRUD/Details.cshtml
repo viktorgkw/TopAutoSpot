@@ -1,0 +1,59 @@
+﻿@page
+@model TopAutoSpot.Views.MyVehicles.TrailerCRUD.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="fw-bold text-secondary">Your Trailer Details</h1>
+<hr />
+<br />
+
+<div class="border border-dark rounded d-flex flex-lg-wrap bg-light mt-3 mb-3 justify-content-center">
+    <div class="flex-column m-2 px-4">
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Trailer.CreatedAt)</p>
+            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Trailer.CreatedAt)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Trailer.Title)</p>
+            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Trailer.Title)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Trailer.Description)</p>
+            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Trailer.Description)</p>
+        </div>
+    </div>
+
+    <div class="flex-column m-2 px-4">
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Trailer.Price)</p>
+            <p class="fs-4 site-text-color">@Html.DisplayFor(model => model.Trailer.Price)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Trailer.ManufactureDate)</p>
+            <p class="fs-4 site-text-color">@Html.DisplayFor(model => model.Trailer.ManufactureDate)</p>
+        </div>
+    </div>
+
+    <div class="flex-column m-2 px-4">
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Trailer.Payload)</p>
+            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Trailer.Payload)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Trailer.AxleCount)</p>
+            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Trailer.AxleCount)</p>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-outline-secondary fw-bold mb-3 mt-3" asp-page="./Edit" asp-route-id="@Model.Trailer?.Id">Edit</a>
+    <br />
+    <a class="fw-bold btn btn-outline-warning mb-3 mt-3" asp-page="/MyVehicles/Index">Go Back</a>
+</div>

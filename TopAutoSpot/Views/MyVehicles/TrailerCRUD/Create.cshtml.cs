@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
-namespace TopAutoSpot.Views.MyVehicles.CarCRUD
+namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
 {
     public class CreateModel : PageModel
     {
@@ -22,11 +22,11 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
         }
 
         [BindProperty]
-        public Car Car { get; set; } = default!;
+        public Trailer Trailer { get; set; } = default!;
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || _context.Cars == null || Car == null)
+            if (!ModelState.IsValid || _context.Trailers == null || Trailer == null)
             {
                 var errors = ModelState.Where(a => a.Value.Errors.Count > 0)
                 .Select(b => new { b.Key, b.Value.Errors })
@@ -34,8 +34,9 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
                 return Page();
             }
 
-            Car.CreatedBy = _context.Users.FirstAsync(u => u.UserName == User.Identity.Name).Result.Id;
-            _context.Cars.Add(Car);
+            Trailer.CreatedBy = _context.Users
+                .FirstAsync(u => u.UserName == User.Identity.Name).Result.Id;
+            _context.Trailers.Add(Trailer);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/MyVehicles/Index");
