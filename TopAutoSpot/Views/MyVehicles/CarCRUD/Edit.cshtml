@@ -28,6 +28,11 @@
                 <span asp-validation-for="Car.Description" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
+                <label asp-for="Car.Location" class="control-label fw-bold text-info"></label>
+                <input asp-for="Car.Location" class="form-control" />
+                <span asp-validation-for="Car.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
                 <label asp-for="Car.Price" class="control-label fw-bold text-info"></label>
                 <input asp-for="Car.Price" class="form-control" />
                 <span asp-validation-for="Car.Price" class="text-danger"></span>

@@ -1,0 +1,31 @@
+﻿@page
+@model TopAutoSpot.Views.Buy.TrailerListingsModel
+@{
+    ViewData["Title"] = "Trailer Listings";
+}
+
+<div class="mb-3 mt-3">
+    <h1 class="fw-bold site-text-color">All Trailer Listings</h1>
+    <hr />
+    <br />
+    <div class="d-flex flex-row mt-3">
+        @foreach (var trailer in Model.Trailers)
+        {
+            <div class="d-flex flex-column mx-3 single-car">
+                <a asp-page="/VehiclePreview/TrailerPreview" asp-route-id="@trailer.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
+                    <img class="listing-image" src="~/images/noImageFound.png" />
+                    @if (trailer.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold listing-title">@string.Join("", trailer.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold listing-title">@trailer.Title</p>
+                    }
+                    <p class="fs-6 text-dark mb-0"><i>@trailer.Location</i></p>
+                    <p class="fs-5 text-dark fw-bold">$@trailer.Price</p>
+                </a>
+            </div>
+        }
+    </div>
+</div>
