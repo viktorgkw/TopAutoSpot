@@ -33,6 +33,11 @@ body {
     height: 100%;
 }
 
+.aboveHeaderImage {
+    width: 75%;
+    height: 384px;
+}
+
 .listing-image {
     width: 256px;
     height: 256px;
