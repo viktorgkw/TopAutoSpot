@@ -38,7 +38,7 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
             _context.Cars.Add(Car);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/MyVehicles/Index");
         }
     }
 }

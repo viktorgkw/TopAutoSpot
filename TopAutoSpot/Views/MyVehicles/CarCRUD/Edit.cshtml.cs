@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
@@ -13,9 +8,9 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
 {
     public class EditModel : PageModel
     {
-        private readonly TopAutoSpot.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EditModel(TopAutoSpot.Data.ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -30,7 +25,7 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
                 return NotFound();
             }
 
-            var car =  await _context.Cars.FirstOrDefaultAsync(m => m.Id == id);
+            var car = await _context.Cars.FirstOrDefaultAsync(m => m.Id == id);
             if (car == null)
             {
                 return NotFound();
@@ -39,10 +34,12 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            // This here is for debugging purposes :D
+            //var errors = ModelState.Select(x => x.Value.Errors)
+            //               .Where(y => y.Count > 0)
+            //               .ToList();
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -66,12 +63,12 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/MyVehicles/Index");
         }
 
         private bool CarExists(string id)
         {
-          return (_context.Cars?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Cars?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

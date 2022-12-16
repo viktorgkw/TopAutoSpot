@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
@@ -12,14 +8,14 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
 {
     public class DetailsModel : PageModel
     {
-        private readonly TopAutoSpot.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DetailsModel(TopAutoSpot.Data.ApplicationDbContext context)
+        public DetailsModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-      public Car Car { get; set; } = default!; 
+        public Car Car { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -33,7 +29,7 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Car = car;
             }
