@@ -4,19 +4,16 @@
     ViewData["Title"] = "My Vehicles";
 }
 
-<h1 class="mb-3 mt-4">@ViewData["Title"]</h1>
+<h1 class="mb-3 mt-4 fw-bold site-text-darker-color">@ViewData["Title"]</h1>
 <hr />
 
-<p><i>Here you will see all your vehicles.</i></p>
-<hr />
-
-<p class="text-info fw-bold fs-4">Add New</p>
-<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/CarCRUD/Create">Car</a>
-<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/TruckCRUD/Create">Truck</a>
-<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/TrailerCRUD/Create">Trailer</a>
-<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/MotorcycleCRUD/Create">Motorcycle</a>
-<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/BoatCRUD/Create">Boat</a>
-<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/BusCRUD/Create">Bus</a>
+<p class="site-text-darker-color fw-bold fs-4">Add New</p>
+<a class="btn btn-outline-success fw-bold mt-2 mx-1" asp-page="/MyVehicles/CarCRUD/Create">Car</a>
+<a class="btn btn-outline-success fw-bold mt-2 mx-1" asp-page="/MyVehicles/TruckCRUD/Create">Truck</a>
+<a class="btn btn-outline-success fw-bold mt-2 mx-1" asp-page="/MyVehicles/TrailerCRUD/Create">Trailer</a>
+<a class="btn btn-outline-success fw-bold mt-2 mx-1" asp-page="/MyVehicles/MotorcycleCRUD/Create">Motorcycle</a>
+<a class="btn btn-outline-success fw-bold mt-2 mx-1" asp-page="/MyVehicles/BoatCRUD/Create">Boat</a>
+<a class="btn btn-outline-success fw-bold mt-2 mx-1" asp-page="/MyVehicles/BusCRUD/Create">Bus</a>
 <hr />
 <br />
 
@@ -28,60 +25,139 @@
 else
 {
     // Display all owned vehicles.
-    <div>
+    <div class="d-flex flex-row mt-3 flex-wrap">
         @foreach (var car in Model.Cars)
         {
-            <h1>@car.Title</h1>
-            <h2>@car.Make</h2>
-            <h3>@car.Model</h3>
-            <a asp-page="/MyVehicles/CarCRUD/Edit" asp-route-id="@car.Id">Edit</a>
-            <a asp-page="/MyVehicles/CarCRUD/Details" asp-route-id="@car.Id">Details</a>
-            <a asp-page="/MyVehicles/CarCRUD/Delete" asp-route-id="@car.Id">Delete</a>
+            <div class="d-flex flex-column mx-3 single-car">
+                <a asp-page="/VehiclePreview/CarPreview" asp-route-id="@car.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
+                    <img class="listing-image" src="~/images/noImageFound.png" />
+                    @if (car.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold listing-title">@string.Join("", car.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold listing-title">@car.Title</p>
+                    }
+                </a>
+
+                <div>
+                    <a class="btn btn-outline-warning fw-bold" asp-page="/MyVehicles/CarCRUD/Edit" asp-route-id="@car.Id">Edit</a>
+                    <a class="btn btn-outline-info fw-bold" asp-page="/MyVehicles/CarCRUD/Details" asp-route-id="@car.Id">Details</a>
+                    <a class="btn btn-outline-danger fw-bold" asp-page="/MyVehicles/CarCRUD/Delete" asp-route-id="@car.Id">Delete</a>
+                </div>
+            </div>
         }
         @foreach (var motorcycle in Model.Motorcycles)
         {
-            <h1>@motorcycle.Title</h1>
-            <h2>@motorcycle.Make</h2>
-            <h3>@motorcycle.Model</h3>
-            <a asp-page="/MyVehicles/MotorcycleCRUD/Edit" asp-route-id="@motorcycle.Id">Edit</a>
-            <a asp-page="/MyVehicles/MotorcycleCRUD/Details" asp-route-id="@motorcycle.Id">Details</a>
-            <a asp-page="/MyVehicles/MotorcycleCRUD/Delete" asp-route-id="@motorcycle.Id">Delete</a>
+            <div class="d-flex flex-column mx-3 single-car">
+                <a asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@motorcycle.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
+                    <img class="listing-image" src="~/images/noImageFound.png" />
+                    @if (motorcycle.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold listing-title">@string.Join("", motorcycle.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold listing-title">@motorcycle.Title</p>
+                    }
+                </a>
+
+                <div>
+                    <a class="btn btn-outline-warning fw-bold" asp-page="/MyVehicles/MotorcycleCRUD/Edit" asp-route-id="@motorcycle.Id">Edit</a>
+                    <a class="btn btn-outline-info fw-bold" asp-page="/MyVehicles/MotorcycleCRUD/Details" asp-route-id="@motorcycle.Id">Details</a>
+                    <a class="btn btn-outline-danger fw-bold" asp-page="/MyVehicles/MotorcycleCRUD/Delete" asp-route-id="@motorcycle.Id">Delete</a>
+                </div>
+            </div>
+
         }
         @foreach (var trailer in Model.Trailers)
         {
-            <h1>@trailer.Title</h1>
-            <h2>@trailer.Description</h2>
-            <h3>@trailer.Price</h3>
-            <a asp-page="/MyVehicles/TrailerCRUD/Edit" asp-route-id="@trailer.Id">Edit</a>
-            <a asp-page="/MyVehicles/TrailerCRUD/Details" asp-route-id="@trailer.Id">Details</a>
-            <a asp-page="/MyVehicles/TrailerCRUD/Delete" asp-route-id="@trailer.Id">Delete</a>
+            <div class="d-flex flex-column mx-3 single-car">
+                <a asp-page="/VehiclePreview/TrailerPreview" asp-route-id="@trailer.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
+                    <img class="listing-image" src="~/images/noImageFound.png" />
+                    @if (trailer.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold listing-title">@string.Join("", trailer.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold listing-title">@trailer.Title</p>
+                    }
+                </a>
+
+                <div>
+                    <a class="btn btn-outline-warning fw-bold" asp-page="/MyVehicles/TrailerCRUD/Edit" asp-route-id="@trailer.Id">Edit</a>
+                    <a class="btn btn-outline-info fw-bold" asp-page="/MyVehicles/TrailerCRUD/Details" asp-route-id="@trailer.Id">Details</a>
+                    <a class="btn btn-outline-danger fw-bold" asp-page="/MyVehicles/TrailerCRUD/Delete" asp-route-id="@trailer.Id">Delete</a>
+                </div>
+            </div>
         }
         @foreach (var truck in Model.Trucks)
         {
-            <h1>@truck.Title</h1>
-            <h2>@truck.Make</h2>
-            <h3>@truck.Model</h3>
-            <a asp-page="/MyVehicles/TruckCRUD/Edit" asp-route-id="@truck.Id">Edit</a>
-            <a asp-page="/MyVehicles/TruckCRUD/Details" asp-route-id="@truck.Id">Details</a>
-            <a asp-page="/MyVehicles/TruckCRUD/Delete" asp-route-id="@truck.Id">Delete</a>
+            <div class="d-flex flex-column mx-3 single-car">
+                <a asp-page="/VehiclePreview/TruckPreview" asp-route-id="@truck.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
+                    <img class="listing-image" src="~/images/noImageFound.png" />
+                    @if (truck.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold listing-title">@string.Join("", truck.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold listing-title">@truck.Title</p>
+                    }
+                </a>
+
+                <div>
+                    <a class="btn btn-outline-warning fw-bold" asp-page="/MyVehicles/TruckCRUD/Edit" asp-route-id="@truck.Id">Edit</a>
+                    <a class="btn btn-outline-info fw-bold" asp-page="/MyVehicles/TruckCRUD/Details" asp-route-id="@truck.Id">Details</a>
+                    <a class="btn btn-outline-danger fw-bold" asp-page="/MyVehicles/TruckCRUD/Delete" asp-route-id="@truck.Id">Delete</a>
+                </div>
+            </div>
         }
         @foreach (var bus in Model.Buses)
         {
-            <h1>@bus.Title</h1>
-            <h2>@bus.Make</h2>
-            <h3>@bus.Model</h3>
-            <a asp-page="/MyVehicles/BusCRUD/Edit" asp-route-id="@bus.Id">Edit</a>
-            <a asp-page="/MyVehicles/BusCRUD/Details" asp-route-id="@bus.Id">Details</a>
-            <a asp-page="/MyVehicles/BusCRUD/Delete" asp-route-id="@bus.Id">Delete</a>
+            <div class="d-flex flex-column mx-3 single-car">
+                <a asp-page="/VehiclePreview/BusPreview" asp-route-id="@bus.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
+                    <img class="listing-image" src="~/images/noImageFound.png" />
+                    @if (bus.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold listing-title">@string.Join("", bus.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold listing-title">@bus.Title</p>
+                    }
+                </a>
+
+                <div>
+                    <a class="btn btn-outline-warning fw-bold" asp-page="/MyVehicles/BusCRUD/Edit" asp-route-id="@bus.Id">Edit</a>
+                    <a class="btn btn-outline-info fw-bold" asp-page="/MyVehicles/BusCRUD/Details" asp-route-id="@bus.Id">Details</a>
+                    <a class="btn btn-outline-danger fw-bold" asp-page="/MyVehicles/BusCRUD/Delete" asp-route-id="@bus.Id">Delete</a>
+                </div>
+            </div>
         }
         @foreach (var boat in Model.Boats)
         {
-            <h1>@boat.Title</h1>
-            <h2>@boat.Make</h2>
-            <h3>@boat.Model</h3>
-            <a asp-page="/MyVehicles/BoatCRUD/Edit" asp-route-id="@boat.Id">Edit</a>
-            <a asp-page="/MyVehicles/BoatCRUD/Details" asp-route-id="@boat.Id">Details</a>
-            <a asp-page="/MyVehicles/BoatCRUD/Delete" asp-route-id="@boat.Id">Delete</a>
+            <div class="d-flex flex-column mx-3 single-car">
+                <a asp-page="/VehiclePreview/BoatPreview" asp-route-id="@boat.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
+                    <img class="listing-image" src="~/images/noImageFound.png" />
+                    @if (boat.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold listing-title">@string.Join("", boat.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold listing-title">@boat.Title</p>
+                    }
+                </a>
+
+                <div>
+                    <a class="btn btn-outline-warning fw-bold" asp-page="/MyVehicles/BoatCRUD/Edit" asp-route-id="@boat.Id">Edit</a>
+                    <a class="btn btn-outline-info fw-bold" asp-page="/MyVehicles/BoatCRUD/Details" asp-route-id="@boat.Id">Details</a>
+                    <a class="btn btn-outline-danger fw-bold" asp-page="/MyVehicles/BoatCRUD/Delete" asp-route-id="@boat.Id">Delete</a>
+                </div>
+            </div>
         }
     </div>
 }

@@ -1,37 +1,37 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
+using TopAutoSpot.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace TopAutoSpot.Views.VehiclePreview
 {
-    public class CarPreviewModel : PageModel
+    public class BoatPreviewModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 
-        public CarPreviewModel(ApplicationDbContext context)
+        public BoatPreviewModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public Car Car { get; set; } = default!;
+        public Boat Boat { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _context.Cars == null)
+            if (id == null || _context.Boats == null)
             {
                 return NotFound();
             }
 
-            var car = await _context.Cars.FirstOrDefaultAsync(m => m.Id == id);
-            if (car == null)
+            var boat = await _context.Boats.FirstOrDefaultAsync(b => b.Id == id);
+            if (boat == null)
             {
                 return NotFound();
             }
             else
             {
-                Car = car;
+                Boat = boat;
             }
             return Page();
         }
@@ -39,7 +39,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public string GetOwnerNumber()
         {
             var foundUser = _context.Users
-                .First(u => u.Id == Car.CreatedBy);
+                .First(u => u.Id == Boat.CreatedBy);
 
             return foundUser.PhoneNumber;
         }
@@ -47,7 +47,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public string GetOwnerFullName()
         {
             var foundUser = _context.Users
-                .First(u => u.Id == Car.CreatedBy);
+                .First(u => u.Id == Boat.CreatedBy);
 
             return foundUser.FirstName + " " + foundUser.LastName;
         }
