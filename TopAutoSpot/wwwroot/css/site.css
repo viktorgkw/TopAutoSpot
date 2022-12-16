@@ -33,8 +33,20 @@ body {
     height: 100%;
 }
 
+.site-text-color {
+    color: #3fc473;
+}
+
+.site-text-darker-color {
+    color: #2ba159;
+}
+
 .bg-nav-button {
     background-color: #3fc473;
+}
+
+.bg-nav-button:hover {
+    background-color: #2ba159;
 }
 
 .font-nav-color {

@@ -42,12 +42,12 @@
                 <span asp-validation-for="Car.Model" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.ManufactureDate" class="control-label fw-bold text-info"></label>
+                <label asp-for="Car.ManufactureDate" class="control-label fw-bold text-info">Manufacture Date</label>
                 <input min="1880-00-00" max="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day" type="date" asp-for="Car.ManufactureDate" class="form-control" />
                 <span asp-validation-for="Car.ManufactureDate" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.HorsePower" class="control-label fw-bold text-info"></label>
+                <label asp-for="Car.HorsePower" class="control-label fw-bold text-info">Horse Power</label>
                 <input min="0" max="2000" asp-for="Car.HorsePower" class="form-control" />
                 <span asp-validation-for="Car.HorsePower" class="text-danger"></span>
             </div>
@@ -59,44 +59,44 @@
             <div class="form-group mb-4">
                 <label asp-for="Car.Transmission" class="control-label fw-bold text-info"></label>
                 <select asp-for="Car.Transmission" class="form-select">
-                    <option value="automatic">Automatic</option>
-                    <option value="manual">Manual</option>
-                    <option value="automatedmanual">AutomatedManual</option>
+                    <option value="Automatic">Automatic</option>
+                    <option value="Manual">Manual</option>
+                    <option value="Automated Manual">Automated Manual</option>
                 </select>
                 <span asp-validation-for="Car.Transmission" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.EngineType" class="control-label fw-bold text-info"></label>
+                <label asp-for="Car.EngineType" class="control-label fw-bold text-info">Engine Type</label>
                 <select asp-for="Car.EngineType" class="form-select">
-                    <option value="diesel">Diesel</option>
-                    <option value="gasoline">Gasoline</option>
-                    <option value="electric">Electric</option>
-                    <option value="hybrid">Hybrid</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Gasoline">Gasoline</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
                 </select>
                 <span asp-validation-for="Car.EngineType" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.EuroStandart" class="control-label fw-bold text-info"></label>
+                <label asp-for="Car.EuroStandart" class="control-label fw-bold text-info">Euro Standart</label>
                 <select asp-for="Car.EuroStandart" class="form-select">
-                    <option value="euro1">Euro1</option>
-                    <option value="euro2">Euro2</option>
-                    <option value="euro3">Euro3</option>
-                    <option value="euro4">Euro4</option>
-                    <option value="euro5">Euro5</option>
-                    <option value="euro6">Euro6</option>
-                    <option value="euro7">Euro7</option>
+                    <option value="Euro1">Euro1</option>
+                    <option value="Euro2">Euro2</option>
+                    <option value="Euro3">Euro3</option>
+                    <option value="Euro4">Euro4</option>
+                    <option value="Euro5">Euro5</option>
+                    <option value="Euro6">Euro6</option>
+                    <option value="Euro7">Euro7</option>
                 </select>
                 <span asp-validation-for="Car.EuroStandart" class="text-danger"></span>
             </div>
             <div class="form-group mt-3 mb-2">
-                <input type="submit" value="Create" class="btn btn-primary fw-bold" />
+                <input type="submit" value="Create" class="btn btn-success fw-bold" />
             </div>
         </form>
     </div>
 </div>
 
-<div class="mt-5 mb-3">
-    <a class="fw-bold btn btn-outline-warning" asp-page="/MyVehicles/Index">Go Back</a>
+<div>
+    <a class="fw-bold btn btn-outline-warning mt-3 mb-3" asp-page="/MyVehicles/Index">Go Back</a>
 </div>
 
 @section Scripts {

@@ -34,6 +34,9 @@ else
             <h1>@vehicle.Title</h1>
             <h2>@vehicle.Make</h2>
             <h3>@vehicle.Model</h3>
+            <a asp-page="/MyVehicles/CarCRUD/Edit" asp-route-id="@vehicle.Id">Edit</a>
+            <a asp-page="/MyVehicles/CarCRUD/Details" asp-route-id="@vehicle.Id">Details</a>
+            <a asp-page="/MyVehicles/CarCRUD/Delete" asp-route-id="@vehicle.Id">Delete</a>
         }
         @foreach (var vehicle in Model.Motorcycles)
         {

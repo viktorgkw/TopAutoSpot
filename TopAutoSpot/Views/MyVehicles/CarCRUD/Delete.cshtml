@@ -5,96 +5,84 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1 class="fw-bold text-secondary">Confirm Deletion</h1>
+<h4 class="fw-bold text-danger">Are you sure you want to delete this car?</h4>
+<hr />
+<br />
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Car</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.CreatedBy)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.CreatedBy)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.CreatedAt)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.CreatedAt)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.Make)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.Make)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.Model)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.Model)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.ManufactureDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.ManufactureDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.HorsePower)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.HorsePower)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.Mileage)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.Mileage)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.Transmission)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.Transmission)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.EngineType)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.EngineType)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.EuroStandart)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Car.EuroStandart)
-        </dd>
-    </dl>
-    
-    <form method="post">
-        <input type="hidden" asp-for="Car.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
-    </form>
+<div class="border border-dark rounded d-flex flex-lg-wrap bg-light mt-3 mb-3">
+    <div class="flex-column m-2 px-4">
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.CreatedAt)</p>
+            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Car.CreatedAt)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.Title)</p>
+            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Car.Title)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.Description)</p>
+            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Car.Description)</p>
+        </div>
+    </div>
+
+    <div class="flex-column m-2 px-4">
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.Price)</p>
+            <p class="fs-4 site-text-color">@Html.DisplayFor(model => model.Car.Price)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.ManufactureDate)</p>
+            <p class="fs-4 site-text-color">@Html.DisplayFor(model => model.Car.ManufactureDate)</p>
+        </div>
+    </div>
+
+    <div class="flex-column m-2 px-4">
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.Make)</p>
+            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Car.Make)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.Model)</p>
+            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Car.Model)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.HorsePower)</p>
+            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Car.HorsePower)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.Mileage)</p>
+            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Car.Mileage)</p>
+        </div>
+    </div>
+
+    <div class="flex-column m-2 px-4">
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.Transmission)</p>
+            <p class="fs-4 text-secondary">@Html.DisplayFor(model => model.Car.Transmission)</p>
+        </div>
+
+        <div>
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.EngineType)</p>
+            <p class="fs-4 text-secondary">@Html.DisplayFor(model => model.Car.EngineType)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Car.EuroStandart)</p>
+            <p class="fs-4 text-secondary">@Html.DisplayFor(model => model.Car.EuroStandart)</p>
+        </div>
+    </div>
 </div>
+
+<form method="post">
+    <input type="hidden" asp-for="Car.Id" />
+    <input type="submit" value="Delete" class="btn btn-danger fw-bold mb-3 mt-3" />
+    <br />
+    <a class="fw-bold btn btn-outline-warning mb-3 mt-3" asp-page="/MyVehicles/Index">Go Back</a>
+</form>
