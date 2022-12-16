@@ -1,0 +1,32 @@
+﻿@page
+@model TopAutoSpot.Views.Buy.MotorcycleListingsModel
+@{
+    ViewData["Title"] = "Motorcycle Listings";
+}
+
+<div class="mb-3 mt-3">
+    <h1 class="fw-bold site-text-color">All Motorcycle Listings</h1>
+    <hr />
+    <br />
+
+    <div class="d-flex flex-row mt-3">
+        @foreach (var motorcycle in Model.Motorcycles)
+        {
+            <div class="d-flex flex-column mx-3 single-car">
+                <a asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@motorcycle.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
+                    <img class="listing-image" src="~/images/noImageFound.png" />
+                    @if (motorcycle.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold listing-title">@string.Join("", motorcycle.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold listing-title">@motorcycle.Title</p>
+                    }
+                    <p class="fs-6 text-dark mb-0"><i>@motorcycle.Location</i></p>
+                    <p class="fs-5 text-dark fw-bold">$@motorcycle.Price</p>
+                </a>
+            </div>
+        }
+    </div>
+</div>

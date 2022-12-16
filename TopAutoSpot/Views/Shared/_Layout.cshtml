@@ -33,9 +33,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-light bg-nav-button fw-bold rounded px-3 mx-1" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light bg-nav-button fw-bold rounded px-3 mx-1" asp-page="/Buy/Index">Buy</a>
-                        </li>
+                        <div class="dropdown">
+                            <button class="btn text-light bg-nav-button dropdown-toggle fw-bold rounded px-3 mx-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Buy</button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="/Buy/CarListings">Cars</a></li>
+                                <li><a class="dropdown-item" href="/Buy/MotorcycleListings">Motorcycles</a></li>
+                                <li><a class="dropdown-item" href="/Buy/BoatListings">Boats</a></li>
+                                <li><a class="dropdown-item" href="/Buy/BusListings">Buses</a></li>
+                                <li><a class="dropdown-item" href="/Buy/TruckListings">Trucks</a></li>
+                                <li><a class="dropdown-item" href="/Buy/TrailerListings">Trailers</a></li>
+                            </ul>
+                        </div>
                         <li class="nav-item">
                             <a class="nav-link text-light bg-nav-button fw-bold rounded px-3 mx-1" asp-page="/Trade/Index">Trade</a>
                         </li>
@@ -55,7 +63,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3 mx-auto text-center">
+        <main role="main" class="mx-auto text-center pb-5 pt-1">
             @RenderBody()
         </main>
     </div>
