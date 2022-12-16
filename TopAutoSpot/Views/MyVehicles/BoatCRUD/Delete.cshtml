@@ -1,0 +1,93 @@
+﻿@page
+@model TopAutoSpot.Views.MyVehicles.BoatCRUD.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1 class="fw-bold text-secondary">Confirm Deletion</h1>
+<h4 class="fw-bold text-danger">Are you sure you want to delete this Boat?</h4>
+<hr />
+<br />
+
+<div class="border border-dark rounded d-flex flex-lg-wrap bg-light mt-3 mb-3 justify-content-center">
+    <div class="flex-column m-2 px-4">
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.Title)</p>
+            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Boat.Title)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.Description)</p>
+            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Boat.Description)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.Make)</p>
+            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Boat.Make)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.Model)</p>
+            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Boat.Model)</p>
+        </div>
+    </div>
+
+    <div class="flex-column m-2 px-4">
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.CreatedAt)</p>
+            <p class="fs-4 site-text-color">@Html.DisplayFor(model => model.Boat.CreatedAt)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.ManufactureDate)</p>
+            <p class="fs-4 site-text-color">@Html.DisplayFor(model => model.Boat.ManufactureDate)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.Material)</p>
+            <p class="fs-4 site-text-color">@Html.DisplayFor(model => model.Boat.Material)</p>
+        </div>
+    </div>
+
+    <div class="flex-column m-2 px-4">
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.Price)</p>
+            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Boat.Price)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.HorsePower)</p>
+            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Boat.HorsePower)</p>
+        </div>
+    </div>
+
+    <div class="flex-column m-2 px-4">
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.EngineCount)</p>
+            <p class="fs-4 text-secondary">@Html.DisplayFor(model => model.Boat.EngineCount)</p>
+        </div>
+
+        <div>
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.EngineType)</p>
+            <p class="fs-4 text-secondary">@Html.DisplayFor(model => model.Boat.EngineType)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.Width)</p>
+            <p class="fs-4 text-secondary">@Html.DisplayFor(model => model.Boat.Width)</p>
+        </div>
+
+        <div class="p-3">
+            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Boat.Length)</p>
+            <p class="fs-4 text-secondary">@Html.DisplayFor(model => model.Boat.Length)</p>
+        </div>
+    </div>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Boat.Id" />
+    <input type="submit" value="Delete" class="btn btn-danger fw-bold mb-3 mt-3" />
+    <br />
+    <a class="fw-bold btn btn-outline-warning mb-3 mt-3" asp-page="/MyVehicles/Index">Go Back</a>
+</form>

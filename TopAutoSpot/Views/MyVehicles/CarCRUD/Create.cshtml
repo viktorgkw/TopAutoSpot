@@ -62,7 +62,6 @@
                 <select asp-for="Car.Transmission" class="form-select">
                     <option value="Automatic">Automatic</option>
                     <option value="Manual">Manual</option>
-                    <option value="Automated Manual">Automated Manual</option>
                 </select>
                 <span asp-validation-for="Car.Transmission" class="text-danger"></span>
             </div>
@@ -89,6 +88,7 @@
                 </select>
                 <span asp-validation-for="Car.EuroStandart" class="text-danger"></span>
             </div>
+
             <div class="form-group mt-3 mb-2">
                 <input type="submit" value="Create" class="btn btn-success fw-bold" />
             </div>

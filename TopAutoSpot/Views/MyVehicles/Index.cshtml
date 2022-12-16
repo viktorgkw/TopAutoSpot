@@ -12,11 +12,11 @@
 
 <p class="text-info fw-bold fs-4">Add New</p>
 <a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/CarCRUD/Create">Car</a>
-<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="">Truck</a>
+<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/TruckCRUD/Create">Truck</a>
 <a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/TrailerCRUD/Create">Trailer</a>
 <a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/MotorcycleCRUD/Create">Motorcycle</a>
-<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="">Boat</a>
-<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="">Bus</a>
+<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/BoatCRUD/Create">Boat</a>
+<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/BusCRUD/Create">Bus</a>
 <hr />
 <br />
 
@@ -56,17 +56,32 @@ else
             <a asp-page="/MyVehicles/TrailerCRUD/Details" asp-route-id="@trailer.Id">Details</a>
             <a asp-page="/MyVehicles/TrailerCRUD/Delete" asp-route-id="@trailer.Id">Delete</a>
         }
-        @foreach (var vehicle in Model.Trucks)
+        @foreach (var truck in Model.Trucks)
         {
-
+            <h1>@truck.Title</h1>
+            <h2>@truck.Make</h2>
+            <h3>@truck.Model</h3>
+            <a asp-page="/MyVehicles/TruckCRUD/Edit" asp-route-id="@truck.Id">Edit</a>
+            <a asp-page="/MyVehicles/TruckCRUD/Details" asp-route-id="@truck.Id">Details</a>
+            <a asp-page="/MyVehicles/TruckCRUD/Delete" asp-route-id="@truck.Id">Delete</a>
         }
-        @foreach (var vehicle in Model.Buses)
+        @foreach (var bus in Model.Buses)
         {
-
+            <h1>@bus.Title</h1>
+            <h2>@bus.Make</h2>
+            <h3>@bus.Model</h3>
+            <a asp-page="/MyVehicles/BusCRUD/Edit" asp-route-id="@bus.Id">Edit</a>
+            <a asp-page="/MyVehicles/BusCRUD/Details" asp-route-id="@bus.Id">Details</a>
+            <a asp-page="/MyVehicles/BusCRUD/Delete" asp-route-id="@bus.Id">Delete</a>
         }
-        @foreach (var vehicle in Model.Boats)
+        @foreach (var boat in Model.Boats)
         {
-
+            <h1>@boat.Title</h1>
+            <h2>@boat.Make</h2>
+            <h3>@boat.Model</h3>
+            <a asp-page="/MyVehicles/BoatCRUD/Edit" asp-route-id="@boat.Id">Edit</a>
+            <a asp-page="/MyVehicles/BoatCRUD/Details" asp-route-id="@boat.Id">Details</a>
+            <a asp-page="/MyVehicles/BoatCRUD/Delete" asp-route-id="@boat.Id">Delete</a>
         }
     </div>
 }

@@ -1,0 +1,115 @@
+﻿@page
+@model TopAutoSpot.Views.MyVehicles.BoatCRUD.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="fw-bold text-secondary">New Boat Description</h1>
+<hr />
+<br />
+
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Boat.CreatedBy" type="hidden" value="BackEndHandled" />
+            <input asp-for="Boat.Id" type="hidden" value=@Guid.NewGuid().ToString() />
+            <input type="date" asp-for="Boat.CreatedAt" value=@DateTime.Now type="hidden" />
+
+            <div class="form-group mb-4">
+                <label asp-for="Boat.Title" class="control-label fw-bold text-info"></label>
+                <input asp-for="Boat.Title" class="form-control" />
+                <span asp-validation-for="Boat.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Boat.Description" class="control-label fw-bold text-info"></label>
+                <input asp-for="Boat.Description" class="form-control" />
+                <span asp-validation-for="Boat.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Boat.Price" class="control-label fw-bold text-info"></label>
+                <input min="0" asp-for="Boat.Price" class="form-control" />
+                <span asp-validation-for="Boat.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Boat.Make" class="control-label fw-bold text-info"></label>
+                <input asp-for="Boat.Make" class="form-control" />
+                <span asp-validation-for="Boat.Make" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Boat.Model" class="control-label fw-bold text-info"></label>
+                <input asp-for="Boat.Model" class="form-control" />
+                <span asp-validation-for="Boat.Model" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Boat.ManufactureDate" class="control-label fw-bold text-info">Manufacture Date</label>
+                <input min="1880-00-00" max="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day" type="date" asp-for="Boat.ManufactureDate" class="form-control" />
+                <span asp-validation-for="Boat.ManufactureDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Boat.HorsePower" class="control-label fw-bold text-info">Horse Power</label>
+                <input min="0" max="2000" asp-for="Boat.HorsePower" class="form-control" />
+                <span asp-validation-for="Boat.HorsePower" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Boat.EngineType" class="control-label fw-bold text-info">Engine Type</label>
+                <select asp-for="Boat.EngineType" class="form-select">
+                    <option value="Diesel">Diesel</option>
+                    <option value="Gasoline">Gasoline</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
+                    <option value="Plug-in Hybrid">Plug-in Hybrid</option>
+                </select>
+                <span asp-validation-for="Boat.EngineType" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Boat.EngineCount" class="control-label fw-bold text-info">Engine Count</label>
+                <select asp-for="Boat.EngineCount" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <span asp-validation-for="Boat.EngineCount" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Boat.Width" class="control-label fw-bold text-info">Width <i class="text-dark">[meters]</i></label>
+                <input min="1" max="450" asp-for="Boat.Width" class="form-control" />
+                <span asp-validation-for="Boat.Width" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Boat.Length" class="control-label fw-bold text-info">Length <i class="text-dark">[meters]</i></label>
+                <input min="1" max="80" asp-for="Boat.Length" class="form-control" />
+                <span asp-validation-for="Boat.Length" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Boat.Material" class="control-label fw-bold text-info">Material</i></label>
+                <select asp-for="Boat.Material" class="form-select">
+                    <option value="Steel">Steel</option>
+                    <option value="Aluminium">Aluminium</option>
+                    <option value="Plastic">Plastic</option>
+                    <option value="Polyethylene">Polyethylene</option>
+                    <option value="Wood">Wood</option>
+                    <option value="Hypalon">Hypalon</option>
+                    <option value="Concrete">Concrete</option>
+                </select>
+                <span asp-validation-for="Boat.Material" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3 mb-2">
+                <input type="submit" value="Create" class="btn btn-success fw-bold" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="fw-bold btn btn-outline-warning mt-3 mb-3" asp-page="/MyVehicles/Index">Go Back</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

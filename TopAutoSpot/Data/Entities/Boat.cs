@@ -18,7 +18,7 @@ namespace TopAutoSpot.Data.Entities
         public string EngineType { get; set; }
         public int EngineCount { get; set; }
         public double Width { get; set; }
-        public double Height { get; set; }
+        public double Length { get; set; }
         public string? Material { get; set; }
     }
 }

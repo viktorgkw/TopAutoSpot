@@ -1,0 +1,129 @@
+﻿@page
+@model TopAutoSpot.Views.MyVehicles.BusCRUD.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="fw-bold text-secondary">Edit Bus</h1>
+<hr />
+<br />
+
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Bus.Id" />
+            <input type="hidden" asp-for="Bus.CreatedBy" />
+            <input type="hidden" asp-for="Bus.CreatedAt" />
+
+            <div class="form-group mb-4">
+                <label asp-for="Bus.Title" class="control-label fw-bold text-info"></label>
+                <input asp-for="Bus.Title" class="form-control" />
+                <span asp-validation-for="Bus.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.Description" class="control-label fw-bold text-info"></label>
+                <input asp-for="Bus.Description" class="form-control" />
+                <span asp-validation-for="Bus.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.Price" class="control-label fw-bold text-info"></label>
+                <input min="0" asp-for="Bus.Price" class="form-control" />
+                <span asp-validation-for="Bus.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.Make" class="control-label fw-bold text-info"></label>
+                <input asp-for="Bus.Make" class="form-control" />
+                <span asp-validation-for="Bus.Make" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.Model" class="control-label fw-bold text-info"></label>
+                <input asp-for="Bus.Model" class="form-control" />
+                <span asp-validation-for="Bus.Model" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.ManufactureDate" class="control-label fw-bold text-info">Manufacture Date</label>
+                <input min="1880-00-00" max="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day" type="date" asp-for="Bus.ManufactureDate" class="form-control" />
+                <span asp-validation-for="Bus.ManufactureDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.HorsePower" class="control-label fw-bold text-info">Horse Power</label>
+                <input min="0" max="2000" asp-for="Bus.HorsePower" class="form-control" />
+                <span asp-validation-for="Bus.HorsePower" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.Mileage" class="control-label fw-bold text-info">Mileage</label>
+                <input min="0" asp-for="Bus.Mileage" class="form-control" />
+                <span asp-validation-for="Bus.Mileage" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.Transmission" class="control-label fw-bold text-info"></label>
+                <select asp-for="Bus.Transmission" class="form-select">
+                    <option value="Automatic">Automatic</option>
+                    <option value="Manual">Manual</option>
+                </select>
+                <span asp-validation-for="Bus.Transmission" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.EngineType" class="control-label fw-bold text-info">Engine Type</label>
+                <select asp-for="Bus.EngineType" class="form-select">
+                    <option value="Diesel">Diesel</option>
+                    <option value="Gasoline">Gasoline</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
+                <span asp-validation-for="Bus.EngineType" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.EuroStandart" class="control-label fw-bold text-info">Euro Standart</label>
+                <select asp-for="Bus.EuroStandart" class="form-select">
+                    <option value="Euro1">Euro1</option>
+                    <option value="Euro2">Euro2</option>
+                    <option value="Euro3">Euro3</option>
+                    <option value="Euro4">Euro4</option>
+                    <option value="Euro5">Euro5</option>
+                    <option value="Euro6">Euro6</option>
+                    <option value="Euro7">Euro7</option>
+                </select>
+                <span asp-validation-for="Bus.EuroStandart" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.AxlesCount" class="control-label fw-bold text-info">Axles Count</label>
+                <select asp-for="Bus.AxlesCount" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+                <span asp-validation-for="Bus.AxlesCount" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.SeatsCount" class="control-label fw-bold text-info">Seats Count</label>
+                <input min="1" max="300" asp-for="Bus.SeatsCount" class="form-control" />
+                <span asp-validation-for="Bus.SeatsCount" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Bus.LoadCapacity" class="control-label fw-bold text-info">Load Capacity</label>
+                <input min="100" max="5000" asp-for="Bus.LoadCapacity" class="form-control" />
+                <span asp-validation-for="Bus.LoadCapacity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3 mb-2">
+                <input type="submit" value="Save" class="btn bg-nav-button text-light fw-bold mb-3" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-3 mb-3">
+    <a class="fw-bold btn btn-outline-warning" asp-page="/MyVehicles/Index">Go Back</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
