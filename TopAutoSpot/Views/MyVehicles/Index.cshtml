@@ -10,13 +10,13 @@
 <p><i>Here you will see all your vehicles.</i></p>
 <hr />
 
-<p class="text-info fw-bold">Add new:</p>
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="/MyVehicles/CarCRUD/Create">Car</a>
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="">Truck</a>
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="">Trailer</a>
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="">Motorcycle</a>
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="">Boat</a>
-<a class="btn btn-outline-info fw-bold mt-2" asp-page="">Bus</a>
+<p class="text-info fw-bold fs-4">Add New</p>
+<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/CarCRUD/Create">Car</a>
+<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="">Truck</a>
+<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/TrailerCRUD/Create">Trailer</a>
+<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="/MyVehicles/MotorcycleCRUD/Create">Motorcycle</a>
+<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="">Boat</a>
+<a class="btn btn-outline-info fw-bold mt-2 mx-1" asp-page="">Bus</a>
 <hr />
 <br />
 
@@ -27,24 +27,34 @@
 }
 else
 {
-    // Display all available vehicles.
+    // Display all owned vehicles.
     <div class="all-vehicles">
-        @foreach (var vehicle in Model.Cars)
+        @foreach (var car in Model.Cars)
         {
-            <h1>@vehicle.Title</h1>
-            <h2>@vehicle.Make</h2>
-            <h3>@vehicle.Model</h3>
-            <a asp-page="/MyVehicles/CarCRUD/Edit" asp-route-id="@vehicle.Id">Edit</a>
-            <a asp-page="/MyVehicles/CarCRUD/Details" asp-route-id="@vehicle.Id">Details</a>
-            <a asp-page="/MyVehicles/CarCRUD/Delete" asp-route-id="@vehicle.Id">Delete</a>
+            <h1>@car.Title</h1>
+            <h2>@car.Make</h2>
+            <h3>@car.Model</h3>
+            <a asp-page="/MyVehicles/CarCRUD/Edit" asp-route-id="@car.Id">Edit</a>
+            <a asp-page="/MyVehicles/CarCRUD/Details" asp-route-id="@car.Id">Details</a>
+            <a asp-page="/MyVehicles/CarCRUD/Delete" asp-route-id="@car.Id">Delete</a>
         }
-        @foreach (var vehicle in Model.Motorcycles)
+        @foreach (var motorcycle in Model.Motorcycles)
         {
-
+            <h1>@motorcycle.Title</h1>
+            <h2>@motorcycle.Make</h2>
+            <h3>@motorcycle.Model</h3>
+            <a asp-page="/MyVehicles/MotorcycleCRUD/Edit" asp-route-id="@motorcycle.Id">Edit</a>
+            <a asp-page="/MyVehicles/MotorcycleCRUD/Details" asp-route-id="@motorcycle.Id">Details</a>
+            <a asp-page="/MyVehicles/MotorcycleCRUD/Delete" asp-route-id="@motorcycle.Id">Delete</a>
         }
-        @foreach (var vehicle in Model.Trailers)
+        @foreach (var trailer in Model.Trailers)
         {
-
+            <h1>@trailer.Title</h1>
+            <h2>@trailer.Description</h2>
+            <h3>@trailer.Price</h3>
+            <a asp-page="/MyVehicles/TrailerCRUD/Edit" asp-route-id="@trailer.Id">Edit</a>
+            <a asp-page="/MyVehicles/TrailerCRUD/Details" asp-route-id="@trailer.Id">Details</a>
+            <a asp-page="/MyVehicles/TrailerCRUD/Delete" asp-route-id="@trailer.Id">Delete</a>
         }
         @foreach (var vehicle in Model.Trucks)
         {
