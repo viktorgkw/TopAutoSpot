@@ -1,0 +1,49 @@
+﻿@page
+@model TopAutoSpot.Views.VehiclePreview.TrailerPreviewModel
+@{
+    var ownerFullName = Model.GetOwnerFullName();
+    var ownerNumber = Model.GetOwnerNumber();
+}
+
+<h1 class="fw-bold site-text-darker-color">@Model.Trailer.Title</h1>
+<hr />
+<br />
+
+<div class="d-flex flex-row justify-content-center mb-5">
+    <div class="column mx-5">
+        <img class="border border-dark rounded preview-vehicle-image" src="~/images/noImageFound.png" />
+    </div>
+
+    <div class="d-flex flex-column column mx-5 justify-content-center">
+        <p class="fw-bold site-text-color fs-4">Price: @Model.Trailer.Price</p>
+        <p class="fw-bold site-text-color fs-4">Listing Created At: @Model.Trailer.CreatedAt.ToString("MM/dd/yyyy")</p>
+        <p class="fw-bold site-text-color fs-4">Location: @Model.Trailer.Location</p>
+        <p class="fw-bold site-text-color fs-4">Manufacture Date: @Model.Trailer.ManufactureDate.ToString("MM/dd/yyyy")</p>
+        <p class="fw-bold site-text-color fs-4">Payload: @Model.Trailer.Payload</p>
+        <p class="fw-bold site-text-color fs-4">Axle Count: @Model.Trailer.AxleCount</p>
+    </div>
+</div>
+
+@if (Model.Trailer.Description != null && Model.Trailer.Description != "")
+{
+    <p class="fw-bold site-text-darker-color fs-3">Description</p>
+    <div class="border border-dark text-start mb-4">
+        @if (Model.Trailer.Description[Model.Trailer.Description.Length - 1].ToString() != ".")
+        {
+            <p class="fw-bold site-text-color fs-5 px-2 pt-2 pb-2">@Model.Trailer.Description.</p>
+        }
+        else
+        {
+            <p class="fw-bold site-text-color fs-5 px-2 pt-2 pb-2">@Model.Trailer.Description</p>
+        }
+    </div>
+}
+
+<div class="mt-5">
+    <h2 class="site-text-darker-color fw-bold fs-3">Vehicle Owner Info</h2>
+    <p class="fw-bold site-text-color fs-5">@ownerFullName</p>
+    @if (ownerNumber != null)
+    {
+        <p class="fw-bold site-text-color fs-5">Phone Number: @ownerNumber</p>
+    }
+</div>

@@ -12,7 +12,7 @@
         @foreach (var truck in Model.Trucks)
         {
             <div class="d-flex flex-column mx-3 single-car">
-                <a asp-page="/VehiclePreview/CarPreview" asp-route-id="@truck.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
+                <a asp-page="/VehiclePreview/TruckPreview" asp-route-id="@truck.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
                     <img class="listing-image" src="~/images/noImageFound.png" />
                     @if (truck.Title.Length > 22)
                     {

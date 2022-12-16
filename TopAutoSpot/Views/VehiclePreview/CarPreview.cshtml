@@ -1,6 +1,8 @@
 ﻿@page
 @model TopAutoSpot.Views.VehiclePreview.CarPreviewModel
 @{
+    var ownerFullName = Model.GetOwnerFullName();
+    var ownerNumber = Model.GetOwnerNumber();
 }
 
 <h1 class="fw-bold site-text-darker-color">@Model.Car.Title</h1>
@@ -14,30 +16,44 @@
     </div>
 
     <div class="d-flex flex-column column mx-5 justify-content-center">
+        <p class="fw-bold site-text-color fs-4">Price: @Model.Car.Price</p>
         <p class="fw-bold site-text-color fs-4">Listing Created At: @Model.Car.CreatedAt.ToString("MM/dd/yyyy")</p>
         <p class="fw-bold site-text-color fs-4">Location: @Model.Car.Location</p>
         <p class="fw-bold site-text-color fs-4">Manufacture Date: @Model.Car.ManufactureDate.ToString("MM/dd/yyyy")</p>
-        <p class="fw-bold site-text-color fs-4">Horse Power: @Model.Car.HorsePower</p>
-        <p class="fw-bold site-text-color fs-4">Mileage: @Model.Car.Mileage</p>
+        @if (Model.Car.Mileage != null)
+        {
+            <p class="fw-bold site-text-color fs-4">Mileage: @Model.Car.Mileage</p>
+        }
+        @if (Model.Car.HorsePower != null)
+        {
+            <p class="fw-bold site-text-color fs-4">Horse Power: @Model.Car.HorsePower</p>
+        }
         <p class="fw-bold site-text-color fs-4">Transmission: @Model.Car.Transmission</p>
         <p class="fw-bold site-text-color fs-4">Engine Type: @Model.Car.EngineType</p>
         <p class="fw-bold site-text-color fs-4">Euro Standart: @Model.Car.EuroStandart</p>
     </div>
 </div>
 
-<p class="fw-bold site-text-darker-color fs-3">Description</p>
-<div class="border border-dark text-start mb-4">
-    @if (Model.Car.Description[Model.Car.Description.Length - 1].ToString() != ".")
-    {
-        <p class="fw-bold site-text-color fs-5 px-2 pt-2 pb-2">@Model.Car.Description.</p>
-    }
-    else
-    {
-        <p class="fw-bold site-text-color fs-5 px-2 pt-2 pb-2">@Model.Car.Description</p>
-    }
-</div>
+@if (Model.Car.Description != null && Model.Car.Description != "")
+{
+    <p class="fw-bold site-text-darker-color fs-3">Description</p>
+    <div class="border border-dark text-start mb-4">
+        @if (Model.Car.Description[Model.Car.Description.Length - 1].ToString() != ".")
+        {
+            <p class="fw-bold site-text-color fs-5 px-2 pt-2 pb-2">@Model.Car.Description.</p>
+        }
+        else
+        {
+            <p class="fw-bold site-text-color fs-5 px-2 pt-2 pb-2">@Model.Car.Description</p>
+        }
+    </div>
+}
 
 <div class="mt-5">
-    <h2 class="site-text-darker-color fw-bold fs-3">Vehicle Owner Contacts</h2>
-    <p class="fw-bold site-text-color fs-5">Phone Number: @Model.GetOwnerNumber()</p>
+    <h2 class="site-text-darker-color fw-bold fs-3">Vehicle Owner Info</h2>
+    <p class="fw-bold site-text-color fs-5">@ownerFullName</p>
+    @if (ownerNumber != null)
+    {
+        <p class="fw-bold site-text-color fs-5">Phone Number: @ownerNumber</p>
+    }
 </div>

@@ -1,37 +1,37 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
+using TopAutoSpot.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TopAutoSpot.Views.VehiclePreview
 {
-    public class CarPreviewModel : PageModel
+    public class MotorcyclePreviewModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 
-        public CarPreviewModel(ApplicationDbContext context)
+        public MotorcyclePreviewModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public Car Car { get; set; } = default!;
+        public Motorcycle Motorcycle { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _context.Cars == null)
+            if (id == null || _context.Motorcycles == null)
             {
                 return NotFound();
             }
 
-            var car = await _context.Cars.FirstOrDefaultAsync(m => m.Id == id);
-            if (car == null)
+            var moto = await _context.Motorcycles.FirstOrDefaultAsync(m => m.Id == id);
+            if (moto == null)
             {
                 return NotFound();
             }
             else
             {
-                Car = car;
+                Motorcycle = moto;
             }
             return Page();
         }
@@ -39,7 +39,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public string GetOwnerNumber()
         {
             var foundUser = _context.Users
-                .First(u => u.Id == Car.CreatedBy);
+                .First(u => u.Id == Motorcycle.CreatedBy);
 
             return foundUser.PhoneNumber;
         }
@@ -47,7 +47,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public string GetOwnerFullName()
         {
             var foundUser = _context.Users
-                .First(u => u.Id == Car.CreatedBy);
+                .First(u => u.Id == Motorcycle.CreatedBy);
 
             return foundUser.FirstName + " " + foundUser.LastName;
         }
