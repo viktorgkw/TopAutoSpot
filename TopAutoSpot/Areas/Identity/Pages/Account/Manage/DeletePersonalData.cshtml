@@ -5,11 +5,7 @@
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<h2 class="fw-bold text-success pb-4">@ViewData["Title"]</h2>
-
-<div class="alert alert-warning" role="alert">
-    <p class="fw-bold">Deleting this data will permanently remove your account, and this cannot be recovered!</p>
-</div>
+<h2 class="fw-bold text-danger pb-4">@ViewData["Title"]</h2>
 
 <div>
     <form id="delete-user" method="post">

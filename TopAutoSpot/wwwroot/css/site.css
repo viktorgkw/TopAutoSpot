@@ -33,19 +33,62 @@ body {
     height: 100%;
 }
 
-.aboveHeaderImage {
-    width: 75%;
-    height: 384px;
+hr {
+    border-top: 2px solid;
+}
+
+.website-text-nohover {
+    color: #6320EE;
+}
+
+.website-text-darker-nohover {
+    color: #4710B6;
+}
+
+.website-text-main {
+    color: #6320EE !important;
+}
+
+.website-text-main:hover {
+    color: #8075FF !important;
+}   
+
+.website-background-main {
+    background-color: #6320EE;
+}
+
+.website-background-main:hover {
+    background-color: #8075FF;
+}
+
+.website-background-lighter {
+    background-color: #6320EE;
+    color: white;
+}
+
+.website-background-lighter:hover {
+    background-color: #8075FF;
+    color: white;
+}
+
+.website-text-darker {
+    color: #6320EE !important;
+}
+
+.website-text-darker:hover {
+    color: #4710B6 !important;
 }
 
 .listing-image {
     width: 256px;
     height: 256px;
+    object-fit: cover;
 }
 
 .preview-vehicle-image {
-    width: 512px;
+    width: 768px;
     height: 512px;
+    object-fit: fill;
 }
 
 .single-car {
@@ -53,40 +96,12 @@ body {
     height: 512px;
 }
 
-.listing-title{
+.listing-title {
     height: 64px;
 }
 
-.site-text-color {
-    color: #3fc473;
-}
-
-.site-text-color-btn {
-    color: #3fc473;
-}
-
-.site-text-color-btn:hover {
-    color: #2ba159;
-}
-
-.site-text-darker-color {
-    color: #2ba159;
-}
-
-.bg-nav-button {
-    background-color: #3fc473;
-}
-
-.bg-nav-button:hover {
-    background-color: #2ba159;
-}
-
-.font-nav-color {
-    color: #3fc473;
-}
-
 .footer-text {
-    color: #3fc473 !important;
+    color: #948AFF !important;
 }
 
 .footer-text:hover {
@@ -102,14 +117,14 @@ ul {
 }
 
 .nav-link {
-    color: #3fc473;
+    color: #6320EE;
 }
 
 
 .nav-item > a:hover {
-    color: #3fc473;
+    color: #8075FF;
 }
 
 .nav-item > a.nav-link.active {
-    background-color: #3fc473;
+    background-color: #37069A;
 }

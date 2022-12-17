@@ -5,65 +5,70 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1 class="fw-bold text-secondary">Edit Motorcycle </h1>
+<h1 class="fw-bold text-dark">Edit Motorcycle </h1>
 <hr />
 <br />
 
-<div class="row">
-    <div class="col-md-4 mx-auto">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Motorcycle.Id" />
-            <input type="hidden" asp-for="Motorcycle.CreatedBy" />
-            <input type="hidden" asp-for="Motorcycle.CreatedAt" />
+<div class="col-md-4 mx-auto">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Motorcycle.Id" />
+        <input type="hidden" asp-for="Motorcycle.CreatedBy" />
+        <input type="hidden" asp-for="Motorcycle.CreatedAt" />
+
+        <div class="m-2 px-4">
+            <div class="form-group mb-4">
+                <label asp-for="VehicleImage.ImageData" class="control-label fw-bold website-text-nohover mb-2">Select Images</label>
+                <input asp-for="VehicleImage.ImageData" name="Images" type="file" multiple>
+            </div>
 
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.Title" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.Title" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Motorcycle.Title" class="form-control" />
                 <span asp-validation-for="Motorcycle.Title" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.Description" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.Description" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Motorcycle.Description" class="form-control" />
                 <span asp-validation-for="Motorcycle.Description" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.Location" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.Location" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Motorcycle.Location" class="form-control" />
                 <span asp-validation-for="Motorcycle.Location" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.Price" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.Price" class="control-label fw-bold website-text-nohover"></label>
                 <input min="0" asp-for="Motorcycle.Price" class="form-control" />
                 <span asp-validation-for="Motorcycle.Price" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.Make" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.Make" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Motorcycle.Make" class="form-control" />
                 <span asp-validation-for="Motorcycle.Make" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.Model" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.Model" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Motorcycle.Model" class="form-control" />
                 <span asp-validation-for="Motorcycle.Model" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.ManufactureDate" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.ManufactureDate" class="control-label fw-bold website-text-nohover"></label>
                 <input min="1880-00-00" max="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day" type="date" asp-for="Motorcycle.ManufactureDate" class="form-control" />
                 <span asp-validation-for="Motorcycle.ManufactureDate" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.HorsePower" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.HorsePower" class="control-label fw-bold website-text-nohover"></label>
                 <input min="0" max="2000" asp-for="Motorcycle.HorsePower" class="form-control" />
                 <span asp-validation-for="Motorcycle.HorsePower" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.Mileage" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.Mileage" class="control-label fw-bold website-text-nohover"></label>
                 <input min="0" max="5000000" asp-for="Motorcycle.Mileage" class="form-control" />
                 <span asp-validation-for="Motorcycle.Mileage" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.Transmission" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.Transmission" class="control-label fw-bold website-text-nohover"></label>
                 <select asp-for="Motorcycle.Transmission" class="form-select">
                     <option value="Automatic">Automatic</option>
                     <option value="Manual">Manual</option>
@@ -71,7 +76,7 @@
                 <span asp-validation-for="Motorcycle.Transmission" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.EngineType" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.EngineType" class="control-label fw-bold website-text-nohover"></label>
                 <select asp-for="Motorcycle.EngineType" class="form-select">
                     <option value="Gasoline">Gasoline</option>
                     <option value="Electric">Electric</option>
@@ -80,12 +85,12 @@
                 <span asp-validation-for="Motorcycle.EngineType" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.CubicCapacity" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.CubicCapacity" class="control-label fw-bold website-text-nohover"></label>
                 <input min="0" max="2500" asp-for="Motorcycle.CubicCapacity" class="form-control" />
                 <span asp-validation-for="Motorcycle.CubicCapacity" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.EngineStrokes" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.EngineStrokes" class="control-label fw-bold website-text-nohover"></label>
                 <select asp-for="Motorcycle.EngineStrokes" class="form-select">
                     <option value="2">2 Stroke</option>
                     <option value="4">4 Stroke</option>
@@ -93,7 +98,7 @@
                 <span asp-validation-for="Motorcycle.EngineStrokes" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Motorcycle.CoolingType" class="control-label fw-bold text-info"></label>
+                <label asp-for="Motorcycle.CoolingType" class="control-label fw-bold website-text-nohover"></label>
                 <select asp-for="Motorcycle.CoolingType" class="form-select">
                     <option value="AirCooled">AirCooled</option>
                     <option value="LiquidCooled">LiquidCooled</option>
@@ -102,16 +107,18 @@
             </div>
 
             <div class="form-group mt-3 mb-2">
-                <input type="submit" value="Save" class="btn bg-nav-button text-light fw-bold mb-3" />
+                <input type="submit" value="Save" class="btn website-background-lighter text-light fw-bold mb-3" />
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 <div class="mt-3 mb-3">
-    <a class="fw-bold btn btn-outline-warning" asp-page="/MyVehicles/Index">Go Back</a>
+    <a class="fw-bold btn btn-outline-secondary" asp-page="/MyVehicles/Index">Go Back</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -5,65 +5,70 @@
     ViewData["Title"] = "Create";
 }
 
-<h1 class="fw-bold text-secondary">New Truck Description</h1>
+<h1 class="fw-bold text-dark">New Truck Description</h1>
 <hr />
 <br />
 
-<div class="row">
-    <div class="col-md-4 mx-auto">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="Truck.CreatedBy" type="hidden" value="BackEndHandled" />
-            <input asp-for="Truck.Id" type="hidden" value=@Guid.NewGuid().ToString() />
-            <input type="date" asp-for="Truck.CreatedAt" value=@DateTime.Now type="hidden" />
+<div class="col-md-4 mx-auto">
+    <form method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="Truck.CreatedBy" type="hidden" value="BackEndHandled" />
+        <input asp-for="Truck.Id" type="hidden" value=@Guid.NewGuid().ToString() />
+        <input type="date" asp-for="Truck.CreatedAt" value=@DateTime.Now type="hidden" />
+
+        <div class="m-2 px-4">
+            <div class="form-group mb-4">
+                <label asp-for="VehicleImage.ImageData" class="control-label fw-bold website-text-nohover mb-2">Select Images</label>
+                <input asp-for="VehicleImage.ImageData" name="Images" type="file" multiple>
+            </div>
 
             <div class="form-group mb-4">
-                <label asp-for="Truck.Title" class="control-label fw-bold text-info"></label>
+                <label asp-for="Truck.Title" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Truck.Title" class="form-control" />
                 <span asp-validation-for="Truck.Title" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.Description" class="control-label fw-bold text-info"></label>
+                <label asp-for="Truck.Description" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Truck.Description" class="form-control" />
                 <span asp-validation-for="Truck.Description" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.Location" class="control-label fw-bold text-info"></label>
+                <label asp-for="Truck.Location" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Truck.Location" class="form-control" />
                 <span asp-validation-for="Truck.Location" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.Price" class="control-label fw-bold text-info"></label>
+                <label asp-for="Truck.Price" class="control-label fw-bold website-text-nohover"></label>
                 <input min="0" asp-for="Truck.Price" class="form-control" />
                 <span asp-validation-for="Truck.Price" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.Make" class="control-label fw-bold text-info"></label>
+                <label asp-for="Truck.Make" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Truck.Make" class="form-control" />
                 <span asp-validation-for="Truck.Make" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.Model" class="control-label fw-bold text-info"></label>
+                <label asp-for="Truck.Model" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Truck.Model" class="form-control" />
                 <span asp-validation-for="Truck.Model" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.ManufactureDate" class="control-label fw-bold text-info">Manufacture Date</label>
+                <label asp-for="Truck.ManufactureDate" class="control-label fw-bold website-text-nohover">Manufacture Date</label>
                 <input min="1880-00-00" max="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day" type="date" asp-for="Truck.ManufactureDate" class="form-control" />
                 <span asp-validation-for="Truck.ManufactureDate" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.HorsePower" class="control-label fw-bold text-info">Horse Power</label>
+                <label asp-for="Truck.HorsePower" class="control-label fw-bold website-text-nohover">Horse Power</label>
                 <input min="0" max="2000" asp-for="Truck.HorsePower" class="form-control" />
                 <span asp-validation-for="Truck.HorsePower" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.Mileage" class="control-label fw-bold text-info"></label>
+                <label asp-for="Truck.Mileage" class="control-label fw-bold website-text-nohover"></label>
                 <input min="0" max="5000000" asp-for="Truck.Mileage" class="form-control" />
                 <span asp-validation-for="Truck.Mileage" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.Transmission" class="control-label fw-bold text-info"></label>
+                <label asp-for="Truck.Transmission" class="control-label fw-bold website-text-nohover"></label>
                 <select asp-for="Truck.Transmission" class="form-select">
                     <option value="Automatic">Automatic</option>
                     <option value="Manual">Manual</option>
@@ -71,7 +76,7 @@
                 <span asp-validation-for="Truck.Transmission" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.EngineType" class="control-label fw-bold text-info">Engine Type</label>
+                <label asp-for="Truck.EngineType" class="control-label fw-bold website-text-nohover">Engine Type</label>
                 <select asp-for="Truck.EngineType" class="form-select">
                     <option value="Diesel">Diesel</option>
                     <option value="Gasoline">Gasoline</option>
@@ -81,7 +86,7 @@
                 <span asp-validation-for="Truck.EngineType" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.EuroStandart" class="control-label fw-bold text-info">Euro Standart</label>
+                <label asp-for="Truck.EuroStandart" class="control-label fw-bold website-text-nohover">Euro Standart</label>
                 <select asp-for="Truck.EuroStandart" class="form-select">
                     <option value="Euro1">Euro1</option>
                     <option value="Euro2">Euro2</option>
@@ -94,12 +99,12 @@
                 <span asp-validation-for="Truck.EuroStandart" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.Payload" class="control-label fw-bold text-info"></label>
+                <label asp-for="Truck.Payload" class="control-label fw-bold website-text-nohover"></label>
                 <input min="100" max="12000" asp-for="Truck.Payload" class="form-control" />
                 <span asp-validation-for="Truck.Payload" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Truck.AxlesCount" class="control-label fw-bold text-info">Axles Count</label>
+                <label asp-for="Truck.AxlesCount" class="control-label fw-bold website-text-nohover">Axles Count</label>
                 <select asp-for="Truck.AxlesCount" class="form-select">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -112,14 +117,14 @@
             </div>
 
             <div class="form-group mt-3 mb-2">
-                <input type="submit" value="Create" class="btn btn-success fw-bold" />
+                <input type="submit" value="Create" class="btn website-background-lighter fw-bold" />
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 <div>
-    <a class="fw-bold btn btn-outline-warning mt-3 mb-3" asp-page="/MyVehicles/Index">Go Back</a>
+    <a class="fw-bold btn btn-outline-secondary mt-3 mb-3" asp-page="/MyVehicles/Index">Go Back</a>
 </div>
 
 @section Scripts {

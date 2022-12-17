@@ -17,6 +17,7 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
 
         [BindProperty]
         public Car Car { get; set; } = default!;
+        public VehicleImage VehicleImage { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -34,7 +35,7 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(List<IFormFile> Images)
         {
             // This here is for debugging purposes :D
             //var errors = ModelState.Select(x => x.Value.Errors)
@@ -49,6 +50,7 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
 
             try
             {
+                await AddImagesToVehicle(Images, Car.Id);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -69,6 +71,61 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
         private bool CarExists(string id)
         {
             return (_context.Cars?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private async Task AddImagesToVehicle(List<IFormFile> images, string vehicleId)
+        {
+            images = FilterImages(images);
+
+            if (images.Count > 0)
+            {
+                await RemoveExistingVehicleImages(vehicleId);
+
+                foreach (IFormFile image in images)
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        await image.CopyToAsync(ms);
+
+                        var vehicleImage = new VehicleImage()
+                        {
+
+                            Id = Guid.NewGuid().ToString(),
+                            ImageName = image.FileName,
+                            ImageData = ms.ToArray(),
+                            VehicleId = vehicleId,
+                        };
+
+                        await _context.VehicleImages.AddAsync(vehicleImage);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+            }
+        }
+
+        private async Task RemoveExistingVehicleImages(string vehicleId)
+        {
+            var foundImages = await _context.VehicleImages
+                .Where(i => i.VehicleId == vehicleId)
+                .ToListAsync();
+
+            foreach (var img in foundImages)
+            {
+                _context.Remove(img);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        private List<IFormFile> FilterImages(List<IFormFile> images)
+        {
+            images = images
+                .Where(i =>
+                    i.FileName.EndsWith(".png") ||
+                    i.FileName.EndsWith(".jpeg") ||
+                    i.FileName.EndsWith(".jpg"))
+                .ToList();
+
+            return images;
         }
     }
 }

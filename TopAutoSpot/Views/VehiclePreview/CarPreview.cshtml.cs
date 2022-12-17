@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
@@ -16,6 +17,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         }
 
         public Car Car { get; set; } = default!;
+        public List<VehicleImage> Images { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -33,6 +35,8 @@ namespace TopAutoSpot.Views.VehiclePreview
             {
                 Car = car;
             }
+
+            Images = _context.VehicleImages.Where(img => img.VehicleId == car.Id).ToList();
             return Page();
         }
 
@@ -49,7 +53,26 @@ namespace TopAutoSpot.Views.VehiclePreview
             var foundUser = _context.Users
                 .First(u => u.Id == Car.CreatedBy);
 
-            return foundUser.FirstName + " " + foundUser.LastName;
+            return foundUser.FirstName + " " + foundUser.LastName == " " ? foundUser.UserName :
+                foundUser.FirstName + " " + foundUser.LastName;
+        }
+
+        public string GetImage()
+        {
+            var data = _context.VehicleImages.Where(img => img.VehicleId == Car.Id).First().ImageData;
+            string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
+            return imgDataURL;
+        }
+
+        public bool HasAnyImages()
+        {
+            return _context.VehicleImages.Where(img => img.VehicleId == Car.Id).ToList().Count > 0;
+        }
+
+        public string GetImageSource(VehicleImage img)
+        {
+            string imgDataURL = "data:image;base64," + Convert.ToBase64String(img.ImageData);
+            return imgDataURL;
         }
     }
 }

@@ -17,6 +17,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 
         [BindProperty]
         public Boat Boat { get; set; } = default!;
+        public List<VehicleImage> Images { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -25,7 +26,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
                 return NotFound();
             }
 
-            var boat = await _context.Boats.FirstOrDefaultAsync(b => b.Id == id);
+            var boat = await _context.Boats.FirstOrDefaultAsync(m => m.Id == id);
 
             if (boat == null)
             {
@@ -35,6 +36,8 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
             {
                 Boat = boat;
             }
+
+            Images = _context.VehicleImages.Where(img => img.VehicleId == boat.Id).ToList();
             return Page();
         }
 
@@ -48,12 +51,34 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 
             if (boat != null)
             {
+                RemoveVehicleImages(boat.Id);
+
                 Boat = boat;
                 _context.Boats.Remove(Boat);
                 await _context.SaveChangesAsync();
             }
 
             return RedirectToPage("/MyVehicles/Index");
+        }
+
+        private void RemoveVehicleImages(string vehicleId)
+        {
+            var images = _context.VehicleImages.Where(i => i.VehicleId == vehicleId).ToList();
+
+            if (images.Count > 0)
+            {
+                foreach (var image in images)
+                {
+                    _context.VehicleImages.Remove(image);
+                    _context.SaveChanges();
+                }
+            }
+        }
+
+        public string GetImageSource(VehicleImage img)
+        {
+            string imgDataURL = "data:image;base64," + Convert.ToBase64String(img.ImageData);
+            return imgDataURL;
         }
     }
 }

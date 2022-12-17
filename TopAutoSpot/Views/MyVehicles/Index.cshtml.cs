@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
@@ -7,7 +8,7 @@ namespace TopAutoSpot.Views.MyVehicles
 {
     public class IndexModel : PageModel
     {
-        private ApplicationDbContext _context;
+        public ApplicationDbContext _context;
         public IndexModel(ApplicationDbContext db)
         {
             _context = db;
@@ -53,6 +54,18 @@ namespace TopAutoSpot.Views.MyVehicles
 
             OverallCount = Boats.Count + Buses.Count + Cars.Count +
                     Motorcycles.Count + Trailers.Count + Trucks.Count;
+        }
+
+        public string GetImage(string carId)
+        {
+            var data = _context.VehicleImages.First().ImageData;
+            string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
+            return imgDataURL;
+        }
+
+        public bool HasAnyImages(string carId)
+        {
+            return _context.VehicleImages.Where(img => img.VehicleId == carId).ToList().Count > 0;
         }
     }
 }

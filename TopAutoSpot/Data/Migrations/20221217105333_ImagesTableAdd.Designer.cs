@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TopAutoSpot.Data;
 
@@ -11,9 +12,11 @@ using TopAutoSpot.Data;
 namespace TopAutoSpot.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221217105333_ImagesTableAdd")]
+    partial class ImagesTableAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -597,6 +600,9 @@ namespace TopAutoSpot.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("CarId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<byte[]>("ImageData")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -605,11 +611,9 @@ namespace TopAutoSpot.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VehicleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CarId");
 
                     b.ToTable("VehicleImages");
                 });
@@ -663,6 +667,18 @@ namespace TopAutoSpot.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TopAutoSpot.Data.Entities.VehicleImage", b =>
+                {
+                    b.HasOne("TopAutoSpot.Data.Entities.Car", null)
+                        .WithMany("VehicleImages")
+                        .HasForeignKey("CarId");
+                });
+
+            modelBuilder.Entity("TopAutoSpot.Data.Entities.Car", b =>
+                {
+                    b.Navigation("VehicleImages");
                 });
 #pragma warning restore 612, 618
         }

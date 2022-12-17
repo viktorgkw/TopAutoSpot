@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TopAutoSpot;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
