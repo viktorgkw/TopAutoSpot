@@ -10,7 +10,6 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
     [Authorize]
     public class CreateModel : PageModel
     {
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         protected readonly ApplicationDbContext _context;
 
         public CreateModel(ApplicationDbContext context)
@@ -48,7 +47,7 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
 
         private async Task AddImagesToVehicle(List<IFormFile> images, string vehicleId)
         {
-            // Filter images
+            
             images = images
                 .Where(i =>
                     i.FileName.EndsWith(".png") ||

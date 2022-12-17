@@ -45,7 +45,7 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
 
         private async Task AddImagesToVehicle(List<IFormFile> images, string vehicleId)
         {
-            // Filter images
+            
             images = images
                 .Where(i =>
                     i.FileName.EndsWith(".png") ||
