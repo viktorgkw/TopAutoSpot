@@ -39,10 +39,6 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
 
         public async Task<IActionResult> OnPostAsync(List<IFormFile> Images)
         {
-            // This here is for debugging purposes :D
-            //var errors = ModelState.Select(x => x.Value.Errors)
-            //               .Where(y => y.Count > 0)
-            //               .ToList();
             if (!ModelState.IsValid)
             {
                 return Page();
