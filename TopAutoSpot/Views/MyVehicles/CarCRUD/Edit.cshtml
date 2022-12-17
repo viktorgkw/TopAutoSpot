@@ -5,65 +5,72 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1 class="fw-bold text-secondary">Edit Car</h1>
+<h1 class="fw-bold text-dark">Edit Car</h1>
 <hr />
 <br />
 
-<div class="row">
-    <div class="col-md-4 mx-auto">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Car.Id" />
-            <input type="hidden" asp-for="Car.CreatedBy" />
-            <input type="hidden" asp-for="Car.CreatedAt" />
+<div class="col-md-4 mx-auto">
+    <form method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Car.Id" />
+        <input type="hidden" asp-for="Car.CreatedBy" />
+        <input type="hidden" asp-for="Car.CreatedAt" />
+
+        <div class="m-2 px-4">
+            <div class="form-group mb-4">
+                <label asp-for="VehicleImage.ImageData" class="control-label fw-bold website-text-nohover mb-2">Select Images</label>
+                <input asp-for="VehicleImage.ImageData" name="Images" type="file" multiple>
+            </div>
 
             <div class="form-group mb-4">
-                <label asp-for="Car.Title" class="control-label fw-bold text-info"></label>
+                <label asp-for="Car.Title" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Car.Title" class="form-control" />
                 <span asp-validation-for="Car.Title" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.Description" class="control-label fw-bold text-info"></label>
+                <label asp-for="Car.Description" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Car.Description" class="form-control" />
                 <span asp-validation-for="Car.Description" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.Location" class="control-label fw-bold text-info"></label>
+                <label asp-for="Car.Location" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Car.Location" class="form-control" />
                 <span asp-validation-for="Car.Location" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.Price" class="control-label fw-bold text-info"></label>
-                <input asp-for="Car.Price" class="form-control" />
+                <label asp-for="Car.Price" class="control-label fw-bold website-text-nohover"></label>
+                <input min="0" asp-for="Car.Price" class="form-control" />
                 <span asp-validation-for="Car.Price" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.Make" class="control-label fw-bold text-info"></label>
+                <label asp-for="Car.Make" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Car.Make" class="form-control" />
                 <span asp-validation-for="Car.Make" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.Model" class="control-label fw-bold text-info"></label>
+                <label asp-for="Car.Model" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Car.Model" class="form-control" />
                 <span asp-validation-for="Car.Model" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.ManufactureDate" class="control-label fw-bold text-info">Manufacture Date</label>
+                <label asp-for="Car.ManufactureDate" class="control-label fw-bold website-text-nohover">Manufacture Date</label>
                 <input min="1880-00-00" max="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day" type="date" asp-for="Car.ManufactureDate" class="form-control" />
                 <span asp-validation-for="Car.ManufactureDate" class="text-danger"></span>
             </div>
+        </div>
+        <div class="m-2 px-4">
             <div class="form-group mb-4">
-                <label asp-for="Car.HorsePower" class="control-label fw-bold text-info">Horse Power</label>
+                <label asp-for="Car.HorsePower" class="control-label fw-bold website-text-nohover">Horse Power</label>
                 <input min="0" max="2000" asp-for="Car.HorsePower" class="form-control" />
                 <span asp-validation-for="Car.HorsePower" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.Mileage" class="control-label fw-bold text-info"></label>
+                <label asp-for="Car.Mileage" class="control-label fw-bold website-text-nohover"></label>
                 <input min="0" max="5000000" asp-for="Car.Mileage" class="form-control" />
                 <span asp-validation-for="Car.Mileage" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.Transmission" class="control-label fw-bold text-info"></label>
+                <label asp-for="Car.Transmission" class="control-label fw-bold website-text-nohover"></label>
                 <select asp-for="Car.Transmission" class="form-select">
                     <option value="Automatic">Automatic</option>
                     <option value="Manual">Manual</option>
@@ -71,7 +78,7 @@
                 <span asp-validation-for="Car.Transmission" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.EngineType" class="control-label fw-bold text-info">Engine Type</label>
+                <label asp-for="Car.EngineType" class="control-label fw-bold website-text-nohover">Engine Type</label>
                 <select asp-for="Car.EngineType" class="form-select">
                     <option value="Diesel">Diesel</option>
                     <option value="Gasoline">Gasoline</option>
@@ -81,7 +88,7 @@
                 <span asp-validation-for="Car.EngineType" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Car.EuroStandart" class="control-label fw-bold text-info">Euro Standart</label>
+                <label asp-for="Car.EuroStandart" class="control-label fw-bold website-text-nohover">Euro Standart</label>
                 <select asp-for="Car.EuroStandart" class="form-select">
                     <option value="Euro1">Euro1</option>
                     <option value="Euro2">Euro2</option>
@@ -93,15 +100,16 @@
                 </select>
                 <span asp-validation-for="Car.EuroStandart" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3 mb-2">
-                <input type="submit" value="Save" class="btn bg-nav-button text-light fw-bold mb-3" />
-            </div>
-        </form>
-    </div>
+        </div>
+
+        <div class="form-group mt-3 mb-2">
+            <input type="submit" value="Save" class="btn website-background-lighter fw-bold mb-3" />
+        </div>
+    </form>
 </div>
 
 <div class="mt-3 mb-3">
-    <a class="fw-bold btn btn-outline-warning" asp-page="/MyVehicles/Index">Go Back</a>
+    <a class="fw-bold btn btn-outline-secondary" asp-page="/MyVehicles/Index">Go Back</a>
 </div>
 
 @section Scripts {

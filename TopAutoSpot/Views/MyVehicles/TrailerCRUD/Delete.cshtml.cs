@@ -17,6 +17,7 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
 
         [BindProperty]
         public Trailer Trailer { get; set; } = default!;
+        public List<VehicleImage> Images { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -25,7 +26,7 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
                 return NotFound();
             }
 
-            var trailer = await _context.Trailers.FirstOrDefaultAsync(t => t.Id == id);
+            var trailer = await _context.Trailers.FirstOrDefaultAsync(m => m.Id == id);
 
             if (trailer == null)
             {
@@ -35,6 +36,8 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
             {
                 Trailer = trailer;
             }
+
+            Images = _context.VehicleImages.Where(img => img.VehicleId == trailer.Id).ToList();
             return Page();
         }
 
@@ -48,12 +51,34 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
 
             if (trailer != null)
             {
+                RemoveVehicleImages(trailer.Id);
+
                 Trailer = trailer;
                 _context.Trailers.Remove(Trailer);
                 await _context.SaveChangesAsync();
             }
 
             return RedirectToPage("/MyVehicles/Index");
+        }
+
+        private void RemoveVehicleImages(string vehicleId)
+        {
+            var images = _context.VehicleImages.Where(i => i.VehicleId == vehicleId).ToList();
+
+            if (images.Count > 0)
+            {
+                foreach (var image in images)
+                {
+                    _context.VehicleImages.Remove(image);
+                    _context.SaveChanges();
+                }
+            }
+        }
+
+        public string GetImageSource(VehicleImage img)
+        {
+            string imgDataURL = "data:image;base64," + Convert.ToBase64String(img.ImageData);
+            return imgDataURL;
         }
     }
 }

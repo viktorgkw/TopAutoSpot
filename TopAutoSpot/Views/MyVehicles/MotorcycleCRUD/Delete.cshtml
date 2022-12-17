@@ -4,99 +4,52 @@
 @{
     ViewData["Title"] = "Delete";
 }
-<h1 class="fw-bold text-secondary">Confirm Deletion</h1>
-<h4 class="fw-bold text-danger">Are you sure you want to delete this Motorcycle?</h4>
+<h1 class="fw-bold text-dark">Confirm Deletion</h1>
+<h4 class="fw-bold text-danger">Are you sure you want to delete this motorcycle?</h4>
 <hr />
 <br />
 
-<div class="border border-dark rounded d-flex flex-lg-wrap bg-light mt-3 mb-3 justify-content-center">
-    <div class="flex-column m-2 px-4">
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.CreatedAt)</p>
-            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Motorcycle.CreatedAt)</p>
-        </div>
-
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.Title)</p>
-            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Motorcycle.Title)</p>
-        </div>
-
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.Description)</p>
-            <p class="fs-4 text-warning">@Html.DisplayFor(model => model.Motorcycle.Description)</p>
-        </div>
+<div class="border border-dark rounded d-flex flex-lg-wrap bg-white mt-2 mb-3 justify-content-center">
+    <div class="p-3">
+        <p class="fs-3 fw-bold website-text-nohover">@Html.DisplayNameFor(model => model.Motorcycle.CreatedAt)</p>
+        <p class="fs-4 text-dark fw-bold">@Html.DisplayFor(model => model.Motorcycle.CreatedAt)</p>
     </div>
 
-    <div class="flex-column m-2 px-4">
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.Price)</p>
-            <p class="fs-4 site-text-color">@Html.DisplayFor(model => model.Motorcycle.Price)</p>
-        </div>
-
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.ManufactureDate)</p>
-            <p class="fs-4 site-text-color">@Html.DisplayFor(model => model.Motorcycle.ManufactureDate)</p>
-        </div>
-
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.Location)</p>
-            <p class="fs-4 site-text-color">@Html.DisplayFor(model => model.Motorcycle.Location)</p>
-        </div>
+    <div class="p-3">
+        <p class="fs-3 fw-bold website-text-nohover">@Html.DisplayNameFor(model => model.Motorcycle.Title)</p>
+        <p class="fs-4 text-dark fw-bold">@Html.DisplayFor(model => model.Motorcycle.Title)</p>
     </div>
 
-    <div class="flex-column m-2 px-4">
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.Make)</p>
-            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Motorcycle.Make)</p>
-        </div>
-
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.Model)</p>
-            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Motorcycle.Model)</p>
-        </div>
-
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.HorsePower)</p>
-            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Motorcycle.HorsePower)</p>
-        </div>
-
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.CubicCapacity)</p>
-            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Motorcycle.CubicCapacity)</p>
-        </div>
-
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.Mileage)</p>
-            <p class="fs-4 text-primary">@Html.DisplayFor(model => model.Motorcycle.Mileage)</p>
-        </div>
+    <div class="p-3">
+        <p class="fs-3 fw-bold website-text-nohover">@Html.DisplayNameFor(model => model.Motorcycle.Price)</p>
+        <p class="fs-4 text-dark fw-bold">$@Html.DisplayFor(model => model.Motorcycle.Price)</p>
     </div>
 
-    <div class="flex-column m-2 px-4">
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.Transmission)</p>
-            <p class="fs-4 text-secondary">@Html.DisplayFor(model => model.Motorcycle.Transmission)</p>
-        </div>
+    <div class="p-3">
+        <p class="fs-3 fw-bold website-text-nohover">@Html.DisplayNameFor(model => model.Motorcycle.Make)</p>
+        <p class="fs-4 text-dark fw-bold">@Html.DisplayFor(model => model.Motorcycle.Make)</p>
+    </div>
+
+    <div class="p-3">
+        <p class="fs-3 fw-bold website-text-nohover">@Html.DisplayNameFor(model => model.Motorcycle.Model)</p>
+        <p class="fs-4 text-dark fw-bold">@Html.DisplayFor(model => model.Motorcycle.Model)</p>
+    </div>
+
+    <div class="mt-5">
+        <h2 class="website-text-nohover fw-bold fs-3">All Listing Images</h2>
 
         <div>
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.EngineType)</p>
-            <p class="fs-4 text-secondary">@Html.DisplayFor(model => model.Motorcycle.EngineType)</p>
-        </div>
-
-        <div class="p-3">
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.CoolingType)</p>
-            <p class="fs-4 text-secondary">@Html.DisplayFor(model => model.Motorcycle.CoolingType)</p>
-        </div>
-
-        <div>
-            <p class="fs-3 fw-bold text-dark">@Html.DisplayNameFor(model => model.Motorcycle.EngineStrokes)</p>
-            <p class="fs-4 text-secondary">@Html.DisplayFor(model => model.Motorcycle.EngineStrokes)</p>
+            @foreach (var image in Model.Images)
+            {
+                <img class="mb-2 mt-2" src="@Model.GetImageSource(image)" />
+            }
         </div>
     </div>
 </div>
-    
+
 <form method="post">
     <input type="hidden" asp-for="Motorcycle.Id" />
     <input type="submit" value="Delete" class="btn btn-danger fw-bold mb-3 mt-3" />
     <br />
-    <a class="fw-bold btn btn-outline-warning mb-3 mt-3" asp-page="/MyVehicles/Index">Go Back</a>
+    <a class="fw-bold btn btn-outline-secondary mb-3 mt-3" asp-page="/MyVehicles/Index">Go Back</a>
 </form>

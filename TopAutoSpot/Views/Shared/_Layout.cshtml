@@ -21,10 +21,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body class="bg-light">
-    <div class="col-md-12 d-flex justify-content-center pb-2 pt-2 bg-dark">
-        <img class="aboveHeaderImage" src="~/images/AppLogos/facebook_cover_photo_2.png" >
-    </div>
-
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -35,29 +31,29 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light bg-nav-button fw-bold rounded px-3 mx-1" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link website-background-main text-light fw-bold rounded px-3 mx-1" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <div class="dropdown">
-                            <button class="btn text-light bg-nav-button dropdown-toggle fw-bold rounded px-3 mx-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Buy</button>
+                            <button class="btn text-light website-background-main dropdown-toggle fw-bold rounded px-3 mx-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Buy</button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item fw-bold text-success" href="/Buy/CarListings">Cars</a></li>
-                                <li><a class="dropdown-item fw-bold text-success" href="/Buy/MotorcycleListings">Motorcycles</a></li>
-                                <li><a class="dropdown-item fw-bold text-success" href="/Buy/BoatListings">Boats</a></li>
-                                <li><a class="dropdown-item fw-bold text-success" href="/Buy/BusListings">Buses</a></li>
-                                <li><a class="dropdown-item fw-bold text-success" href="/Buy/TruckListings">Trucks</a></li>
-                                <li><a class="dropdown-item fw-bold text-success" href="/Buy/TrailerListings">Trailers</a></li>
+                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/CarListings">Cars</a></li>
+                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/MotorcycleListings">Motorcycles</a></li>
+                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/BoatListings">Boats</a></li>
+                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/BusListings">Buses</a></li>
+                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/TruckListings">Trucks</a></li>
+                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/TrailerListings">Trailers</a></li>
                             </ul>
                         </div>
                         <li class="nav-item">
-                            <a class="nav-link text-light bg-nav-button fw-bold rounded px-3 mx-1" asp-page="/Trade/Index">Trade</a>
+                            <a class="nav-link text-light website-background-main fw-bold rounded px-3 mx-1" asp-page="/Trade/Index">Trade</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light bg-nav-button fw-bold rounded px-3 mx-1" asp-page="/Auction/Index">Auction</a>
+                            <a class="nav-link text-light website-background-main fw-bold rounded px-3 mx-1" asp-page="/Auction/Index">Auction</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light bg-nav-button fw-bold rounded px-3 mx-1" asp-page="/MyVehicles/Index">My Vehicles</a>
+                                <a class="nav-link text-light website-background-main fw-bold rounded px-3 mx-1" asp-page="/MyVehicles/Index">My Vehicles</a>
                             </li>
                         }
                     </ul>

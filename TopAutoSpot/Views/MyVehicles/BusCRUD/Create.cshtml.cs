@@ -23,8 +23,9 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
 
         [BindProperty]
         public Bus Bus { get; set; } = default!;
+        public VehicleImage VehicleImage { get; set; } = default!;
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(List<IFormFile> Images)
         {
             if (!ModelState.IsValid || _context.Buses == null || Bus == null)
             {
@@ -39,7 +40,43 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
             _context.Buses.Add(Bus);
             await _context.SaveChangesAsync();
 
+            await AddImagesToVehicle(Images, Bus.Id);
+
             return RedirectToPage("/MyVehicles/Index");
+        }
+
+        private async Task AddImagesToVehicle(List<IFormFile> images, string vehicleId)
+        {
+            // Filter images
+            images = images
+                .Where(i =>
+                    i.FileName.EndsWith(".png") ||
+                    i.FileName.EndsWith(".jpeg") ||
+                    i.FileName.EndsWith(".jpg"))
+                .ToList();
+
+            if (images.Count > 0)
+            {
+                foreach (IFormFile image in images)
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        image.CopyTo(ms);
+
+                        var vehicleImage = new VehicleImage()
+                        {
+
+                            Id = Guid.NewGuid().ToString(),
+                            ImageName = image.FileName,
+                            ImageData = ms.ToArray(),
+                            VehicleId = vehicleId,
+                        };
+
+                        await _context.VehicleImages.AddAsync(vehicleImage);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+            }
         }
     }
 }

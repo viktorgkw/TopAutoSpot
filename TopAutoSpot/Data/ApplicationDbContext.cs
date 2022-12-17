@@ -10,11 +10,10 @@ namespace TopAutoSpot.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            // Administrator UserName => admin
-            // Administrator Password => @Administrator1
         }
 
         public override DbSet<User> Users { get; set; }
+        public DbSet<VehicleImage> VehicleImages { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Truck> Trucks { get; set; }
         public DbSet<Boat> Boats { get; set; }
