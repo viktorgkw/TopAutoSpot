@@ -19,5 +19,17 @@ namespace TopAutoSpot.Views.Buy
         {
             Trucks = await _context.Trucks.ToListAsync();
         }
+
+        public string GetImage(string truckId)
+        {
+            var data = _context.VehicleImages.First(i => i.VehicleId == truckId).ImageData;
+            string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
+            return imgDataURL;
+        }
+
+        public bool HasAnyImages(string truckId)
+        {
+            return _context.VehicleImages.Where(img => img.VehicleId == truckId).ToList().Count > 0;
+        }
     }
 }

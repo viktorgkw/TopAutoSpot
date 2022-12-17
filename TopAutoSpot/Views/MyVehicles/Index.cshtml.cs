@@ -58,7 +58,7 @@ namespace TopAutoSpot.Views.MyVehicles
 
         public string GetImage(string carId)
         {
-            var data = _context.VehicleImages.First().ImageData;
+            var data = _context.VehicleImages.First(i => i.VehicleId == carId).ImageData;
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
             return imgDataURL;
         }

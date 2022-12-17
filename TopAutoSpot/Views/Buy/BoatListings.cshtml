@@ -11,19 +11,28 @@
     <div class="d-flex flex-row mt-3">
         @foreach (var boat in Model.Boats)
         {
-            <div class="d-flex flex-column mx-3 single-car">
-                <a asp-page="/VehiclePreview/BoatPreview" asp-route-id="@boat.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
-                    <img class="listing-image" src="~/images/noImageFound.png" />
-                    @if (boat.Title.Length > 22)
+            <div class="d-flex flex-column mx-3 single-boat ">
+                <a asp-page="/VehiclePreview/BoatPreview" asp-route-id="@boat.Id" class="text-decoration-none site-text-color-btn fw-bold boat-title mb-1">
+                    @if (!Model.HasAnyImages(boat.Id))
                     {
-                        <p class="fs-4 fw-bold listing-title">@string.Join("", boat.Title.Take(22))..</p>
+                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
                     }
                     else
                     {
-                        <p class="fs-4 fw-bold listing-title">@boat.Title</p>
+                        <img class="listing-image rounded" src="@Model.GetImage(boat.Id)" />
                     }
-                    <p class="fs-6 text-dark mb-0"><i>@boat.Location</i></p>
-                    <p class="fs-5 text-dark fw-bold">$@boat.Price</p>
+
+                    @if (boat.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@string.Join("", boat.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@boat.Title</p>
+                    }
+
+                    <p class="fs-6 text-dark mb-0">@boat.Location</p>
+                    <p class="fs-5 fw-bold website-text-main">@boat.Price лв.</p>
                 </a>
             </div>
         }

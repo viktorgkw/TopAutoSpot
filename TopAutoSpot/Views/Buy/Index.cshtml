@@ -1,0 +1,53 @@
+﻿@page
+@model TopAutoSpot.Views.Buy.IndexModel
+@{
+}
+
+<h1 class="text-capitalize fw-bold website-text-darker-nohover mb-3 mt-2">Welcome to the buy page!</h1>
+
+<p class="fw-bold fs-4 mb-3 mt-2 website-text-nohover">Please select vehicle type to continue..</p>
+<hr />
+
+<div class="d-flex flex-row flex-wrap justify-content-center mt-3 mb-3">
+    <div>
+        <div class="border border-primary rounded mx-5 p-2 mt-4 mb-4">
+            <img class="buy-page-image" src="~/images/buypageImages/carImage.jpg" />
+        </div>
+        <a asp-page="/Buy/CarListings" class="mt-3 fw-bold website-background-lighter btn">Car Listings</a>
+    </div>
+
+    <div>
+        <div class="border border-primary rounded mx-5 p-2 mt-4 mb-4">
+            <img class="buy-page-image" src="~/images/buypageImages/motoImage.jpg" />
+        </div>
+        <a asp-page="/Buy/MotorcycleListings" class="mt-3 fw-bold website-background-lighter btn">Motorcycle Listings</a>
+    </div>
+
+    <div>
+        <div class="border border-primary rounded mx-5 p-2 mt-4 mb-4">
+            <img class="buy-page-image" src="~/images/buypageImages/truckImage.jpg" />
+        </div>
+        <a asp-page="/Buy/TruckListings" class="mt-3 fw-bold website-background-lighter btn">Truck Listings</a>
+    </div>
+
+    <div>
+        <div class="border border-primary rounded mx-5 p-2 mt-4 mb-4">
+            <img class="buy-page-image" src="~/images/buypageImages/busImage.jpg" />
+        </div>
+        <a asp-page="/Buy/BusListings" class="mt-3 fw-bold website-background-lighter btn">Bus Listings</a>
+    </div>
+
+    <div>
+        <div class="border border-primary rounded mx-5 p-2 mt-4 mb-4">
+            <img class="buy-page-image" src="~/images/buypageImages/boatImage.jpg" />
+        </div>
+        <a asp-page="/Buy/BoatListings" class="mt-3 fw-bold website-background-lighter btn">Boat Listings</a>
+    </div>
+
+    <div>
+        <div class="border border-primary rounded mx-5 p-2 mt-4 mb-4">
+            <img class="buy-page-image" src="~/images/buypageImages/trailerImage.jpeg" />
+        </div>
+        <a asp-page="/Buy/TrailerListings" class="mt-3 fw-bold website-background-lighter btn">Trailer Listings</a>
+    </div>
+</div>

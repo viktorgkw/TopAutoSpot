@@ -37,6 +37,16 @@ hr {
     border-top: 2px solid;
 }
 
+.main-page-image {
+    width: 192px;
+    height: 192px;
+}
+
+.buy-page-image {
+    width: 256px;
+    height: 256px;
+}
+
 .website-text-nohover {
     color: #6320EE;
 }
@@ -72,11 +82,11 @@ hr {
 }
 
 .website-text-darker {
-    color: #6320EE !important;
+    color: #37069A !important;
 }
 
 .website-text-darker:hover {
-    color: #4710B6 !important;
+    color: #8075FF !important;
 }
 
 .listing-image {
@@ -89,6 +99,11 @@ hr {
     width: 768px;
     height: 512px;
     object-fit: fill;
+}
+
+.preview-vehicle-list-images {
+    min-width: 600px;
+    max-width: 1200px;
 }
 
 .single-car {
