@@ -16,6 +16,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         }
 
         public Truck Truck { get; set; } = default!;
+        public List<VehicleImage> Images { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -33,6 +34,8 @@ namespace TopAutoSpot.Views.VehiclePreview
             {
                 Truck = truck;
             }
+
+            Images = _context.VehicleImages.Where(img => img.VehicleId == truck.Id).ToList();
             return Page();
         }
 
@@ -50,6 +53,24 @@ namespace TopAutoSpot.Views.VehiclePreview
                 .First(u => u.Id == Truck.CreatedBy);
 
             return foundUser.FirstName + " " + foundUser.LastName;
+        }
+
+        public string GetImage()
+        {
+            var data = _context.VehicleImages.Where(img => img.VehicleId == Truck.Id).First().ImageData;
+            string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
+            return imgDataURL;
+        }
+
+        public bool HasAnyImages()
+        {
+            return _context.VehicleImages.Where(img => img.VehicleId == Truck.Id).ToList().Count > 0;
+        }
+
+        public string GetImageSource(VehicleImage img)
+        {
+            string imgDataURL = "data:image;base64," + Convert.ToBase64String(img.ImageData);
+            return imgDataURL;
         }
     }
 }

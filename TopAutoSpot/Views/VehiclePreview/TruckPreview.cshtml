@@ -5,57 +5,78 @@
     var ownerNumber = Model.GetOwnerNumber();
 }
 
-<h1 class="fw-bold site-text-darker-color">@Model.Truck.Title</h1>
-<h2 class="fw-bold site-text-darker-color">@Model.Truck.Make @Model.Truck.Model</h2>
+<h1 class="fw-bold text-dark">@Model.Truck.Title</h1>
+<h2 class="fw-bold website-text-nohover">@Model.Truck.Make @Model.Truck.Model</h2>
 <hr />
 <br />
 
 <div class="d-flex flex-row justify-content-center mb-5">
-    <div class="column mx-5">
-        <img class="border border-dark rounded preview-vehicle-image" src="~/images/noImageFound.png" />
-    </div>
+    @if (!Model.HasAnyImages())
+    {
+        <div class="column mx-5">
+            <img class="border border-dark rounded preview-vehicle-image" src="~/images/noImageFound.png" />
+        </div>
+    }
+    else
+    {
+        <div class="column mx-5">
+            <img class="border border-dark rounded preview-vehicle-image" src="@Model.GetImage()" />
+        </div>
+    }
+
 
     <div class="d-flex flex-column column mx-5 justify-content-center">
-        <p class="fw-bold site-text-color fs-4">Price: @Model.Truck.Price</p>
-        <p class="fw-bold site-text-color fs-4">Listing Created At: @Model.Truck.CreatedAt.ToString("MM/dd/yyyy")</p>
-        <p class="fw-bold site-text-color fs-4">Location: @Model.Truck.Location</p>
-        <p class="fw-bold site-text-color fs-4">Manufacture Date: @Model.Truck.ManufactureDate.ToString("MM/dd/yyyy")</p>
+        <p class="fw-bold website-text-nohover fs-4">Price: <i class="text-dark">@Model.Truck.Price</i></p>
+        <p class="fw-bold website-text-nohover fs-4">Listing Created At: <i class="text-dark">@Model.Truck.CreatedAt.ToString("MM/dd/yyyy")</i></p>
+        <p class="fw-bold website-text-nohover fs-4">Location: <i class="text-dark">@Model.Truck.Location</i></p>
+        <p class="fw-bold website-text-nohover fs-4">Manufacture Date: <i class="text-dark">@Model.Truck.ManufactureDate.ToString("MM/dd/yyyy")</i></p>
         @if (Model.Truck.Mileage != null)
         {
-            <p class="fw-bold site-text-color fs-4">Mileage: @Model.Truck.Mileage</p>
+            <p class="fw-bold website-text-nohover fs-4">Mileage: <i class="text-dark">@Model.Truck.Mileage</i></p>
         }
         @if (Model.Truck.HorsePower != null)
         {
-            <p class="fw-bold site-text-color fs-4">Horse Power: @Model.Truck.HorsePower</p>
+            <p class="fw-bold website-text-nohover fs-4">Horse Power: <i class="text-dark">@Model.Truck.HorsePower</i></p>
         }
-        <p class="fw-bold site-text-color fs-4">Transmission: @Model.Truck.Transmission</p>
-        <p class="fw-bold site-text-color fs-4">Engine Type: @Model.Truck.EngineType</p>
-        <p class="fw-bold site-text-color fs-4">Euro Standart: @Model.Truck.EuroStandart</p>
-        <p class="fw-bold site-text-color fs-4">Payload: @Model.Truck.Payload</p>
-        <p class="fw-bold site-text-color fs-4">Axles Count: @Model.Truck.AxlesCount</p>
+        <p class="fw-bold website-text-nohover fs-4">Transmission: <i class="text-dark">@Model.Truck.Transmission</i></p>
+        <p class="fw-bold website-text-nohover fs-4">Engine Type: <i class="text-dark">@Model.Truck.EngineType</i></p>
+        <p class="fw-bold website-text-nohover fs-4">Euro Standart: <i class="text-dark">@Model.Truck.EuroStandart</i></p>
+        <p class="fw-bold website-text-nohover fs-4">Payload: <i class="text-dark">@Model.Truck.Payload</i></p>
+        <p class="fw-bold website-text-nohover fs-4">Axles Count: <i class="text-dark">@Model.Truck.AxlesCount</i></p>
     </div>
 </div>
 
 @if (Model.Truck.Description != null && Model.Truck.Description != "")
 {
-    <p class="fw-bold site-text-darker-color fs-3">Description</p>
+    <p class="fw-bold text-dark fs-3">Description</p>
     <div class="border border-dark text-start mb-4">
         @if (Model.Truck.Description[Model.Truck.Description.Length - 1].ToString() != ".")
         {
-            <p class="fw-bold site-text-color fs-5 px-2 pt-2 pb-2">@Model.Truck.Description.</p>
+            <p class="fw-bold website-text-nohover fs-5 px-2 pt-2 pb-2">@Model.Truck.Description.</p>
         }
         else
         {
-            <p class="fw-bold site-text-color fs-5 px-2 pt-2 pb-2">@Model.Truck.Description</p>
+            <p class="fw-bold website-text-nohover fs-5 px-2 pt-2 pb-2">@Model.Truck.Description</p>
         }
     </div>
 }
 
 <div class="mt-5">
-    <h2 class="site-text-darker-color fw-bold fs-3">Vehicle Owner Info</h2>
-    <p class="fw-bold site-text-color fs-5">@ownerFullName</p>
+    <h2 class="text-dark fw-bold fs-3">Vehicle Owner Info</h2>
+    <p class="fw-bold website-text-nohover fs-5">@ownerFullName</p>
     @if (ownerNumber != null)
     {
-        <p class="fw-bold site-text-color fs-5">Phone Number: @ownerNumber</p>
+        <p class="fw-bold website-text-nohover fs-5">Phone Number: @ownerNumber</p>
     }
+</div>
+
+<div class="mt-5">
+    <h2 class="text-dark fw-bold fs-3">All Listing Images</h2>
+
+    <div>
+        @foreach (var image in Model.Images)
+        {
+            <img class="preview-vehicle-list-images" src="@Model.GetImageSource(image)" />
+        }
+    </div>
 </div>

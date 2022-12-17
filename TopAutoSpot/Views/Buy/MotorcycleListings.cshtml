@@ -12,19 +12,28 @@
     <div class="d-flex flex-row mt-3">
         @foreach (var motorcycle in Model.Motorcycles)
         {
-            <div class="d-flex flex-column mx-3 single-car">
-                <a asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@motorcycle.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-4">
-                    <img class="listing-image" src="~/images/noImageFound.png" />
-                    @if (motorcycle.Title.Length > 22)
+            <div class="d-flex flex-column mx-3 single-car ">
+                <a asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@motorcycle.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
+                    @if (!Model.HasAnyImages(motorcycle.Id))
                     {
-                        <p class="fs-4 fw-bold listing-title">@string.Join("", motorcycle.Title.Take(22))..</p>
+                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
                     }
                     else
                     {
-                        <p class="fs-4 fw-bold listing-title">@motorcycle.Title</p>
+                        <img class="listing-image rounded" src="@Model.GetImage(motorcycle.Id)" />
                     }
-                    <p class="fs-6 text-dark mb-0"><i>@motorcycle.Location</i></p>
-                    <p class="fs-5 text-dark fw-bold">$@motorcycle.Price</p>
+
+                    @if (motorcycle.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@string.Join("", motorcycle.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@motorcycle.Title</p>
+                    }
+
+                    <p class="fs-6 text-dark mb-0">@motorcycle.Location</p>
+                    <p class="fs-5 fw-bold website-text-main">@motorcycle.Price лв.</p>
                 </a>
             </div>
         }
