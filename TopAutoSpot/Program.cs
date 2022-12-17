@@ -30,11 +30,10 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddMvc();
 
-builder.Services.AddRazorPages()
-    .AddRazorPagesOptions(options =>
-    {
-        options.RootDirectory = "/Views";
-    });
+builder.Services.AddRazorPages(options =>
+{
+    options.RootDirectory = "/Views";
+});
 
 var app = builder.Build();
 

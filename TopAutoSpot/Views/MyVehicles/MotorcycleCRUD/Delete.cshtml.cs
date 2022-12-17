@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
@@ -6,6 +7,7 @@ using TopAutoSpot.Data.Entities;
 
 namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
 {
+    [Authorize]
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;

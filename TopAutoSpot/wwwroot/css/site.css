@@ -143,3 +143,11 @@ ul {
 .nav-item > a.nav-link.active {
     background-color: #37069A;
 }
+
+.contacts-text-light {
+    color: #948AFF;
+}
+
+.contacts-text-lightest {
+    color: #8075FF !important;
+}   

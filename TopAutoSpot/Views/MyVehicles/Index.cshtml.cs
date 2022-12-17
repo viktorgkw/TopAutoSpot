@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing;
@@ -6,6 +7,7 @@ using TopAutoSpot.Data.Entities;
 
 namespace TopAutoSpot.Views.MyVehicles
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         public ApplicationDbContext _context;
