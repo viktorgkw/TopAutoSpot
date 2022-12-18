@@ -25,14 +25,19 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
         {
             if (id == null || _context.Boats == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
 
             var boat = await _context.Boats.FirstOrDefaultAsync(m => m.Id == id);
+            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
 
             if (boat == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
+            }
+            else if (boat.CreatedBy != foundUser.Id)
+            {
+                return RedirectToPage("/MyVehicles/Index");
             }
             else
             {
@@ -47,7 +52,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
         {
             if (id == null || _context.Boats == null)
             {
-                return NotFound();
+                return RedirectToPage("/Index");
             }
             var boat = await _context.Boats.FindAsync(id);
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data.Entities;
 using TopAutoSpot.Data;
 using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data.Entities.Utilities;
 
 namespace TopAutoSpot.Views.VehiclePreview
 {
@@ -22,13 +23,20 @@ namespace TopAutoSpot.Views.VehiclePreview
         {
             if (id == null || _context.Trailers == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
 
             var trailer = await _context.Trailers.FirstOrDefaultAsync(t => t.Id == id);
+            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+
             if (trailer == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
+            }
+            else if (trailer.Status != StatusTypes.Active.ToString() &&
+                trailer.CreatedBy != foundUser.Id)
+            {
+                return RedirectToPage("/MyVehicles/Index");
             }
             else
             {

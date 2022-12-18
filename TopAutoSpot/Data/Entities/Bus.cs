@@ -23,5 +23,6 @@ namespace TopAutoSpot.Data.Entities
         public int AxlesCount { get; set; }
         public int SeatsCount { get; set; }
         public double LoadCapacity { get; set; }
+        public string Status { get; set; }
     }
 }

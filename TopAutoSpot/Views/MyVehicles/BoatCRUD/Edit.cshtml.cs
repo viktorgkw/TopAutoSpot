@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
+using TopAutoSpot.Data.Entities.Utilities;
 
 namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 {
@@ -25,15 +26,25 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
         {
             if (id == null || _context.Boats == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
 
             var boat = await _context.Boats.FirstOrDefaultAsync(m => m.Id == id);
+            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+
             if (boat == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
-            Boat = boat;
+            else if (boat.CreatedBy != foundUser.Id)
+            {
+                return RedirectToPage("/MyVehicles/Index");
+            }
+            else
+            {
+                Boat = boat;
+            }
+
             return Page();
         }
 
@@ -55,7 +66,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
             {
                 if (!BoatExists(Boat.Id))
                 {
-                    return NotFound();
+                    return RedirectToPage("/Index");
                 }
                 else
                 {
@@ -75,7 +86,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
         {
             images = FilterImages(images);
 
-            if (images.Count > 0)
+            if (images.Count > 0 || images != null)
             {
                 await RemoveExistingVehicleImages(vehicleId);
 

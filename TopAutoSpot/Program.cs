@@ -41,6 +41,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Bad/Invalid URLs will redirect the user to /NotFound page.
+app.UseStatusCodePages();
+app.UseStatusCodePagesWithRedirects("/NotFound");
+
 app.UseAuthorization();
 
 app.MapRazorPages();

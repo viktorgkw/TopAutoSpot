@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using NuGet.DependencyResolver;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 
@@ -25,15 +26,25 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
         {
             if (id == null || _context.Motorcycles == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
 
             var motorcycle = await _context.Motorcycles.FirstOrDefaultAsync(m => m.Id == id);
+            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+
             if (motorcycle == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
-            Motorcycle = motorcycle;
+            else if (motorcycle.CreatedBy != foundUser.Id)
+            {
+                return RedirectToPage("/MyVehicles/Index");
+            }
+            else
+            {
+                Motorcycle = motorcycle;
+            }
+
             return Page();
         }
 
@@ -55,7 +66,7 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
             {
                 if (!MotorcycleExists(Motorcycle.Id))
                 {
-                    return NotFound();
+                    return RedirectToPage("/Index");
                 }
                 else
                 {

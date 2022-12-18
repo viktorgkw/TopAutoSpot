@@ -25,14 +25,19 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
         {
             if (id == null || _context.Cars == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
 
             var car = await _context.Cars.FirstOrDefaultAsync(m => m.Id == id);
+            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
 
             if (car == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
+            }
+            else if (car.CreatedBy != foundUser.Id)
+            {
+                return RedirectToPage("/MyVehicles/Index");
             }
             else
             {
@@ -47,7 +52,7 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
         {
             if (id == null || _context.Cars == null)
             {
-                return NotFound();
+                return RedirectToPage("/Index");
             }
             var car = await _context.Cars.FindAsync(id);
 
