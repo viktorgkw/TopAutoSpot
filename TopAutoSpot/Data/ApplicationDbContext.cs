@@ -13,6 +13,7 @@ namespace TopAutoSpot.Data
         }
 
         public override DbSet<User> Users { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
         public DbSet<VehicleImage> VehicleImages { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Truck> Trucks { get; set; }
