@@ -37,9 +37,27 @@ hr {
     border-top: 2px solid;
 }
 
+.user-preview-border {
+    border: solid 3px;
+    border-color: #4710B6;
+    background-color: #6320EE;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    width: 600px !important;
+    height: 120px !important;
+    font-weight: bold;
+    margin: 4px;
+    color: #efeaf2;
+}
+
 .error-page {
     padding-bottom: 300px !important;
     padding-top: 300px !important;
+}
+
+.unknown-error-page {
+    padding-bottom: 150px !important;
+    padding-top: 150px !important;
 }
 
 .main-page-image {
@@ -155,4 +173,13 @@ ul {
 
 .contacts-text-lightest {
     color: #8075FF !important;
-}   
+}
+
+.single-user {
+    max-width: 256px;
+    height: 512px;
+}
+
+.single-user-data {
+    height: 64px;
+}

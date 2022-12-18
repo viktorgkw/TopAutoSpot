@@ -35,7 +35,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
         {
             if (!ModelState.IsValid || _context.Boats == null || Boat == null)
             {
-                return RedirectToPage("/UnknownError");
+                return RedirectToPage("/NotFound");
             }
 
             Boat.CreatedBy = _context.Users.FirstAsync(u => u.UserName == User.Identity.Name).Result.Id;

@@ -35,7 +35,7 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
         {
             if (!ModelState.IsValid || _context.Buses == null || Bus == null)
             {
-                return RedirectToPage("/UnknownError");
+                return RedirectToPage("/NotFound");
             }
 
             Bus.CreatedBy = _context.Users

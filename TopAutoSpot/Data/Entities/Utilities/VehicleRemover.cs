@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace TopAutoSpot.Data.Entities.Utilities
+﻿namespace TopAutoSpot.Data.Entities.Utilities
 {
     public class VehicleRemover
     {

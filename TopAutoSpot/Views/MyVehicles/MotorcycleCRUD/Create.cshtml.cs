@@ -35,7 +35,7 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
         {
             if (!ModelState.IsValid || _context.Motorcycles == null || Motorcycle == null)
             {
-                return RedirectToPage("/UnknownError");
+                return RedirectToPage("/NotFound");
             }
 
             Motorcycle.CreatedBy = _context.Users

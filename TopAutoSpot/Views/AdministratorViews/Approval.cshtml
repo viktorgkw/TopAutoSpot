@@ -1,6 +1,196 @@
 ﻿@page
 @model TopAutoSpot.Views.AdministratorViews.ApprovalModel
 @{
+    ViewData["Title"] = "Vehicle Listings Approval";
 }
 
-<h1>Approval Page</h1>
+<h1 class="website-text-darker-nohover fw-bold mt-2">Approval Page</h1>
+<hr />
+<br />
+
+<div class="mt-3 mb-5 pb-5 pt-3">
+    @if (Model.OverallCount == 0)
+    {
+        <h2>No Vehicles to Approve at the moment.</h2>
+        <img class="rounded-3 mt-3 mb-3" src="~/gifs/nothingToApprove.gif" />
+    }
+    else
+    {
+        <div class="d-flex flex-row mt-3 flex-wrap">
+            @foreach (var vehicle in Model.Cars)
+            {
+                <div class="d-flex flex-column mx-3 single-car ">
+                    <a asp-page="/VehiclePreview/CarPreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
+                        @if (!Model.HasAnyImages(vehicle.Id))
+                        {
+                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        }
+                        else
+                        {
+                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                        }
+
+                        @if (vehicle.Title.Length > 22)
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@string.Join("", vehicle.Title.Take(22))..</p>
+                        }
+                        else
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@vehicle.Title</p>
+                        }
+                    </a>
+
+                    <div>
+                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                    </div>
+                </div>
+            }
+            @foreach (var vehicle in Model.Motorcycles)
+            {
+                <div class="d-flex flex-column mx-3 single-car ">
+                    <a asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
+                        @if (!Model.HasAnyImages(vehicle.Id))
+                        {
+                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        }
+                        else
+                        {
+                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                        }
+
+                        @if (vehicle.Title.Length > 22)
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@string.Join("", vehicle.Title.Take(22))..</p>
+                        }
+                        else
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@vehicle.Title</p>
+                        }
+                    </a>
+
+                    <div>
+                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                    </div>
+                </div>
+            }
+            @foreach (var vehicle in Model.Trailers)
+            {
+                <div class="d-flex flex-column mx-3 single-car ">
+                    <a asp-page="/VehiclePreview/TrailerPreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
+                        @if (!Model.HasAnyImages(vehicle.Id))
+                        {
+                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        }
+                        else
+                        {
+                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                        }
+
+                        @if (vehicle.Title.Length > 22)
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@string.Join("", vehicle.Title.Take(22))..</p>
+                        }
+                        else
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@vehicle.Title</p>
+                        }
+                    </a>
+
+                    <div>
+                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                    </div>
+                </div>
+            }
+            @foreach (var vehicle in Model.Trucks)
+            {
+                <div class="d-flex flex-column mx-3 single-car ">
+                    <a asp-page="/VehiclePreview/TruckPreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
+                        @if (!Model.HasAnyImages(vehicle.Id))
+                        {
+                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        }
+                        else
+                        {
+                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                        }
+
+                        @if (vehicle.Title.Length > 22)
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@string.Join("", vehicle.Title.Take(22))..</p>
+                        }
+                        else
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@vehicle.Title</p>
+                        }
+                    </a>
+
+                    <div>
+                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                    </div>
+                </div>
+            }
+            @foreach (var vehicle in Model.Buses)
+            {
+                <div class="d-flex flex-column mx-3 single-car ">
+                    <a asp-page="/VehiclePreview/BusPreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
+                        @if (!Model.HasAnyImages(vehicle.Id))
+                        {
+                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        }
+                        else
+                        {
+                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                        }
+
+                        @if (vehicle.Title.Length > 22)
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@string.Join("", vehicle.Title.Take(22))..</p>
+                        }
+                        else
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@vehicle.Title</p>
+                        }
+                    </a>
+
+                    <div>
+                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                    </div>
+                </div>
+            }
+            @foreach (var vehicle in Model.Boats)
+            {
+                <div class="d-flex flex-column mx-3 single-car ">
+                    <a asp-page="/VehiclePreview/BoatPreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
+                        @if (!Model.HasAnyImages(vehicle.Id))
+                        {
+                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        }
+                        else
+                        {
+                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                        }
+
+                        @if (vehicle.Title.Length > 22)
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@string.Join("", vehicle.Title.Take(22))..</p>
+                        }
+                        else
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@vehicle.Title</p>
+                        }
+                    </a>
+
+                    <div>
+                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

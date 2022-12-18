@@ -4,6 +4,7 @@
     {
         Active,
         WaitingApproval,
-        Sold
+        Sold,
+        Closed,
     }
 }

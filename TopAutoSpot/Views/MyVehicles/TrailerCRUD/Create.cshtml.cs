@@ -35,7 +35,7 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
         {
             if (!ModelState.IsValid || _context.Trailers == null || Trailer == null)
             {
-                return RedirectToPage("/UnknownError");
+                return RedirectToPage("/NotFound");
             }
 
             Trailer.CreatedBy = _context.Users.FirstAsync(u => u.UserName == User.Identity.Name).Result.Id;
