@@ -4,15 +4,16 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-light btn website-background-main fw-bold rounded px-3 mx-2" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage Account</a>
-        </li>
-
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link fw-bold btn btn-danger text-light px-3 mx-2">Logout</button>
-            </form>
-        </li>
+        <div class="dropdown">
+            <button class="btn text-light website-background-main dropdown-toggle fw-bold rounded px-4 mx-4" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Profile</button>
+            <ul class="dropdown-menu website-background-main-nohover" aria-labelledby="dropdownMenuButton1">
+                <li><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="dropdown-item fw-bold website-navbar-dropdown-option">Settings</a></li>
+                <li><a asp-page="/Notifications/Index" class="dropdown-item fw-bold website-navbar-dropdown-option">Notifications</a></li>
+                <form asp-area="Identity" asp-page="/Account/Logout">
+                    <button type="submit" class="dropdown-item fw-bold website-navbar-dropdown-option">Logout</button>
+                </form>
+            </ul>
+        </div>
     }
     else
     {

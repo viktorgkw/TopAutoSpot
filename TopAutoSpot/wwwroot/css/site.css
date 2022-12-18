@@ -82,17 +82,29 @@ hr {
     color: #6320EE !important;
 }
 
-    .website-text-main:hover {
-        color: #8075FF !important;
+.website-text-main:hover {
+    color: #8075FF !important;
+}
+
+.website-background-main-nohover {
+    background-color: #6320EE;
+}
+
+.website-navbar-dropdown-option {
+    color: white !important;
+}
+
+    .website-navbar-dropdown-option:hover {
+        color: #4710B6 !important;
     }
 
 .website-background-main {
     background-color: #6320EE;
 }
 
-    .website-background-main:hover {
-        background-color: #8075FF;
-    }
+.website-background-main:hover {
+    background-color: #8075FF;
+}
 
 .website-background-lighter {
     background-color: #6320EE;
