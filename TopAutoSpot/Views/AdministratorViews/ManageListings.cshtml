@@ -1,18 +1,14 @@
 ﻿@page
-@model TopAutoSpot.Views.AdministratorViews.ApprovalModel
-@{
-    ViewData["Title"] = "Vehicle Listings Approval";
-}
-
-<h1 class="website-text-darker-nohover fw-bold mt-2">Approval Page</h1>
-<hr />
-<br />
+@model TopAutoSpot.Views.AdministratorViews.ManageListingsModel
 
 <div class="mt-3 mb-5 pb-5 pt-3">
+    <h1 class="fw-bold website-text-nohover mt-2">Listing Management Page</h1>
+    <hr />
+    <br />
+
     @if (Model.OverallCount == 0)
     {
-        <h2>No Vehicles to Approve at the moment.</h2>
-        <img class="rounded-3 mt-3 mb-3" src="~/gifs/nothingToApprove.gif" />
+        <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicleListingsAvailable.gif" />
     }
     else
     {
@@ -43,8 +39,8 @@
                     </a>
 
                     <div>
-                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
-                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                        <a class="btn btn-outline-dark fw-bold" asp-page="/AdministratorViews/ListingsCD/Close" asp-route-id="@vehicle.Id">Close</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/ListingsCD/Delete" asp-route-id="@vehicle.Id">Delete</a>
                     </div>
                 </div>
             }
@@ -74,8 +70,8 @@
                     </a>
 
                     <div>
-                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
-                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                        <a class="btn btn-outline-dark fw-bold" asp-page="/AdministratorViews/ListingsCD/Close" asp-route-id="@vehicle.Id">Close</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/ListingsCD/Delete" asp-route-id="@vehicle.Id">Delete</a>
                     </div>
                 </div>
             }
@@ -105,8 +101,8 @@
                     </a>
 
                     <div>
-                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
-                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                        <a class="btn btn-outline-dark fw-bold" asp-page="/AdministratorViews/ListingsCD/Close" asp-route-id="@vehicle.Id">Close</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/ListingsCD/Delete" asp-route-id="@vehicle.Id">Delete</a>
                     </div>
                 </div>
             }
@@ -131,13 +127,13 @@
                         {
                             <p class="fs-4 fw-bold text-dark listing-title">@vehicle.Title</p>
                         }
-
+                        
                         <p class="fs-4 fw-bold text-dark listing-title">@vehicle.Status</p>
                     </a>
 
                     <div>
-                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
-                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                        <a class="btn btn-outline-dark fw-bold" asp-page="/AdministratorViews/ListingsCD/Close" asp-route-id="@vehicle.Id">Close</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/ListingsCD/Delete" asp-route-id="@vehicle.Id">Delete</a>
                     </div>
                 </div>
             }
@@ -167,8 +163,8 @@
                     </a>
 
                     <div>
-                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
-                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                        <a class="btn btn-outline-dark fw-bold" asp-page="/AdministratorViews/ListingsCD/Close" asp-route-id="@vehicle.Id">Close</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/ListingsCD/Delete" asp-route-id="@vehicle.Id">Delete</a>
                     </div>
                 </div>
             }
@@ -198,8 +194,8 @@
                     </a>
 
                     <div>
-                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/Utilities/ApproveVehicle" asp-route-vehicleId="@vehicle.Id">Approve</a>
-                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/Utilities/RefuseVehicle" asp-route-vehicleId="@vehicle.Id">Refuse</a>
+                        <a class="btn btn-outline-dark fw-bold" asp-page="/AdministratorViews/ListingsCD/Close" asp-route-id="@vehicle.Id">Close</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/ListingsCD/Delete" asp-route-id="@vehicle.Id">Delete</a>
                     </div>
                 </div>
             }
