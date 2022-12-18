@@ -20,17 +20,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
 
         public async Task<IActionResult> OnGetAsync(string vehicleId)
         {
-            var foundUser = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-
-            if (foundUser == null)
-            {
-                return RedirectToPage("/NotFound");
-            }
-            else if (foundUser.Role != RoleTypes.Administrator.ToString())
-            {
-                return RedirectToPage("/NotFound");
-            }
-            else
+            if (User.IsInRole("Administrator"))
             {
                 var result = await VehicleRefused(vehicleId);
 
@@ -44,6 +34,8 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
                     return RedirectToPage("/UnknownError");
                 }
             }
+
+            return RedirectToPage("/NotFound");
         }
 
         public async Task<bool> VehicleRefused(string vehicleId)

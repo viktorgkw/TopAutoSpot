@@ -23,17 +23,7 @@ namespace TopAutoSpot.Views.AdministratorViews
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
-
-            if (foundUser == null)
-            {
-                return RedirectToPage("/Index");
-            }
-            else if (foundUser.Role != RoleTypes.Administrator.ToString())
-            {
-                return RedirectToPage("/NotFound");
-            }
-            else
+            if (User.IsInRole("Administrator"))
             {
                 Users = await _context.Users
                     .OrderBy(u => u.Role)
@@ -41,6 +31,8 @@ namespace TopAutoSpot.Views.AdministratorViews
 
                 return Page();
             }
+
+            return RedirectToPage("/NotFound");
         }
     }
 }

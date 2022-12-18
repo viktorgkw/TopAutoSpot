@@ -19,11 +19,6 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
 
         public IActionResult OnGet()
         {
-            if (User.Identity.Name == null)
-            {
-                return RedirectToPage("/Index");
-            }
-
             return Page();
         }
 

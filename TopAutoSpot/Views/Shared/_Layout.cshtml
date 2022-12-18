@@ -55,10 +55,13 @@
                         }
                         @if(User.IsInRole("Administrator")) {
                             <li class="nav-item">
-                                <a class="nav-link text-light website-background-main fw-bold rounded px-3 mx-1" asp-page="/AdministratorViews/Approval">Approval</a>
+                                <a class="nav-link website-background-outline-main fw-bold rounded px-3 mx-1" asp-page="/AdministratorViews/Approval">Approval</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light website-background-main fw-bold rounded px-3 mx-1" asp-page="/AdministratorViews/ManageUsers">Manage Users</a>
+                                <a class="nav-link website-background-outline-main fw-bold rounded px-3 mx-1" asp-page="/AdministratorViews/ManageUsers">Manage Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link website-background-outline-main fw-bold rounded px-3 mx-1" asp-page="/AdministratorViews/ManageListings">Manage Listings</a>
                             </li>
                         }
                     </ul>

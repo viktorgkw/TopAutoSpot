@@ -82,17 +82,17 @@ hr {
     color: #6320EE !important;
 }
 
-.website-text-main:hover {
-    color: #8075FF !important;
-}   
+    .website-text-main:hover {
+        color: #8075FF !important;
+    }
 
 .website-background-main {
     background-color: #6320EE;
 }
 
-.website-background-main:hover {
-    background-color: #8075FF;
-}
+    .website-background-main:hover {
+        background-color: #8075FF;
+    }
 
 .website-background-lighter {
     background-color: #6320EE;
@@ -142,13 +142,13 @@ hr {
     color: #948AFF !important;
 }
 
-.footer-text:hover {
-    color: white !important;
-}
+    .footer-text:hover {
+        color: white !important;
+    }
 
-.footer-text:hover {
-    cursor: pointer;
-}
+    .footer-text:hover {
+        cursor: pointer;
+    }
 
 ul {
     list-style-type: none;
@@ -182,4 +182,14 @@ ul {
 
 .single-user-data {
     height: 64px;
+}
+
+.website-background-outline-main {
+    background-color: #efeaf2;
+    color: #6320EE !important;
+}
+
+.website-background-outline-main:hover {
+    background-color: #6320EE;
+    color: white !important;
 }

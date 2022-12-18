@@ -26,30 +26,21 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
 
         public async Task<IActionResult> OnGetAsync(string userId)
         {
-            var isIdValid = await UserIdIsValid(userId);
+            if (User.IsInRole("Administrator"))
+            {
+                var isIdValid = await UserIdIsValid(userId);
 
-            if (!isIdValid)
-            {
-                return RedirectToPage("/NotFound");
-            }
+                if (!isIdValid)
+                {
+                    return RedirectToPage("/NotFound");
+                }
 
-            var foundUser = await _userManager.Users
-                .FirstAsync(u => u.UserName == User.Identity.Name);
-
-            if (foundUser == null)
-            {
-                return RedirectToPage("/Index");
-            }
-            else if (foundUser.Role != RoleTypes.Administrator.ToString())
-            {
-                return RedirectToPage("/NotFound");
-            }
-            else
-            {
                 UserToEdit = await _context.Users.FirstAsync(u => u.Id == userId);
 
                 return Page();
             }
+
+            return RedirectToPage("/NotFound");
         }
 
         public async Task<IActionResult> OnPostAsync()
