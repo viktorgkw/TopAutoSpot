@@ -11,7 +11,7 @@
     </div>
 
     <div class="border border-dark pb-3 pt-3 px-3">
-        @*@if (Model.Notifications.Count == 0)
+        @if (Model.Notifications.Count == 0)
         {
             <h3 class="website-text-darker-nohover">Your inbox is empty.</h3>
             <p class="website-text-nohover"><i>You must be having a chilly day out there!</i></p>
@@ -21,9 +21,13 @@
         {
             @foreach (var notification in Model.Notifications)
             {
-
+                <h3>@notification.Id</h3>
+                <h3>@notification.From</h3>
+                <h3>@notification.To</h3>
+                <h3>@notification.Title</h3>
+                <h3>@notification.Description</h3>
             }
-        }*@
+        }
     </div>
 
     <div class="mt-5 mb-3">
