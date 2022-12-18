@@ -1,0 +1,50 @@
+﻿@page
+@model TopAutoSpot.Views.AdministratorViews.UsersCRUD.PreviewModel
+
+<h1 class="fw-bold website-text-darker-nohover">User Preview</h1>
+<h2 class="fw-bold website-text-nohover">@Model.PreviewedUser.UserName</h2>
+<hr />
+<br />
+
+<div class="d-flex flex-row flex-wrap mb-5">
+    <div class="user-preview-border">
+        <p class="text-uppercase fs-4">Id</p>
+        <p class="fs-5">@Model.PreviewedUser.Id</p>
+    </div>
+
+    <div class="user-preview-border">
+        <p class="text-uppercase fs-4">Email</p>
+        <p class="fs-5">@Model.PreviewedUser.Email</p>
+    </div>
+
+    @if (Model.PreviewedUser.FirstName != null)
+    {
+        <div class="user-preview-border">
+            <p class="text-uppercase fs-4">First Name</p>
+            <p class="fs-5">@Model.PreviewedUser.FirstName</p>
+        </div>
+    }
+
+    @if (Model.PreviewedUser.LastName != null)
+    {
+        <div class="user-preview-border">
+            <p class="text-uppercase fs-4">Last Name</p>
+            <p class="fs-5">@Model.PreviewedUser.LastName</p>
+        </div>
+    }
+
+    @if (Model.PreviewedUser.PhoneNumber != null)
+    {
+        <div class="user-preview-border">
+            <p class="text-uppercase fs-4">Phone Number</p>
+            <p class="fs-5">@Model.PreviewedUser.PhoneNumber</p>
+        </div>
+    }
+
+    <div class="user-preview-border">
+        <p class="text-uppercase fs-4">Role</p>
+        <p class="fs-5">@Model.PreviewedUser.Role</p>
+    </div>
+</div>
+
+<hr />

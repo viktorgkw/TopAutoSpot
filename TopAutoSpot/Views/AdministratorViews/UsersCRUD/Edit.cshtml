@@ -1,0 +1,67 @@
+﻿@page
+@model TopAutoSpot.Views.AdministratorViews.UsersCRUD.EditModel
+
+<h1 class="fw-bold text-dark">Edit UserToEdit </h1>
+<hr />
+<br />
+
+<div class="col-md-4 mx-auto">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="UserToEdit.Id" />
+        <input type="hidden" asp-for="UserToEdit.NormalizedUserName" />
+        <input type="hidden" asp-for="UserToEdit.NormalizedEmail" />
+        <input type="hidden" asp-for="UserToEdit.EmailConfirmed" />
+        <input type="hidden" asp-for="UserToEdit.PasswordHash" />
+        <input type="hidden" asp-for="UserToEdit.SecurityStamp" />
+        <input type="hidden" asp-for="UserToEdit.ConcurrencyStamp" />
+        <input type="hidden" asp-for="UserToEdit.PhoneNumberConfirmed" />
+        <input type="hidden" asp-for="UserToEdit.TwoFactorEnabled" />
+        <input type="hidden" asp-for="UserToEdit.LockoutEnabled" />
+        <input type="hidden" asp-for="UserToEdit.AccessFailedCount" />
+
+        <div class="m-2 px-4">
+            <div class="form-group mb-4">
+                <label asp-for="UserToEdit.UserName" class="control-label fw-bold website-text-nohover"></label>
+                <input asp-for="UserToEdit.UserName" class="form-control" />
+                <span asp-validation-for="UserToEdit.UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="UserToEdit.Email" class="control-label fw-bold website-text-nohover"></label>
+                <input asp-for="UserToEdit.Email" class="form-control" />
+                <span asp-validation-for="UserToEdit.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="UserToEdit.PhoneNumber" class="control-label fw-bold website-text-nohover"></label>
+                <input asp-for="UserToEdit.PhoneNumber" class="form-control" />
+                <span asp-validation-for="UserToEdit.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="UserToEdit.FirstName" class="control-label fw-bold website-text-nohover"></label>
+                <input min="0" asp-for="UserToEdit.FirstName" class="form-control" />
+                <span asp-validation-for="UserToEdit.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="UserToEdit.LastName" class="control-label fw-bold website-text-nohover"></label>
+                <input min="0" asp-for="UserToEdit.LastName" class="form-control" />
+                <span asp-validation-for="UserToEdit.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="UserToEdit.Role" class="control-label fw-bold website-text-nohover"></label>
+                <select asp-for="UserToEdit.Role" class="form-select">
+                    <option value="User">User</option>
+                    <option value="Administrator">Administrator</option>
+                </select>
+                <span asp-validation-for="UserToEdit.Role" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3 mb-2">
+                <input type="submit" value="Save" class="btn website-background-lighter text-light fw-bold mb-3" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="mt-3 mb-3">
+    <a class="fw-bold btn btn-outline-secondary" asp-page="/AdministratorViews/ManageUsers">Go Back</a>
+</div>

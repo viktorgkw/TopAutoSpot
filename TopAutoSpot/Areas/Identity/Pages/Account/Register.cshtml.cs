@@ -83,6 +83,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
                 user.Role = RoleTypes.User.ToString();
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                await _userManager.AddToRoleAsync(user, RoleTypes.User.ToString());
 
                 if (result.Succeeded)
                 {

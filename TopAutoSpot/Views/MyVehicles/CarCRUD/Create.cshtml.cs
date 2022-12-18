@@ -35,7 +35,7 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
         {
             if (!ModelState.IsValid || _context.Cars == null || Car == null)
             {
-                return RedirectToPage("/UnknownError");
+                return RedirectToPage("/NotFound");
             }
 
             Car.CreatedBy = _context.Users.FirstAsync(u => u.UserName == User.Identity.Name).Result.Id;

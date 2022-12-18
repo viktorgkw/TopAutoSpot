@@ -2,7 +2,7 @@
 {
     enum RoleTypes
     {
-        Administrator,
-        User,
+        User = 0,
+        Administrator = 1,
     }
 }

@@ -35,7 +35,7 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
         {
             if (!ModelState.IsValid || _context.Trucks == null || Truck == null)
             {
-                return RedirectToPage("/UnknownError");
+                return RedirectToPage("/NotFound");
             }
 
             Truck.CreatedBy = _context.Users.FirstAsync(u => u.UserName == User.Identity.Name).Result.Id;
