@@ -25,14 +25,19 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
         {
             if (id == null || _context.Trucks == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
 
             var truck = await _context.Trucks.FirstOrDefaultAsync(m => m.Id == id);
+            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
 
             if (truck == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
+            }
+            else if (truck.CreatedBy != foundUser.Id)
+            {
+                return RedirectToPage("/MyVehicles/Index");
             }
             else
             {
@@ -47,7 +52,7 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
         {
             if (id == null || _context.Trucks == null)
             {
-                return NotFound();
+                return RedirectToPage("/Index");
             }
             var truck = await _context.Trucks.FindAsync(id);
 

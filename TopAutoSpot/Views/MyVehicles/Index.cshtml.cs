@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
@@ -24,37 +25,46 @@ namespace TopAutoSpot.Views.MyVehicles
 
         public int OverallCount { get; private set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             var currentUser = _context.Users
                 .First(u => u.UserName == User.Identity.Name);
 
-            Boats = await _context.Boats
-                    .Where(boat => boat.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+            if (currentUser == null)
+            {
+                return RedirectToPage("/NotFound");
+            }
+            else
+            {
+                Boats = await _context.Boats
+                        .Where(boat => boat.CreatedBy == currentUser.Id)
+                        .ToListAsync();
 
-            Buses = await _context.Buses
-                    .Where(bus => bus.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+                Buses = await _context.Buses
+                        .Where(bus => bus.CreatedBy == currentUser.Id)
+                        .ToListAsync();
 
-            Cars = await _context.Cars
-                    .Where(car => car.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+                Cars = await _context.Cars
+                        .Where(car => car.CreatedBy == currentUser.Id)
+                        .ToListAsync();
 
-            Motorcycles = await _context.Motorcycles
-                    .Where(motorcycle => motorcycle.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+                Motorcycles = await _context.Motorcycles
+                        .Where(motorcycle => motorcycle.CreatedBy == currentUser.Id)
+                        .ToListAsync();
 
-            Trailers = await _context.Trailers
-                    .Where(trailer => trailer.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+                Trailers = await _context.Trailers
+                        .Where(trailer => trailer.CreatedBy == currentUser.Id)
+                        .ToListAsync();
 
-            Trucks = await _context.Trucks
-                    .Where(truck => truck.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+                Trucks = await _context.Trucks
+                        .Where(truck => truck.CreatedBy == currentUser.Id)
+                        .ToListAsync();
 
-            OverallCount = Boats.Count + Buses.Count + Cars.Count +
-                    Motorcycles.Count + Trailers.Count + Trucks.Count;
+                OverallCount = Boats.Count + Buses.Count + Cars.Count +
+                        Motorcycles.Count + Trailers.Count + Trucks.Count;
+            }
+
+            return Page();
         }
 
         public string GetImage(string carId)

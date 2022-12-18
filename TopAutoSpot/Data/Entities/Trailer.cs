@@ -15,5 +15,6 @@ namespace TopAutoSpot.Data.Entities
         public DateTime ManufactureDate { get; set; }
         public double Payload { get; set; }
         public int AxleCount { get; set; }
+        public string Status { get; set; }
     }
 }

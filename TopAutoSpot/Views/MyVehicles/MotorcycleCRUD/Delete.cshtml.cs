@@ -25,14 +25,19 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
         {
             if (id == null || _context.Motorcycles == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
 
             var motorcycle = await _context.Motorcycles.FirstOrDefaultAsync(m => m.Id == id);
+            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
 
             if (motorcycle == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
+            }
+            else if (motorcycle.CreatedBy != foundUser.Id)
+            {
+                return RedirectToPage("/MyVehicles/Index");
             }
             else
             {
@@ -47,7 +52,7 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
         {
             if (id == null || _context.Motorcycles == null)
             {
-                return NotFound();
+                return RedirectToPage("/Index");
             }
             var motorcycle = await _context.Motorcycles.FindAsync(id);
 

@@ -19,6 +19,11 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
 
         public IActionResult OnGet()
         {
+            if(User.Identity.Name == null)
+            {
+                return RedirectToPage("/Index");
+            }
+
             return Page();
         }
 
@@ -30,7 +35,7 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
         {
             if (!ModelState.IsValid || _context.Motorcycles == null || Motorcycle == null)
             {
-                return Page();
+                return RedirectToPage("/UnknownError");
             }
 
             Motorcycle.CreatedBy = _context.Users

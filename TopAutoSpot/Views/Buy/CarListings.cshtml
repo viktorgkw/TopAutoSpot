@@ -8,6 +8,16 @@
     <h1 class="fw-bold site-text-color">All Car Listings</h1>
     <hr />
     <br />
+    @if (Model.Cars.Count == 0)
+    {
+        <h3 class="text-danger fw-bold fs-4">No Boats Available :(</h3>
+
+        <br />
+
+        <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicleListingsAvailable.gif" />
+    }
+    else
+    {
     <div class="d-flex flex-row mt-3">
         @foreach (var car in Model.Cars)
         {
@@ -37,4 +47,5 @@
             </div>
         }
     </div>
+    }
 </div>

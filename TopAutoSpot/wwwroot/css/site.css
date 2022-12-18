@@ -37,6 +37,11 @@ hr {
     border-top: 2px solid;
 }
 
+.error-page {
+    padding-bottom: 300px !important;
+    padding-top: 300px !important;
+}
+
 .main-page-image {
     width: 192px;
     height: 192px;

@@ -25,14 +25,21 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
         {
             if (id == null || _context.Trailers == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
 
             var trailer = await _context.Trailers.FirstOrDefaultAsync(m => m.Id == id);
+            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+
             if (trailer == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
+            else if (trailer.CreatedBy != foundUser.Id)
+            {
+                return RedirectToPage("/MyVehicles/Index");
+            }
+
             Trailer = trailer;
             return Page();
         }
@@ -55,7 +62,7 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
             {
                 if (!TrailerExists(Trailer.Id))
                 {
-                    return NotFound();
+                    return RedirectToPage("/Index");
                 }
                 else
                 {

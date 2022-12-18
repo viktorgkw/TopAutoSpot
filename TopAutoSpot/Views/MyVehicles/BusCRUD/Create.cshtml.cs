@@ -19,6 +19,11 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
 
         public IActionResult OnGet()
         {
+            if (User.Identity.Name == null)
+            {
+                return RedirectToPage("/Index");
+            }
+
             return Page();
         }
 
@@ -30,10 +35,7 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
         {
             if (!ModelState.IsValid || _context.Buses == null || Bus == null)
             {
-                var errors = ModelState.Where(a => a.Value.Errors.Count > 0)
-                .Select(b => new { b.Key, b.Value.Errors })
-                .ToArray();
-                return Page();
+                return RedirectToPage("/UnknownError");
             }
 
             Bus.CreatedBy = _context.Users

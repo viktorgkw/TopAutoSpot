@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
+using TopAutoSpot.Data.Entities.Utilities;
 
 namespace TopAutoSpot.Views.Buy
 {
@@ -17,7 +18,9 @@ namespace TopAutoSpot.Views.Buy
 
         public async Task OnGetAsync()
         {
-            Cars = await _context.Cars.ToListAsync();
+            Cars = await _context.Cars
+                .Where(c => c.Status == StatusTypes.Active.ToString())
+                .ToListAsync();
         }
 
         public string GetImage(string carId)

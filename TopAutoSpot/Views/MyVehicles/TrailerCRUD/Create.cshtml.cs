@@ -19,6 +19,11 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
 
         public IActionResult OnGet()
         {
+            if (User.Identity.Name == null)
+            {
+                return RedirectToPage("/Index");
+            }
+
             return Page();
         }
 
@@ -30,10 +35,7 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
         {
             if (!ModelState.IsValid || _context.Trailers == null || Trailer == null)
             {
-                var errors = ModelState.Where(a => a.Value.Errors.Count > 0)
-                .Select(b => new { b.Key, b.Value.Errors })
-                .ToArray();
-                return Page();
+                return RedirectToPage("/UnknownError");
             }
 
             Trailer.CreatedBy = _context.Users.FirstAsync(u => u.UserName == User.Identity.Name).Result.Id;

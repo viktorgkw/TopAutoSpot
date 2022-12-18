@@ -8,33 +8,46 @@
     <h1 class="fw-bold site-text-color">All Boat Listings</h1>
     <hr />
     <br />
-    <div class="d-flex flex-row mt-3">
-        @foreach (var boat in Model.Boats)
-        {
-            <div class="d-flex flex-column mx-3 single-boat ">
-                <a asp-page="/VehiclePreview/BoatPreview" asp-route-id="@boat.Id" class="text-decoration-none site-text-color-btn fw-bold boat-title mb-1">
-                    @if (!Model.HasAnyImages(boat.Id))
-                    {
-                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
-                    }
-                    else
-                    {
-                        <img class="listing-image rounded" src="@Model.GetImage(boat.Id)" />
-                    }
+    @if (Model.Boats.Count == 0)
+    {
+        <h3 class="text-danger fw-bold fs-4">No Boats Available :(</h3>
 
-                    @if (boat.Title.Length > 22)
-                    {
-                        <p class="fs-4 fw-bold website-text-darker listing-title">@string.Join("", boat.Title.Take(22))..</p>
-                    }
-                    else
-                    {
-                        <p class="fs-4 fw-bold website-text-darker listing-title">@boat.Title</p>
-                    }
+        <br />
 
-                    <p class="fs-6 text-dark mb-0">@boat.Location</p>
-                    <p class="fs-5 fw-bold website-text-main">@boat.Price лв.</p>
-                </a>
-            </div>
-        }
-    </div>
+        <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicleListingsAvailable.gif" />
+    }
+    else
+    {
+        <div class="d-flex flex-row mt-3">
+            @foreach (var boat in Model.Boats)
+            {
+                <div class="d-flex flex-column mx-3 single-boat ">
+                    <a asp-page="/VehiclePreview/BoatPreview" asp-route-id="@boat.Id" class="text-decoration-none site-text-color-btn fw-bold boat-title mb-1">
+                        @if (!Model.HasAnyImages(boat.Id))
+                        {
+                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        }
+                        else
+                        {
+                            <img class="listing-image rounded" src="@Model.GetImage(boat.Id)" />
+                        }
+
+                        @if (boat.Title.Length > 22)
+                        {
+                            <p class="fs-4 fw-bold website-text-darker listing-title">@string.Join("", boat.Title.Take(22))..</p>
+                        }
+                        else
+                        {
+                            <p class="fs-4 fw-bold website-text-darker listing-title">@boat.Title</p>
+                        }
+
+                        <p class="fs-6 text-dark mb-0">@boat.Location</p>
+                        <p class="fs-5 fw-bold website-text-main">@boat.Price лв.</p>
+                    </a>
+                </div>
+
+            }
+        </div>
+    }
+
 </div>

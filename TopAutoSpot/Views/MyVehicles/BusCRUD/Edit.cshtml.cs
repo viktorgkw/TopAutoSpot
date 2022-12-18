@@ -25,15 +25,24 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
         {
             if (id == null || _context.Buses == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
 
             var bus = await _context.Buses.FirstOrDefaultAsync(b => b.Id == id);
+            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+
             if (bus == null)
             {
-                return NotFound();
+                return RedirectToPage("/NotFound");
             }
-            Bus = bus;
+            else if (bus.CreatedBy != foundUser.Id)
+            {
+                return RedirectToPage("/MyVehicles/Index");
+            }
+            else
+            {
+                Bus = bus;
+            }
 
             return Page();
         }
@@ -56,7 +65,7 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
             {
                 if (!BusExists(Bus.Id))
                 {
-                    return NotFound();
+                    return RedirectToPage("/Index");
                 }
                 else
                 {
