@@ -32,13 +32,13 @@
                         </li>
                         <div class="dropdown">
                             <button class="btn text-light website-background-main dropdown-toggle fw-bold rounded px-3 mx-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Buy</button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/CarListings">Cars</a></li>
-                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/MotorcycleListings">Motorcycles</a></li>
-                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/BoatListings">Boats</a></li>
-                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/BusListings">Buses</a></li>
-                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/TruckListings">Trucks</a></li>
-                                <li><a class="dropdown-item fw-bold website-text-darker" href="/Buy/TrailerListings">Trailers</a></li>
+                            <ul class="dropdown-menu website-background-main-nohover" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item fw-bold website-navbar-dropdown-option" href="/Buy/CarListings">Cars</a></li>
+                                <li><a class="dropdown-item fw-bold website-navbar-dropdown-option" href="/Buy/MotorcycleListings">Motorcycles</a></li>
+                                <li><a class="dropdown-item fw-bold website-navbar-dropdown-option" href="/Buy/BoatListings">Boats</a></li>
+                                <li><a class="dropdown-item fw-bold website-navbar-dropdown-option" href="/Buy/BusListings">Buses</a></li>
+                                <li><a class="dropdown-item fw-bold website-navbar-dropdown-option" href="/Buy/TruckListings">Trucks</a></li>
+                                <li><a class="dropdown-item fw-bold website-navbar-dropdown-option" href="/Buy/TrailerListings">Trailers</a></li>
                             </ul>
                         </div>
                         <li class="nav-item">
@@ -53,16 +53,22 @@
                                 <a class="nav-link text-light website-background-main fw-bold rounded px-3 mx-1" asp-page="/MyVehicles/Index">My Vehicles</a>
                             </li>
                         }
-                        @if(User.IsInRole("Administrator")) {
-                            <li class="nav-item">
-                                <a class="nav-link website-background-outline-main fw-bold rounded px-3 mx-1" asp-page="/AdministratorViews/Approval">Approval</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link website-background-outline-main fw-bold rounded px-3 mx-1" asp-page="/AdministratorViews/ManageUsers">Manage Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link website-background-outline-main fw-bold rounded px-3 mx-1" asp-page="/AdministratorViews/ManageListings">Manage Listings</a>
-                            </li>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <div class="dropdown">
+                                <button class="btn text-light website-background-main dropdown-toggle fw-bold rounded px-3 mx-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">A-Panel</button>
+                                <ul class="dropdown-menu website-background-main-nohover" aria-labelledby="dropdownMenuButton1">
+                                    <li class="nav-item">
+                                        <a class="dropdown-item fw-bold website-navbar-dropdown-option" asp-page="/AdministratorViews/Approval">Approval</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item fw-bold website-navbar-dropdown-option" asp-page="/AdministratorViews/ManageUsers">Manage Users</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item fw-bold website-navbar-dropdown-option" asp-page="/AdministratorViews/ManageListings">Manage Listings</a>
+                                    </li>
+                                </ul>
+                            </div>
                         }
                     </ul>
                     <partial name="_LoginPartial" />
