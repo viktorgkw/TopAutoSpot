@@ -21,11 +21,16 @@
         {
             @foreach (var notification in Model.Notifications)
             {
-                <h3>@notification.Id</h3>
-                <h3>@notification.From</h3>
-                <h3>@notification.To</h3>
-                <h3>@notification.Title</h3>
-                <h3>@notification.Description</h3>
+                @*TODO => Fix the design*@
+                @*TODO => Check all TODO's in the project!*@
+                <div class="mb-4 mt-4">
+                    <a class="text-decoration-none">
+                        <h2 class="fw-bold website-text-main">@notification.Title</h2>
+                        <h4 class="fw-bold">@Model.GetNotificationSender(@notification.From)</h4>
+                    </a>
+                </div>
+
+                @*Description will be shown in Notification Preview*@
             }
         }
     </div>

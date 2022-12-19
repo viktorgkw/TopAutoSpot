@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
+using TopAutoSpot.Data.Entities.Utilities;
 
 namespace TopAutoSpot.Views.Notifications
 {
@@ -23,11 +24,14 @@ namespace TopAutoSpot.Views.Notifications
         {
             var currentUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
 
-            Notifications = await _context.Notifications
-                .Where(n => n.To == currentUser.Id)
-                .ToListAsync();
+            Notifications = await NotificationManager.Get(_context, currentUser.Id);
 
             return Page();
+        }
+
+        public string GetNotificationSender(string senderId)
+        {
+            return _context.Users.First(u => u.Id == senderId).UserName;
         }
     }
 }
