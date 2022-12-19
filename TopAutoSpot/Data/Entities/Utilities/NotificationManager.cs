@@ -1,8 +1,15 @@
-﻿namespace TopAutoSpot.Data.Entities.Utilities
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace TopAutoSpot.Data.Entities.Utilities
 {
-    public static class NotificationSender
+    public static class NotificationManager
     {
-        public static bool Send(ApplicationDbContext _context, string from, string to, string title, string description)
+        public static async Task<List<Notification>> Get(ApplicationDbContext _context, string userId)
+        {
+            return await _context.Notifications.Where(n => n.To == userId).ToListAsync();
+        }
+
+        public static async Task<bool> Send(ApplicationDbContext _context, string from, string to, string title, string description)
         {
             if (ValidateProperties(new string[] { from, to, title, description }) == false)
             {
@@ -33,8 +40,6 @@
             };
 
             _context.Notifications.Add(newNotification);
-
-            toUser.Notifications.Add(newNotification);
 
             return true;
         }
