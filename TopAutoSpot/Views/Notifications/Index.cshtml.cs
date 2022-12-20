@@ -24,7 +24,7 @@ namespace TopAutoSpot.Views.Notifications
         {
             var currentUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
 
-            Notifications = await NotificationManager.Get(_context, currentUser.Id);
+            Notifications = await NotificationManager.GetAll(_context, currentUser.Id);
 
             return Page();
         }
