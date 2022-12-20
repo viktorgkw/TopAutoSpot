@@ -19,19 +19,17 @@
         }
         else
         {
-            @foreach (var notification in Model.Notifications)
-            {
-                @*TODO => Fix the design*@
-                @*TODO => Check all TODO's in the project!*@
-                <div class="mb-4 mt-4">
-                    <a class="text-decoration-none">
-                        <h2 class="fw-bold website-text-main">@notification.Title</h2>
-                        <h4 class="fw-bold">@Model.GetNotificationSender(@notification.From)</h4>
-                    </a>
-                </div>
-
-                @*Description will be shown in Notification Preview*@
-            }
+            <div class="d-flex flex-column">
+                @foreach (var notification in Model.Notifications)
+                {
+                    <div class="mb-5 mt-5">
+                        <a class="text-decoration-none" asp-route-id="@notification.Id" asp-page="/Notifications/Preview">
+                            <h2 class="fw-bold website-text-main">@notification.Title</h2>
+                            <h4 class="fw-bold">@Model.GetNotificationSender(@notification.From)</h4>
+                        </a>
+                    </div>
+                }
+            </div>
         }
     </div>
 
