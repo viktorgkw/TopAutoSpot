@@ -70,6 +70,10 @@ hr {
     height: 256px;
 }
 
+.dark-background {
+    background-color: #6320EE !important;
+}
+
 .website-text-nohover {
     color: #6320EE;
 }

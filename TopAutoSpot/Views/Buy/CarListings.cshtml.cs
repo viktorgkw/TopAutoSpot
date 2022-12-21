@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 using TopAutoSpot.Data.Entities.Utilities;
@@ -25,7 +23,7 @@ namespace TopAutoSpot.Views.Buy
         public async Task<IActionResult> OnGetAsync(string orderSetting)
         {
             Cars = await _context.Cars
-                        .Where(c => c.Status == StatusTypes.Active.ToString())
+                        .Where(c => c.Status == StatusTypes.Active.ToString() && c.Price > 0)
                         .ToListAsync();
 
             if (orderSetting != null)
@@ -53,6 +51,13 @@ namespace TopAutoSpot.Views.Buy
         public bool HasAnyImages(string carId)
         {
             return _context.VehicleImages.Where(img => img.VehicleId == carId).ToList().Count > 0;
+        }
+
+        public async Task<List<InterestedListing>> GetInterestedVehicles()
+        {
+            var currentUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+
+            return await _context.InterestedInListings.Where(l => l.UserId == currentUser.Id).ToListAsync();
         }
     }
 }

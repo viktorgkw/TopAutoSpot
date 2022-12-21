@@ -22,7 +22,10 @@
 
 
     <div class="d-flex flex-column column mx-5 justify-content-center">
-        <p class="fw-bold website-text-nohover fs-4">Price: <i class="text-dark">@Model.Car.Price</i></p>
+        @if (Model.Car.Price > 0)
+        {
+            <p class="fw-bold website-text-nohover fs-4">Price: <i class="text-dark">@Model.Car.Price</i></p>
+        }
         <p class="fw-bold website-text-nohover fs-4">Listing Created At: <i class="text-dark">@Model.Car.CreatedAt.ToString("MM/dd/yyyy")</i></p>
         <p class="fw-bold website-text-nohover fs-4">Location: <i class="text-dark">@Model.Car.Location</i></p>
         <p class="fw-bold website-text-nohover fs-4">Manufacture Date: <i class="text-dark">@Model.Car.ManufactureDate.ToString("MM/dd/yyyy")</i></p>

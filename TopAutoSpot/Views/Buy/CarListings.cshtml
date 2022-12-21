@@ -2,6 +2,7 @@
 @model TopAutoSpot.Views.Buy.CarListingsModel
 @{
     ViewData["Title"] = "Car Listings";
+    var interestedListings = await Model.GetInterestedVehicles();
 }
 
 <div class="mb-3 mt-3">
@@ -37,7 +38,7 @@
         <div class="d-flex flex-row mt-3">
             @foreach (var car in Model.Cars)
             {
-                <div class="d-flex flex-column mx-3 single-car ">
+                <div class="d-flex flex-column mx-3 single-car">
                     <a asp-page="/VehiclePreview/CarPreview" asp-route-id="@car.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
                         @if (!Model.HasAnyImages(car.Id))
                         {
@@ -60,6 +61,11 @@
                         <p class="fs-6 text-dark mb-0">@car.Location</p>
                         <p class="fs-5 fw-bold website-text-main">@car.Price лв.</p>
                     </a>
+
+                    @if (!interestedListings.Any(l => l.VehicleId == car.Id))
+                    {
+                        <a class="btn btn-outline-warning" asp-page="/InterestedIn/InterestInVehicle" asp-route-vehicleId="@car.Id" asp-route-vehicleCategory="car">💡</a>
+                    }
                 </div>
             }
         </div>

@@ -7,12 +7,19 @@ namespace TopAutoSpot.Views.Utilities
     public static class NotificationServices
     {
         public static async Task<bool> RemoveNotification(
-            ApplicationDbContext _context, string notificationId)
+            ApplicationDbContext _context, string notificationId, string userName)
         {
+            if (ValidateProperties(new string[] { notificationId, userName }) == false)
+            {
+                return false;
+            }
+
             var foundNotification = await _context.Notifications
                 .FirstAsync(n => n.Id == notificationId);
 
-            if (foundNotification != null)
+            var foundUser = _context.Users.First(u => u.UserName == userName);
+
+            if (foundNotification != null && foundUser != null && foundUser.Id == foundNotification.To)
             {
                 _context.Notifications.Remove(foundNotification);
                 await _context.SaveChangesAsync();

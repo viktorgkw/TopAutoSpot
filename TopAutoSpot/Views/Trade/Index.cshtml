@@ -5,17 +5,186 @@
 }
 
 <div>
-    <h1 class="fw-bold site-text-color">Trade-Only Listings</h1>
+    <h1 class="fw-bold website-text-darker-nohover">Trade-Only Listings</h1>
 
-    <p class="fw-bold site-text-darker-color">
-        <i>
-            Here every listing will be trade-only!
-        </i>
-    </p>
-    <p class="fw-bold site-text-darker-color">
-        <i>
-            This means that you cannot buy the listed vehicle,
-            because the seller only accepts other vehicles in return.
-        </i>
-    </p>
+    <p class="fw-bold website-text-nohover"><i>Here every listing will be trade-only!</i></p>
+    <p class="fw-bold website-text-nohover"><i>This means that you cannot buy the listed vehicle, because the seller only accepts other vehicles in return.</i></p>
 </div>
+<hr />
+<br />
+
+@if (Model.OverallCount == 0)
+{
+    <h3 class="text-danger fw-bold fs-4">No Trade-Only Listings Available :(</h3>
+
+    <br />
+
+    <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicleListingsAvailable.gif" />
+}
+else
+{
+    <div class="d-flex flex-row flex-wrap mt-3 flex-wrap">
+        @foreach (var car in Model.Cars)
+        {
+            <div class="d-flex flex-column mx-3 single-car ">
+                <a asp-page="/VehiclePreview/CarPreview" asp-route-id="@car.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
+                    @if (!Model.HasAnyImages(car.Id))
+                    {
+                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                    }
+                    else
+                    {
+                        <img class="listing-image rounded" src="@Model.GetImage(car.Id)" />
+                    }
+
+                    @if (car.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@string.Join("", car.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@car.Title</p>
+                    }
+
+                    <p class="fs-6 text-dark mb-0">@car.Location</p>
+                    <p class="fs-5 fw-bold website-text-main">Published: @car.ManufactureDate.ToString("MM/dd/yyyy")</p>
+                </a>
+            </div>
+        }
+        @foreach (var motorcycle in Model.Motorcycles)
+        {
+            <div class="d-flex flex-column mx-3 single-car ">
+                <a asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@motorcycle.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
+                    @if (!Model.HasAnyImages(motorcycle.Id))
+                    {
+                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                    }
+                    else
+                    {
+                        <img class="listing-image rounded" src="@Model.GetImage(motorcycle.Id)" />
+                    }
+
+                    @if (motorcycle.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@string.Join("", motorcycle.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@motorcycle.Title</p>
+                    }
+
+                    <p class="fs-6 text-dark mb-0">@motorcycle.Location</p>
+                    <p class="fs-5 fw-bold website-text-main">Published: @motorcycle.ManufactureDate.ToString("MM/dd/yyyy")</p>
+                </a>
+            </div>
+        }
+        @foreach (var trailer in Model.Trailers)
+        {
+            <div class="d-flex flex-column mx-3 single-car ">
+                <a asp-page="/VehiclePreview/TrailerPreview" asp-route-id="@trailer.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
+                    @if (!Model.HasAnyImages(trailer.Id))
+                    {
+                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                    }
+                    else
+                    {
+                        <img class="listing-image rounded" src="@Model.GetImage(trailer.Id)" />
+                    }
+
+                    @if (trailer.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@string.Join("", trailer.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@trailer.Title</p>
+                    }
+
+                    <p class="fs-6 text-dark mb-0">@trailer.Location</p>
+                    <p class="fs-5 fw-bold website-text-main">Published: @trailer.ManufactureDate.ToString("MM/dd/yyyy")</p>
+                </a>
+            </div>
+        }
+        @foreach (var truck in Model.Trucks)
+        {
+            <div class="d-flex flex-column mx-3 single-car ">
+                <a asp-page="/VehiclePreview/TruckPreview" asp-route-id="@truck.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
+                    @if (!Model.HasAnyImages(truck.Id))
+                    {
+                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                    }
+                    else
+                    {
+                        <img class="listing-image rounded" src="@Model.GetImage(truck.Id)" />
+                    }
+
+                    @if (truck.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@string.Join("", truck.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@truck.Title</p>
+                    }
+
+                    <p class="fs-6 text-dark mb-0">@truck.Location</p>
+                    <p class="fs-5 fw-bold website-text-main">Published: @truck.ManufactureDate.ToString("MM/dd/yyyy")</p>
+                </a>
+            </div>
+        }
+        @foreach (var bus in Model.Buses)
+        {
+            <div class="d-flex flex-column mx-3 single-bus ">
+                <a asp-page="/VehiclePreview/BusPreview" asp-route-id="@bus.Id" class="text-decoration-none site-text-color-btn fw-bold bus-title mb-1">
+                    @if (!Model.HasAnyImages(bus.Id))
+                    {
+                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                    }
+                    else
+                    {
+                        <img class="listing-image rounded" src="@Model.GetImage(bus.Id)" />
+                    }
+
+                    @if (bus.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@string.Join("", bus.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@bus.Title</p>
+                    }
+
+                    <p class="fs-6 text-dark mb-0">@bus.Location</p>
+                    <p class="fs-5 fw-bold website-text-main">Published: @bus.ManufactureDate.ToString("MM/dd/yyyy")</p>
+                </a>
+            </div>
+        }
+        @foreach (var boat in Model.Boats)
+        {
+            <div class="d-flex flex-column mx-3 single-boat ">
+                <a asp-page="/VehiclePreview/BoatPreview" asp-route-id="@boat.Id" class="text-decoration-none site-text-color-btn fw-bold boat-title mb-1">
+                    @if (!Model.HasAnyImages(boat.Id))
+                    {
+                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                    }
+                    else
+                    {
+                        <img class="listing-image rounded" src="@Model.GetImage(boat.Id)" />
+                    }
+
+                    @if (boat.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@string.Join("", boat.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold website-text-darker listing-title">@boat.Title</p>
+                    }
+
+                    <p class="fs-6 text-dark mb-0">@boat.Location</p>
+                    <p class="fs-5 fw-bold website-text-main">Published: @boat.ManufactureDate.ToString("MM/dd/yyyy")</p>
+                </a>
+            </div>
+        }
+    </div>
+}

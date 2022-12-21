@@ -23,7 +23,7 @@ namespace TopAutoSpot.Views.Buy
         public async Task<IActionResult> OnGetAsync(string orderSetting)
         {
             Motorcycles = await _context.Motorcycles
-                .Where(m => m.Status == StatusTypes.Active.ToString())
+                .Where(m => m.Status == StatusTypes.Active.ToString() && m.Price > 0)
                 .ToListAsync();
 
             if (orderSetting != null)
@@ -51,6 +51,13 @@ namespace TopAutoSpot.Views.Buy
         public bool HasAnyImages(string motorcycleId)
         {
             return _context.VehicleImages.Where(img => img.VehicleId == motorcycleId).ToList().Count > 0;
+        }
+
+        public async Task<List<InterestedListing>> GetInterestedVehicles()
+        {
+            var currentUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+
+            return await _context.InterestedInListings.Where(l => l.UserId == currentUser.Id).ToListAsync();
         }
     }
 }
