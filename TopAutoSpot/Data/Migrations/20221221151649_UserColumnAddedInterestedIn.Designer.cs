@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TopAutoSpot.Data;
 
@@ -11,9 +12,11 @@ using TopAutoSpot.Data;
 namespace TopAutoSpot.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221221151649_UserColumnAddedInterestedIn")]
+    partial class UserColumnAddedInterestedIn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -363,8 +366,7 @@ namespace TopAutoSpot.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("VehicleCategory")
                         .IsRequired()
@@ -376,7 +378,9 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InterestedInListings");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("InterestedListing");
                 });
 
             modelBuilder.Entity("TopAutoSpot.Data.Entities.Motorcycle", b =>
@@ -738,6 +742,18 @@ namespace TopAutoSpot.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TopAutoSpot.Data.Entities.InterestedListing", b =>
+                {
+                    b.HasOne("TopAutoSpot.Data.Entities.User", null)
+                        .WithMany("InterestedIn")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("TopAutoSpot.Data.Entities.User", b =>
+                {
+                    b.Navigation("InterestedIn");
                 });
 #pragma warning restore 612, 618
         }

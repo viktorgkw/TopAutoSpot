@@ -22,7 +22,7 @@ namespace TopAutoSpot.Views.Notifications
                 return RedirectToPage("/NotFound");
             }
 
-            var result = await NotificationServices.RemoveNotification(_context, id);
+            var result = await NotificationServices.RemoveNotification(_context, id, User.Identity.Name);
 
             if (result == false)
             {

@@ -2,6 +2,7 @@
 @model TopAutoSpot.Views.Buy.BusListingsModel
 @{
     ViewData["Title"] = "Bus Listings";
+    var interestedListings = await Model.GetInterestedVehicles();
 }
 
 <div class="mb-3 mt-3">
@@ -60,6 +61,11 @@
                         <p class="fs-6 text-dark mb-0">@bus.Location</p>
                         <p class="fs-5 fw-bold website-text-main">@bus.Price лв.</p>
                     </a>
+
+                    @if (!interestedListings.Any(l => l.VehicleId == bus.Id))
+                    {
+                        <a class="btn btn-outline-warning" asp-page="/InterestedIn/InterestInVehicle" asp-route-vehicleId="@bus.Id" asp-route-vehicleCategory="bus">💡</a>
+                    }
                 </div>
             }
         </div>

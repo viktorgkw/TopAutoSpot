@@ -1,0 +1,90 @@
+﻿@page
+@model TopAutoSpot.Views.InterestedIn.IndexModel
+@{
+    ViewData["Title"] = "Interested In";
+}
+
+<h1 class="fw-bold website-text-darker-nohover">Interested In Page</h1>
+
+<p class="fw-bold website-text-nohover"><i>Here are all the listings you are interested in!</i></p>
+<hr />
+<br />
+
+@if (Model.InterestedListings.Count == 0)
+{
+    <div class="mt-3 mb-3">
+        <h3 class="fw-bold website-text-darker-nohover">You are not interested in any vehicles!</h3>
+        <p class="fw-bold website-text-nohover">You can add some anytime by going in the Buy page!</p>
+    </div>
+
+    <div class="mt-5 mb-5">
+        <img class="rounded-3 mt-3 mb-3" src="~/gifs/zeroInterested.gif" />
+    </div>
+}
+else
+{
+    @foreach (var listing in Model.InterestedListings)
+    {
+        <div class="fw-bold">
+            @if (listing.VehicleCategory == "car")
+            {
+                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                    <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/CarPreview" asp-route-id="@listing.VehicleId">
+                        <p>@await Model.GetCarTitle(listing.VehicleId)</p>
+                    </a>
+
+                    <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
+                </div>
+            }
+            else if (listing.VehicleCategory == "motorcycle")
+            {
+                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                    <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@listing.VehicleId">
+                        <p>@await Model.GetMotoTitle(listing.VehicleId)</p>
+                    </a>
+
+                    <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
+                </div>
+            }
+            else if (listing.VehicleCategory == "truck")
+            {
+                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                    <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/TruckPreview" asp-route-id="@listing.VehicleId">
+                        <p>@await Model.GetTruckTitle(listing.VehicleId)</p>
+                    </a>
+
+                    <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
+                </div>
+            }
+            else if (listing.VehicleCategory == "trailer")
+            {
+                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                    <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/TrailerPreview" asp-route-id="@listing.VehicleId">
+                        <p>@await Model.GetTrailerTitle(listing.VehicleId)</p>
+                    </a>
+
+                    <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
+                </div>
+            }
+            else if (listing.VehicleCategory == "boat")
+            {
+                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                    <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/BoatPreview" asp-route-id="@listing.VehicleId">
+                        <p>@await Model.GetBoatTitle(listing.VehicleId)</p>
+                    </a>
+
+                    <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
+                </div>
+            }
+            else if (listing.VehicleCategory == "bus")
+            {
+                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                    <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/BusPreview" asp-route-id="@listing.VehicleId">
+                        <p>@await Model.GetBusTitle(listing.VehicleId)</p>
+                    </a>
+                    <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
+                </div>
+            }
+        </div>
+    }
+}
