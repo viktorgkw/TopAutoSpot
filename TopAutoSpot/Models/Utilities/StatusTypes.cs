@@ -1,4 +1,4 @@
-﻿namespace TopAutoSpot.Data.Entities.Utilities
+﻿namespace TopAutoSpot.Models.Utilities
 {
     public enum StatusTypes
     {

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TopAutoSpot.Data.Entities
+namespace TopAutoSpot.Models
 {
-    public class Car
+    public class Boat
     {
         [Key]
         public string Id { get; set; }
@@ -16,10 +16,11 @@ namespace TopAutoSpot.Data.Entities
         public string Model { get; set; }
         public DateTime ManufactureDate { get; set; }
         public int? HorsePower { get; set; }
-        public double? Mileage { get; set; }
-        public string Transmission { get; set; }
         public string EngineType { get; set; }
-        public string EuroStandart { get; set; }
+        public int EngineCount { get; set; }
+        public double Width { get; set; }
+        public double Length { get; set; }
+        public string? Material { get; set; }
         public string Status { get; set; }
     }
 }

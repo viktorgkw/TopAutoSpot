@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
-using TopAutoSpot.Data.Entities;
+using TopAutoSpot.Models;
+using TopAutoSpot.Services.EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +18,14 @@ builder.Services.AddIdentity<User, IdentityRole>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
 
-builder.Services.AddControllersWithViews();
-
 builder.Services.AddRazorPages(options =>
 {
     options.RootDirectory = "/Views";
 });
+
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

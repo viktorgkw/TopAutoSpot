@@ -1,13 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data.Entities;
 using TopAutoSpot.Data;
 using Microsoft.EntityFrameworkCore;
-using TopAutoSpot.Data.Entities.Utilities;
 using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TopAutoSpot.Views.Trade
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         public ApplicationDbContext _context;

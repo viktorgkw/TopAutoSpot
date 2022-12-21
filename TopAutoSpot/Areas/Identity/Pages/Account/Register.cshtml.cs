@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
-using TopAutoSpot.Data.Entities;
-using TopAutoSpot.Data.Entities.Utilities;
+using TopAutoSpot.Models;
+using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Services.EmailService;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account
 {
@@ -17,18 +16,21 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
         private readonly IUserStore<User> _userStore;
         private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly IEmailService _emailService;
 
         public RegisterModel(
             UserManager<User> userManager,
             IUserStore<User> userStore,
             SignInManager<User> signInManager,
-            ILogger<RegisterModel> logger)
+            ILogger<RegisterModel> logger,
+            IEmailService emailService)
         {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -73,7 +75,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
@@ -90,6 +92,13 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    //_emailService.SendEmail(new EmailDto()
+                    //{
+                    //    To = user.Email,
+                    //    Subject = "Hello!",
+                    //    Body = "Maybe it works now?",
+                    //});
 
                     return LocalRedirect(returnUrl);
                 }

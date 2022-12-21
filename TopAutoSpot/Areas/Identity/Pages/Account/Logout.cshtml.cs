@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data.Entities;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account
 {

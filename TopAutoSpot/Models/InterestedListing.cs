@@ -1,4 +1,4 @@
-﻿namespace TopAutoSpot.Data.Entities
+﻿namespace TopAutoSpot.Models
 {
     public class InterestedListing
     {

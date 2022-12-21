@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TopAutoSpot.Data.Entities
+namespace TopAutoSpot.Models
 {
     public class Bus
     {
