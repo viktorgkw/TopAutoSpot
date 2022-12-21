@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
-using TopAutoSpot.Data.Entities.Utilities;
+using TopAutoSpot.Models.Utilities;
 using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.ListingsCD

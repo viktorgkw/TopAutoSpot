@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
-using TopAutoSpot.Data.Entities;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.Utilities
 {
