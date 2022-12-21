@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Drawing;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities.Utilities;
 
@@ -17,15 +18,37 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
         [BindProperty]
         public string VehicleId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string vehicleId)
+        public async Task<IActionResult> OnGetAsync(string vehicleId, string reason)
         {
             if (User.IsInRole("Administrator"))
             {
-                var result = await VehicleRefused(vehicleId);
+                var refuseResult = await VehicleRefused(vehicleId);
 
-                if (result)
+                if (refuseResult)
                 {
                     VehicleId = vehicleId;
+
+                    var ownerId = await UserServices.GetVehicleOwner(_context, VehicleId);
+
+                    var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
+
+                    if (ownerId == "" || ownerId == null || currentUserId == null || currentUserId == "")
+                    {
+                        return RedirectToPage("/NotFound");
+
+                    }
+
+                    var sendResult = await NotificationServices.Send(_context,
+                        currentUserId,
+                        ownerId,
+                        DefaultNotificationMessages.LISTING_REFUSED_TITLE,
+                        reason);
+
+                    if (sendResult == false)
+                    {
+                        return RedirectToPage("/Error");
+                    }
+
                     return Page();
                 }
                 else

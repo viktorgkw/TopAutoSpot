@@ -24,14 +24,30 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
         {
             if (User.IsInRole("Administrator"))
             {
-                var result = await DeleteVehicle(id);
+                VehicleId = id;
 
-                if (!result)
+                var ownerId = await UserServices.GetVehicleOwner(_context, VehicleId);
+
+                var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
+
+                var sendResult = await NotificationServices.Send(_context,
+                    currentUserId,
+                    ownerId,
+                    DefaultNotificationMessages.LISTING_DELETED_TITLE,
+                    DefaultNotificationMessages.LISTING_DELETED_DESCRIPTION);
+
+                if (!sendResult)
                 {
-                    return RedirectToPage("/NotFound");
+                    return RedirectToPage("/UnknownError");
                 }
 
-                VehicleId = id;
+                var deleteResult = await DeleteVehicle(id);
+
+                if (!deleteResult)
+                {
+                    return RedirectToPage("/UnknownError");
+                }
+
                 return Page();
             }
 
