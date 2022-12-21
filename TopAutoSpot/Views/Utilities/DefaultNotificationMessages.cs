@@ -1,4 +1,4 @@
-﻿namespace TopAutoSpot.Data.Entities.Utilities
+﻿namespace TopAutoSpot.Views.Utilities
 {
     public static class DefaultNotificationMessages
     {

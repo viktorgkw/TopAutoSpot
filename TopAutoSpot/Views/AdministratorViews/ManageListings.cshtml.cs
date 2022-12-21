@@ -4,7 +4,6 @@ using TopAutoSpot.Data.Entities;
 using TopAutoSpot.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TopAutoSpot.Data.Entities.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews
 {

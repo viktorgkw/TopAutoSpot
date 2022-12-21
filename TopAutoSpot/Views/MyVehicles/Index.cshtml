@@ -1,24 +1,37 @@
 ﻿@page
-@using System.Drawing;
 @model TopAutoSpot.Views.MyVehicles.IndexModel
 @{
     ViewData["Title"] = "My Vehicles";
 }
 
-<p class="fw-bold fs-2 text-dark">ADD NEW</p>
-<a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/CarCRUD/Create">Car</a>
-<a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/TruckCRUD/Create">Truck</a>
-<a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/TrailerCRUD/Create">Trailer</a>
-<a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/MotorcycleCRUD/Create">Motorcycle</a>
-<a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/BoatCRUD/Create">Boat</a>
-<a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/BusCRUD/Create">Bus</a>
+<p class="fw-bold fs-1 website-text-darker-nohover">Your Vehicles</p>
+<hr />
+<br />
+
+<p class="fw-bold fs-2 website-text-nohover">ADD NEW</p>
+<div class="mb-2 mt-2">
+    <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/CarCRUD/Create">Car</a>
+    <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/TruckCRUD/Create">Truck</a>
+    <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/TrailerCRUD/Create">Trailer</a>
+    <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/MotorcycleCRUD/Create">Motorcycle</a>
+    <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/BoatCRUD/Create">Boat</a>
+    <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/BusCRUD/Create">Bus</a>
+</div>
+<br />
 <hr />
 <br />
 
 @if (Model.OverallCount == 0)
 {
     // No vehicles available.
-    <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicles.gif" />
+    <div class="mt-3 mb-3">
+        <h3 class="fw-bold website-text-darker-nohover">You don't have any vehicles!</h3>
+        <p class="fw-bold website-text-nohover">You can add new anytime!</p>
+    </div>
+
+    <div class="mt-5 mb-5">
+        <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicles.gif" />
+    </div>
 }
 else
 {
@@ -30,7 +43,7 @@ else
                 <a asp-page="/VehiclePreview/CarPreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
                     @if (!Model.HasAnyImages(vehicle.Id))
                     {
-                        <img class="listing-image rounded" src="~/images/noImageFound.png" />                        
+                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
                     }
                     else
                     {

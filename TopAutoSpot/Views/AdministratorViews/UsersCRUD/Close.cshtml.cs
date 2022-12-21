@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data.Entities;
 using TopAutoSpot.Data;
 using Microsoft.EntityFrameworkCore;
-using TopAutoSpot.Data.Entities.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
 {

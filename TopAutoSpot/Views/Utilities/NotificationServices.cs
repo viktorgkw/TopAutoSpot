@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Data.Entities;
 
-namespace TopAutoSpot.Data.Entities.Utilities
+namespace TopAutoSpot.Views.Utilities
 {
     public static class NotificationServices
     {
@@ -23,7 +25,7 @@ namespace TopAutoSpot.Data.Entities.Utilities
         public static async Task<Notification> Get(
             ApplicationDbContext _context, string notificationId)
         {
-            if(ValidateProperties(new string[] { notificationId }) == false)
+            if (ValidateProperties(new string[] { notificationId }) == false)
             {
                 return null;
             }
