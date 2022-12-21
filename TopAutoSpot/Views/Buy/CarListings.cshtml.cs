@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
 using TopAutoSpot.Data.Entities.Utilities;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.Buy
 {
@@ -18,22 +20,20 @@ namespace TopAutoSpot.Views.Buy
 
         [BindProperty]
         public string OrderSetting { get; set; }
-
         public List<Car> Cars { get; set; }
-        public List<SelectListItem> Options { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string orderSetting)
-         {
-            // Fix the order logic
-            //if (orderSetting != null && orderSetting != "")
-            //{
-            //    Cars = new List<Car>();
-            //    return Page();
-            //}
+        {
+            Cars = await _context.Cars
+                        .Where(c => c.Status == StatusTypes.Active.ToString())
+                        .ToListAsync();
 
-            //Cars = await _context.Cars
-            //    .Where(c => c.Status == StatusTypes.Active.ToString())
-            //    .ToListAsync();
+            if (orderSetting != null)
+            {
+                Cars = VehicleCollectionSorter
+                    .SortBy(Cars, orderSetting)
+                    .ToList();
+            }
 
             return Page();
         }

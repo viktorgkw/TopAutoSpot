@@ -6,7 +6,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1 class="fw-bold text-dark">Edit Bus</h1>
+<h1 class="fw-bold website-text-darker-nohover">Edit Bus</h1>
 <hr />
 <br />
 
@@ -21,56 +21,60 @@
         <div class="m-2 px-4">
             <div class="form-group mb-4">
                 <label asp-for="VehicleImage.ImageData" class="control-label fw-bold website-text-nohover mb-2">Select Images</label>
+                <p class="fs-6 text-danger"><i>(Required)</i></p>
                 <input asp-for="VehicleImage.ImageData" name="Images" type="file" multiple>
             </div>
 
             <div class="form-group mb-4">
-                <label asp-for="Bus.Title" class="control-label fw-bold website-text-darker"></label>
+                <label asp-for="Bus.Title" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Bus.Title" class="form-control" />
                 <span asp-validation-for="Bus.Title" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.Description" class="control-label fw-bold website-text-darker"></label>
+                <label asp-for="Bus.Description" class="control-label fw-bold website-text-nohover"></label>
+                <p class="text-dark fw-bold"><i>[Optional]</i></p>
                 <input asp-for="Bus.Description" class="form-control" />
                 <span asp-validation-for="Bus.Description" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.Location" class="control-label fw-bold website-text-darker"></label>
+                <label asp-for="Bus.Location" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Bus.Location" class="form-control" />
                 <span asp-validation-for="Bus.Location" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.Price" class="control-label fw-bold website-text-darker"></label>
-                <input min="0" asp-for="Bus.Price" class="form-control" />
+                <label asp-for="Bus.Price" class="control-label fw-bold website-text-nohover"></label>
+                <p class="text-dark fw-bold"><i>[If you set the price to 0, it will be displayed in the trade-only page!]</i></p>
+                <input min="0" max="10000000" asp-for="Bus.Price" class="form-control" />
                 <span asp-validation-for="Bus.Price" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.Make" class="control-label fw-bold website-text-darker"></label>
+                <label asp-for="Bus.Make" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Bus.Make" class="form-control" />
                 <span asp-validation-for="Bus.Make" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.Model" class="control-label fw-bold website-text-darker"></label>
+                <label asp-for="Bus.Model" class="control-label fw-bold website-text-nohover"></label>
                 <input asp-for="Bus.Model" class="form-control" />
                 <span asp-validation-for="Bus.Model" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.ManufactureDate" class="control-label fw-bold website-text-darker">Manufacture Date</label>
+                <label asp-for="Bus.ManufactureDate" class="control-label fw-bold website-text-nohover">Manufacture Date</label>
+                <p class="text-dark fw-bold"><i>[If you dont remember the exact day/month, just type 01, 01]</i></p>
                 <input min="1880-00-00" max="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day" type="date" asp-for="Bus.ManufactureDate" class="form-control" />
                 <span asp-validation-for="Bus.ManufactureDate" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.HorsePower" class="control-label fw-bold website-text-darker">Horse Power</label>
+                <label asp-for="Bus.HorsePower" class="control-label fw-bold website-text-nohover">Horse Power</label>
                 <input min="0" max="2000" asp-for="Bus.HorsePower" class="form-control" />
                 <span asp-validation-for="Bus.HorsePower" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.Mileage" class="control-label fw-bold website-text-darker">Mileage</label>
+                <label asp-for="Bus.Mileage" class="control-label fw-bold website-text-nohover">Mileage</label>
                 <input min="0" asp-for="Bus.Mileage" class="form-control" />
                 <span asp-validation-for="Bus.Mileage" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.Transmission" class="control-label fw-bold website-text-darker"></label>
+                <label asp-for="Bus.Transmission" class="control-label fw-bold website-text-nohover"></label>
                 <select asp-for="Bus.Transmission" class="form-select">
                     <option value="Automatic">Automatic</option>
                     <option value="Manual">Manual</option>
@@ -78,7 +82,7 @@
                 <span asp-validation-for="Bus.Transmission" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.EngineType" class="control-label fw-bold website-text-darker">Engine Type</label>
+                <label asp-for="Bus.EngineType" class="control-label fw-bold website-text-nohover">Engine Type</label>
                 <select asp-for="Bus.EngineType" class="form-select">
                     <option value="Diesel">Diesel</option>
                     <option value="Gasoline">Gasoline</option>
@@ -88,7 +92,7 @@
                 <span asp-validation-for="Bus.EngineType" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.EuroStandart" class="control-label fw-bold website-text-darker">Euro Standart</label>
+                <label asp-for="Bus.EuroStandart" class="control-label fw-bold website-text-nohover">Euro Standart</label>
                 <select asp-for="Bus.EuroStandart" class="form-select">
                     <option value="Euro1">Euro1</option>
                     <option value="Euro2">Euro2</option>
@@ -101,7 +105,7 @@
                 <span asp-validation-for="Bus.EuroStandart" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.AxlesCount" class="control-label fw-bold website-text-darker">Axles Count</label>
+                <label asp-for="Bus.AxlesCount" class="control-label fw-bold website-text-nohover">Axles Count</label>
                 <select asp-for="Bus.AxlesCount" class="form-select">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -113,12 +117,12 @@
                 <span asp-validation-for="Bus.AxlesCount" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.SeatsCount" class="control-label fw-bold website-text-darker">Seats Count</label>
+                <label asp-for="Bus.SeatsCount" class="control-label fw-bold website-text-nohover">Seats Count</label>
                 <input min="1" max="300" asp-for="Bus.SeatsCount" class="form-control" />
                 <span asp-validation-for="Bus.SeatsCount" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <label asp-for="Bus.LoadCapacity" class="control-label fw-bold website-text-darker">Load Capacity</label>
+                <label asp-for="Bus.LoadCapacity" class="control-label fw-bold website-text-nohover">Load Capacity</label>
                 <input min="100" max="5000" asp-for="Bus.LoadCapacity" class="form-control" />
                 <span asp-validation-for="Bus.LoadCapacity" class="text-danger"></span>
             </div>

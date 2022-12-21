@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
@@ -6,6 +7,7 @@ using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.Notifications
 {
+    [Authorize]
     public class PreviewModel : PageModel
     {
         private ApplicationDbContext _context;
@@ -25,7 +27,7 @@ namespace TopAutoSpot.Views.Notifications
                 return RedirectToPage("/NotFound");
             }
 
-            Notification = await NotificationServices.Get(_context, id);
+            Notification = await NotificationServices.Get(_context, id, User.Identity.Name);
 
             if (Notification == null)
             {

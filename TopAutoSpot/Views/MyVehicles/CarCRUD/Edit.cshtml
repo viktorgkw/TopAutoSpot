@@ -6,7 +6,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1 class="fw-bold text-dark">Edit Car</h1>
+<h1 class="fw-bold website-text-darker-nohover">Edit Car</h1>
 <hr />
 <br />
 
@@ -21,6 +21,7 @@
         <div class="m-2 px-4">
             <div class="form-group mb-4">
                 <label asp-for="VehicleImage.ImageData" class="control-label fw-bold website-text-nohover mb-2">Select Images</label>
+                <p class="fs-6 text-danger"><i>(Required)</i></p>
                 <input asp-for="VehicleImage.ImageData" name="Images" type="file" multiple>
             </div>
 
@@ -31,6 +32,7 @@
             </div>
             <div class="form-group mb-4">
                 <label asp-for="Car.Description" class="control-label fw-bold website-text-nohover"></label>
+                <p class="text-dark fw-bold"><i>[Optional]</i></p>
                 <input asp-for="Car.Description" class="form-control" />
                 <span asp-validation-for="Car.Description" class="text-danger"></span>
             </div>
@@ -41,7 +43,8 @@
             </div>
             <div class="form-group mb-4">
                 <label asp-for="Car.Price" class="control-label fw-bold website-text-nohover"></label>
-                <input min="0" asp-for="Car.Price" class="form-control" />
+                <p class="text-dark fw-bold"><i>[If you set the price to 0, it will be displayed in the trade-only page!]</i></p>
+                <input min="0" max="10000000" asp-for="Car.Price" class="form-control" />
                 <span asp-validation-for="Car.Price" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
@@ -56,6 +59,7 @@
             </div>
             <div class="form-group mb-4">
                 <label asp-for="Car.ManufactureDate" class="control-label fw-bold website-text-nohover">Manufacture Date</label>
+                <p class="text-dark fw-bold"><i>[If you dont remember the exact day/month, just type 01, 01]</i></p>
                 <input min="1880-00-00" max="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day" type="date" asp-for="Car.ManufactureDate" class="form-control" />
                 <span asp-validation-for="Car.ManufactureDate" class="text-danger"></span>
             </div>
