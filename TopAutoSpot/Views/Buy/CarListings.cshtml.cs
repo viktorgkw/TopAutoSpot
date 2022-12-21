@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Entities;
@@ -14,13 +16,31 @@ namespace TopAutoSpot.Views.Buy
             _context = db;
         }
 
-        public List<Car> Cars { get; set; }
+        [BindProperty]
+        public string OrderSetting { get; set; }
 
-        public async Task OnGetAsync()
+        public List<Car> Cars { get; set; }
+        public List<SelectListItem> Options { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(string orderSetting)
+         {
+            // Fix the order logic
+            //if (orderSetting != null && orderSetting != "")
+            //{
+            //    Cars = new List<Car>();
+            //    return Page();
+            //}
+
+            //Cars = await _context.Cars
+            //    .Where(c => c.Status == StatusTypes.Active.ToString())
+            //    .ToListAsync();
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
         {
-            Cars = await _context.Cars
-                .Where(c => c.Status == StatusTypes.Active.ToString())
-                .ToListAsync();
+            return RedirectToPage("/Buy/CarListings", new { orderSetting = OrderSetting });
         }
 
         public string GetImage(string carId)
