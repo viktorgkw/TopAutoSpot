@@ -1,10 +1,9 @@
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
+using TopAutoSpot.Models.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
-using TopAutoSpot.Models.Utilities;
-using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.VehiclePreview
 {

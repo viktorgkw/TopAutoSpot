@@ -1,7 +1,7 @@
 using TopAutoSpot.Data;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TopAutoSpot.Views.InterestedIn
 {

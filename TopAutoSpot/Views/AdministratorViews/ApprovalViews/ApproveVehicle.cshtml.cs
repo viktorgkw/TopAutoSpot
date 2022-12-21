@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Authorization;
+using TopAutoSpot.Data;
+using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Models.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
-using TopAutoSpot.Models.Utilities;
-using TopAutoSpot.Views.Utilities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TopAutoSpot.Views.AdministratorViews.Utilities
 {
