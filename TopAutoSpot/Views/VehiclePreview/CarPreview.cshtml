@@ -1,9 +1,5 @@
 ﻿@page
 @model TopAutoSpot.Views.VehiclePreview.CarPreviewModel
-@{
-    var ownerFullName = Model.GetOwnerFullName();
-    var ownerNumber = Model.GetOwnerNumber();
-}
 
 <h1 class="fw-bold text-dark">@Model.Car.Title</h1>
 <h2 class="fw-bold website-text-nohover">@Model.Car.Make @Model.Car.Model</h2>
@@ -61,10 +57,10 @@
 
 <div class="mt-5">
     <h2 class="text-dark fw-bold fs-3">Vehicle Owner Info</h2>
-    <p class="fw-bold website-text-nohover fs-5">@ownerFullName</p>
-    @if (ownerNumber != null)
+    <p class="fw-bold website-text-nohover fs-5">@Model.GetOwnerFullName()</p>
+    @if (Model.GetOwnerNumber() != null)
     {
-        <p class="fw-bold website-text-nohover fs-5">Phone Number: @ownerNumber</p>
+        <p class="fw-bold website-text-nohover fs-5">Phone Number: @Model.GetOwnerNumber()</p>
     }
 </div>
 

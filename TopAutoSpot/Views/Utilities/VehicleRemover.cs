@@ -1,4 +1,6 @@
-﻿namespace TopAutoSpot.Data.Entities.Utilities
+﻿using TopAutoSpot.Data;
+
+namespace TopAutoSpot.Views.Utilities
 {
     public class VehicleRemover
     {

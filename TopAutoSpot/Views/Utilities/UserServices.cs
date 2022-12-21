@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Data.Entities;
 
-namespace TopAutoSpot.Data.Entities.Utilities
+namespace TopAutoSpot.Views.Utilities
 {
     public static class UserServices
     {
