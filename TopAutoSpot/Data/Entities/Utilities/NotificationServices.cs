@@ -2,13 +2,36 @@
 
 namespace TopAutoSpot.Data.Entities.Utilities
 {
-    public static class NotificationManager
+    public static class NotificationServices
     {
+        public static async Task<bool> RemoveNotification(
+            ApplicationDbContext _context, string notificationId)
+        {
+            var foundNotification = await _context.Notifications
+                .FirstAsync(n => n.Id == notificationId);
+
+            if (foundNotification != null)
+            {
+                _context.Notifications.Remove(foundNotification);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
         public static async Task<Notification> Get(
             ApplicationDbContext _context, string notificationId)
         {
-            return await _context.Notifications
-                .FirstAsync(n => n.Id == notificationId);
+            if(ValidateProperties(new string[] { notificationId }) == false)
+            {
+                return null;
+            }
+
+            var foundNotification = _context.Notifications
+                .FirstOrDefault(n => n.Id == notificationId);
+
+            return foundNotification;
         }
 
         public static async Task<List<Notification>> GetAll
@@ -16,6 +39,7 @@ namespace TopAutoSpot.Data.Entities.Utilities
         {
             return await _context.Notifications
                 .Where(n => n.To == userId)
+                .OrderByDescending(n => n.CreatedAt)
                 .ToListAsync();
         }
 
@@ -48,12 +72,19 @@ namespace TopAutoSpot.Data.Entities.Utilities
                 From = fromUser.Id,
                 To = toUser.Id,
                 Title = title,
-                Description = description
+                Description = description,
+                CreatedAt = DateTime.Now
             };
 
             _context.Notifications.Add(newNotification);
+            await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public static async Task<string> GetFromUsername(ApplicationDbContext _context, string from)
+        {
+            return _context.Users.First(u => u.Id == from).UserName;
         }
 
         private static bool ValidateProperties(string[] props)

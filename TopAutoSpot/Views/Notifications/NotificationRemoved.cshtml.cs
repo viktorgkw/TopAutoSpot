@@ -1,22 +1,19 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
-using TopAutoSpot.Data.Entities;
 using TopAutoSpot.Data.Entities.Utilities;
 
 namespace TopAutoSpot.Views.Notifications
 {
-    public class PreviewModel : PageModel
+    [Authorize]
+    public class NotificationRemovedModel : PageModel
     {
         private ApplicationDbContext _context;
-
-        public PreviewModel(ApplicationDbContext context)
+        public NotificationRemovedModel(ApplicationDbContext context)
         {
             _context = context;
         }
-
-        [BindProperty]
-        public Notification Notification { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -25,19 +22,14 @@ namespace TopAutoSpot.Views.Notifications
                 return RedirectToPage("/NotFound");
             }
 
-            Notification = await NotificationServices.Get(_context, id);
+            var result = await NotificationServices.RemoveNotification(_context, id);
 
-            if (Notification == null)
+            if (result == false)
             {
                 return RedirectToPage("/NotFound");
             }
 
             return Page();
-        }
-
-        public async Task<string> GetFromUsername()
-        {
-            return await NotificationServices.GetFromUsername(_context, Notification.From);
         }
     }
 }

@@ -1,2 +1,26 @@
 ﻿@page
 @model TopAutoSpot.Views.Notifications.PreviewModel
+@{
+    var fromUsername = await Model.GetFromUsername();
+}
+<h1 class="fw-bold website-text-darker-nohover">@Model.Notification.Title</h1>
+<hr />
+<br />
+
+<div class="d-flex flex-column justify-content-center mb-5 border rounded border-dark bg-white">
+    <div class="mb-2 mt-3">
+        <p class="fw-bold fs-5 website-text-nohover">From: @fromUsername</p>
+    </div>
+
+    <div class="mb-2 mt-3">
+        <p class="fw-bold fs-4 website-text-nohover">Created At: @Model.Notification.CreatedAt.ToString("MMMM dd, yyyy")</p>
+    </div>
+
+    <div class="mb-3 mt-2">
+        <p class="fw-bold fs-4 website-text-nohover">Description:</p>
+
+        <p class="fw-bold fs-3 website-text-nohover">@Model.Notification.Description</p>
+    </div>
+</div>
+
+<a class="btn website-background-outline-main fw-bold rounded" asp-page="/Notifications/Index">Go Back</a>
