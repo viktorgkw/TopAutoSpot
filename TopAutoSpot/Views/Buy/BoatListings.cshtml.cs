@@ -3,6 +3,8 @@ using TopAutoSpot.Data.Entities;
 using TopAutoSpot.Data;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data.Entities.Utilities;
+using Microsoft.AspNetCore.Mvc;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.Buy
 {
@@ -14,13 +16,29 @@ namespace TopAutoSpot.Views.Buy
             _context = db;
         }
 
+        [BindProperty]
+        public string OrderSetting { get; set; }
         public List<Boat> Boats { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string orderSetting)
         {
             Boats = await _context.Boats
                 .Where(b => b.Status == StatusTypes.Active.ToString())
                 .ToListAsync();
+
+            if (orderSetting != null)
+            {
+                Boats = VehicleCollectionSorter
+                    .SortBy(Boats, orderSetting)
+                    .ToList();
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            return RedirectToPage("/Buy/BoatListings", new { orderSetting = OrderSetting });
         }
 
         public string GetImage(string boatId)

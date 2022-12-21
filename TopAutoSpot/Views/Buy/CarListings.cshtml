@@ -21,25 +21,17 @@
         <div class="mt-3 mb-3">
             <form method="post">
                 <select class="text-light website-background-main fw-bold" asp-for="@Model.OrderSetting">
-                    <option value="Default">Default</option>
-                    <option value="Name">Name</option>
-                    <option value="NameD">Name Descending</option>
-                    <option value="Created">Created Date</option>
-                    <option value="CreatedD">Created Date Descending</option>
-                    <option value="Price">Price</option>
-                    <option value="PriceD">Price Descending</option>
-                    <option value="Location">Location</option>
-                    <option value="LocationD">Location Descending</option>
-                    <option value="Make">Make</option>
-                    <option value="MakeD">Make Descending</option>
+                    <option value="None">None</option>
+                    <option value="Oldest">Oldest First</option>
+                    <option value="Newest">Newest First</option>
+                    <option value="Cheapest">Cheapest First</option>
+                    <option value="Expensive">Expensive First</option>
                 </select>
 
                 <div class="form-group mt-3 mb-2">
                     <input type="submit" value="Order" class="text-light btn website-background-main fw-bold" />
                 </div>
             </form>
-
-            @*<a asp-page="/Buy/CarListings" asp-route-orderSettings="">Order By</a>*@
         </div>
 
         <div class="d-flex flex-row mt-3">

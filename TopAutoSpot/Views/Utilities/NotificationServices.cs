@@ -23,7 +23,7 @@ namespace TopAutoSpot.Views.Utilities
         }
 
         public static async Task<Notification> Get(
-            ApplicationDbContext _context, string notificationId)
+            ApplicationDbContext _context, string notificationId, string userName)
         {
             if (ValidateProperties(new string[] { notificationId }) == false)
             {
@@ -33,7 +33,17 @@ namespace TopAutoSpot.Views.Utilities
             var foundNotification = _context.Notifications
                 .FirstOrDefault(n => n.Id == notificationId);
 
-            return foundNotification;
+            if (foundNotification != null)
+            {
+                var foundUser = _context.Users.First(u => u.UserName == userName);
+
+                if (foundUser != null && foundUser.Id == foundNotification.To) 
+                {
+                    return foundNotification;
+                }
+            }
+
+            return null;
         }
 
         public static async Task<List<Notification>> GetAll
