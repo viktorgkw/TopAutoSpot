@@ -20,11 +20,26 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
         {
             if (User.IsInRole("Administrator"))
             {
-                var result = await CloseListing(id);
+                var closeResult = await CloseListing(id);
 
-                if (!result)
+                if (!closeResult)
                 {
-                    return RedirectToPage("/NotFound");
+                    return RedirectToPage("/UnknownError");
+                }
+
+                var ownerId = await UserServices.GetVehicleOwner(_context, id);
+
+                var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
+
+                var sendResult = await NotificationServices.Send(_context,
+                    currentUserId,
+                    ownerId,
+                    DefaultNotificationMessages.LISTING_CLOSED_TITLE,
+                    DefaultNotificationMessages.LISTING_CLOSED_DESCRIPTION);
+
+                if (!sendResult)
+                {
+                    return RedirectToPage("/UnknownError");
                 }
 
                 return Page();
