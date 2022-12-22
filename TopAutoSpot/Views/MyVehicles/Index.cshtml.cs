@@ -28,6 +28,7 @@ namespace TopAutoSpot.Views.MyVehicles
         public List<Motorcycle> Motorcycles { get; private set; }
         public List<Trailer> Trailers { get; private set; }
         public List<Truck> Trucks { get; private set; }
+        public List<Auction> Auctions { get; private set; }
 
         public int OverallCount { get; private set; }
 
@@ -63,6 +64,10 @@ namespace TopAutoSpot.Views.MyVehicles
             OverallCount = Boats.Count + Buses.Count + Cars.Count +
                     Motorcycles.Count + Trailers.Count + Trucks.Count;
 
+            Auctions = await _context.Auctions
+                .Where(auction => auction.AuctioneerId == currentUser.Id)
+                .ToListAsync();
+
             News = await _newsService.GetNews(3);
 
             return Page();
@@ -70,6 +75,14 @@ namespace TopAutoSpot.Views.MyVehicles
 
         public string GetImage(string carId)
         {
+            var data = _context.VehicleImages.First(i => i.VehicleId == carId).ImageData;
+            string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
+            return imgDataURL;
+        }
+
+        public string GetAuctionImage(string auctionId)
+        {
+            var carId = _context.Auctions.First(a => a.Id == auctionId).VehicleId;
             var data = _context.VehicleImages.First(i => i.VehicleId == carId).ImageData;
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
             return imgDataURL;

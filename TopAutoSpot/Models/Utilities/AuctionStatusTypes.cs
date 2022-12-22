@@ -5,6 +5,7 @@
         WaitingApproval,
         Active,
         StartingSoon,
-        Ended
+        Ended,
+        Closed
     }
 }

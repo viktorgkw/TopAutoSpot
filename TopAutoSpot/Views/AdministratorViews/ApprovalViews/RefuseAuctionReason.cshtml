@@ -1,16 +1,16 @@
 ﻿@page
-@model TopAutoSpot.Views.AdministratorViews.Utilities.RefuseVehicleReasonModel
+@model TopAutoSpot.Views.AdministratorViews.ApprovalViews.RefuseAuctionReasonModel
 @{
-    ViewData["Title"] = "Refuse Vehicle with Reason";
+    ViewData["Title"] = "Refuse Auction with Reason";
 }
 
 <div class="mt-3 mb-5 pb-5 pt-3">
-    <h1 class="fw-bold website-text-nohover mt-2">Refusing a Vehicle</h1>
+    <h1 class="fw-bold website-text-nohover mt-2">Refusing an Auction</h1>
     <hr />
     <br />
 
     <div>
-        <h3 class="fw-bold website-text-darker-nohover">Vehicle Id: @Model.VehicleId</h3>
+        <h3 class="fw-bold website-text-darker-nohover">Auction Id: @Model.AuctionId</h3>
         <form method="post">
             <br />
             <label class="fw-bold fs-4 website-text-nohover" asp-for="@Model.Reason" class="control-label fw-bold website-text-nohover"></label>

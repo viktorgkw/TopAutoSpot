@@ -4,11 +4,11 @@
     ViewData["Title"] = "My Vehicles";
 }
 
-<p class="fw-bold fs-1 website-text-darker-nohover">Your Vehicles</p>
+<p class="fw-bold fs-1 website-text-darker-nohover">Your Listings</p>
+<p class="fw-bold fs-4 website-text-nohover"><i>Here are all your listings, trade-only listings and auctions</i></p>
 <hr />
-<br />
 
-<p class="fw-bold fs-2 website-text-nohover">ADD NEW</p>
+<p class="fw-bold fs-3 website-text-nohover">ADD NEW</p>
 <div class="mb-2 mt-2">
     <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/CarCRUD/Create">Car</a>
     <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/TruckCRUD/Create">Truck</a>
@@ -17,7 +17,6 @@
     <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/BoatCRUD/Create">Boat</a>
     <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/BusCRUD/Create">Bus</a>
 </div>
-<br />
 <hr />
 <br />
 
@@ -37,6 +36,30 @@ else
 {
     // Display all owned vehicles.
     <div class="d-flex flex-row mt-3 flex-wrap">
+        @foreach (var auction in Model.Auctions)
+        {
+            <div class="d-flex flex-column mx-3 single-car">
+                <a asp-page="/VehiclePreview/AuctionPreview" asp-route-id="@auction.Id" class="text-decoration-none fw-bold car-title mb-1">
+                    <img class="listing-image custom-rounded" src="@Model.GetAuctionImage(auction.Id)" />
+
+                    @if (auction.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold text-dark listing-title">@string.Join("", auction.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold text-dark listing-title">@auction.Title</p>
+                    }
+                </a>
+
+                <p class="fs-4 fw-bold text-dark listing-title">@auction.Status</p>
+
+                <div>
+                    <a class="btn btn-outline-dark fw-bold" asp-page="/MyVehicles/AuctionCRUD/Edit" asp-route-id="@auction.Id">Edit</a>
+                    <a class="btn btn-outline-danger fw-bold" asp-page="/MyVehicles/AuctionCRUD/Delete" asp-route-id="@auction.Id">Delete</a>
+                </div>
+            </div>
+        }
         @foreach (var vehicle in Model.Cars)
         {
             <div class="d-flex flex-column mx-3 single-car ">
