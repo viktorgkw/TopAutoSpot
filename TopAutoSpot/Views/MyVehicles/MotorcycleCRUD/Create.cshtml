@@ -16,7 +16,7 @@
         <input asp-for="Motorcycle.Id" type="hidden" value=@Guid.NewGuid().ToString() />
         <input asp-for="Motorcycle.CreatedBy" type="hidden" value="BackEndHandled" />
         <input asp-for="Motorcycle.CreatedAt" type="date" value=@DateTime.Now type="hidden" />
-        <input asp-for="Motorcycle.Status" type="hidden" value=@StatusTypes.WaitingApproval.ToString() />
+        <input asp-for="Motorcycle.Status" type="hidden" value=@ListingStatusTypes.WaitingApproval.ToString() />
 
         <div class="m-2 px-4">
             <div class="form-group mb-4">
