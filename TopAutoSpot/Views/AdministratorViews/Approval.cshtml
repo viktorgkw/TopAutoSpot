@@ -12,7 +12,7 @@
     @if (Model.OverallCount == 0)
     {
         <h2>No Vehicles to Approve at the moment.</h2>
-        <img class="rounded-3 mt-3 mb-3" src="~/gifs/nothingToApprove.gif" />
+        <img class="custom-rounded mt-3 mb-3" src="~/gifs/nothingToApprove.gif" />
     }
     else
     {
@@ -23,11 +23,11 @@
                     <a asp-page="/VehiclePreview/CarPreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
                         @if (!Model.HasAnyImages(vehicle.Id))
                         {
-                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                            <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                         }
                         else
                         {
-                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                            <img class="listing-image custom-rounded" src="@Model.GetImage(vehicle.Id)" />
                         }
 
                         @if (vehicle.Title.Length > 22)
@@ -54,11 +54,11 @@
                     <a asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
                         @if (!Model.HasAnyImages(vehicle.Id))
                         {
-                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                            <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                         }
                         else
                         {
-                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                            <img class="listing-image custom-rounded" src="@Model.GetImage(vehicle.Id)" />
                         }
 
                         @if (vehicle.Title.Length > 22)
@@ -85,11 +85,11 @@
                     <a asp-page="/VehiclePreview/TrailerPreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
                         @if (!Model.HasAnyImages(vehicle.Id))
                         {
-                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                            <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                         }
                         else
                         {
-                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                            <img class="listing-image custom-rounded" src="@Model.GetImage(vehicle.Id)" />
                         }
 
                         @if (vehicle.Title.Length > 22)
@@ -116,11 +116,11 @@
                     <a asp-page="/VehiclePreview/TruckPreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
                         @if (!Model.HasAnyImages(vehicle.Id))
                         {
-                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                            <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                         }
                         else
                         {
-                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                            <img class="listing-image custom-rounded" src="@Model.GetImage(vehicle.Id)" />
                         }
 
                         @if (vehicle.Title.Length > 22)
@@ -147,11 +147,11 @@
                     <a asp-page="/VehiclePreview/BusPreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
                         @if (!Model.HasAnyImages(vehicle.Id))
                         {
-                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                            <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                         }
                         else
                         {
-                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                            <img class="listing-image custom-rounded" src="@Model.GetImage(vehicle.Id)" />
                         }
 
                         @if (vehicle.Title.Length > 22)
@@ -178,11 +178,11 @@
                     <a asp-page="/VehiclePreview/BoatPreview" asp-route-id="@vehicle.Id" class="text-decoration-none fw-bold car-title mb-1">
                         @if (!Model.HasAnyImages(vehicle.Id))
                         {
-                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                            <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                         }
                         else
                         {
-                            <img class="listing-image rounded" src="@Model.GetImage(vehicle.Id)" />
+                            <img class="listing-image custom-rounded" src="@Model.GetImage(vehicle.Id)" />
                         }
 
                         @if (vehicle.Title.Length > 22)

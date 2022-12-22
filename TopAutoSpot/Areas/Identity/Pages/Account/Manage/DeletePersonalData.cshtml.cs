@@ -1,30 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
+﻿using System.Text;
+using System.ComponentModel.DataAnnotations;
 using TopAutoSpot.Models;
 using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.EmailService;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
 {
     public class DeletePersonalDataModel : PageModel
     {
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly ILogger<DeletePersonalDataModel> _logger;
-        private readonly ApplicationDbContext _context;
+        private IEmailService _emailService;
 
         public DeletePersonalDataModel(
             UserManager<User> userManager,
-            SignInManager<User> signInManager,
-            ILogger<DeletePersonalDataModel> logger,
-            ApplicationDbContext db)
+            IEmailService emailService)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
-            _context = db;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -68,22 +64,26 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
                     return Page();
                 }
             }
-            var deletedUserId = user.Id;
-            var result = await _userManager.DeleteAsync(user);
+
             var userId = await _userManager.GetUserIdAsync(user);
-            if (!result.Succeeded)
+
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+            var callbackUrl = Url.Page(
+                "/Account/Manage/DeletePersonalDataConfirmation",
+                pageHandler: null,
+                values: new { area = "Identity", userId },
+                protocol: Request.Scheme);
+
+            _emailService.SendEmail(new EmailDto()
             {
-                throw new InvalidOperationException($"Unexpected error occurred deleting user.");
-            }
+                To = user.Email,
+                Subject = DefaultNotificationMessages.ACCOUNT_DELETE_CONFIRMATION_TITLE,
+                Body = string.Format(DefaultNotificationMessages.ACCOUNT_DELETE_CONFIRMATION_DESCRIPTION, callbackUrl)
+            });
 
-            VehicleRemover vr = new VehicleRemover(_context);
-            vr.RemoveAllUserVehicles(deletedUserId);
-
-            await _signInManager.SignOutAsync();
-
-            _logger.LogInformation("User with ID '{UserId}' deleted themselves.", userId);
-
-            return Redirect("~/");
+            return RedirectToPage("/Account/CheckYourEmail", new { area = "Identity" });
         }
     }
 }

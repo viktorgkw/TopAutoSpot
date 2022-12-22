@@ -1,5 +1,8 @@
 ﻿@page
 @model TopAutoSpot.Views.AdministratorViews.UsersCRUD.PreviewModel
+@{
+    ViewData["Title"] = "Preview User";
+}
 
 <h1 class="fw-bold website-text-darker-nohover">User Preview</h1>
 <h2 class="fw-bold website-text-nohover">@Model.PreviewedUser.UserName</h2>
@@ -47,6 +50,6 @@
     </div>
 </div>
 
-<a class="btn website-background-outline-main fw-bold rounded mt-3 mb-3" asp-page="/AdministratorViews/ManageUsers">Go Back</a>
+<a class="btn website-background-outline-main fw-bold custom-rounded mt-3 mb-3" asp-page="/AdministratorViews/ManageUsers">Go Back</a>
 
 <hr />

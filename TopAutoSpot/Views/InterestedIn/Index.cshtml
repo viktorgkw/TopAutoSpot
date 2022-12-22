@@ -18,7 +18,7 @@
     </div>
 
     <div class="mt-5 mb-5">
-        <img class="rounded-3 mt-3 mb-3" src="~/gifs/zeroInterested.gif" />
+        <img class="custom-rounded mt-3 mb-3" src="~/gifs/zeroInterested.gif" />
     </div>
 }
 else
@@ -28,7 +28,7 @@ else
         <div class="fw-bold">
             @if (listing.VehicleCategory == "car")
             {
-                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/CarPreview" asp-route-id="@listing.VehicleId">
                         <p>@await Model.GetCarTitle(listing.VehicleId)</p>
                     </a>
@@ -38,7 +38,7 @@ else
             }
             else if (listing.VehicleCategory == "motorcycle")
             {
-                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@listing.VehicleId">
                         <p>@await Model.GetMotoTitle(listing.VehicleId)</p>
                     </a>
@@ -48,7 +48,7 @@ else
             }
             else if (listing.VehicleCategory == "truck")
             {
-                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/TruckPreview" asp-route-id="@listing.VehicleId">
                         <p>@await Model.GetTruckTitle(listing.VehicleId)</p>
                     </a>
@@ -58,7 +58,7 @@ else
             }
             else if (listing.VehicleCategory == "trailer")
             {
-                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/TrailerPreview" asp-route-id="@listing.VehicleId">
                         <p>@await Model.GetTrailerTitle(listing.VehicleId)</p>
                     </a>
@@ -68,7 +68,7 @@ else
             }
             else if (listing.VehicleCategory == "boat")
             {
-                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/BoatPreview" asp-route-id="@listing.VehicleId">
                         <p>@await Model.GetBoatTitle(listing.VehicleId)</p>
                     </a>
@@ -78,7 +78,7 @@ else
             }
             else if (listing.VehicleCategory == "bus")
             {
-                <div class="rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
+                <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/BusPreview" asp-route-id="@listing.VehicleId">
                         <p>@await Model.GetBusTitle(listing.VehicleId)</p>
                     </a>

@@ -7,9 +7,9 @@
 @if (!User.Identity.IsAuthenticated)
 {
     <div class="row">
-        <div class="col-md-4 mx-auto">
+        <div class="col-md-4 mx-auto mt-5 mb-5">
             <div class="text-center text-capitalize">
-                <h1>Create an account</h1>
+                <h1 class="website-text-darker-nohover text-capitalize fw-bold">Create an account</h1>
             </div>
 
             <br />
@@ -36,13 +36,18 @@
                     <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
-                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-success">Register</button>
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-success mb-3">Register</button>
             </form>
 
             <br />
 
             <div class="p">
-                <a asp-page="./Login" class="text-decoration-none btn text-light btn-dark rounded">Already have an account?</a>
+                <p>
+                    <a asp-page="./Login" class="text-decoration-none btn text-light btn-dark custom-rounded">Already have an account?</a>
+                </p>
+                <p>
+                    <a asp-page="/PrivacyPolicy/Index" class="text-decoration-none btn text-light btn-dark custom-rounded" asp-route-returnUrl="@Model.ReturnUrl">Check our Privacy Policy</a>
+                </p>
             </div>
         </div>
     </div>
@@ -56,11 +61,11 @@ else
 
                 <br />
 
-                <img class="img-fluid rounded-3 pb-4" src="~/gifs/alreadyLoggedIn.gif" alt="Already Logged In Gif" />
+                <img class="img-fluid custom-rounded pb-4" src="~/gifs/alreadyLoggedIn.gif" alt="Already Logged In Gif" />
 
                 <br />
 
-                <a asp-page="/Index" class="text-decoration-none btn fw-bold text-light btn-dark rounded">Go Back</a>
+                <a asp-page="/Index" class="text-decoration-none btn fw-bold text-light btn-dark custom-rounded">Go Back</a>
             </div>
         </div>
     </div>

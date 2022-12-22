@@ -1,6 +1,8 @@
 using TopAutoSpot.Data;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.EmailService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,10 +11,12 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
     public class RefuseVehicleModel : PageModel
     {
         private ApplicationDbContext _context;
+        private IEmailService _emailService;
 
-        public RefuseVehicleModel(ApplicationDbContext context)
+        public RefuseVehicleModel(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -29,6 +33,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
                     VehicleId = vehicleId;
 
                     var ownerId = await UserServices.GetVehicleOwner(_context, VehicleId);
+                    var owner = await UserServices.GetUserById(_context, ownerId);
 
                     var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
 
@@ -48,6 +53,13 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
                     {
                         return RedirectToPage("/Error");
                     }
+
+                    _emailService.SendEmail(new EmailDto()
+                    {
+                        To = owner.Email,
+                        Subject = DefaultNotificationMessages.LISTING_REFUSED_TITLE,
+                        Body = reason
+                    });
 
                     return Page();
                 }

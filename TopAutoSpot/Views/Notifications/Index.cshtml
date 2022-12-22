@@ -16,7 +16,7 @@
         {
             <h3 class="website-text-darker-nohover">Your inbox is empty.</h3>
             <p class="website-text-nohover"><i>You must be having a chilly day out there!</i></p>
-            <img class="rounded mt-3 mb-5" src="~/gifs/noNotifications.gif" />
+            <img class="custom-rounded mt-3 mb-5" src="~/gifs/noNotifications.gif" />
         }
         else
         {
@@ -29,7 +29,7 @@
                             <h4 class="fw-bold">@await Model.GetNotificationSender(@notification.From)</h4>
                         </a>
 
-                        <a asp-page="/Notifications/NotificationRemoved" asp-route-id="@notification.Id" class="fw-bold btn-danger btn rounded text-light">Delete</a>
+                        <a asp-page="/Notifications/NotificationRemoved" asp-route-id="@notification.Id" class="fw-bold btn-danger btn custom-rounded text-light">Delete</a>
                     </div>
                 }
             </div>
@@ -37,7 +37,7 @@
     </div>
 
     <div class="mt-5 mb-3">
-        <a class="btn website-background-outline-main fw-bold rounded" asp-page="/Index">Go Back</a>
+        <a class="btn website-background-outline-main fw-bold custom-rounded" asp-page="/Index">Go Back</a>
     </div>
 
     <div class="mt-5 mb-3">

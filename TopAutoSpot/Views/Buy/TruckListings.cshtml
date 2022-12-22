@@ -15,7 +15,7 @@
 
         <br />
 
-        <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicleListingsAvailable.gif" />
+        <img class="custom-rounded mt-3 mb-3" src="~/gifs/noVehicleListingsAvailable.gif" />
     }
     else
     {
@@ -42,11 +42,11 @@
                     <a asp-page="/VehiclePreview/TruckPreview" asp-route-id="@truck.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
                         @if (!Model.HasAnyImages(truck.Id))
                         {
-                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                            <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                         }
                         else
                         {
-                            <img class="listing-image rounded" src="@Model.GetImage(truck.Id)" />
+                            <img class="listing-image custom-rounded" src="@Model.GetImage(truck.Id)" />
                         }
 
                         @if (truck.Title.Length > 22)

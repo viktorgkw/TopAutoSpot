@@ -1,5 +1,8 @@
 ﻿@page
 @model TopAutoSpot.Views.VehiclePreview.BusPreviewModel
+@{
+    ViewData["Title"] = "Bus Preview";
+}
 
 <h1 class="fw-bold text-dark">@Model.Bus.Title</h1>
 <h2 class="fw-bold website-text-nohover">@Model.Bus.Make @Model.Bus.Model</h2>
@@ -10,13 +13,13 @@
     @if (!Model.HasAnyImages())
     {
         <div class="column mx-5">
-            <img class="border border-dark rounded preview-vehicle-image" src="~/images/noImageFound.png" />
+            <img class="border border-dark custom-rounded preview-vehicle-image" src="~/images/noImageFound.png" />
         </div>
     }
     else
     {
         <div class="column mx-5">
-            <img class="border border-dark rounded preview-vehicle-image" src="@Model.GetImage()" />
+            <img class="border border-dark custom-rounded preview-vehicle-image" src="@Model.GetImage()" />
         </div>
     }
 

@@ -1,9 +1,12 @@
 ﻿@page
 @model TopAutoSpot.Views.AdministratorViews.ListingsCD.DeleteModel
+@{
+    ViewData["Title"] = "Listing Deleted";
+}
 
 <h1 class="website-text-darker-nohover fw-bold">Vehicle Removed from the website!</h1>
 <hr />
 
 <p class="fs-3 website-text-nohover">Vehicle with Id: @Model.VehicleId was <i class="fw-bold text-danger">Removed</i> from the website!</p>
 
-<a class="btn website-background-outline-main fw-bold rounded" asp-page="/AdministratorViews/ManageListings">Go Back</a>
+<a class="btn website-background-outline-main fw-bold custom-rounded" asp-page="/AdministratorViews/ManageListings">Go Back</a>

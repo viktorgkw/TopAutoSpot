@@ -1,5 +1,8 @@
 ﻿@page
 @model TopAutoSpot.Views.AdministratorViews.ManageUsersModel
+@{
+    ViewData["Title"] = "Manage Users";
+}
 
 <div class="mt-3 mb-5 pb-5 pt-3">
     <h1 class="fw-bold website-text-nohover mt-2">User Management Page</h1>
@@ -9,7 +12,7 @@
     <div class="d-flex flex-row flex-wrap mt-3">
         @foreach (var user in Model.Users)
         {
-            <div class="d-flex flex-column mx-5 single-user">
+            <div class="d-flex flex-column mx-5 justify-content-center single-user border border-dark">
                 <a class="text-decoration-none mb-1" asp-page="/AdministratorViews/UsersCRUD/Preview" asp-route-userId="@user.Id">
                     <p class="fs-3 fw-bold text-dark single-user-data">@user.UserName</p>
                     <p class="fs-7 fw-bold text-dark single-user-data">@user.Id</p>

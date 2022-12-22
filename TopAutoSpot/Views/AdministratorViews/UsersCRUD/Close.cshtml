@@ -1,9 +1,12 @@
 ﻿@page
 @model TopAutoSpot.Views.AdministratorViews.UsersCRUD.CloseModel
+@{
+    ViewData["Title"] = "Close User Account";
+}
 
 <h1 class="website-text-darker-nohover fw-bold">Account Closed!</h1>
 <hr />
 
 <p class="fs-3 website-text-nohover">User Account with Id: @Model.UserToClose.Id and Username: @Model.UserToClose.UserName was <span class="fw-bold text-danger">Closed</span>!</p>
 
-<a class="btn website-background-outline-main fw-bold rounded mt-3 mb-3" asp-page="/AdministratorViews/ManageUsers">Go Back</a>
+<a class="btn website-background-outline-main fw-bold custom-rounded mt-3 mb-3" asp-page="/AdministratorViews/ManageUsers">Go Back</a>

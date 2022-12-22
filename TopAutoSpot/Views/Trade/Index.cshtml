@@ -1,7 +1,7 @@
 ﻿@page
 @model TopAutoSpot.Views.Trade.IndexModel
 @{
-    ViewData["Title"] = "Trade Page";
+    ViewData["Title"] = "Trade Listings";
 }
 
 <div>
@@ -19,7 +19,7 @@
 
     <br />
 
-    <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicleListingsAvailable.gif" />
+    <img class="custom-rounded mt-3 mb-3" src="~/gifs/noVehicleListingsAvailable.gif" />
 }
 else
 {
@@ -30,11 +30,11 @@ else
                 <a asp-page="/VehiclePreview/CarPreview" asp-route-id="@car.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
                     @if (!Model.HasAnyImages(car.Id))
                     {
-                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                     }
                     else
                     {
-                        <img class="listing-image rounded" src="@Model.GetImage(car.Id)" />
+                        <img class="listing-image custom-rounded" src="@Model.GetImage(car.Id)" />
                     }
 
                     @if (car.Title.Length > 22)
@@ -57,11 +57,11 @@ else
                 <a asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@motorcycle.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
                     @if (!Model.HasAnyImages(motorcycle.Id))
                     {
-                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                     }
                     else
                     {
-                        <img class="listing-image rounded" src="@Model.GetImage(motorcycle.Id)" />
+                        <img class="listing-image custom-rounded" src="@Model.GetImage(motorcycle.Id)" />
                     }
 
                     @if (motorcycle.Title.Length > 22)
@@ -84,11 +84,11 @@ else
                 <a asp-page="/VehiclePreview/TrailerPreview" asp-route-id="@trailer.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
                     @if (!Model.HasAnyImages(trailer.Id))
                     {
-                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                     }
                     else
                     {
-                        <img class="listing-image rounded" src="@Model.GetImage(trailer.Id)" />
+                        <img class="listing-image custom-rounded" src="@Model.GetImage(trailer.Id)" />
                     }
 
                     @if (trailer.Title.Length > 22)
@@ -111,11 +111,11 @@ else
                 <a asp-page="/VehiclePreview/TruckPreview" asp-route-id="@truck.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
                     @if (!Model.HasAnyImages(truck.Id))
                     {
-                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                     }
                     else
                     {
-                        <img class="listing-image rounded" src="@Model.GetImage(truck.Id)" />
+                        <img class="listing-image custom-rounded" src="@Model.GetImage(truck.Id)" />
                     }
 
                     @if (truck.Title.Length > 22)
@@ -138,11 +138,11 @@ else
                 <a asp-page="/VehiclePreview/BusPreview" asp-route-id="@bus.Id" class="text-decoration-none site-text-color-btn fw-bold bus-title mb-1">
                     @if (!Model.HasAnyImages(bus.Id))
                     {
-                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                     }
                     else
                     {
-                        <img class="listing-image rounded" src="@Model.GetImage(bus.Id)" />
+                        <img class="listing-image custom-rounded" src="@Model.GetImage(bus.Id)" />
                     }
 
                     @if (bus.Title.Length > 22)
@@ -165,11 +165,11 @@ else
                 <a asp-page="/VehiclePreview/BoatPreview" asp-route-id="@boat.Id" class="text-decoration-none site-text-color-btn fw-bold boat-title mb-1">
                     @if (!Model.HasAnyImages(boat.Id))
                     {
-                        <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                        <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                     }
                     else
                     {
-                        <img class="listing-image rounded" src="@Model.GetImage(boat.Id)" />
+                        <img class="listing-image custom-rounded" src="@Model.GetImage(boat.Id)" />
                     }
 
                     @if (boat.Title.Length > 22)

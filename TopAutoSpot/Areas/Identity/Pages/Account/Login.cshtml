@@ -8,11 +8,12 @@
 @if (!User.Identity.IsAuthenticated)
 {
     <div class="row">
-        <div class="col-md-4 mx-auto">
+        <div class="col-md-4 mx-auto mb-5 mt-5">
             <section>
                 <form id="account" method="post">
                     <div class="text-center text-capitalize">
-                        <h1>Log In</h1>
+                        <h1 class="website-text-darker-nohover fw-bold">Login</h1>
+                        <p class="website-text-nohover"><i>Make sure your account is confirmed!</i></p>
                     </div>
 
                     <br />
@@ -35,17 +36,20 @@
                         </label>
                     </div>
                     <div>
-                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-success">Log in</button>
+                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-success mb-3">Log in</button>
                     </div>
 
                     <br />
 
                     <div>
                         <p>
-                            <a id="forgot-password" class="text-decoration-none btn text-light btn-dark rounded" asp-page="./ForgotPassword">Forgot your password?</a>
+                            <a id="forgot-password" class="text-decoration-none btn text-light btn-dark custom-rounded" asp-page="./ForgotPassword">Forgot your password?</a>
                         </p>
                         <p>
-                            <a asp-page="./Register" class="text-decoration-none btn text-light btn-dark rounded" asp-route-returnUrl="@Model.ReturnUrl">Dont have an account?</a>
+                            <a asp-page="./Register" class="text-decoration-none btn text-light btn-dark custom-rounded" asp-route-returnUrl="@Model.ReturnUrl">Dont have an account?</a>
+                        </p>
+                        <p>
+                            <a asp-page="/PrivacyPolicy/Index" class="text-decoration-none btn text-light btn-dark custom-rounded" asp-route-returnUrl="@Model.ReturnUrl">Check our Privacy Policy</a>
                         </p>
                     </div>
                 </form>
@@ -62,11 +66,11 @@ else
 
                 <br />
 
-                <img class="img-fluid rounded-3 pb-4" src="~/gifs/alreadyLoggedIn.gif" alt="Already Logged In Gif" />
+                <img class="img-fluid custom-rounded pb-4" src="~/gifs/alreadyLoggedIn.gif" alt="Already Logged In Gif" />
 
                 <br />
 
-                <a asp-page="/Index" class="text-decoration-none btn fw-bold text-light btn-dark rounded">Go Back</a>
+                <a asp-page="/Index" class="text-decoration-none btn fw-bold text-light btn-dark custom-rounded">Go Back</a>
             </div>
         </div>
     </div>

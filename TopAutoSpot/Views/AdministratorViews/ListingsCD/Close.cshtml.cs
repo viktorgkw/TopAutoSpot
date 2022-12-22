@@ -1,6 +1,8 @@
 using TopAutoSpot.Data;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.EmailService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
@@ -11,10 +13,12 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
     public class CloseModel : PageModel
     {
         private ApplicationDbContext _context;
+        private IEmailService _emailService;
 
-        public CloseModel(ApplicationDbContext context)
+        public CloseModel(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         public async Task<IActionResult> OnGetAsync(string id)
@@ -29,6 +33,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
                 }
 
                 var ownerId = await UserServices.GetVehicleOwner(_context, id);
+                var owner = await UserServices.GetUserById(_context, ownerId);
 
                 var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
 
@@ -42,6 +47,13 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
                 {
                     return RedirectToPage("/UnknownError");
                 }
+
+                _emailService.SendEmail(new EmailDto()
+                {
+                    To = owner.Email,
+                    Subject = DefaultNotificationMessages.LISTING_CLOSED_TITLE,
+                    Body = DefaultNotificationMessages.LISTING_CLOSED_DESCRIPTION
+                });
 
                 return Page();
             }

@@ -1,5 +1,7 @@
 using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.EmailService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
@@ -11,10 +13,12 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
     public class DeleteModel : PageModel
     {
         private ApplicationDbContext _context;
+        private IEmailService _emailService;
 
-        public DeleteModel(ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -27,6 +31,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
                 VehicleId = id;
 
                 var ownerId = await UserServices.GetVehicleOwner(_context, VehicleId);
+                var owner = await UserServices.GetUserById(_context, ownerId);
 
                 var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
 
@@ -47,6 +52,13 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
                 {
                     return RedirectToPage("/UnknownError");
                 }
+
+                _emailService.SendEmail(new EmailDto()
+                {
+                    To = owner.Email,
+                    Subject = DefaultNotificationMessages.LISTING_DELETED_TITLE,
+                    Body = DefaultNotificationMessages.LISTING_DELETED_DESCRIPTION
+                });
 
                 return Page();
             }

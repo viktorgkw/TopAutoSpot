@@ -1,6 +1,8 @@
 using TopAutoSpot.Data;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.EmailService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
@@ -11,10 +13,12 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
     public class ApproveVehicleModel : PageModel
     {
         private ApplicationDbContext _context;
+        private IEmailService _emailService;
 
-        public ApproveVehicleModel(ApplicationDbContext context)
+        public ApproveVehicleModel(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -31,6 +35,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
                     VehicleId = vehicleId;
 
                     var ownerId = await UserServices.GetVehicleOwner(_context, VehicleId);
+                    var owner = await UserServices.GetUserById(_context, ownerId);
 
                     var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
 
@@ -44,6 +49,13 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
                     {
                         return RedirectToPage("/UnknownError");
                     }
+
+                    _emailService.SendEmail(new EmailDto()
+                    {
+                        To = owner.Email,
+                        Subject = DefaultNotificationMessages.LISTING_APPROVED_TITLE,
+                        Body = DefaultNotificationMessages.LISTING_APPROVED_DESCRIPTION
+                    });
 
                     return Page();
                 }

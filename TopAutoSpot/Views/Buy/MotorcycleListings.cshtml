@@ -16,7 +16,7 @@
 
         <br />
 
-        <img class="rounded-3 mt-3 mb-3" src="~/gifs/noVehicleListingsAvailable.gif" />
+        <img class="custom-rounded mt-3 mb-3" src="~/gifs/noVehicleListingsAvailable.gif" />
     }
     else
     {
@@ -43,11 +43,11 @@
                     <a asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@motorcycle.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
                         @if (!Model.HasAnyImages(motorcycle.Id))
                         {
-                            <img class="listing-image rounded" src="~/images/noImageFound.png" />
+                            <img class="listing-image custom-rounded" src="~/images/noImageFound.png" />
                         }
                         else
                         {
-                            <img class="listing-image rounded" src="@Model.GetImage(motorcycle.Id)" />
+                            <img class="listing-image custom-rounded" src="@Model.GetImage(motorcycle.Id)" />
                         }
 
                         @if (motorcycle.Title.Length > 22)

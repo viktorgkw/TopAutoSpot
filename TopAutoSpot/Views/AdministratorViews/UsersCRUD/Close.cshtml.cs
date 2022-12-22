@@ -1,5 +1,7 @@
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
+using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.EmailService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
@@ -10,11 +12,13 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
     [Authorize]
     public class CloseModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private ApplicationDbContext _context;
+        private IEmailService _emailService;
 
-        public CloseModel(ApplicationDbContext context)
+        public CloseModel(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -28,6 +32,13 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
 
                 _context.Users.Remove(UserToClose);
                 await _context.SaveChangesAsync();
+
+                _emailService.SendEmail(new EmailDto()
+                {
+                    To = UserToClose.Email,
+                    Subject = DefaultNotificationMessages.ACCOUNT_CLOSED_TITLE,
+                    Body = DefaultNotificationMessages.ACCOUNT_CLOSED_DESCRIPTION
+                });
 
                 return Page();
             }
