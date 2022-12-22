@@ -48,7 +48,7 @@
                             <a class="nav-link text-light website-background-main fw-bold custom-rounded px-3 mx-1" asp-page="/Trade/Index">Trade</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light website-background-main fw-bold custom-rounded px-3 mx-1" asp-page="/Auction/Index">Auction</a>
+                            <a class="nav-link text-light website-background-main fw-bold custom-rounded px-3 mx-1" asp-page="/AuctionViews/Index">Auctions</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -65,13 +65,19 @@
                                 <button class="btn text-light website-background-main dropdown-toggle fw-bold custom-rounded px-3 mx-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">A-Panel</button>
                                 <ul class="dropdown-menu website-background-main-nohover" aria-labelledby="dropdownMenuButton1">
                                     <li class="nav-item">
-                                        <a class="dropdown-item fw-bold website-navbar-dropdown-option" asp-page="/AdministratorViews/Approval">Approval</a>
+                                        <a class="dropdown-item fw-bold website-navbar-dropdown-option" asp-page="/AdministratorViews/ListingsApproval">Listings Approval</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item fw-bold website-navbar-dropdown-option" asp-page="/AdministratorViews/AuctionsApproval">Auctions Approval</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="dropdown-item fw-bold website-navbar-dropdown-option" asp-page="/AdministratorViews/ManageUsers">Manage Users</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="dropdown-item fw-bold website-navbar-dropdown-option" asp-page="/AdministratorViews/ManageListings">Manage Listings</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item fw-bold website-navbar-dropdown-option" asp-page="/AdministratorViews/ManageAuctions">Manage Auctions</a>
                                     </li>
                                 </ul>
                             </div>

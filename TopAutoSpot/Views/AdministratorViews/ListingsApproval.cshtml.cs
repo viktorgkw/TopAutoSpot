@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 namespace TopAutoSpot.Views.AdministratorViews
 {
     [Authorize]
-    public class ApprovalModel : PageModel
+    public class ListingsApprovalModel : PageModel
     {
         private ApplicationDbContext _context;
 
-        public ApprovalModel(ApplicationDbContext context)
+        public ListingsApprovalModel(ApplicationDbContext context)
         {
             _context = context;
         }

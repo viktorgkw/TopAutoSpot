@@ -2,25 +2,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
 
-namespace TopAutoSpot.Views.AdministratorViews.Utilities
+namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 {
     [Authorize]
-    public class RefuseVehicleReasonModel : PageModel
+    public class RefuseAuctionReasonModel : PageModel
     {
         [BindProperty]
         public string Reason { get; set; }
-        public string VehicleId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string vehicleId)
+        [BindProperty]
+        public string AuctionId { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(string auctionId)
         {
             if (User.IsInRole("Administrator"))
             {
-                if (vehicleId == null)
+                if (auctionId == null)
                 {
                     return RedirectToPage("/NotFound");
                 }
 
-                VehicleId = vehicleId;
+                AuctionId = auctionId;
 
                 return Page();
             }
@@ -30,7 +32,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return RedirectToPage("/AdministratorViews/ApprovalViews/RefuseVehicle", new { vehicleId = VehicleId, reason = Reason });
+            return RedirectToPage("/AdministratorViews/ApprovalViews/RefuseAuction", new { auctionId = AuctionId, reason = Reason });
         }
     }
 }

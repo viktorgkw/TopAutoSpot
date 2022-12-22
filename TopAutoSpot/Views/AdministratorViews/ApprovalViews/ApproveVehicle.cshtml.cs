@@ -21,7 +21,6 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             _emailService = emailService;
         }
 
-        [BindProperty]
         public string VehicleId { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string vehicleId)

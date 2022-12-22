@@ -5,9 +5,11 @@ using TopAutoSpot.Views.Utilities;
 using TopAutoSpot.Services.EmailService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TopAutoSpot.Views.AdministratorViews.Utilities
 {
+    [Authorize]
     public class RefuseVehicleModel : PageModel
     {
         private ApplicationDbContext _context;

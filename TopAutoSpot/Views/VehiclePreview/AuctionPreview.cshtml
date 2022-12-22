@@ -1,0 +1,28 @@
+﻿@page
+@model TopAutoSpot.Views.VehiclePreview.AuctionPreviewModel
+@{
+    ViewData["Title"] = "Auction Preview";
+}
+
+<h1 class="fw-bold text-dark">@ViewData["Title"]</h1>
+<h2 class="fw-bold website-text-nohover">@Model.Auction.Title</h2>
+<hr />
+<br />
+
+<div class="d-flex flex-row justify-content-center mb-5">
+    <div class="column mx-5">
+        <img class="border border-dark custom-rounded preview-vehicle-image" src="@Model.GetImage()" />
+    </div>
+
+
+    <div class="d-flex flex-column column mx-5 justify-content-center">
+        @if (Model.Auction.Description != null)
+        {
+            <p class="fw-bold website-text-nohover fs-4">Description: <i class="text-dark">@Model.Auction.Description</i></p>
+        }
+        <p class="fw-bold website-text-nohover fs-4">Start Hour: <i class="text-dark">@Model.Auction.StartHour</i></p>
+        <p class="fw-bold website-text-nohover fs-4">Start Day: <i class="text-dark">@Model.Auction.StartDay</i></p>
+        <p class="fw-bold website-text-nohover fs-4">Starting Price: <i class="text-dark">$@Model.Auction.StartingPrice</i></p>
+        <p class="fw-bold website-text-nohover fs-4">Duration: <i class="text-dark">@Model.Auction.Duration hours</i></p>
+    </div>
+</div>
