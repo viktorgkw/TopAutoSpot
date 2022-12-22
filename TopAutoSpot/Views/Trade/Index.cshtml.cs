@@ -34,27 +34,27 @@ namespace TopAutoSpot.Views.Trade
         public async Task<IActionResult> OnGetAsync()
         {
             Boats = await _context.Boats
-                    .Where(boat => boat.Price == 0 && boat.Status == StatusTypes.Active.ToString())
+                    .Where(boat => boat.Price == 0 && boat.Status == ListingStatusTypes.Active.ToString())
                     .ToListAsync();
 
             Buses = await _context.Buses
-                    .Where(bus => bus.Price == 0 && bus.Status == StatusTypes.Active.ToString())
+                    .Where(bus => bus.Price == 0 && bus.Status == ListingStatusTypes.Active.ToString())
                     .ToListAsync();
 
             Cars = await _context.Cars
-                    .Where(car => car.Price == 0 && car.Status == StatusTypes.Active.ToString())
+                    .Where(car => car.Price == 0 && car.Status == ListingStatusTypes.Active.ToString())
                     .ToListAsync();
 
             Motorcycles = await _context.Motorcycles
-                    .Where(motorcycle => motorcycle.Price == 0 && motorcycle.Status == StatusTypes.Active.ToString())
+                    .Where(motorcycle => motorcycle.Price == 0 && motorcycle.Status == ListingStatusTypes.Active.ToString())
                     .ToListAsync();
 
             Trailers = await _context.Trailers
-                    .Where(trailer => trailer.Price == 0 && trailer.Status == StatusTypes.Active.ToString())
+                    .Where(trailer => trailer.Price == 0 && trailer.Status == ListingStatusTypes.Active.ToString())
                     .ToListAsync();
 
             Trucks = await _context.Trucks
-                    .Where(truck => truck.Price == 0 && truck.Status == StatusTypes.Active.ToString())
+                    .Where(truck => truck.Price == 0 && truck.Status == ListingStatusTypes.Active.ToString())
                     .ToListAsync();
 
             OverallCount = Boats.Count + Buses.Count + Cars.Count +

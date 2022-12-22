@@ -30,7 +30,7 @@ namespace TopAutoSpot.Views.Buy
         public async Task<IActionResult> OnGetAsync(string orderSetting)
         {
             Boats = await _context.Boats
-                .Where(b => b.Status == StatusTypes.Active.ToString() && b.Price > 0)
+                .Where(b => b.Status == ListingStatusTypes.Active.ToString() && b.Price > 0)
                 .ToListAsync();
 
             if (orderSetting != null)

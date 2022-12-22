@@ -40,33 +40,33 @@ namespace TopAutoSpot.Views.AdministratorViews
         private async Task InitializeVehicles()
         {
             Boats = await _context.Boats
-                    .Where(vehicle => vehicle.Status == StatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == StatusTypes.Closed.ToString())
+                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                            vehicle.Status == ListingStatusTypes.Closed.ToString())
                     .ToListAsync();
 
             Buses = await _context.Buses
-                    .Where(vehicle => vehicle.Status == StatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == StatusTypes.Closed.ToString())
+                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                            vehicle.Status == ListingStatusTypes.Closed.ToString())
                     .ToListAsync();
 
             Cars = await _context.Cars
-                    .Where(vehicle => vehicle.Status == StatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == StatusTypes.Closed.ToString())
+                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                            vehicle.Status == ListingStatusTypes.Closed.ToString())
                     .ToListAsync();
 
             Motorcycles = await _context.Motorcycles
-                    .Where(vehicle => vehicle.Status == StatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == StatusTypes.Closed.ToString())
+                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                            vehicle.Status == ListingStatusTypes.Closed.ToString())
                     .ToListAsync();
 
             Trailers = await _context.Trailers
-                    .Where(vehicle => vehicle.Status == StatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == StatusTypes.Closed.ToString())
+                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                            vehicle.Status == ListingStatusTypes.Closed.ToString())
                     .ToListAsync();
 
             Trucks = await _context.Trucks
-                    .Where(vehicle => vehicle.Status == StatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == StatusTypes.Closed.ToString())
+                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                            vehicle.Status == ListingStatusTypes.Closed.ToString())
                     .ToListAsync();
 
             OverallCount = Boats.Count + Buses.Count + Cars.Count +

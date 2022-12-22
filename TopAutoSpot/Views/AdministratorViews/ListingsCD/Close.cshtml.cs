@@ -66,7 +66,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             if (_context.Cars.FirstOrDefault(c => c.Id == id) != null)
             {
                 _context.Cars
-                    .FirstOrDefault(c => c.Id == id).Status = StatusTypes.Closed.ToString();
+                    .FirstOrDefault(c => c.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -74,7 +74,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             else if (_context.Motorcycles.FirstOrDefault(m => m.Id == id) != null)
             {
                 _context.Motorcycles
-                    .FirstOrDefault(m => m.Id == id).Status = StatusTypes.Closed.ToString();
+                    .FirstOrDefault(m => m.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -82,7 +82,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             else if (_context.Trucks.FirstOrDefault(t => t.Id == id) != null)
             {
                 _context.Trucks
-                    .FirstOrDefault(t => t.Id == id).Status = StatusTypes.Closed.ToString();
+                    .FirstOrDefault(t => t.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -90,7 +90,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             else if (_context.Trailers.FirstOrDefault(t => t.Id == id) != null)
             {
                 _context.Trailers
-                    .FirstOrDefault(t => t.Id == id).Status = StatusTypes.Closed.ToString();
+                    .FirstOrDefault(t => t.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -98,14 +98,14 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             else if (_context.Buses.FirstOrDefault(b => b.Id == id) != null)
             {
                 _context.Buses
-                    .FirstOrDefault(b => b.Id == id).Status = StatusTypes.Closed.ToString();
+                    .FirstOrDefault(b => b.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;
             }
             else if (_context.Boats.FirstOrDefault(b => b.Id == id) != null)
             {
-                _context.Boats.FirstOrDefault(b => b.Id == id).Status = StatusTypes.Closed.ToString();
+                _context.Boats.FirstOrDefault(b => b.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;

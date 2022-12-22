@@ -16,7 +16,7 @@
         <input type="hidden" asp-for="Boat.Id" />
         <input type="hidden" asp-for="Boat.CreatedBy" />
         <input type="hidden" asp-for="Boat.CreatedAt" />
-        <input asp-for="Boat.Status" type="hidden" value=@StatusTypes.WaitingApproval.ToString() />
+        <input asp-for="Boat.Status" type="hidden" value=@ListingStatusTypes.WaitingApproval.ToString() />
 
         <div class="m-2 px-4">
             <div class="form-group mb-4">

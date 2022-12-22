@@ -77,7 +77,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             if (_context.Cars.FirstOrDefault(c => c.Id == vehicleId) != null)
             {
                 _context.Cars
-                    .FirstOrDefault(c => c.Id == vehicleId).Status = StatusTypes.Closed.ToString();
+                    .FirstOrDefault(c => c.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -85,7 +85,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             else if (_context.Motorcycles.FirstOrDefault(m => m.Id == vehicleId) != null)
             {
                 _context.Motorcycles
-                    .FirstOrDefault(m => m.Id == vehicleId).Status = StatusTypes.Closed.ToString();
+                    .FirstOrDefault(m => m.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -93,7 +93,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             else if (_context.Trucks.FirstOrDefault(t => t.Id == vehicleId) != null)
             {
                 _context.Trucks
-                    .FirstOrDefault(t => t.Id == vehicleId).Status = StatusTypes.Closed.ToString();
+                    .FirstOrDefault(t => t.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -101,7 +101,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             else if (_context.Trailers.FirstOrDefault(t => t.Id == vehicleId) != null)
             {
                 _context.Trailers
-                    .FirstOrDefault(t => t.Id == vehicleId).Status = StatusTypes.Closed.ToString();
+                    .FirstOrDefault(t => t.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -109,14 +109,14 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             else if (_context.Buses.FirstOrDefault(b => b.Id == vehicleId) != null)
             {
                 _context.Buses
-                    .FirstOrDefault(b => b.Id == vehicleId).Status = StatusTypes.Closed.ToString();
+                    .FirstOrDefault(b => b.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;
             }
             else if (_context.Boats.FirstOrDefault(b => b.Id == vehicleId) != null)
             {
-                _context.Boats.FirstOrDefault(b => b.Id == vehicleId).Status = StatusTypes.Closed.ToString();
+                _context.Boats.FirstOrDefault(b => b.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 await _context.SaveChangesAsync();
 
                 return true;
