@@ -72,3 +72,35 @@
         </div>
     }
 </div>
+
+<div class="mt-5">
+    <h1 class="website-text-nohover fw-bold">News</h1>
+    <hr />
+</div>
+
+<div class="border-top border-dark text-light bg-dark mb-3 mt-3 custom-rounded mx-auto">
+    @if (Model.News.Count > 0)
+    {
+
+        <div class="d-flex flex-row flex-wrap justify-content-around">
+            @foreach (var singleNew in Model.News)
+            {
+                <div class="d-flex flex-column mx-3 single-new-box">
+                    <a class="text-decoration-none" href="@singleNew.Url">
+                        <img class="custom-rounded single-new-image mb-3" src="@singleNew.UrlToImage" />
+                        <p class="text-light fw-bold">@singleNew.Title</p>
+                    </a>
+                </div>
+            }
+        </div>
+
+    }
+    else
+    {
+        <h3 class="px-3 pt-3 pb-3 text-light">Error loading the news...</h3>
+    }
+</div>
+
+<div>
+    <hr />
+</div>

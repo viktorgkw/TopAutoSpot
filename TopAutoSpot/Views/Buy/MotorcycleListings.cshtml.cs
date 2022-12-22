@@ -1,7 +1,9 @@
+using NewsAPI.Models;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Views.Utilities;
 using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Services.NewsServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
@@ -13,14 +15,17 @@ namespace TopAutoSpot.Views.Buy
     public class MotorcycleListingsModel : PageModel
     {
         private ApplicationDbContext _context;
-        public MotorcycleListingsModel(ApplicationDbContext db)
+        private INewsService _newsService;
+        public MotorcycleListingsModel(ApplicationDbContext db, INewsService newsService)
         {
             _context = db;
+            _newsService = newsService;
         }
 
         [BindProperty]
         public string OrderSetting { get; set; }
         public List<Motorcycle> Motorcycles { get; set; }
+        public List<Article> News = new List<Article>();
 
         public async Task<IActionResult> OnGetAsync(string orderSetting)
         {
@@ -34,6 +39,8 @@ namespace TopAutoSpot.Views.Buy
                     .SortBy(Motorcycles, orderSetting)
                     .ToList();
             }
+
+            News = await _newsService.GetNews(3);
 
             return Page();
         }
