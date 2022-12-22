@@ -1,8 +1,9 @@
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
+using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.EmailService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,13 +12,13 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
     [Authorize]
     public class EditModel : PageModel
     {
-        private readonly UserManager<User> _userManager;
-        private readonly ApplicationDbContext _context;
+        private ApplicationDbContext _context;
+        private IEmailService _emailService;
 
-        public EditModel(UserManager<User> userManager, ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context, IEmailService emailService)
         {
-            _userManager = userManager;
             _context = context;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -57,6 +58,13 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
             try
             {
                 await _context.SaveChangesAsync();
+
+                _emailService.SendEmail(new EmailDto()
+                {
+                    To = UserToEdit.Email,
+                    Subject = DefaultNotificationMessages.ACCOUNT_EDITED_TITLE,
+                    Body = DefaultNotificationMessages.ACCOUNT_EDITED_DESCRIPTION
+                });
             }
             catch (DbUpdateConcurrencyException)
             {

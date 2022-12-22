@@ -2,7 +2,7 @@
 @model TopAutoSpot.Views.MyVehicles.BoatCRUD.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Boat";
 }
 
 <h1 class="fw-bold text-dark">Confirm Deletion</h1>
@@ -10,7 +10,7 @@
 <hr />
 <br />
 
-<div class="border border-dark rounded d-flex flex-lg-wrap bg-white mt-2 mb-3 justify-content-center">
+<div class="border border-dark custom-rounded d-flex flex-lg-wrap bg-white mt-2 mb-3 justify-content-center">
     <div class="p-3">
         <p class="fs-3 fw-bold website-text-nohover">@Html.DisplayNameFor(model => model.Boat.CreatedAt)</p>
         <p class="fs-4 text-dark fw-bold">@Html.DisplayFor(model => model.Boat.CreatedAt)</p>

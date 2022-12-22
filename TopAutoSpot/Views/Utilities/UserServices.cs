@@ -6,6 +6,11 @@ namespace TopAutoSpot.Views.Utilities
 {
     public static class UserServices
     {
+        public static async Task<User> GetUserById(ApplicationDbContext _context, string userId)
+        {
+            return await _context.Users.FirstAsync(u => u.Id == userId);
+        }
+
         public static async Task<User> GetUserByName(ApplicationDbContext _context, string username)
         {
             return await _context.Users.FirstAsync(u => u.UserName == username);

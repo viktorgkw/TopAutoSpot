@@ -5,7 +5,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <div class="dropdown">
-            <button class="btn text-light website-background-main dropdown-toggle fw-bold rounded px-4 mx-4" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Profile</button>
+            <button class="btn text-light website-background-main dropdown-toggle fw-bold custom-rounded px-4 mx-4" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Profile</button>
             <ul class="dropdown-menu website-background-main-nohover" aria-labelledby="dropdownMenuButton1">
                 <li><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="dropdown-item fw-bold website-navbar-dropdown-option">Settings</a></li>
                 <li><a asp-page="/Notifications/Index" class="dropdown-item fw-bold website-navbar-dropdown-option">Notifications</a></li>
@@ -18,10 +18,10 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-light bg-info fw-bold rounded px-3 mx-2" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link text-light website-background-outline-main fw-bold custom-rounded px-3 mx-2" asp-area="Identity" asp-page="/Account/Register">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-light bg-info fw-bold rounded px-3 mx-2" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link text-light website-background-outline-main fw-bold custom-rounded px-3 mx-2" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
     }
 </ul>

@@ -16,6 +16,9 @@
     @*Font*@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    @*Website Favicon*@
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico">
 </head>
 <body class="bg-light">
     <header>
@@ -28,10 +31,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link website-background-main text-light fw-bold rounded px-3 mx-1" asp-page="/Index">Home</a>
+                            <a class="nav-link website-background-main text-light fw-bold custom-rounded px-3 mx-1" asp-page="/Index">Home</a>
                         </li>
                         <div class="dropdown">
-                            <button class="btn text-light website-background-main dropdown-toggle fw-bold rounded px-3 mx-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Buy</button>
+                            <button class="btn text-light website-background-main dropdown-toggle fw-bold custom-rounded px-3 mx-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Buy</button>
                             <ul class="dropdown-menu website-background-main-nohover" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="dropdown-item fw-bold website-navbar-dropdown-option" href="/Buy/CarListings">Cars</a></li>
                                 <li><a class="dropdown-item fw-bold website-navbar-dropdown-option" href="/Buy/MotorcycleListings">Motorcycles</a></li>
@@ -42,24 +45,24 @@
                             </ul>
                         </div>
                         <li class="nav-item">
-                            <a class="nav-link text-light website-background-main fw-bold rounded px-3 mx-1" asp-page="/Trade/Index">Trade</a>
+                            <a class="nav-link text-light website-background-main fw-bold custom-rounded px-3 mx-1" asp-page="/Trade/Index">Trade</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light website-background-main fw-bold rounded px-3 mx-1" asp-page="/Auction/Index">Auction</a>
+                            <a class="nav-link text-light website-background-main fw-bold custom-rounded px-3 mx-1" asp-page="/Auction/Index">Auction</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light website-background-main fw-bold rounded px-3 mx-1" asp-page="/MyVehicles/Index">My Vehicles</a>
+                                <a class="nav-link text-light website-background-main fw-bold custom-rounded px-3 mx-1" asp-page="/MyVehicles/Index">My Vehicles</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light website-background-main fw-bold rounded px-3 mx-1" asp-page="/InterestedIn/Index">Interested In</a>
+                                <a class="nav-link text-light website-background-main fw-bold custom-rounded px-3 mx-1" asp-page="/InterestedIn/Index">Interested In</a>
                             </li>
                         }
                         @if (User.IsInRole("Administrator"))
                         {
                             <div class="dropdown">
-                                <button class="btn text-light website-background-main dropdown-toggle fw-bold rounded px-3 mx-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">A-Panel</button>
+                                <button class="btn text-light website-background-main dropdown-toggle fw-bold custom-rounded px-3 mx-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">A-Panel</button>
                                 <ul class="dropdown-menu website-background-main-nohover" aria-labelledby="dropdownMenuButton1">
                                     <li class="nav-item">
                                         <a class="dropdown-item fw-bold website-navbar-dropdown-option" asp-page="/AdministratorViews/Approval">Approval</a>

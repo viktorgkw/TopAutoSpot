@@ -1,9 +1,12 @@
 ﻿@page
 @model TopAutoSpot.Views.AdministratorViews.Utilities.RefuseVehicleModel
+@{
+    ViewData["Title"] = "Vehicle Refused";
+}
 
 <h1 class="website-text-darker-nohover fw-bold">Vehicle Refused!</h1>
 <hr />
 
 <p class="fs-3 website-text-nohover">Vehicle with Id: @Model.VehicleId was <span class="fw-bold text-danger">Refused</span>!</p>
 
-<a class="btn website-background-outline-main fw-bold rounded" asp-page="/AdministratorViews/Approval">Go Back</a>
+<a class="btn website-background-outline-main fw-bold custom-rounded" asp-page="/AdministratorViews/Approval">Go Back</a>

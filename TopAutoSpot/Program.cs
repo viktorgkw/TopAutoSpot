@@ -18,6 +18,11 @@ builder.Services.AddIdentity<User, IdentityRole>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+});
+
 builder.Services.AddRazorPages(options =>
 {
     options.RootDirectory = "/Views";

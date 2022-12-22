@@ -37,6 +37,10 @@ hr {
     border-top: 2px solid;
 }
 
+.custom-rounded {
+    border-radius: 24px !important;
+}
+
 .user-preview-border {
     border: solid 3px;
     border-color: #4710B6;
@@ -68,6 +72,11 @@ hr {
 .buy-page-image {
     width: 256px;
     height: 256px;
+}
+
+.account-management-image {
+    width: 768px;
+    height: 512px;
 }
 
 .dark-background {
@@ -193,7 +202,7 @@ ul {
 
 .single-user {
     max-width: 256px;
-    height: 512px;
+    height: 320px;
 }
 
 .single-user-data {

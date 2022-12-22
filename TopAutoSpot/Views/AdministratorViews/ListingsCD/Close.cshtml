@@ -1,9 +1,12 @@
 ﻿@page
 @model TopAutoSpot.Views.AdministratorViews.ListingsCD.CloseModel
+@{
+    ViewData["Title"] = "Listing Closed";
+}
 
 <h1 class="website-text-darker-nohover fw-bold">Vehicle Status Changed!</h1>
 <hr />
 
 <p class="fs-3 website-text-nohover">Vehicle Status was changed to <i class="fw-bold text-secondary">Closed</i>!</p>
 
-<a class="btn website-background-outline-main fw-bold rounded" asp-page="/AdministratorViews/ManageListings">Go Back</a>
+<a class="btn website-background-outline-main fw-bold custom-rounded" asp-page="/AdministratorViews/ManageListings">Go Back</a>
