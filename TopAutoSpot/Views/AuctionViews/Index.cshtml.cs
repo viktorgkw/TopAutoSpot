@@ -2,7 +2,6 @@ using NewsAPI.Models;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
-using TopAutoSpot.Views.Utilities;
 using TopAutoSpot.Services.NewsServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -44,13 +43,12 @@ namespace TopAutoSpot.Views.AuctionViews
             return Page();
         }
 
-        public string GetVehicleImage(string vehicleId)
+        public string GetAuctionImage(string auctionId)
         {
-            var imageData = _context.VehicleImages
-                .FirstOrDefault(i => i.VehicleId == vehicleId).ImageData;
-
-            return imageData == null ? "" 
-                : "data:image;base64," + Convert.ToBase64String(imageData);
+            var carId = _context.Auctions.First(a => a.Id == auctionId).VehicleId;
+            var data = _context.VehicleImages.First(i => i.VehicleId == carId).ImageData;
+            string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
+            return imgDataURL;
         }
     }
 }

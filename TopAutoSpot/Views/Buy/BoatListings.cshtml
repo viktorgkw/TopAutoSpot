@@ -38,7 +38,7 @@
         <div class="d-flex flex-row mt-3">
             @foreach (var boat in Model.Boats)
             {
-                <div class="d-flex flex-column mx-3 single-boat ">
+                <div class="d-flex flex-column mx-3 single-car">
                     <a asp-page="/VehiclePreview/BoatPreview" asp-route-id="@boat.Id" class="text-decoration-none site-text-color-btn fw-bold boat-title mb-1">
                         @if (!Model.HasAnyImages(boat.Id))
                         {
