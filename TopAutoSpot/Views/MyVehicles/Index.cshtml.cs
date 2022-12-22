@@ -1,5 +1,7 @@
+using NewsAPI.Models;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
+using TopAutoSpot.Services.NewsServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
@@ -11,10 +13,14 @@ namespace TopAutoSpot.Views.MyVehicles
     public class IndexModel : PageModel
     {
         public ApplicationDbContext _context;
-        public IndexModel(ApplicationDbContext db)
+        private INewsService _newsService;
+        public IndexModel(ApplicationDbContext db, INewsService newsService)
         {
             _context = db;
+            _newsService = newsService;
         }
+
+        public List<Article> News = new List<Article>();
 
         public List<Boat> Boats { get; private set; }
         public List<Bus> Buses { get; private set; }
@@ -57,6 +63,7 @@ namespace TopAutoSpot.Views.MyVehicles
             OverallCount = Boats.Count + Buses.Count + Cars.Count +
                     Motorcycles.Count + Trailers.Count + Trucks.Count;
 
+            News = await _newsService.GetNews(3);
 
             return Page();
         }
