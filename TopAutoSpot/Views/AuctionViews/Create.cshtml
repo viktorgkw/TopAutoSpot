@@ -1,0 +1,87 @@
+﻿@page
+@using TopAutoSpot.Models.Utilities;
+@model TopAutoSpot.Views.AuctionViews.CreateModel
+@{
+    ViewData["Title"] = "Create Auction";
+    var date = DateTime.Now.AddDays(1);
+}
+
+<h1 class="fw-bold website-text-darker-nohover">New Auction Description</h1>
+<hr />
+<br />
+
+<div class="col-md-4 mx-auto">
+    <form method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="Auction.Id" type="hidden" value=@Guid.NewGuid().ToString() />
+        <input asp-for="Auction.AuctioneerId" type="hidden" value="BackEndHandled" />
+        <input asp-for="Auction.Status" type="hidden" value=@ListingStatusTypes.WaitingApproval.ToString() />
+        <input asp-for="Auction.CurrentBidPrice" type="hidden" value="0" />
+
+        <div class="m-2 px-4">
+            <div class="form-group mb-4">
+                <label asp-for="Auction.Title" class="control-label fw-bold website-text-nohover"></label>
+                <input asp-for="Auction.Title" class="form-control" />
+                <span asp-validation-for="Auction.Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Auction.Description" class="control-label fw-bold website-text-nohover"></label>
+                <input asp-for="Auction.Description" class="form-control" />
+                <span asp-validation-for="Auction.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Auction.StartingPrice" class="control-label fw-bold website-text-nohover"></label>
+                <input min="10" max="1000000" asp-for="Auction.StartingPrice" class="form-control" />
+                <span asp-validation-for="Auction.StartingPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Auction.Duration" class="control-label fw-bold website-text-nohover"></label>
+                <p class="text-dark fw-bold"><i>In hours</i></p>
+                <input min="1" max="2" asp-for="Auction.Duration" class="form-control" />
+                <span asp-validation-for="Auction.Duration" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Auction.VehicleId" class="control-label fw-bold website-text-nohover"></label>
+                <select asp-for="Auction.VehicleId" class="form-select">
+                    @foreach (var vehicle in Model.CurrentUserVehicles)
+                    {
+                        <option value="@vehicle">@vehicle</option>
+                    }
+                </select>
+                <span asp-validation-for="Auction.VehicleId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Auction.StartDay" class="control-label fw-bold website-text-nohover">Start Day</label>
+                <input min="@date.Year-@date.Month-@date.Day" type="date" asp-for="Auction.StartDay" class="form-control" />
+                <span asp-validation-for="Auction.StartDay" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Auction.StartHour" class="control-label fw-bold website-text-nohover">Start Hour</label>
+                <p class="text-dark fw-bold"><i>Min 08:00 AM | Max 09:59 (21:59) PM</i></p>
+                <p class="text-dark fw-bold"><i>AM - before noon | PM - after noon</i></p>
+                <input min="08-00" max="22-00" type="time" asp-for="Auction.StartHour" class="form-control" />
+                <span asp-validation-for="Auction.StartHour" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group mt-3 mb-2">
+            <input type="submit" value="Create" class="btn website-background-lighter fw-bold" />
+        </div>
+    </form>
+</div>
+
+<div>
+    <a class="fw-bold btn btn-outline-secondary mt-3 mb-3" asp-page="/AuctionViews/Index">Go Back</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

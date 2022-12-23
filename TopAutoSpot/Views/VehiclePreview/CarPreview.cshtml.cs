@@ -33,7 +33,7 @@ namespace TopAutoSpot.Views.VehiclePreview
             {
                 return RedirectToPage("/NotFound");
             }
-            else if (car.Status != StatusTypes.Active.ToString() && car.CreatedBy != foundUser.Id)
+            else if (car.Status != ListingStatusTypes.Active.ToString() && car.CreatedBy != foundUser.Id)
             {
                 return RedirectToPage("/MyVehicles/Index");
             }

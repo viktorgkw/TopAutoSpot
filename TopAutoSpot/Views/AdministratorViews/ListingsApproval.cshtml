@@ -1,17 +1,17 @@
 ﻿@page
-@model TopAutoSpot.Views.AdministratorViews.ApprovalModel
+@model TopAutoSpot.Views.AdministratorViews.ListingsApprovalModel
 @{
     ViewData["Title"] = "Vehicle Listings Approval";
 }
 
-<h1 class="website-text-darker-nohover fw-bold mt-2">Approval Page</h1>
+<h1 class="website-text-darker-nohover fw-bold mt-2">@ViewData["Title"]</h1>
 <hr />
 <br />
 
 <div class="mt-3 mb-5 pb-5 pt-3">
     @if (Model.OverallCount == 0)
     {
-        <h2>No Vehicles to Approve at the moment.</h2>
+        <h2 class="text-danger fw-bold">No Vehicles to Approve at the moment.</h2>
         <img class="custom-rounded mt-3 mb-3" src="~/gifs/nothingToApprove.gif" />
     }
     else

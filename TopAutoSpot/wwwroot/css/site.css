@@ -37,6 +37,11 @@ hr {
     border-top: 2px solid;
 }
 
+.payment-status-image {
+    width: 640px;
+    height: 512px;
+}
+
 .single-new-box {
     width: 320px;
     height: 384px;

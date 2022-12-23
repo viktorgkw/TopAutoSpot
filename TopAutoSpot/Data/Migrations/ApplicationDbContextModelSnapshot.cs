@@ -155,7 +155,51 @@ namespace TopAutoSpot.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TopAutoSpot.Data.Entities.Boat", b =>
+            modelBuilder.Entity("TopAutoSpot.Models.Auction", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AuctioneerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CurrentBidPrice")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDay")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartHour")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StartingPrice")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VehicleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Auctions");
+                });
+
+            modelBuilder.Entity("TopAutoSpot.Models.Boat", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -220,7 +264,7 @@ namespace TopAutoSpot.Data.Migrations
                     b.ToTable("Boats");
                 });
 
-            modelBuilder.Entity("TopAutoSpot.Data.Entities.Bus", b =>
+            modelBuilder.Entity("TopAutoSpot.Models.Bus", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -293,7 +337,7 @@ namespace TopAutoSpot.Data.Migrations
                     b.ToTable("Buses");
                 });
 
-            modelBuilder.Entity("TopAutoSpot.Data.Entities.Car", b =>
+            modelBuilder.Entity("TopAutoSpot.Models.Car", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -357,7 +401,7 @@ namespace TopAutoSpot.Data.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("TopAutoSpot.Data.Entities.InterestedListing", b =>
+            modelBuilder.Entity("TopAutoSpot.Models.InterestedListing", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -379,7 +423,7 @@ namespace TopAutoSpot.Data.Migrations
                     b.ToTable("InterestedInListings");
                 });
 
-            modelBuilder.Entity("TopAutoSpot.Data.Entities.Motorcycle", b =>
+            modelBuilder.Entity("TopAutoSpot.Models.Motorcycle", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -449,7 +493,7 @@ namespace TopAutoSpot.Data.Migrations
                     b.ToTable("Motorcycles");
                 });
 
-            modelBuilder.Entity("TopAutoSpot.Data.Entities.Notification", b =>
+            modelBuilder.Entity("TopAutoSpot.Models.Notification", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -478,7 +522,7 @@ namespace TopAutoSpot.Data.Migrations
                     b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("TopAutoSpot.Data.Entities.Trailer", b =>
+            modelBuilder.Entity("TopAutoSpot.Models.Trailer", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -522,7 +566,7 @@ namespace TopAutoSpot.Data.Migrations
                     b.ToTable("Trailers");
                 });
 
-            modelBuilder.Entity("TopAutoSpot.Data.Entities.Truck", b =>
+            modelBuilder.Entity("TopAutoSpot.Models.Truck", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -592,13 +636,16 @@ namespace TopAutoSpot.Data.Migrations
                     b.ToTable("Trucks");
                 });
 
-            modelBuilder.Entity("TopAutoSpot.Data.Entities.User", b =>
+            modelBuilder.Entity("TopAutoSpot.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("AuctionId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -656,6 +703,8 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuctionId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -667,7 +716,7 @@ namespace TopAutoSpot.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("TopAutoSpot.Data.Entities.VehicleImage", b =>
+            modelBuilder.Entity("TopAutoSpot.Models.VehicleImage", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -700,7 +749,7 @@ namespace TopAutoSpot.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TopAutoSpot.Data.Entities.User", null)
+                    b.HasOne("TopAutoSpot.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -709,7 +758,7 @@ namespace TopAutoSpot.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TopAutoSpot.Data.Entities.User", null)
+                    b.HasOne("TopAutoSpot.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -724,7 +773,7 @@ namespace TopAutoSpot.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TopAutoSpot.Data.Entities.User", null)
+                    b.HasOne("TopAutoSpot.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -733,11 +782,23 @@ namespace TopAutoSpot.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TopAutoSpot.Data.Entities.User", null)
+                    b.HasOne("TopAutoSpot.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TopAutoSpot.Models.User", b =>
+                {
+                    b.HasOne("TopAutoSpot.Models.Auction", null)
+                        .WithMany("Bidders")
+                        .HasForeignKey("AuctionId");
+                });
+
+            modelBuilder.Entity("TopAutoSpot.Models.Auction", b =>
+                {
+                    b.Navigation("Bidders");
                 });
 #pragma warning restore 612, 618
         }

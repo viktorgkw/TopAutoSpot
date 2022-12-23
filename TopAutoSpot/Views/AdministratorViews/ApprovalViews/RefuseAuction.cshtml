@@ -1,0 +1,12 @@
+﻿@page
+@model TopAutoSpot.Views.AdministratorViews.ApprovalViews.RefuseAuctionModel
+@{
+    ViewData["Title"] = "Auction Refused";
+}
+
+<h1 class="website-text-darker-nohover fw-bold">Auction Refused!</h1>
+<hr />
+
+<p class="fs-3 website-text-nohover">Auction with Id: @Model.AuctionId was <span class="fw-bold text-danger">Refused</span>!</p>
+
+<a class="btn website-background-outline-main fw-bold custom-rounded" asp-page="/AdministratorViews/AuctionsApproval">Go Back</a>

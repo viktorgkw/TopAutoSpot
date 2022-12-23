@@ -1,0 +1,59 @@
+﻿@page
+@model TopAutoSpot.Views.PremiumAccount.PurchaseDetailsModel
+@{
+    ViewData["Title"] = "Purchase Details";
+}
+
+<h1 class="text-capitalize fw-bold website-text-darker-nohover mb-3 mt-2">@ViewData["Title"]</h1>
+<hr />
+<br />
+
+<div class="col-md-4 mx-auto">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="StripePayment.Id" type="hidden" value=@Guid.NewGuid().ToString() />
+        <input asp-for="StripePayment.Email" type="hidden" value="BackEndHandled" />
+        <input asp-for="StripePayment.ChargeAmount" type="hidden" value="25" />
+        <input asp-for="StripePayment.Currency" type="hidden" value="usd" />
+        <input asp-for="StripePayment.Description" type="hidden" value="Premium Account in TopAutoSpotBulgaria.com." />
+
+        <div class="m-2 px-4">
+            <div class="form-group mb-4">
+                <label asp-for="StripePayment.CustomerName" class="control-label fw-bold website-text-nohover">Customer Name</label>
+                <input asp-for="StripePayment.CustomerName" class="form-control" />
+                <span asp-validation-for="StripePayment.CustomerName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="StripePayment.CardNumber" class="control-label fw-bold website-text-nohover">Card Number</label>
+                <input asp-for="StripePayment.CardNumber" class="form-control" />
+                <span asp-validation-for="StripePayment.CardNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="StripePayment.ExpYear" class="control-label fw-bold website-text-nohover">Expiration Year</label>
+                <input asp-for="StripePayment.ExpYear" class="form-control" />
+                <span asp-validation-for="StripePayment.ExpYear" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="StripePayment.ExpMonth" class="control-label fw-bold website-text-nohover">Expiration Month</label>
+                <input asp-for="StripePayment.ExpMonth" class="form-control" />
+                <span asp-validation-for="StripePayment.ExpMonth" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="StripePayment.CVC" class="control-label fw-bold website-text-nohover">CVC</label>
+                <input asp-for="StripePayment.CVC" class="form-control" />
+                <span asp-validation-for="StripePayment.CVC" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group mt-3 mb-2">
+            <input type="submit" value="Submit" class="btn website-background-lighter fw-bold" />
+        </div>
+    </form>
+</div>
+
+<br />
+<hr />

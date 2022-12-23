@@ -1,0 +1,46 @@
+﻿@page
+@model TopAutoSpot.Views.AdministratorViews.AuctionsApprovalModel
+@{
+    ViewData["Title"] = "Auctions Approval";
+}
+
+<h1 class="website-text-darker-nohover fw-bold mt-2">@ViewData["Title"]</h1>
+<hr />
+<br />
+
+<div class="mt-3 mb-5 pb-5 pt-3">
+    @if (Model.Auctions.Count == 0)
+    {
+        <h2 class="text-danger fw-bold">No Auctions to Manage at the moment.</h2>
+        <img class="custom-rounded mt-3 mb-3" src="~/gifs/nothingToApprove.gif" />
+    }
+    else
+    {
+        <div class="d-flex flex-row mt-3 flex-wrap">
+            @foreach (var auction in Model.Auctions)
+            {
+                <div class="d-flex flex-column mx-3 single-car ">
+                    <a asp-page="/VehiclePreview/AuctionPreview" asp-route-id="@auction.Id" class="text-decoration-none fw-bold car-title mb-1">
+                        <img class="listing-image custom-rounded" src="@Model.GetAuctionImage(auction.Id)" />
+
+                        @if (auction.Title.Length > 22)
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@string.Join("", auction.Title.Take(22))..</p>
+                        }
+                        else
+                        {
+                            <p class="fs-4 fw-bold text-dark listing-title">@auction.Title</p>
+                        }
+
+                        <p class="fs-4 fw-bold text-dark listing-title">@auction.Status</p>
+                    </a>
+
+                    <div>
+                        <a class="btn btn-outline-success fw-bold" asp-page="/AdministratorViews/ApprovalViews/ApproveAuction" asp-route-auctionId="@auction.Id">Approve</a>
+                        <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/ApprovalViews/RefuseAuctionReason" asp-route-auctionId="@auction.Id">Refuse</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

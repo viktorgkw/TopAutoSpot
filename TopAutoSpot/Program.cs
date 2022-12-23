@@ -1,7 +1,11 @@
+using Stripe;
+using Hangfire;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Services.EmailService;
 using TopAutoSpot.Services.NewsServices;
+using TopAutoSpot.Services.AuctionServices;
+using TopAutoSpot.Services.PaymentServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,30 +13,50 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
+// Database Configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+// Identity Configuration
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
 
+// Identity Options Configuration
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedEmail = true;
 });
 
+// Razor Pages Configuration
 builder.Services.AddRazorPages(options =>
 {
     options.RootDirectory = "/Views";
 });
 
+// Services DI Configuration
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddTransient<IAuctionService, AuctionService>();
 
 builder.Services.AddControllersWithViews();
+
+// Hangfire Configuration
+builder.Services.AddHangfire(config =>
+{
+    config.UseSimpleAssemblyNameTypeSerializer();
+    config.UseRecommendedSerializerSettings();
+    config.UseSqlServerStorage(connectionString);
+});
+builder.Services.AddHangfireServer();
+
+// Stripe Configuration
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 var app = builder.Build();
 
@@ -58,5 +82,11 @@ app.UseStatusCodePagesWithRedirects("/NotFound");
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseHangfireDashboard();
+app.MapHangfireDashboard();
+
+// Daily Background Auction Reminder
+RecurringJob.AddOrUpdate<IAuctionService>(s => s.DailyCheckAndRemind(), Cron.Daily);
 
 app.Run();

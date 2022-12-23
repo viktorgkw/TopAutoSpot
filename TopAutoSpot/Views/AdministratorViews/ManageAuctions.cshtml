@@ -1,0 +1,48 @@
+﻿@page
+@model TopAutoSpot.Views.AdministratorViews.ManageAuctionsModel
+@{
+    ViewData["Title"] = "Manage Auctions";
+}
+
+<div class="mt-3 mb-5 pb-5 pt-3">
+    @if (Model.Auctions.Count == 0)
+    {
+        <h2 class="text-danger fw-bold">No Auctions to Approve at the moment.</h2>
+        <img class="custom-rounded mt-3 mb-3" src="~/gifs/nothingToApprove.gif" />
+    }
+    else
+    {
+        <div class="mt-3 mb-5 pb-5 pt-3">
+            <h1 class="fw-bold website-text-nohover mt-2">Auction Management Page</h1>
+            <hr />
+            <br />
+
+            <div class="d-flex flex-row mt-3 flex-wrap">
+                @foreach (var auction in Model.Auctions)
+                {
+                    <div class="d-flex flex-column mx-3 single-car ">
+                        <a asp-page="/VehiclePreview/AuctionPreview" asp-route-id="@auction.Id" class="text-decoration-none fw-bold car-title mb-1">
+                            <img class="listing-image custom-rounded" src="@Model.GetAuctionImage(auction.Id)" />
+
+                            @if (auction.Title.Length > 22)
+                            {
+                                <p class="fs-4 fw-bold text-dark listing-title">@string.Join("", auction.Title.Take(22))..</p>
+                            }
+                            else
+                            {
+                                <p class="fs-4 fw-bold text-dark listing-title">@auction.Title</p>
+                            }
+
+                            <p class="fs-4 fw-bold text-dark listing-title">@auction.Status</p>
+                        </a>
+
+                        <div>
+                            <a class="btn btn-outline-dark fw-bold" asp-page="/AdministratorViews/AuctionsCD/Close" asp-route-id="@auction.Id">Close</a>
+                            <a class="btn btn-outline-danger fw-bold" asp-page="/AdministratorViews/AuctionsCD/Delete" asp-route-id="@auction.Id">Delete</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
