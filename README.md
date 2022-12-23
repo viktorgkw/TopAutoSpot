@@ -23,7 +23,7 @@ TODO when project is ready
 </strong>
 
 ## Built with💻
-<strong>.NET 7</strong>
+<strong>C# (.NET 7)</strong>
 <br />
 <strong>Bootstrap</strong>
 <br />
@@ -31,7 +31,7 @@ TODO when project is ready
 <br />
 <strong>Hangfire</strong>
 <br />
-<strong>Some Banking Framework (soon)</strong>
+<strong>Stripe</strong>
 
 ## License📃
 <strong>
