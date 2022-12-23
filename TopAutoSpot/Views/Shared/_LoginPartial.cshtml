@@ -1,12 +1,17 @@
-﻿@inject SignInManager<User> SignInManager
+﻿@using TopAutoSpot.Models.Utilities;
+@inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         <div class="dropdown">
-            <button class="btn text-light website-background-main dropdown-toggle fw-bold custom-rounded px-4 mx-4" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Profile</button>
+            <button class="btn text-light website-background-main dropdown-toggle fw-bold custom-rounded px-5 mx-4" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Profile</button>
             <ul class="dropdown-menu website-background-main-nohover" aria-labelledby="dropdownMenuButton1">
+                @if (User.IsInRole(RoleTypes.User.ToString()))
+                {
+                    <li><a asp-page="/PremiumAccount/Index" class="dropdown-item fw-bold website-navbar-dropdown-option">Upgrade to Premium</a></li>
+                }
                 <li><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="dropdown-item fw-bold website-navbar-dropdown-option">Settings</a></li>
                 <li><a asp-page="/Notifications/Index" class="dropdown-item fw-bold website-navbar-dropdown-option">Notifications</a></li>
                 <form asp-area="Identity" asp-page="/Account/Logout">
