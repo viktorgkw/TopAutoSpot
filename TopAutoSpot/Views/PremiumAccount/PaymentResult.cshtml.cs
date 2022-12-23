@@ -1,4 +1,5 @@
 using TopAutoSpot.Models;
+using TopAutoSpot.Models.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,11 @@ namespace TopAutoSpot.Views.PremiumAccount
 
         public async Task<IActionResult> OnGetAsync(string status, string userId)
         {
+            if (!User.IsInRole(RoleTypes.User.ToString()))
+            {
+                return RedirectToPage("/NotFound");
+            }
+
             Status = status.ToLower();
 
             if (Status == "succeeded")
