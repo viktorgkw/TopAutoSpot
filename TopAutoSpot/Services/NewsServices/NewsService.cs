@@ -14,8 +14,6 @@ namespace TopAutoSpot.Services.NewsServices
 
         public async Task<List<Article>> GetNews(int returnNewsCount)
         {
-            List<Article> articlesResult = new List<Article>();
-
             var newsApiClient = new NewsApiClient(_configuration["NewsAPI:Key"]);
             var articlesResponse = await newsApiClient.GetEverythingAsync(new EverythingRequest
             {
@@ -46,17 +44,13 @@ namespace TopAutoSpot.Services.NewsServices
             Dictionary<int, string> articlesTitles = new Dictionary<int, string>();
             Random random = new Random();
 
-            for (int i = 0; i < returnCount; i++)
-            {
-                var currentRandom = random.Next(0, articlesResponse.Articles.Count + 1);
+            while (articlesTitles.Count != returnCount) 
+            { 
+                var currentRandom = random.Next(0, articlesResponse.Articles.Count);
 
                 if (!articlesTitles.ContainsKey(currentRandom))
                 {
                     articlesTitles.Add(currentRandom, articlesResponse.Articles[currentRandom].Title);
-                }
-                else
-                {
-                    i--;
                 }
             }
 

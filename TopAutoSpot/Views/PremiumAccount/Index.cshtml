@@ -1,0 +1,18 @@
+﻿@page
+@model TopAutoSpot.Views.PremiumAccount.IndexModel
+@{
+    ViewData["Title"] = "Upgrade to Premium Account";
+}
+
+<h1 class="text-capitalize fw-bold website-text-darker-nohover mb-3 mt-2">@ViewData["Title"]</h1>
+<hr />
+
+<div class="d-flex flex-row flex-wrap justify-content-center mt-3 mb-3">
+    <form method="post">
+        <img class="custom-rounded buy-page-image" src="~/gifs/premiumAccount.gif" />
+
+        <div class="form-group mt-3 mb-2">
+            <a class="btn btn-dark fw-bold" asp-page="/PremiumAccount/PurchaseDetails"></a>
+        </div>
+    </form>
+</div>
