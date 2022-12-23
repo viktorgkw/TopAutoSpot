@@ -1,9 +1,11 @@
+using Stripe;
 using Hangfire;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Services.EmailService;
 using TopAutoSpot.Services.NewsServices;
 using TopAutoSpot.Services.AuctionServices;
+using TopAutoSpot.Services.PaymentServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +41,7 @@ builder.Services.AddRazorPages(options =>
 // Services DI Configuration
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddTransient<IAuctionService, AuctionService>();
 
 builder.Services.AddControllersWithViews();
@@ -51,6 +54,9 @@ builder.Services.AddHangfire(config =>
     config.UseSqlServerStorage(connectionString);
 });
 builder.Services.AddHangfireServer();
+
+// Stripe Configuration
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 var app = builder.Build();
 
