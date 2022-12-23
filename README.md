@@ -14,17 +14,6 @@
 ## About📝
 <strong>
 TopAutoSpot is a website where people can buy, sell, trade or auction vehicles.
-<br />
-Vehicles can be from type: Cars, Trucks, Boats, Motocycles, Trailers and Buses.
-<br />
-Users can click a yellow bulb in each listing to get "Interested In" the listing.
-<br />
-Users will get notification if something happens with a listing they are Interested In.
-<br />
-As for online payment, users will be able to pay with (PayPal, Bank Transfer, Credit Card and Debit Card)
-<br />
-TODO (fix payment methods)
-</strong>
 
 ## Building the project⚙️
 <strong>
@@ -34,11 +23,13 @@ TODO when project is ready
 </strong>
 
 ## Built with💻
-<strong>ASP.NET Core (.NET 7)</strong>
+<strong>.NET 7</strong>
 <br />
 <strong>Bootstrap</strong>
 <br />
-<strong>MailKit (soon)</strong>
+<strong>MailKit</strong>
+<br />
+<strong>Hangfire</strong>
 <br />
 <strong>Some Banking Framework (soon)</strong>
 
