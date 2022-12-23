@@ -1,9 +1,9 @@
 ﻿using TopAutoSpot.Data;
 using TopAutoSpot.Models;
-using TopAutoSpot.Services.EmailService;
-using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Models.Utilities;
 using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.EmailService;
+using Microsoft.EntityFrameworkCore;
 
 namespace TopAutoSpot.Services.AuctionServices
 {
