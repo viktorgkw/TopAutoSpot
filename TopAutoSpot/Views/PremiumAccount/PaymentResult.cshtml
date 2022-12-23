@@ -1,0 +1,61 @@
+﻿@page
+@model TopAutoSpot.Views.PremiumAccount.PaymentResultModel
+@{
+    ViewData["Title"] = "Payment Result";
+}
+
+<h1 class="text-capitalize fw-bold website-text-darker-nohover mb-3 mt-3">@ViewData["Title"]</h1>
+<hr />
+<br />
+
+<div class="mb-3 mt-3 pb-3 pt-3 d-flex d-row">
+    <div class="row">
+        @if (Model.Status == "succeeded")
+        {
+            <div class="mb-3">
+                <h3 class="text-success fw-bold">The payment was Successful!</h3>
+                <h4 class="text-dark fw-bold">Enjoy your premium account and enjoy ad-free browsing!</h4>
+            </div>
+
+            <div class="mt-3">
+                <img class="custom-rounded payment-status-image" src="~/gifs/paymentSuccessful.gif" />
+            </div>
+        }
+        else if (Model.Status == "incorrect")
+        {
+            <div class="mb-3">
+                <h3 class="text-warning fw-bold">Incorrect credentials!</h3>
+                <h4 class="text-dark fw-bold">Make sure that everything you entered was your correct card details!</h4>
+            </div>
+
+            <div class="mt-3">
+                <img class="custom-rounded payment-status-image" src="~/gifs/paymentIncorrect.gif" />
+            </div>
+        }
+        else if (Model.Status == "pending")
+        {
+            <div class="mb-3">
+                <h3 class="text-primary fw-bold">The payment status is pending!</h3>
+                <h4 class="text-dark fw-bold">When the status changes to succesful, your role will be set to Premium!</h4>
+            </div>
+
+            <div class="mt-3">
+                <img class="custom-rounded payment-status-image" src="~/gifs/paymentPending.gif" />
+            </div>
+        }
+        else if (Model.Status == "failed")
+        {
+            <div class="mb-3">
+                <h3 class="text-danger fw-bold">The payment failed!</h3>
+                <h4 class="text-dark fw-bold">You either declined the payment or there was some unknown error we didn't catch!</h4>
+            </div>
+
+            <div class="mt-3">
+                    <img class="custom-rounded payment-status-image" src="~/gifs/paymentFailed.gif" />
+                </div>
+        }
+    </div>
+</div>
+
+<br />
+<hr />
