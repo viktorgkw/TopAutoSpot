@@ -1,14 +1,15 @@
 ﻿@page
+@using TopAutoSpot.Models.Utilities;
 @model TopAutoSpot.Views.MyVehicles.IndexModel
 @{
     ViewData["Title"] = "My Vehicles";
 }
 
-<p class="fw-bold fs-1 website-text-darker-nohover">Your Vehicles</p>
+<p class="fw-bold fs-1 website-text-darker-nohover">Your Listings</p>
+<p class="fw-bold fs-4 website-text-nohover"><i>Here are all your listings, trade-only listings and auctions</i></p>
 <hr />
-<br />
 
-<p class="fw-bold fs-2 website-text-nohover">ADD NEW</p>
+<p class="fw-bold fs-3 website-text-nohover">ADD NEW</p>
 <div class="mb-2 mt-2">
     <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/CarCRUD/Create">Car</a>
     <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/TruckCRUD/Create">Truck</a>
@@ -17,7 +18,6 @@
     <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/BoatCRUD/Create">Boat</a>
     <a class="btn website-background-lighter text-light fw-bold" asp-page="/MyVehicles/BusCRUD/Create">Bus</a>
 </div>
-<br />
 <hr />
 <br />
 
@@ -37,6 +37,30 @@ else
 {
     // Display all owned vehicles.
     <div class="d-flex flex-row mt-3 flex-wrap">
+        @foreach (var auction in Model.Auctions)
+        {
+            <div class="d-flex flex-column mx-3 single-car">
+                <a asp-page="/VehiclePreview/AuctionPreview" asp-route-id="@auction.Id" class="text-decoration-none fw-bold car-title mb-1">
+                    <img class="listing-image custom-rounded" src="@Model.GetAuctionImage(auction.Id)" />
+
+                    @if (auction.Title.Length > 22)
+                    {
+                        <p class="fs-4 fw-bold text-dark listing-title">@string.Join("", auction.Title.Take(22))..</p>
+                    }
+                    else
+                    {
+                        <p class="fs-4 fw-bold text-dark listing-title">@auction.Title</p>
+                    }
+                </a>
+
+                <p class="fs-4 fw-bold text-dark listing-title">@auction.Status</p>
+
+                <div>
+                    <a class="btn btn-outline-dark fw-bold" asp-page="/MyVehicles/AuctionCRUD/Edit" asp-route-id="@auction.Id">Edit</a>
+                    <a class="btn btn-outline-danger fw-bold" asp-page="/MyVehicles/AuctionCRUD/Delete" asp-route-id="@auction.Id">Delete</a>
+                </div>
+            </div>
+        }
         @foreach (var vehicle in Model.Cars)
         {
             <div class="d-flex flex-column mx-3 single-car ">
@@ -226,34 +250,37 @@ else
     </div>
 }
 
-<div class="mt-5">
-    <h1 class="website-text-nohover fw-bold">News</h1>
-    <hr />
-</div>
+@if (User.IsInRole(RoleTypes.Administrator.ToString()) || User.IsInRole(RoleTypes.Premium.ToString()))
+{
+    <div class="mt-5">
+        <h1 class="website-text-nohover fw-bold">News</h1>
+        <hr />
+    </div>
 
-<div class="border-top border-dark text-light bg-dark mb-3 mt-3 custom-rounded mx-auto">
-    @if (Model.News.Count > 0)
-    {
+    <div class="border-top border-dark text-light bg-dark mb-3 mt-3 custom-rounded mx-auto">
+        @if (Model.News.Count > 0)
+        {
 
-        <div class="d-flex flex-row flex-wrap justify-content-around">
-            @foreach (var singleNew in Model.News)
-            {
-                <div class="d-flex flex-column mx-3 single-new-box">
-                    <a class="text-decoration-none" href="@singleNew.Url">
-                        <img class="custom-rounded single-new-image mb-3" src="@singleNew.UrlToImage" />
-                        <p class="text-light fw-bold">@singleNew.Title</p>
-                    </a>
-                </div>
-            }
-        </div>
+            <div class="d-flex flex-row flex-wrap justify-content-around">
+                @foreach (var singleNew in Model.News)
+                {
+                    <div class="d-flex flex-column mx-3 single-new-box">
+                        <a class="text-decoration-none" href="@singleNew.Url">
+                            <img class="custom-rounded single-new-image mb-3" src="@singleNew.UrlToImage" />
+                            <p class="text-light fw-bold">@singleNew.Title</p>
+                        </a>
+                    </div>
+                }
+            </div>
 
-    }
-    else
-    {
-        <h3 class="px-3 pt-3 pb-3 text-light">Error loading the news...</h3>
-    }
-</div>
+        }
+        else
+        {
+            <h3 class="px-3 pt-3 pb-3 text-light">Error loading the news...</h3>
+        }
+    </div>
 
-<div>
-    <hr />
-</div>
+    <div>
+        <hr />
+    </div>
+}

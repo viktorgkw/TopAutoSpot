@@ -1,4 +1,3 @@
-using TopAutoSpot.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
@@ -8,18 +7,9 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
     [Authorize]
     public class RefuseVehicleReasonModel : PageModel
     {
-        private ApplicationDbContext _context;
-
-        public RefuseVehicleReasonModel(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-        [BindProperty]
-        public string VehicleId { get; set; }
-
         [BindProperty]
         public string Reason { get; set; }
+        public string VehicleId { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string vehicleId)
         {
@@ -40,7 +30,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return RedirectToPage("/AdministratorViews/Utilities/RefuseVehicle", new { vehicleId = VehicleId, reason = Reason });
+            return RedirectToPage("/AdministratorViews/ApprovalViews/RefuseVehicle", new { vehicleId = VehicleId, reason = Reason });
         }
     }
 }

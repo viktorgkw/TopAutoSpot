@@ -1,0 +1,26 @@
+﻿@page
+@model TopAutoSpot.Views.AdministratorViews.ApprovalViews.RefuseAuctionReasonModel
+@{
+    ViewData["Title"] = "Refuse Auction with Reason";
+}
+
+<div class="mt-3 mb-5 pb-5 pt-3">
+    <h1 class="fw-bold website-text-nohover mt-2">Refusing an Auction</h1>
+    <hr />
+    <br />
+
+    <div>
+        <h3 class="fw-bold website-text-darker-nohover">Auction Id: @Model.AuctionId</h3>
+        <form method="post">
+            <br />
+            <label class="fw-bold fs-4 website-text-nohover" asp-for="@Model.Reason" class="control-label fw-bold website-text-nohover"></label>
+            <br />
+            <br />
+            <textarea asp-for="@Model.Reason" rows="8" cols="80" required></textarea>
+
+            <div class="form-group mt-3 mb-2">
+                <input type="submit" value="Refuse" class="btn website-background-lighter fw-bold" />
+            </div>
+        </form>
+    </div>
+</div>

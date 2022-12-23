@@ -1,6 +1,6 @@
 ﻿namespace TopAutoSpot.Models.Utilities
 {
-    public enum StatusTypes
+    public enum ListingStatusTypes
     {
         Active,
         WaitingApproval,

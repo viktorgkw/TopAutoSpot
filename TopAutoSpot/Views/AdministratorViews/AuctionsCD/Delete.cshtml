@@ -1,0 +1,12 @@
+﻿@page
+@model TopAutoSpot.Views.AdministratorViews.AuctionsCD.DeleteModel
+@{
+    ViewData["Title"] = "Auction Deleted";
+}
+
+<h1 class="website-text-darker-nohover fw-bold">Vehicle Removed from the website!</h1>
+<hr />
+
+<p class="fs-3 website-text-nohover">Auction with Id: @Model.AuctionToDelete.Id was <i class="fw-bold text-danger">Removed</i> from the website!</p>
+
+<a class="btn website-background-outline-main fw-bold custom-rounded" asp-page="/AdministratorViews/ManageAuctions">Go Back</a>
