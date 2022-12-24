@@ -79,7 +79,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                if (!_userManager.Users.Any(u => u.UserName == "TestAdministrator") || !_userManager.Users.Any())
+                if (!_userManager.Users.Any(u => u.UserName == "Administrator") || !_userManager.Users.Any())
                 {
                     await InitializeAdministrator();
                 }
@@ -151,7 +151,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
         {
             var administratorUser = new User()
             {
-                UserName = "TestAdministrator",
+                UserName = "Administrator",
                 FirstName = "AdministratorFirst",
                 LastName = "AdministratorLast",
                 Email = "administratorYOUR_EMAIL",
