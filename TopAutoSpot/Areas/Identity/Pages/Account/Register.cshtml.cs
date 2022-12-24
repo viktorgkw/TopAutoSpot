@@ -79,23 +79,18 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                var anyUsersResult = await _userManager.Users.AnyAsync();
+                if (!_userManager.Users.Any(u => u.UserName == "TestAdministrator") || !_userManager.Users.Any())
+                {
+                    await InitializeAdministrator();
+                }
 
-                if (!anyUsersResult)
-                {
-                    await _userStore.SetUserNameAsync(user, "Administrator", CancellationToken.None);
-                }
-                else
-                {
-                    await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
-                }
-                
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.Role = RoleTypes.User.ToString();
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 await _userManager.AddToRoleAsync(user, RoleTypes.User.ToString());
-
+                
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -150,6 +145,23 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
             }
 
             return (IUserEmailStore<User>)_userStore;
+        }
+
+        private async Task InitializeAdministrator()
+        {
+            var administratorUser = new User()
+            {
+                UserName = "TestAdministrator",
+                FirstName = "AdministratorFirst",
+                LastName = "AdministratorLast",
+                Email = "administratortopautospotbulgaria@gmail.com",
+                PhoneNumber = "0888888888",
+                Role = RoleTypes.Administrator.ToString(),
+                EmailConfirmed = true
+            };
+
+            await _userManager.CreateAsync(administratorUser, "@Administrator1");
+            await _userManager.AddToRoleAsync(administratorUser, RoleTypes.Administrator.ToString());
         }
     }
 }
