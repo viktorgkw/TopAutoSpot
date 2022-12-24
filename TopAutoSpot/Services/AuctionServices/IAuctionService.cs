@@ -2,6 +2,7 @@
 {
     public interface IAuctionService
     {
-        void DailyCheckAndRemind();
+        Task StartingAuctionsCheck();
+        Task DailyCheckAndRemind();
     }
 }

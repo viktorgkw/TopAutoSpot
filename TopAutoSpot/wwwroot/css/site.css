@@ -37,6 +37,18 @@ hr {
     border-top: 2px solid;
 }
 
+.auction-inprogress-image {
+    width: 640px;
+    height: 384px;
+    object-fit: fill;
+}
+
+.auction-ended-image {
+    width: 768px;
+    height: 512px;
+    object-fit: fill;
+}
+
 .payment-status-image {
     width: 640px;
     height: 512px;

@@ -3,9 +3,11 @@ using TopAutoSpot.Models;
 using TopAutoSpot.Views.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TopAutoSpot.Views.AuctionViews
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;

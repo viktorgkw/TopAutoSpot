@@ -14,11 +14,13 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
     {
         private ApplicationDbContext _context;
         private IEmailService _emailService;
+        private VehicleRemover _vehicleRemover;
 
         public CloseModel(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
             _emailService = emailService;
+            _vehicleRemover = new VehicleRemover(_context);
         }
 
         [BindProperty]
@@ -32,6 +34,9 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
 
                 _context.Users.Remove(UserToClose);
                 await _context.SaveChangesAsync();
+
+                _vehicleRemover.RemoveAllUserVehicles(UserToClose.Id);
+                _vehicleRemover.RemoveAllUserAuctions(UserToClose.Id);
 
                 _emailService.SendEmail(new EmailDto()
                 {

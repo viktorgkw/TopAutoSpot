@@ -1,13 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Text;
+using System.ComponentModel.DataAnnotations;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
-using TopAutoSpot.Services.EmailService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.WebUtilities;
-using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account
 {
@@ -79,7 +79,17 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
+                var anyUsersResult = await _userManager.Users.AnyAsync();
+
+                if (!anyUsersResult)
+                {
+                    await _userStore.SetUserNameAsync(user, "Administrator", CancellationToken.None);
+                }
+                else
+                {
+                    await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
+                }
+                
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.Role = RoleTypes.User.ToString();
 

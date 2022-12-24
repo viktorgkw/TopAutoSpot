@@ -86,7 +86,8 @@ app.MapRazorPages();
 app.UseHangfireDashboard();
 app.MapHangfireDashboard();
 
-// Daily Background Auction Reminder
+// Background Auctions Tasks
 RecurringJob.AddOrUpdate<IAuctionService>(s => s.DailyCheckAndRemind(), Cron.Daily);
+RecurringJob.AddOrUpdate<IAuctionService>(s => s.StartingAuctionsCheck(), Cron.Minutely);
 
 app.Run();
