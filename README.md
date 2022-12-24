@@ -16,11 +16,19 @@
 TopAutoSpot is a website where people can buy, sell, trade or auction vehicles.
 
 ## Building the project⚙️
-<strong>
-In order to build the project you will have to... 
-<br />
-TODO when project is ready
-</strong>
+> ### In order to build the project you will have to:
+> 1. <strong>Initializing the database</strong>
+> - Open the Package Manager Console and type:
+> - In Visual Studio 2022 - ```update-database```
+> - In dotnet CLI - ```dotnet ef database update```
+> 2. <strong>Edit appsettings.json</strong>
+> - In order for the app to run properly, you have to change these sections with your data:
+> - ConnectionStrings (mainly the DefaultConnection)
+> - Email 
+> - NewsAPI
+> - Stripe
+> 3. <strong>Last but not least</strong>
+> - Rebuild the project!
 
 ## Built with💻
 <strong>C# (.NET 7)</strong>
