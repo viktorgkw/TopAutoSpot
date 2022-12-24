@@ -1,11 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
-using TopAutoSpot.Views.Utilities;
 using TopAutoSpot.Services.EmailService;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 {
@@ -23,22 +23,22 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 
         public string AuctionId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string auctionId)
+        public IActionResult OnGet(string auctionId)
         {
             if (User.IsInRole("Administrator"))
             {
-                var approveResult = await AuctionApproved(auctionId);
+                bool approveResult = AuctionApproved(auctionId);
 
                 if (approveResult)
                 {
                     AuctionId = auctionId;
 
-                    var ownerId = UserServices.GetAuctionOwner(_context, AuctionId);
-                    var owner = await UserServices.GetUserById(_context, ownerId);
+                    string ownerId = UserServices.GetAuctionOwner(_context, AuctionId);
+                    User owner = UserServices.GetUserById(_context, ownerId);
 
-                    var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
+                    string currentUserId = UserServices.GetCurrentUser(_context, User.Identity.Name);
 
-                    var sendResult = await NotificationServices.Send(_context,
+                    bool sendResult = NotificationServices.Send(_context,
                         currentUserId,
                         ownerId,
                         DefaultNotificationMessages.AUCTION_APPROVED_TITLE,
@@ -67,11 +67,10 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
             return RedirectToPage("/NotFound");
         }
 
-        public async Task<bool> AuctionApproved(string auctionId)
+        public bool AuctionApproved(string auctionId)
         {
-            _context.Auctions
-                    .First(a => a.Id == auctionId).Status = ListingStatusTypes.Active.ToString();
-            await _context.SaveChangesAsync();
+            _context.Auctions.First(a => a.Id == auctionId).Status = ListingStatusTypes.Active.ToString();
+            _context.SaveChanges();
 
             return true;
         }

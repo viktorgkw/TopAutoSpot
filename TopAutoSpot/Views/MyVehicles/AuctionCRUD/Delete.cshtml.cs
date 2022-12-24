@@ -1,9 +1,8 @@
-﻿using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.MyVehicles.AuctionCRUD
 {
@@ -20,15 +19,15 @@ namespace TopAutoSpot.Views.MyVehicles.AuctionCRUD
         [BindProperty]
         public Auction Auction { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (id == null || _context.Auctions == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            var auction = await _context.Auctions.FirstOrDefaultAsync(m => m.Id == id);
-            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+            Auction? auction = _context.Auctions.FirstOrDefault(m => m.Id == id);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
 
             if (auction == null)
             {
@@ -46,19 +45,19 @@ namespace TopAutoSpot.Views.MyVehicles.AuctionCRUD
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public IActionResult OnPost(string id)
         {
             if (id == null || _context.Auctions == null)
             {
                 return RedirectToPage("/Index");
             }
-            var auction = await _context.Auctions.FindAsync(id);
+            Auction? auction = _context.Auctions.Find(id);
 
             if (auction != null)
             {
                 Auction = auction;
                 _context.Auctions.Remove(Auction);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
 
             return RedirectToPage("/MyVehicles/Index");

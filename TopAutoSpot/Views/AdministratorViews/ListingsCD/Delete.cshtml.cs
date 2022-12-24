@@ -1,11 +1,10 @@
-using TopAutoSpot.Data;
-using TopAutoSpot.Models;
-using TopAutoSpot.Views.Utilities;
-using TopAutoSpot.Services.EmailService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
+using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
 {
@@ -24,18 +23,18 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
         [BindProperty]
         public string VehicleId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (User.IsInRole("Administrator"))
             {
                 VehicleId = id;
 
-                var ownerId = await UserServices.GetVehicleOwner(_context, VehicleId);
-                var owner = await UserServices.GetUserById(_context, ownerId);
+                string ownerId = UserServices.GetVehicleOwner(_context, VehicleId);
+                User owner = UserServices.GetUserById(_context, ownerId);
 
-                var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
+                string currentUserId = UserServices.GetCurrentUser(_context, User.Identity.Name);
 
-                var sendResult = await NotificationServices.Send(_context,
+                bool sendResult = NotificationServices.Send(_context,
                     currentUserId,
                     ownerId,
                     DefaultNotificationMessages.LISTING_DELETED_TITLE,
@@ -46,7 +45,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
                     return RedirectToPage("/UnknownError");
                 }
 
-                var deleteResult = await DeleteVehicle(id);
+                bool deleteResult = DeleteVehicle(id);
 
                 if (!deleteResult)
                 {
@@ -66,53 +65,53 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             return RedirectToPage("/NotFound");
         }
 
-        private async Task<bool> DeleteVehicle(string id)
+        private bool DeleteVehicle(string id)
         {
             if (_context.Cars.FirstOrDefault(c => c.Id == id) != null)
             {
-                var foundVehicle = await _context.Cars.FirstAsync(v => v.Id == id);
+                Car foundVehicle = _context.Cars.First(v => v.Id == id);
                 _context.Cars.Remove(foundVehicle);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
             else if (_context.Motorcycles.FirstOrDefault(m => m.Id == id) != null)
             {
-                var foundVehicle = await _context.Motorcycles.FirstAsync(v => v.Id == id);
+                Motorcycle foundVehicle = _context.Motorcycles.First(v => v.Id == id);
                 _context.Motorcycles.Remove(foundVehicle);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
             else if (_context.Trucks.FirstOrDefault(t => t.Id == id) != null)
             {
-                var foundVehicle = await _context.Trucks.FirstAsync(v => v.Id == id);
+                Truck foundVehicle = _context.Trucks.First(v => v.Id == id);
                 _context.Trucks.Remove(foundVehicle);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
             else if (_context.Trailers.FirstOrDefault(t => t.Id == id) != null)
             {
-                var foundVehicle = await _context.Trailers.FirstAsync(v => v.Id == id);
+                Trailer foundVehicle = _context.Trailers.First(v => v.Id == id);
                 _context.Trailers.Remove(foundVehicle);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
             else if (_context.Buses.FirstOrDefault(b => b.Id == id) != null)
             {
-                var foundVehicle = await _context.Buses.FirstAsync(v => v.Id == id);
+                Bus foundVehicle = _context.Buses.First(v => v.Id == id);
                 _context.Buses.Remove(foundVehicle);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
             else if (_context.Boats.FirstOrDefault(b => b.Id == id) != null)
             {
-                var foundVehicle = await _context.Boats.FirstAsync(v => v.Id == id);
+                Boat foundVehicle = _context.Boats.First(v => v.Id == id);
                 _context.Boats.Remove(foundVehicle);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }

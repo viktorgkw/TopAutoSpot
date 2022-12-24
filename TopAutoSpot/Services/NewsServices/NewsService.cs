@@ -1,6 +1,6 @@
 ﻿using NewsAPI;
-using NewsAPI.Models;
 using NewsAPI.Constants;
+using NewsAPI.Models;
 
 namespace TopAutoSpot.Services.NewsServices
 {
@@ -14,8 +14,8 @@ namespace TopAutoSpot.Services.NewsServices
 
         public async Task<List<Article>> GetNews(int returnNewsCount)
         {
-            var newsApiClient = new NewsApiClient(_configuration["NewsAPI:Key"]);
-            var articlesResponse = await newsApiClient.GetEverythingAsync(new EverythingRequest
+            NewsApiClient newsApiClient = new NewsApiClient(_configuration["NewsAPI:Key"]);
+            ArticlesResult articlesResponse = await newsApiClient.GetEverythingAsync(new EverythingRequest
             {
                 Q = "Vehicles"
             });
@@ -44,9 +44,9 @@ namespace TopAutoSpot.Services.NewsServices
             Dictionary<int, string> articlesTitles = new Dictionary<int, string>();
             Random random = new Random();
 
-            while (articlesTitles.Count != returnCount) 
-            { 
-                var currentRandom = random.Next(0, articlesResponse.Articles.Count);
+            while (articlesTitles.Count != returnCount)
+            {
+                int currentRandom = random.Next(0, articlesResponse.Articles.Count);
 
                 if (!articlesTitles.ContainsKey(currentRandom))
                 {
@@ -54,9 +54,9 @@ namespace TopAutoSpot.Services.NewsServices
                 }
             }
 
-            var foundArticles = new List<Article>();
+            List<Article> foundArticles = new List<Article>();
 
-            foreach (var articleTitle in articlesTitles)
+            foreach (KeyValuePair<int, string> articleTitle in articlesTitles)
             {
                 foundArticles.Add(articlesResponse.Articles.First(a => a.Title == articleTitle.Value));
             }

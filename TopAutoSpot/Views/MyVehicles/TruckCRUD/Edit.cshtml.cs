@@ -1,9 +1,9 @@
-﻿using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
 {
@@ -21,15 +21,15 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
         public Truck Truck { get; set; } = default!;
         public VehicleImage VehicleImage { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (id == null || _context.Trucks == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            var truck = await _context.Trucks.FirstOrDefaultAsync(m => m.Id == id);
-            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+            Truck? truck = _context.Trucks.FirstOrDefault(m => m.Id == id);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
 
             if (truck == null)
             {
@@ -39,11 +39,12 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
             {
                 return RedirectToPage("/MyVehicles/Index");
             }
+
             Truck = truck;
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(List<IFormFile> Images)
+        public IActionResult OnPost(List<IFormFile> Images)
         {
             if (!ModelState.IsValid)
             {
@@ -54,8 +55,8 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
 
             try
             {
-                await AddImagesToVehicle(Images, Truck.Id);
-                await _context.SaveChangesAsync();
+                AddImagesToVehicle(Images, Truck.Id);
+                _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,21 +78,21 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
             return (_context.Trucks?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        private async Task AddImagesToVehicle(List<IFormFile> images, string vehicleId)
+        private void AddImagesToVehicle(List<IFormFile> images, string vehicleId)
         {
             images = FilterImages(images);
 
             if (images.Count > 0)
             {
-                await RemoveExistingVehicleImages(vehicleId);
+                RemoveExistingVehicleImages(vehicleId);
 
                 foreach (IFormFile image in images)
                 {
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        await image.CopyToAsync(ms);
+                        image.CopyTo(ms);
 
-                        var vehicleImage = new VehicleImage()
+                        VehicleImage vehicleImage = new VehicleImage()
                         {
 
                             Id = Guid.NewGuid().ToString(),
@@ -100,23 +101,23 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
                             VehicleId = vehicleId,
                         };
 
-                        await _context.VehicleImages.AddAsync(vehicleImage);
-                        await _context.SaveChangesAsync();
+                        _context.VehicleImages.Add(vehicleImage);
+                        _context.SaveChanges();
                     }
                 }
             }
         }
 
-        private async Task RemoveExistingVehicleImages(string vehicleId)
+        private void RemoveExistingVehicleImages(string vehicleId)
         {
-            var foundImages = await _context.VehicleImages
+            List<VehicleImage> foundImages = _context.VehicleImages
                 .Where(i => i.VehicleId == vehicleId)
-                .ToListAsync();
+                .ToList();
 
-            foreach (var img in foundImages)
+            foreach (VehicleImage? img in foundImages)
             {
                 _context.Remove(img);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
 
@@ -124,9 +125,9 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
         {
             images = images
                 .Where(i =>
-                    i.FileName.EndsWith(".png") ||
-                    i.FileName.EndsWith(".jpeg") ||
-                    i.FileName.EndsWith(".jpg"))
+                    i.FileName.ToLower().EndsWith(".png") ||
+                    i.FileName.ToLower().EndsWith(".jpeg") ||
+                    i.FileName.ToLower().EndsWith(".jpg"))
                 .ToList();
 
             return images;

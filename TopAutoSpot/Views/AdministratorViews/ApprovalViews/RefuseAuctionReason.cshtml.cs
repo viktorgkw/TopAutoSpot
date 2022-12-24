@@ -1,6 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
 
 namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 {
@@ -13,7 +13,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
         [BindProperty]
         public string AuctionId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string auctionId)
+        public IActionResult OnGet(string auctionId)
         {
             if (User.IsInRole("Administrator"))
             {
@@ -30,9 +30,10 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
             return RedirectToPage("/NotFound");
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
-            return RedirectToPage("/AdministratorViews/ApprovalViews/RefuseAuction", new { auctionId = AuctionId, reason = Reason });
+            return RedirectToPage("/AdministratorViews/ApprovalViews/RefuseAuction",
+                new { auctionId = AuctionId, reason = Reason });
         }
     }
 }

@@ -1,12 +1,11 @@
-using TopAutoSpot.Data;
-using TopAutoSpot.Models;
-using TopAutoSpot.Views.Utilities;
-using TopAutoSpot.Models.Utilities;
-using TopAutoSpot.Services.EmailService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
+using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
 {
@@ -25,18 +24,18 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
         [BindProperty]
         public Auction AuctionToClose { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (User.IsInRole("Administrator"))
             {
-                AuctionToClose = await _context.Auctions.FirstAsync(u => u.Id == id);
+                AuctionToClose = _context.Auctions.First(u => u.Id == id);
                 AuctionToClose.Status = AuctionStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
-                var owner = await UserServices.GetUserById(_context, AuctionToClose.AuctioneerId);
-                var currentUser = await UserServices.GetCurrentUser(_context, User.Identity.Name);
+                User owner = UserServices.GetUserById(_context, AuctionToClose.AuctioneerId);
+                string currentUser = UserServices.GetCurrentUser(_context, User.Identity.Name);
 
-                await NotificationServices.Send(_context,
+                NotificationServices.Send(_context,
                     currentUser,
                     owner.Id,
                     DefaultNotificationMessages.AUCTION_CLOSED_TITLE,

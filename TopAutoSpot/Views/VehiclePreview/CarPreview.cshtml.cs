@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
@@ -19,15 +18,15 @@ namespace TopAutoSpot.Views.VehiclePreview
         public Car Car { get; set; } = default!;
         public List<VehicleImage> Images { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (id == null || _context.Cars == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            var car = await _context.Cars.FirstOrDefaultAsync(m => m.Id == id);
-            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+            Car? car = _context.Cars.FirstOrDefault(m => m.Id == id);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
 
             if (car == null)
             {
@@ -42,13 +41,16 @@ namespace TopAutoSpot.Views.VehiclePreview
                 Car = car;
             }
 
-            Images = _context.VehicleImages.Where(img => img.VehicleId == car.Id).ToList();
+            Images = _context.VehicleImages
+                .Where(img => img.VehicleId == car.Id)
+                .ToList();
+
             return Page();
         }
 
         public string GetOwnerNumber()
         {
-            var foundUser = _context.Users
+            User foundUser = _context.Users
                 .First(u => u.Id == Car.CreatedBy);
 
             return foundUser.PhoneNumber;
@@ -56,7 +58,7 @@ namespace TopAutoSpot.Views.VehiclePreview
 
         public string GetOwnerFullName()
         {
-            var foundUser = _context.Users
+            User foundUser = _context.Users
                 .First(u => u.Id == Car.CreatedBy);
 
             return foundUser.FirstName + " " + foundUser.LastName == " " ? foundUser.UserName :
@@ -65,14 +67,20 @@ namespace TopAutoSpot.Views.VehiclePreview
 
         public string GetImage()
         {
-            var data = _context.VehicleImages.Where(img => img.VehicleId == Car.Id).First().ImageData;
+            byte[] data = _context.VehicleImages
+                .Where(img => img.VehicleId == Car.Id)
+                .First()
+                .ImageData;
+
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
             return imgDataURL;
         }
 
         public bool HasAnyImages()
         {
-            return _context.VehicleImages.Where(img => img.VehicleId == Car.Id).ToList().Count > 0;
+            return _context.VehicleImages
+                .Where(img => img.VehicleId == Car.Id)
+                .ToList().Count > 0;
         }
 
         public string GetImageSource(VehicleImage img)

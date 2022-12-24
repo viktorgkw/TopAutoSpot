@@ -1,11 +1,11 @@
-using TopAutoSpot.Data;
-using TopAutoSpot.Models;
-using TopAutoSpot.Views.Utilities;
-using TopAutoSpot.Services.EmailService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 {
@@ -24,20 +24,20 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
         [BindProperty]
         public string AuctionId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string auctionId, string reason)
+        public IActionResult OnGet(string auctionId, string reason)
         {
             if (User.IsInRole("Administrator"))
             {
-                var refuseResult = await AuctionRefused(auctionId);
+                bool refuseResult = AuctionRefused(auctionId);
 
                 if (refuseResult)
                 {
                     AuctionId = auctionId;
 
-                    var ownerId = UserServices.GetAuctionOwner(_context, AuctionId);
-                    var owner = await UserServices.GetUserById(_context, ownerId);
+                    string ownerId = UserServices.GetAuctionOwner(_context, AuctionId);
+                    User owner = UserServices.GetUserById(_context, ownerId);
 
-                    var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
+                    string currentUserId = UserServices.GetCurrentUser(_context, User.Identity.Name);
 
                     if (ownerId == "" || ownerId == null || currentUserId == null || currentUserId == "")
                     {
@@ -45,7 +45,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 
                     }
 
-                    var sendResult = await NotificationServices.Send(_context,
+                    bool sendResult = NotificationServices.Send(_context,
                         currentUserId,
                         ownerId,
                         DefaultNotificationMessages.LISTING_REFUSED_TITLE,
@@ -74,10 +74,10 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
             return RedirectToPage("/NotFound");
         }
 
-        public async Task<bool> AuctionRefused(string auctionId)
+        public bool AuctionRefused(string auctionId)
         {
             _context.Auctions.First(a => a.Id == auctionId).Status = ListingStatusTypes.Closed.ToString();
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return true;
         }

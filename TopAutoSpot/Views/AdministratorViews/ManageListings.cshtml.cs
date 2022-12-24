@@ -1,9 +1,8 @@
-using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.AdministratorViews
 {
@@ -25,21 +24,21 @@ namespace TopAutoSpot.Views.AdministratorViews
 
         public int OverallCount { get; private set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             if (User.IsInRole("Administrator"))
             {
-                Boats = await _context.Boats.ToListAsync();
+                Boats = _context.Boats.ToList();
 
-                Buses = await _context.Buses.ToListAsync();
+                Buses = _context.Buses.ToList();
 
-                Cars = await _context.Cars.ToListAsync();
+                Cars = _context.Cars.ToList();
 
-                Motorcycles = await _context.Motorcycles.ToListAsync();
+                Motorcycles = _context.Motorcycles.ToList();
 
-                Trailers = await _context.Trailers.ToListAsync();
+                Trailers = _context.Trailers.ToList();
 
-                Trucks = await _context.Trucks.ToListAsync();
+                Trucks = _context.Trucks.ToList();
 
                 OverallCount = Boats.Count + Buses.Count + Cars.Count +
                         Motorcycles.Count + Trailers.Count + Trucks.Count;
@@ -47,19 +46,24 @@ namespace TopAutoSpot.Views.AdministratorViews
                 return Page();
             }
 
-            return RedirectToPage("/NotFound");            
+            return RedirectToPage("/NotFound");
         }
 
         public string GetImage(string carId)
         {
-            var data = _context.VehicleImages.First(i => i.VehicleId == carId).ImageData;
+            byte[] data = _context.VehicleImages
+                .First(i => i.VehicleId == carId)
+                .ImageData;
+
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
             return imgDataURL;
         }
 
         public bool HasAnyImages(string carId)
         {
-            return _context.VehicleImages.Where(img => img.VehicleId == carId).ToList().Count > 0;
+            return _context.VehicleImages
+                .Where(img => img.VehicleId == carId)
+                .ToList().Count > 0;
         }
     }
 }

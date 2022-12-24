@@ -3,7 +3,7 @@
 @model TopAutoSpot.Views.Buy.BusListingsModel
 @{
     ViewData["Title"] = "Bus Listings";
-    var interestedListings = await Model.GetInterestedVehicles();
+    var interestedListings = Model.GetInterestedVehicles();
 }
 
 <div class="mb-3 mt-3">

@@ -1,7 +1,7 @@
-using TopAutoSpot.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
+using TopAutoSpot.Data;
 
 namespace TopAutoSpot.Views.InterestedIn
 {
@@ -15,17 +15,17 @@ namespace TopAutoSpot.Views.InterestedIn
             _context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync(string vehicleId)
+        public IActionResult OnGet(string vehicleId)
         {
             if (vehicleId == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            var currentUser = _context.Users
+            Models.User currentUser = _context.Users
                 .First(u => u.UserName == User.Identity.Name);
 
-            var foundInterestedListing = _context.InterestedInListings
+            Models.InterestedListing? foundInterestedListing = _context.InterestedInListings
                 .FirstOrDefault(l => l.VehicleId == vehicleId);
 
             if (foundInterestedListing == null)
@@ -35,7 +35,7 @@ namespace TopAutoSpot.Views.InterestedIn
 
             _context.InterestedInListings.Remove(foundInterestedListing);
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

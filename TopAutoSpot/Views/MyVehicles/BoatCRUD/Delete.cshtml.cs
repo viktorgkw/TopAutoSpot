@@ -1,9 +1,8 @@
-﻿using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 {
@@ -21,15 +20,15 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
         public Boat Boat { get; set; } = default!;
         public List<VehicleImage> Images { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (id == null || _context.Boats == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            var boat = await _context.Boats.FirstOrDefaultAsync(m => m.Id == id);
-            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+            Boat? boat = _context.Boats.FirstOrDefault(m => m.Id == id);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
 
             if (boat == null)
             {
@@ -44,17 +43,20 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
                 Boat = boat;
             }
 
-            Images = _context.VehicleImages.Where(img => img.VehicleId == boat.Id).ToList();
+            Images = _context.VehicleImages
+                .Where(img => img.VehicleId == boat.Id)
+                .ToList();
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public IActionResult OnPost(string id)
         {
             if (id == null || _context.Boats == null)
             {
                 return RedirectToPage("/Index");
             }
-            var boat = await _context.Boats.FindAsync(id);
+            Boat? boat = _context.Boats.Find(id);
 
             if (boat != null)
             {
@@ -62,7 +64,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 
                 Boat = boat;
                 _context.Boats.Remove(Boat);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
 
             return RedirectToPage("/MyVehicles/Index");
@@ -70,11 +72,13 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 
         private void RemoveVehicleImages(string vehicleId)
         {
-            var images = _context.VehicleImages.Where(i => i.VehicleId == vehicleId).ToList();
+            List<VehicleImage> images = _context.VehicleImages
+                .Where(i => i.VehicleId == vehicleId)
+                .ToList();
 
             if (images.Count > 0)
             {
-                foreach (var image in images)
+                foreach (VehicleImage? image in images)
                 {
                     _context.VehicleImages.Remove(image);
                     _context.SaveChanges();

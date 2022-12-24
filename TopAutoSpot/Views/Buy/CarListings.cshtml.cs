@@ -1,13 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using NewsAPI.Models;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
-using TopAutoSpot.Views.Utilities;
 using TopAutoSpot.Models.Utilities;
 using TopAutoSpot.Services.NewsServices;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.Buy
 {
@@ -29,9 +28,9 @@ namespace TopAutoSpot.Views.Buy
 
         public async Task<IActionResult> OnGetAsync(string orderSetting)
         {
-            Cars = await _context.Cars
+            Cars = _context.Cars
                         .Where(c => c.Status == ListingStatusTypes.Active.ToString() && c.Price > 0)
-                        .ToListAsync();
+                        .ToList();
 
             if (orderSetting != null)
             {
@@ -45,28 +44,35 @@ namespace TopAutoSpot.Views.Buy
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             return RedirectToPage("/Buy/CarListings", new { orderSetting = OrderSetting });
         }
 
         public string GetImage(string carId)
         {
-            var data = _context.VehicleImages.First(i => i.VehicleId == carId).ImageData;
+            byte[] data = _context.VehicleImages
+                .First(i => i.VehicleId == carId)
+                .ImageData;
+
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
             return imgDataURL;
         }
 
         public bool HasAnyImages(string carId)
         {
-            return _context.VehicleImages.Where(img => img.VehicleId == carId).ToList().Count > 0;
+            return _context.VehicleImages
+                .Where(img => img.VehicleId == carId)
+                .ToList().Count > 0;
         }
 
-        public async Task<List<InterestedListing>> GetInterestedVehicles()
+        public List<InterestedListing> GetInterestedVehicles()
         {
-            var currentUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+            User currentUser = _context.Users.First(u => u.UserName == User.Identity.Name);
 
-            return await _context.InterestedInListings.Where(l => l.UserId == currentUser.Id).ToListAsync();
+            return _context.InterestedInListings
+                .Where(l => l.UserId == currentUser.Id)
+                .ToList();
         }
     }
 }

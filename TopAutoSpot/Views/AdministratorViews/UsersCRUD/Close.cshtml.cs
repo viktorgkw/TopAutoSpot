@@ -1,11 +1,10 @@
-using TopAutoSpot.Data;
-using TopAutoSpot.Models;
-using TopAutoSpot.Views.Utilities;
-using TopAutoSpot.Services.EmailService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
+using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
 {
@@ -26,14 +25,14 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
         [BindProperty]
         public User UserToClose { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string userId)
+        public IActionResult OnGet(string userId)
         {
             if (User.IsInRole("Administrator"))
             {
-                UserToClose = await _context.Users.FirstAsync(u => u.Id == userId);
+                UserToClose = _context.Users.First(u => u.Id == userId);
 
                 _context.Users.Remove(UserToClose);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 _vehicleRemover.RemoveAllUserVehicles(UserToClose.Id);
                 _vehicleRemover.RemoveAllUserAuctions(UserToClose.Id);

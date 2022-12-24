@@ -1,6 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Views.Utilities;
@@ -19,18 +19,18 @@ namespace TopAutoSpot.Views.Notifications
         [BindProperty]
         public List<Notification> Notifications { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
-            var currentUser = await UserServices.GetUserByName(_context, User.Identity.Name);
+            User currentUser = UserServices.GetUserByName(_context, User.Identity.Name);
 
-            Notifications = await NotificationServices.GetAll(_context, currentUser.Id);
+            Notifications = NotificationServices.GetAll(_context, currentUser.Id);
 
             return Page();
         }
 
-        public async Task<string> GetNotificationSender(string senderId)
+        public string GetNotificationSender(string senderId)
         {
-            return await NotificationServices.GetFromUsername(_context, senderId);
+            return NotificationServices.GetFromUsername(_context, senderId);
         }
     }
 }

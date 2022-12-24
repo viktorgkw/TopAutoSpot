@@ -1,10 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
 
 namespace TopAutoSpot.Views.AdministratorViews
 {
@@ -26,48 +25,48 @@ namespace TopAutoSpot.Views.AdministratorViews
         public List<Boat> Boats { get; set; }
         public List<Bus> Buses { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             if (User.IsInRole("Administrator"))
             {
-                await InitializeVehicles();
+                InitializeVehicles();
                 return Page();
             }
 
             return RedirectToPage("/NotFound");
         }
 
-        private async Task InitializeVehicles()
+        private void InitializeVehicles()
         {
-            Boats = await _context.Boats
+            Boats = _context.Boats
                     .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
                             vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToListAsync();
+                    .ToList();
 
-            Buses = await _context.Buses
+            Buses = _context.Buses
                     .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
                             vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToListAsync();
+                    .ToList();
 
-            Cars = await _context.Cars
+            Cars = _context.Cars
                     .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
                             vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToListAsync();
+                    .ToList();
 
-            Motorcycles = await _context.Motorcycles
+            Motorcycles = _context.Motorcycles
                     .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
                             vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToListAsync();
+                    .ToList();
 
-            Trailers = await _context.Trailers
+            Trailers = _context.Trailers
                     .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
                             vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToListAsync();
+                    .ToList();
 
-            Trucks = await _context.Trucks
+            Trucks = _context.Trucks
                     .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
                             vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToListAsync();
+                    .ToList();
 
             OverallCount = Boats.Count + Buses.Count + Cars.Count +
                         Motorcycles.Count + Trailers.Count + Trucks.Count;
@@ -75,7 +74,10 @@ namespace TopAutoSpot.Views.AdministratorViews
 
         public string GetImage(string vehicleId)
         {
-            var data = _context.VehicleImages.First(i => i.VehicleId == vehicleId).ImageData;
+            byte[] data = _context.VehicleImages
+                .First(i => i.VehicleId == vehicleId)
+                .ImageData;
+
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
             return imgDataURL;
         }

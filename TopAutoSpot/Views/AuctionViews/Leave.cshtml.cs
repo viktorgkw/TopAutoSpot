@@ -1,7 +1,7 @@
-using TopAutoSpot.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
+using TopAutoSpot.Data;
 
 namespace TopAutoSpot.Views.AuctionViews
 {
@@ -14,9 +14,9 @@ namespace TopAutoSpot.Views.AuctionViews
             _context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
-            var foundAuction = _context.Auctions.FirstOrDefault(a => a.Id == id);
+            Models.Auction? foundAuction = _context.Auctions.FirstOrDefault(a => a.Id == id);
 
             if (foundAuction == null)
             {
@@ -28,7 +28,7 @@ namespace TopAutoSpot.Views.AuctionViews
                 return RedirectToPage("/AuctionViews/Index");
             }
 
-            var foundUser = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            Models.User? foundUser = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
 
             if (foundUser == null)
             {
@@ -41,7 +41,7 @@ namespace TopAutoSpot.Views.AuctionViews
             }
 
             foundAuction.Bidders.Remove(foundUser);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return RedirectToPage("/AuctionViews/JoinedAuctions");
         }

@@ -1,6 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
 using TopAutoSpot.Data;
 using TopAutoSpot.Views.Utilities;
 
@@ -15,14 +15,14 @@ namespace TopAutoSpot.Views.Notifications
             _context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (id == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            var result = await NotificationServices.RemoveNotification(_context, id, User.Identity.Name);
+            bool result = NotificationServices.RemoveNotification(_context, id, User.Identity.Name);
 
             if (result == false)
             {

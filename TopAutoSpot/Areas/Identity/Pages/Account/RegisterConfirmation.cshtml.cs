@@ -1,12 +1,12 @@
-using System.Text;
-using TopAutoSpot.Models;
-using TopAutoSpot.Views.Utilities;
-using TopAutoSpot.Services.EmailService;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.AspNetCore.Authorization;
+using System.Text;
+using TopAutoSpot.Models;
+using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account
 {
@@ -33,15 +33,15 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
 
             returnUrl = returnUrl ?? Url.Content("~/");
 
-            var user = await _userManager.FindByIdAsync(id);
+            User? user = await _userManager.FindByIdAsync(id);
             if (user == null || user.Email == null)
             {
                 return NotFound($"Unable to load user with Id '{id}'.");
             }
 
-            var userId = await _userManager.GetUserIdAsync(user);
+            string userId = await _userManager.GetUserIdAsync(user);
 
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             EmailConfirmationUrl = Url.Page(
                 "/Account/ConfirmEmail",

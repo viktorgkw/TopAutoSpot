@@ -1,10 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
 using TopAutoSpot.Services.PaymentServices;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
 
 namespace TopAutoSpot.Views.PremiumAccount
 {
@@ -22,7 +22,7 @@ namespace TopAutoSpot.Views.PremiumAccount
         [BindProperty]
         public StripePayment StripePayment { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             if (!User.IsInRole(RoleTypes.User.ToString()))
             {
@@ -34,17 +34,17 @@ namespace TopAutoSpot.Views.PremiumAccount
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var foundUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            User? foundUser = await _userManager.FindByNameAsync(User.Identity.Name);
             StripePayment.Email = foundUser.Email;
 
-            var years = new string[] { "2023", "2024", "2025", "2026", "2027", "2028" };
+            string[] years = new string[] { "2023", "2024", "2025", "2026", "2027", "2028" };
 
             if (!years.Contains(StripePayment.ExpYear))
             {
                 return RedirectToPage("/PremiumAccount/PaymentResult", new { status = "incorrect" });
             }
 
-            var months = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+            string[] months = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
 
             if (!months.Contains(StripePayment.ExpMonth))
             {
@@ -53,7 +53,7 @@ namespace TopAutoSpot.Views.PremiumAccount
 
             try
             {
-                var result = await _paymentService.MakePayment(StripePayment);
+                string result = _paymentService.MakePayment(StripePayment);
 
                 if (result == "succeeded" || result == "pending" || result == "failed")
                 {

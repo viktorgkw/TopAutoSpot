@@ -1,9 +1,9 @@
-﻿using TopAutoSpot.Data;
-using TopAutoSpot.Models;
-using TopAutoSpot.Views.Utilities;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AuctionViews
 {
@@ -17,10 +17,10 @@ namespace TopAutoSpot.Views.AuctionViews
             _context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
-            var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
-            CurrentUserVehicles = await UserServices.GetUserVehicles(_context, currentUserId);
+            string currentUserId = UserServices.GetCurrentUser(_context, User.Identity.Name);
+            CurrentUserVehicles = UserServices.GetUserVehicles(_context, currentUserId);
 
             if (CurrentUserVehicles.Count == 0)
             {
@@ -34,10 +34,10 @@ namespace TopAutoSpot.Views.AuctionViews
         public Auction Auction { get; set; } = default!;
         public List<string> CurrentUserVehicles { get; set; } = default!;
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
-            Auction.AuctioneerId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
-            Auction.VehicleId = await UserServices.GetVehicleIdByTitle(_context, Auction.VehicleId);
+            Auction.AuctioneerId = UserServices.GetCurrentUser(_context, User.Identity.Name);
+            Auction.VehicleId = UserServices.GetVehicleIdByTitle(_context, Auction.VehicleId);
 
             if (Auction.VehicleId == "")
             {
@@ -51,8 +51,8 @@ namespace TopAutoSpot.Views.AuctionViews
 
             Auction.Bidders = new List<User>();
 
-            await _context.Auctions.AddAsync(Auction);
-            await _context.SaveChangesAsync();
+            _context.Auctions.Add(Auction);
+            _context.SaveChanges();
 
             return RedirectToPage("/AuctionViews/Index");
         }

@@ -1,11 +1,10 @@
-using TopAutoSpot.Data;
-using TopAutoSpot.Models;
-using TopAutoSpot.Views.Utilities;
-using TopAutoSpot.Services.EmailService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
+using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
 {
@@ -24,18 +23,18 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
         [BindProperty]
         public Auction AuctionToDelete { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (User.IsInRole("Administrator"))
             {
-                AuctionToDelete = await _context.Auctions.FirstAsync(u => u.Id == id);
-                var owner = _context.Users.First(u => u.Id == AuctionToDelete.AuctioneerId);
-                var currentUser = await UserServices.GetCurrentUser(_context, User.Identity.Name);
+                AuctionToDelete = _context.Auctions.First(u => u.Id == id);
+                User owner = _context.Users.First(u => u.Id == AuctionToDelete.AuctioneerId);
+                string currentUser = UserServices.GetCurrentUser(_context, User.Identity.Name);
 
                 _context.Auctions.Remove(AuctionToDelete);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
-                await NotificationServices.Send(_context,
+                NotificationServices.Send(_context,
                     currentUser,
                     owner.Id,
                     DefaultNotificationMessages.AUCTION_DELETED_TITLE,

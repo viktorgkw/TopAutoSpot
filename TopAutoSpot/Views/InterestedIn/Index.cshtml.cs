@@ -1,9 +1,8 @@
-using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.InterestedIn
 {
@@ -18,43 +17,43 @@ namespace TopAutoSpot.Views.InterestedIn
 
         public List<InterestedListing> InterestedListings { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
-            var currentUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+            User currentUser = _context.Users.First(u => u.UserName == User.Identity.Name);
 
-            InterestedListings = await _context.InterestedInListings
+            InterestedListings = _context.InterestedInListings
                 .Where(l => l.UserId == currentUser.Id)
-                .ToListAsync();
+                .ToList();
 
             return Page();
         }
 
-        public async Task<string> GetCarTitle(string vehId)
+        public string GetCarTitle(string vehId)
         {
             return _context.Cars.First(c => c.Id == vehId).Title;
         }
 
-        public async Task<string> GetMotoTitle(string vehId)
+        public string GetMotoTitle(string vehId)
         {
             return _context.Motorcycles.First(c => c.Id == vehId).Title;
         }
 
-        public async Task<string> GetTruckTitle(string vehId)
+        public string GetTruckTitle(string vehId)
         {
             return _context.Trucks.First(c => c.Id == vehId).Title;
         }
 
-        public async Task<string> GetTrailerTitle(string vehId)
+        public string GetTrailerTitle(string vehId)
         {
             return _context.Trailers.First(c => c.Id == vehId).Title;
         }
 
-        public async Task<string> GetBusTitle(string vehId)
+        public string GetBusTitle(string vehId)
         {
             return _context.Buses.First(c => c.Id == vehId).Title;
         }
 
-        public async Task<string> GetBoatTitle(string vehId)
+        public string GetBoatTitle(string vehId)
         {
             return _context.Boats.First(c => c.Id == vehId).Title;
         }

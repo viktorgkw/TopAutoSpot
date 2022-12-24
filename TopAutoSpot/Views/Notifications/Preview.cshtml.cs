@@ -1,6 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Views.Utilities;
@@ -20,14 +20,14 @@ namespace TopAutoSpot.Views.Notifications
         [BindProperty]
         public Notification Notification { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (id == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            Notification = await NotificationServices.Get(_context, id, User.Identity.Name);
+            Notification = NotificationServices.Get(_context, id, User.Identity.Name);
 
             if (Notification == null)
             {
@@ -37,9 +37,9 @@ namespace TopAutoSpot.Views.Notifications
             return Page();
         }
 
-        public async Task<string> GetFromUsername()
+        public string GetFromUsername()
         {
-            return await NotificationServices.GetFromUsername(_context, Notification.From);
+            return NotificationServices.GetFromUsername(_context, Notification.From);
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿using TopAutoSpot.Data;
 using TopAutoSpot.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace TopAutoSpot.Views.Utilities
 {
     public static class UserServices
     {
-        public static async Task<string> GetVehicleIdByTitle(ApplicationDbContext _context, string title)
+        public static string GetVehicleIdByTitle(ApplicationDbContext _context, string title)
         {
             if (_context.Cars.Any(v => v.Title == title))
             {
@@ -36,31 +35,31 @@ namespace TopAutoSpot.Views.Utilities
             return "";
         }
 
-        public static async Task<List<string>> GetUserVehicles(ApplicationDbContext _context, string userId)
+        public static List<string> GetUserVehicles(ApplicationDbContext _context, string userId)
         {
             List<string> result = new List<string>();
 
-            foreach (var vehicle in _context.Cars.Where(v => v.CreatedBy == userId))
+            foreach (Car? vehicle in _context.Cars.Where(v => v.CreatedBy == userId))
             {
                 result.Add(vehicle.Title);
             }
-            foreach (var vehicle in _context.Motorcycles.Where(v => v.CreatedBy == userId))
+            foreach (Motorcycle? vehicle in _context.Motorcycles.Where(v => v.CreatedBy == userId))
             {
                 result.Add(vehicle.Title);
             }
-            foreach (var vehicle in _context.Trucks.Where(v => v.CreatedBy == userId))
+            foreach (Truck? vehicle in _context.Trucks.Where(v => v.CreatedBy == userId))
             {
                 result.Add(vehicle.Title);
             }
-            foreach (var vehicle in _context.Boats.Where(v => v.CreatedBy == userId))
+            foreach (Boat? vehicle in _context.Boats.Where(v => v.CreatedBy == userId))
             {
                 result.Add(vehicle.Title);
             }
-            foreach (var vehicle in _context.Buses.Where(v => v.CreatedBy == userId))
+            foreach (Bus? vehicle in _context.Buses.Where(v => v.CreatedBy == userId))
             {
                 result.Add(vehicle.Title);
             }
-            foreach (var vehicle in _context.Trailers.Where(v => v.CreatedBy == userId))
+            foreach (Trailer? vehicle in _context.Trailers.Where(v => v.CreatedBy == userId))
             {
                 result.Add(vehicle.Title);
             }
@@ -68,71 +67,71 @@ namespace TopAutoSpot.Views.Utilities
             return result;
         }
 
-        public static async Task<User> GetUserById(ApplicationDbContext _context, string userId)
+        public static User GetUserById(ApplicationDbContext _context, string userId)
         {
-            return await _context.Users.FirstAsync(u => u.Id == userId);
+            return _context.Users.First(u => u.Id == userId);
         }
 
-        public static async Task<User> GetUserByName(ApplicationDbContext _context, string username)
+        public static User GetUserByName(ApplicationDbContext _context, string username)
         {
-            return await _context.Users.FirstAsync(u => u.UserName == username);
+            return _context.Users.First(u => u.UserName == username);
         }
 
-        public static async Task<string> GetCurrentUser(ApplicationDbContext _context, string username)
+        public static string GetCurrentUser(ApplicationDbContext _context, string username)
         {
             return _context.Users.First(u => u.UserName == username).Id;
         }
 
-        public static async Task<string> GetVehicleOwner(ApplicationDbContext _context, string vehicleId)
+        public static string GetVehicleOwner(ApplicationDbContext _context, string vehicleId)
         {
-            var Boats = await _context.Boats
+            List<Boat> Boats = _context.Boats
                 .Where(boat => boat.Id == vehicleId)
-                .ToListAsync();
+                .ToList();
 
             if (Boats.Count > 0)
             {
                 return Boats.First().CreatedBy;
             }
 
-            var Buses = await _context.Buses
+            List<Bus> Buses = _context.Buses
                 .Where(bus => bus.Id == vehicleId)
-                .ToListAsync();
+                .ToList();
 
             if (Buses.Count > 0)
             {
                 return Buses.First().CreatedBy;
             }
 
-            var Cars = await _context.Cars
+            List<Car> Cars = _context.Cars
                 .Where(vehicle => vehicle.Id == vehicleId)
-                .ToListAsync();
+                .ToList();
 
             if (Cars.Count > 0)
             {
                 return Cars.First().CreatedBy;
             }
 
-            var Motorcycles = await _context.Motorcycles
+            List<Motorcycle> Motorcycles = _context.Motorcycles
                 .Where(motorcycle => motorcycle.Id == vehicleId)
-                .ToListAsync();
+                .ToList();
 
             if (Motorcycles.Count > 0)
             {
                 return Motorcycles.First().CreatedBy;
             }
 
-            var Trailers = await _context.Trailers
+            List<Trailer> Trailers = _context.Trailers
                 .Where(trailer => trailer.Id == vehicleId)
-                .ToListAsync();
+                .ToList();
 
             if (Trailers.Count > 0)
             {
                 return Trailers.First().CreatedBy;
             }
 
-            var Trucks = await _context.Trucks
+            List<Truck> Trucks = _context.Trucks
                 .Where(truck => truck.Id == vehicleId)
-                .ToListAsync();
+                .ToList();
 
             if (Trucks.Count > 0)
             {
