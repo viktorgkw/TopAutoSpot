@@ -29,16 +29,16 @@
 else
 {
     <div class="mt-3 mb-5">
-        @if (Model.StartingSoonAuctions.Count > 0)
+        @if (Model.StartingSoonAuctionsForCurrentUser.Count > 0)
         {
             <h2 class="website-text-nohover fw-bold">Starting Soon</h2>
             <hr />
             <br />
 
-            <div class="d-flex flex-row mt-3">
-                @foreach (var auction in Model.StartingSoonAuctions)
+            <div class="d-flex flex-row flex-wrap mt-3">
+                @foreach (var auction in Model.StartingSoonAuctionsForCurrentUser)
                 {
-                    <a asp-page="/VehiclePreview/AuctionPreview" asp-route-id="@auction.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
+                    <a asp-page="/VehiclePreview/AuctionBid" asp-route-id="@auction.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
                         <img class="listing-image custom-rounded" src="@Model.GetAuctionImage(auction.Id)" />
 
                         @if (auction.Title.Length > 22)
@@ -50,7 +50,7 @@ else
                             <p class="fs-4 fw-bold website-text-darker-nohover">@auction.Title</p>
                         }
                     </a>
-                    <p class="fs-4 fw-bold website-text-nohover">Start: $@auction.StartingPrice</p>
+                    <p class="fs-4 fw-bold website-text-nohover">Starting Price: $@auction.StartingPrice</p>
                 }
             </div>
         }
@@ -78,12 +78,15 @@ else
                                 <p class="fs-4 fw-bold website-text-darker-nohover">@auction.Title</p>
                             }
 
-                            <p class="fs-4 fw-bold website-text-nohover">Start: $@auction.StartingPrice</p>
+                            <p class="fs-4 fw-bold website-text-nohover">Starting Price: $@auction.StartingPrice</p>
                         </a>
 
-                        <div>
-                            <a class="btn btn-warning text-light fw-bold" asp-page="/AuctionViews/Join" asp-route-id="@auction.Id">Join</a>
-                        </div>
+                        @if (!auction.Bidders.Any(b => b.UserName == Model.CurrentUser.UserName))
+                        {
+                            <div>
+                                <a class="btn btn-warning text-light fw-bold" asp-page="/AuctionViews/Join" asp-route-id="@auction.Id">Join</a>
+                            </div>
+                        }
                     </div>
                 }
             </div>

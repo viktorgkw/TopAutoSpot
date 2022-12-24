@@ -29,7 +29,7 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
             if (User.IsInRole("Administrator"))
             {
                 AuctionToDelete = await _context.Auctions.FirstAsync(u => u.Id == id);
-                var owner = await UserServices.GetUserById(_context, AuctionToDelete.AuctioneerId);
+                var owner = _context.Users.First(u => u.Id == AuctionToDelete.AuctioneerId);
                 var currentUser = await UserServices.GetCurrentUser(_context, User.Identity.Name);
 
                 _context.Auctions.Remove(AuctionToDelete);

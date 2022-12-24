@@ -17,7 +17,46 @@ namespace TopAutoSpot.Services.AuctionServices
             _emailService = emailSerice;
         }
 
-        public async void DailyCheckAndRemind()
+        public async Task StartingAuctionsCheck()
+        {
+            var auctionsToday = await _context.Auctions
+                .Where(a => a.StartDay.Day == DateTime.Now.Day)
+                .ToListAsync();
+
+            if (auctionsToday.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var auction in auctionsToday)
+            {
+                if (auction.StartHour.Hour == DateTime.Now.Hour)
+                {
+                    auction.Status = AuctionStatusTypes.InProgress.ToString();
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    if (auction.StartHour.AddHours(auction.Duration).Hour == DateTime.Now.Hour)
+                    {
+                        auction.Status = AuctionStatusTypes.Ended.ToString();
+                        await _context.SaveChangesAsync();
+
+                        var winner = await _context.Users.FirstAsync(u => u.Id == auction.AuctioneerId);
+
+                        _emailService.SendEmail(new EmailDto()
+                        {
+                            To = winner.Email,
+                            Subject = DefaultNotificationMessages.AUCTION_WINNER_TITLE,
+                            Body = string.Format(DefaultNotificationMessages.AUCTION_WINNER_DESCRIPTION,
+                                auction.Title)
+                        });
+                    }
+                }
+            }
+        }
+
+        public async Task DailyCheckAndRemind()
         {
             var auctionsToday = await _context.Auctions
                 .Where(a => a.StartDay.Day == DateTime.Now.Day)

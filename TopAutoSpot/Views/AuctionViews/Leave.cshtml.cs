@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Authorization;
 namespace TopAutoSpot.Views.AuctionViews
 {
     [Authorize]
-    public class JoinModel : PageModel
+    public class LeaveModel : PageModel
     {
         private ApplicationDbContext _context;
-        public JoinModel(ApplicationDbContext context)
+        public LeaveModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -35,15 +35,15 @@ namespace TopAutoSpot.Views.AuctionViews
                 return RedirectToPage("/UnknownError");
             }
 
-            if (foundAuction.Bidders.Any(b => b.UserName == foundUser.UserName))
+            if (!foundAuction.Bidders.Any(b => b.UserName == foundUser.UserName))
             {
                 return RedirectToPage("/AuctionViews/Index");
             }
 
-            foundAuction.Bidders.Add(foundUser);
+            foundAuction.Bidders.Remove(foundUser);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/AuctionViews/Index");
+            return RedirectToPage("/AuctionViews/JoinedAuctions");
         }
     }
 }

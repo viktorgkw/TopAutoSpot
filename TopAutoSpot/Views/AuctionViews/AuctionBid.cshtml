@@ -1,0 +1,60 @@
+﻿@page
+@using TopAutoSpot.Models.Utilities;
+@model TopAutoSpot.Views.AuctionViews.AuctionBidModel
+@{
+    ViewData["Title"] = "Auction Bidding";
+}
+
+<div class="pt-3">
+    <h1 class="website-text-darker-nohover fw-bold">@Model.Auction.Title</h1>
+    <hr />
+</div>
+
+<div class="d-flex flex-row justify-content-center">
+    @if (Model.Auction.Status == AuctionStatusTypes.StartingSoon.ToString())
+    {
+        <div class="row justify-content-center">
+            <p class="text-danger fw-bold fs-4">Waiting for the Auction to start!</p>
+
+            <br />
+
+            <img class="custom-rounded account-management-image mt-3 mb-3" src="~/gifs/auctionStartingSoon.gif" />
+        </div>
+    }
+    else if (Model.Auction.Status == AuctionStatusTypes.InProgress.ToString())
+    {
+        <div class="row justify-content-center">
+            <p class="website-text-nohover fw-bold fs-4">Auction In Progress!</p>
+
+            <br />
+
+            <img class="custom-rounded auction-inprogress-image mt-3 mb-3" src="@Model.GetAuctionImage(Model.Auction.Id)" />
+
+            <br />
+
+            <p class="fw-bold text-primary mt-3 mb-3 fs-4">Last Bidder: @Model.GetLastBidderUsername()</p>
+            <p class="fw-bold text-primary mt-3 mb-3 fs-4">Current Auction Price: @Model.Auction.CurrentBidPrice</p>
+
+            <form method="post" class="mt-4 mb-4">
+                <div class="mb-4">
+                    <label asp-for="OutbidAmount" class="control-label fw-bold text-primary fs-4">Outbid Amount</label>
+                    <input asp-for="OutbidAmount" class="form-control fs-5 w-25 m-auto" />
+                </div>
+
+                <div class="form-group mt-3 mb-2">
+                    <input type="submit" value="Outbid" class="btn btn-primary fw-bold" />
+                </div>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="row justify-content-center">
+            <p class="text-primary fw-bold fs-4 mt-4">The Auction has ended!</p>
+
+            <br />
+
+            <img class="custom-rounded auction-ended-image mb-3" src="~/gifs/auctionEnded.gif" />
+        </div>
+    }
+</div>

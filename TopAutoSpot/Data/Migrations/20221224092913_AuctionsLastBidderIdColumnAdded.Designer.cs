@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TopAutoSpot.Data;
 
@@ -11,9 +12,11 @@ using TopAutoSpot.Data;
 namespace TopAutoSpot.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221224092913_AuctionsLastBidderIdColumnAdded")]
+    partial class AuctionsLastBidderIdColumnAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,9 +164,10 @@ namespace TopAutoSpot.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AuctioneerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CurrentBidPrice")
+                    b.Property<int>("CurrentBidPrice")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -173,6 +177,7 @@ namespace TopAutoSpot.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("LastBidderId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDay")

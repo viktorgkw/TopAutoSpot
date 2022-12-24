@@ -30,5 +30,8 @@
         public readonly static string AUCTION_CLOSED_DESCRIPTION = "You auction was closed! We are sorry to inform you that the auction you had published is now closed. Contact support for more details!";
         public readonly static string AUCTION_REMINDER_TITLE = "AUCTION REMINDER!";
         public readonly static string AUCTION_REMINDER_DESCRIPTION = "This is a important reminder. Auction \"{0}\" is today! Don't forget to attend it!";
+
+        public readonly static string AUCTION_WINNER_TITLE = "You won the Auction!";
+        public readonly static string AUCTION_WINNER_DESCRIPTION = "You won the {0} Auction! We hope you get in contact with the auction owner and recieve your winning!";
     }
 }

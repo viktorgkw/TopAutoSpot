@@ -1,6 +1,5 @@
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
-using TopAutoSpot.Models.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
@@ -25,9 +24,7 @@ namespace TopAutoSpot.Views.AdministratorViews
         {
             if (User.IsInRole("Administrator"))
             {
-                Auctions = await _context.Auctions
-                    .Where(a => a.Status == AuctionStatusTypes.Active.ToString())
-                    .ToListAsync();
+                Auctions = await _context.Auctions.ToListAsync();
 
                 return Page();
             }

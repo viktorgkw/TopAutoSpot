@@ -17,6 +17,7 @@
         <input asp-for="Auction.AuctioneerId" type="hidden" value="BackEndHandled" />
         <input asp-for="Auction.Status" type="hidden" value=@ListingStatusTypes.WaitingApproval.ToString() />
         <input asp-for="Auction.CurrentBidPrice" type="hidden" value="0" />
+        <input asp-for="Auction.LastBidderId" type="hidden" value="none" />
 
         <div class="m-2 px-4">
             <div class="form-group mb-4">

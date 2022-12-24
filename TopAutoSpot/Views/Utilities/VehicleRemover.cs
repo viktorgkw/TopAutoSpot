@@ -10,6 +10,17 @@ namespace TopAutoSpot.Views.Utilities
             _context = db;
         }
 
+        public void RemoveAllUserAuctions(string id)
+        {
+            var auctions = _context.Auctions.Where(a => a.AuctioneerId == id);
+
+            foreach (var auction in auctions)
+            {
+                _context.Auctions.Remove(auction);
+                _context.SaveChangesAsync();
+            }
+        }
+
         public void RemoveAllUserVehicles(string id)
         {
             var cars = _context.Cars.Where(v => v.CreatedBy == id).ToList();
