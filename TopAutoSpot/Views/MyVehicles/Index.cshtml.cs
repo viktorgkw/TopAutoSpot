@@ -1,11 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using NewsAPI.Models;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Services.NewsServices;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
 
 namespace TopAutoSpot.Views.MyVehicles
 {
@@ -34,39 +33,39 @@ namespace TopAutoSpot.Views.MyVehicles
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var currentUser = _context.Users
+            User currentUser = _context.Users
                 .First(u => u.UserName == User.Identity.Name);
 
-            Boats = await _context.Boats
+            Boats = _context.Boats
                     .Where(boat => boat.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+                    .ToList();
 
-            Buses = await _context.Buses
+            Buses = _context.Buses
                     .Where(bus => bus.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+                    .ToList();
 
-            Cars = await _context.Cars
+            Cars = _context.Cars
                     .Where(car => car.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+                    .ToList();
 
-            Motorcycles = await _context.Motorcycles
+            Motorcycles = _context.Motorcycles
                     .Where(motorcycle => motorcycle.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+                    .ToList();
 
-            Trailers = await _context.Trailers
+            Trailers = _context.Trailers
                     .Where(trailer => trailer.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+                    .ToList();
 
-            Trucks = await _context.Trucks
+            Trucks = _context.Trucks
                     .Where(truck => truck.CreatedBy == currentUser.Id)
-                    .ToListAsync();
+                    .ToList();
 
             OverallCount = Boats.Count + Buses.Count + Cars.Count +
                     Motorcycles.Count + Trailers.Count + Trucks.Count;
 
-            Auctions = await _context.Auctions
+            Auctions = _context.Auctions
                 .Where(auction => auction.AuctioneerId == currentUser.Id)
-                .ToListAsync();
+                .ToList();
 
             News = await _newsService.GetNews(3);
 
@@ -75,22 +74,33 @@ namespace TopAutoSpot.Views.MyVehicles
 
         public string GetImage(string carId)
         {
-            var data = _context.VehicleImages.First(i => i.VehicleId == carId).ImageData;
+            byte[] data = _context.VehicleImages
+                .First(i => i.VehicleId == carId)
+                .ImageData;
+
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
             return imgDataURL;
         }
 
         public string GetAuctionImage(string auctionId)
         {
-            var carId = _context.Auctions.First(a => a.Id == auctionId).VehicleId;
-            var data = _context.VehicleImages.First(i => i.VehicleId == carId).ImageData;
+            string carId = _context.Auctions
+                .First(a => a.Id == auctionId)
+                .VehicleId;
+
+            byte[] data = _context.VehicleImages
+                .First(i => i.VehicleId == carId)
+                .ImageData;
+
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
             return imgDataURL;
         }
 
         public bool HasAnyImages(string carId)
         {
-            return _context.VehicleImages.Where(img => img.VehicleId == carId).ToList().Count > 0;
+            return _context.VehicleImages
+                .Where(img => img.VehicleId == carId)
+                .ToList().Count > 0;
         }
     }
 }

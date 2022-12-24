@@ -1,8 +1,8 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
 using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account
@@ -28,14 +28,14 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
                 return RedirectToPage("/Index");
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            User? user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{userId}'.");
             }
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
-            var result = await _userManager.ChangeEmailAsync(user, email, code);
+            IdentityResult result = await _userManager.ChangeEmailAsync(user, email, code);
             if (!result.Succeeded)
             {
                 StatusMessage = "Error changing email.";

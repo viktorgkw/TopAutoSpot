@@ -1,12 +1,12 @@
-﻿using System.Text;
-using System.ComponentModel.DataAnnotations;
-using TopAutoSpot.Models;
-using TopAutoSpot.Views.Utilities;
-using TopAutoSpot.Services.EmailService;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using TopAutoSpot.Models;
+using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
 {
@@ -37,7 +37,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
+            User? user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -49,7 +49,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            User? user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -65,12 +65,12 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            var userId = await _userManager.GetUserIdAsync(user);
+            string userId = await _userManager.GetUserIdAsync(user);
 
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-            var callbackUrl = Url.Page(
+            string? callbackUrl = Url.Page(
                 "/Account/Manage/DeletePersonalDataConfirmation",
                 pageHandler: null,
                 values: new { area = "Identity", userId },

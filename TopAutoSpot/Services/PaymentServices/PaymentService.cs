@@ -5,9 +5,9 @@ namespace TopAutoSpot.Services.PaymentServices
 {
     public class PaymentService : IPaymentService
     {
-        public async Task<string> MakePayment(StripePayment paymentInfo)
+        public string MakePayment(StripePayment paymentInfo)
         {
-            var tokenOptions = new TokenCreateOptions
+            TokenCreateOptions tokenOptions = new TokenCreateOptions
             {
                 Card = new TokenCardOptions
                 {
@@ -18,10 +18,10 @@ namespace TopAutoSpot.Services.PaymentServices
                 }
             };
 
-            var tokenService = new TokenService();
-            var token = tokenService.Create(tokenOptions);
+            TokenService tokenService = new TokenService();
+            Token token = tokenService.Create(tokenOptions);
 
-            var chargeOptions = new ChargeCreateOptions
+            ChargeCreateOptions chargeOptions = new ChargeCreateOptions
             {
                 Amount = paymentInfo.ChargeAmount,
                 Currency = paymentInfo.Currency,
@@ -29,8 +29,8 @@ namespace TopAutoSpot.Services.PaymentServices
                 Source = token.Id
             };
 
-            var chargeService = new ChargeService();
-            var charge = chargeService.Create(chargeOptions);
+            ChargeService chargeService = new ChargeService();
+            Charge charge = chargeService.Create(chargeOptions);
 
             return charge.Status;
         }

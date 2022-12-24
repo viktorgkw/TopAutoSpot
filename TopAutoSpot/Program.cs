@@ -1,17 +1,17 @@
-using Stripe;
 using Hangfire;
-using TopAutoSpot.Data;
-using TopAutoSpot.Models;
-using TopAutoSpot.Services.EmailService;
-using TopAutoSpot.Services.NewsServices;
-using TopAutoSpot.Services.AuctionServices;
-using TopAutoSpot.Services.PaymentServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
+using TopAutoSpot.Services.AuctionServices;
+using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Services.NewsServices;
+using TopAutoSpot.Services.PaymentServices;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 // Database Configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -58,7 +58,7 @@ builder.Services.AddHangfireServer();
 // Stripe Configuration
 StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {

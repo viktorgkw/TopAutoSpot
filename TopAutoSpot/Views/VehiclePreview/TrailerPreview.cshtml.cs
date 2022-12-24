@@ -1,9 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace TopAutoSpot.Views.VehiclePreview
 {
@@ -19,15 +18,15 @@ namespace TopAutoSpot.Views.VehiclePreview
         public Trailer Trailer { get; set; } = default!;
         public List<VehicleImage> Images { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (id == null || _context.Trailers == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            var trailer = await _context.Trailers.FirstOrDefaultAsync(t => t.Id == id);
-            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+            Trailer? trailer = _context.Trailers.FirstOrDefault(t => t.Id == id);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
 
             if (trailer == null)
             {
@@ -43,13 +42,16 @@ namespace TopAutoSpot.Views.VehiclePreview
                 Trailer = trailer;
             }
 
-            Images = _context.VehicleImages.Where(img => img.VehicleId == trailer.Id).ToList();
+            Images = _context.VehicleImages
+                .Where(img => img.VehicleId == trailer.Id)
+                .ToList();
+
             return Page();
         }
 
         public string GetOwnerNumber()
         {
-            var foundUser = _context.Users
+            User foundUser = _context.Users
                 .First(u => u.Id == Trailer.CreatedBy);
 
             return foundUser.PhoneNumber;
@@ -57,7 +59,7 @@ namespace TopAutoSpot.Views.VehiclePreview
 
         public string GetOwnerFullName()
         {
-            var foundUser = _context.Users
+            User foundUser = _context.Users
                 .First(u => u.Id == Trailer.CreatedBy);
 
             return foundUser.FirstName + " " + foundUser.LastName;
@@ -65,14 +67,20 @@ namespace TopAutoSpot.Views.VehiclePreview
 
         public string GetImage()
         {
-            var data = _context.VehicleImages.Where(img => img.VehicleId == Trailer.Id).First().ImageData;
+            byte[] data = _context.VehicleImages
+                .Where(img => img.VehicleId == Trailer.Id)
+                .First()
+                .ImageData;
+
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
             return imgDataURL;
         }
 
         public bool HasAnyImages()
         {
-            return _context.VehicleImages.Where(img => img.VehicleId == Trailer.Id).ToList().Count > 0;
+            return _context.VehicleImages
+                .Where(img => img.VehicleId == Trailer.Id)
+                .ToList().Count > 0;
         }
 
         public string GetImageSource(VehicleImage img)

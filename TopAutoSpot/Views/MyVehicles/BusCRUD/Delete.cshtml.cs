@@ -1,9 +1,8 @@
-﻿using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.MyVehicles.BusCRUD
 {
@@ -21,15 +20,15 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
         public Bus Bus { get; set; } = default!;
         public List<VehicleImage> Images { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (id == null || _context.Buses == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            var bus = await _context.Buses.FirstOrDefaultAsync(b => b.Id == id);
-            var foundUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+            Bus? bus = _context.Buses.FirstOrDefault(b => b.Id == id);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
 
             if (bus == null)
             {
@@ -44,17 +43,20 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
                 Bus = bus;
             }
 
-            Images = _context.VehicleImages.Where(img => img.VehicleId == bus.Id).ToList();
+            Images = _context.VehicleImages
+                .Where(img => img.VehicleId == bus.Id)
+                .ToList();
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public IActionResult OnPost(string id)
         {
             if (id == null || _context.Buses == null)
             {
                 return RedirectToPage("/Index");
             }
-            var bus = await _context.Buses.FindAsync(id);
+            Bus? bus = _context.Buses.Find(id);
 
             if (bus != null)
             {
@@ -62,7 +64,7 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
 
                 Bus = bus;
                 _context.Buses.Remove(Bus);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
 
             return RedirectToPage("/MyVehicles/Index");
@@ -70,11 +72,13 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
 
         private void RemoveVehicleImages(string vehicleId)
         {
-            var images = _context.VehicleImages.Where(i => i.VehicleId == vehicleId).ToList();
+            List<VehicleImage> images = _context.VehicleImages
+                .Where(i => i.VehicleId == vehicleId)
+                .ToList();
 
             if (images.Count > 0)
             {
-                foreach (var image in images)
+                foreach (VehicleImage? image in images)
                 {
                     _context.VehicleImages.Remove(image);
                     _context.SaveChanges();

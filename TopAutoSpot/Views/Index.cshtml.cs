@@ -1,7 +1,7 @@
-using NewsAPI.Models;
-using TopAutoSpot.Services.NewsServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NewsAPI.Models;
+using TopAutoSpot.Services.NewsServices;
 
 namespace TopAutoSpot.Views
 {

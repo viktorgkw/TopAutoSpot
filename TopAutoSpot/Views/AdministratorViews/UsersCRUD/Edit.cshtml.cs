@@ -1,11 +1,11 @@
-using TopAutoSpot.Data;
-using TopAutoSpot.Models;
-using TopAutoSpot.Views.Utilities;
-using TopAutoSpot.Services.EmailService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
+using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
 {
@@ -24,18 +24,18 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
         [BindProperty]
         public User UserToEdit { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string userId)
+        public IActionResult OnGet(string userId)
         {
             if (User.IsInRole("Administrator"))
             {
-                var isIdValid = await UserIdIsValid(userId);
+                bool isIdValid = UserIdIsValid(userId);
 
                 if (!isIdValid)
                 {
                     return RedirectToPage("/NotFound");
                 }
 
-                UserToEdit = await _context.Users.FirstAsync(u => u.Id == userId);
+                UserToEdit = _context.Users.First(u => u.Id == userId);
 
                 return Page();
             }
@@ -43,8 +43,8 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
             return RedirectToPage("/NotFound");
         }
 
-        public async Task<IActionResult> OnPostAsync()
-         {
+        public IActionResult OnPost()
+        {
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -57,7 +57,7 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
 
             try
             {
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 _emailService.SendEmail(new EmailDto()
                 {
@@ -68,7 +68,7 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await UserIdIsValid(UserToEdit.Id))
+                if (!UserIdIsValid(UserToEdit.Id))
                 {
                     return RedirectToPage("/Index");
                 }
@@ -81,9 +81,9 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
             return RedirectToPage("/AdministratorViews/ManageUsers");
         }
 
-        private async Task<bool> UserIdIsValid(string userId)
+        private bool UserIdIsValid(string userId)
         {
-            return await _context.Users.AnyAsync(u => u.Id == userId);
+            return _context.Users.Any(u => u.Id == userId);
         }
     }
 }

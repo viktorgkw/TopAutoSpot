@@ -1,9 +1,8 @@
 ﻿using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
-using TopAutoSpot.Views.Utilities;
 using TopAutoSpot.Services.EmailService;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Services.AuctionServices
 {
@@ -17,32 +16,32 @@ namespace TopAutoSpot.Services.AuctionServices
             _emailService = emailSerice;
         }
 
-        public async Task StartingAuctionsCheck()
+        public Task StartingAuctionsCheck()
         {
-            var auctionsToday = await _context.Auctions
+            List<Auction> auctionsToday = _context.Auctions
                 .Where(a => a.StartDay.Day == DateTime.Now.Day)
-                .ToListAsync();
+                .ToList();
 
             if (auctionsToday.Count == 0)
             {
-                return;
+                return Task.FromResult(0);
             }
 
-            foreach (var auction in auctionsToday)
+            foreach (Auction? auction in auctionsToday)
             {
                 if (auction.StartHour.Hour == DateTime.Now.Hour)
                 {
                     auction.Status = AuctionStatusTypes.InProgress.ToString();
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 else
                 {
                     if (auction.StartHour.AddHours(auction.Duration).Hour == DateTime.Now.Hour)
                     {
                         auction.Status = AuctionStatusTypes.Ended.ToString();
-                        await _context.SaveChangesAsync();
+                        _context.SaveChanges();
 
-                        var winner = await _context.Users.FirstAsync(u => u.Id == auction.AuctioneerId);
+                        User winner = _context.Users.First(u => u.Id == auction.AuctioneerId);
 
                         _emailService.SendEmail(new EmailDto()
                         {
@@ -54,29 +53,31 @@ namespace TopAutoSpot.Services.AuctionServices
                     }
                 }
             }
+
+            return Task.FromResult(0);
         }
 
-        public async Task DailyCheckAndRemind()
+        public Task DailyCheckAndRemind()
         {
-            var auctionsToday = await _context.Auctions
+            List<Auction> auctionsToday = _context.Auctions
                 .Where(a => a.StartDay.Day == DateTime.Now.Day)
-                .ToListAsync();
+                .ToList();
 
-            foreach (var auction in auctionsToday)
+            foreach (Auction? auction in auctionsToday)
             {
                 if (auction.Bidders.Count < 3)
                 {
                     auction.Status = AuctionStatusTypes.Closed.ToString();
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                     continue;
                 }
                 else
                 {
                     auction.Status = AuctionStatusTypes.StartingSoon.ToString();
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
 
-                foreach (var bidder in auction.Bidders)
+                foreach (User bidder in auction.Bidders)
                 {
                     _emailService.SendEmail(new EmailDto()
                     {
@@ -86,6 +87,8 @@ namespace TopAutoSpot.Services.AuctionServices
                     });
                 }
             }
+
+            return Task.FromResult(0);
         }
     }
 }

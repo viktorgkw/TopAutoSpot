@@ -1,9 +1,8 @@
-﻿using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 {
@@ -19,7 +18,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 
         public IActionResult OnGet()
         {
-            if (User.Identity.Name == null)
+            if (User?.Identity?.Name == null)
             {
                 return RedirectToPage("/Index");
             }
@@ -31,29 +30,32 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
         public Boat Boat { get; set; } = default!;
         public VehicleImage VehicleImage { get; set; } = default!;
 
-        public async Task<IActionResult> OnPostAsync(List<IFormFile> Images)
+        public IActionResult OnPost(List<IFormFile> Images)
         {
             if (!ModelState.IsValid || _context.Boats == null || Boat == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            Boat.CreatedBy = _context.Users.FirstAsync(u => u.UserName == User.Identity.Name).Result.Id;
-            _context.Boats.Add(Boat);
-            await _context.SaveChangesAsync();
+            Boat.CreatedBy = _context.Users
+                .First(u => u.UserName == User.Identity.Name)
+                .Id;
 
-            await AddImagesToVehicle(Images, Boat.Id);
+            _context.Boats.Add(Boat);
+            _context.SaveChanges();
+
+            AddImagesToVehicle(Images, Boat.Id);
 
             return RedirectToPage("/MyVehicles/Index");
         }
 
-        private async Task AddImagesToVehicle(List<IFormFile> images, string vehicleId)
+        private void AddImagesToVehicle(List<IFormFile> images, string vehicleId)
         {
             images = images
                 .Where(i =>
-                    i.FileName.EndsWith(".png") ||
-                    i.FileName.EndsWith(".jpeg") ||
-                    i.FileName.EndsWith(".jpg"))
+                    i.FileName.ToLower().EndsWith(".png") ||
+                    i.FileName.ToLower().EndsWith(".jpeg") ||
+                    i.FileName.ToLower().EndsWith(".jpg"))
                 .ToList();
 
             if (images.Count > 0)
@@ -64,7 +66,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
                     {
                         image.CopyTo(ms);
 
-                        var vehicleImage = new VehicleImage()
+                        VehicleImage vehicleImage = new VehicleImage()
                         {
 
                             Id = Guid.NewGuid().ToString(),
@@ -73,8 +75,8 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
                             VehicleId = vehicleId,
                         };
 
-                        await _context.VehicleImages.AddAsync(vehicleImage);
-                        await _context.SaveChangesAsync();
+                        _context.VehicleImages.Add(vehicleImage);
+                        _context.SaveChanges();
                     }
                 }
             }

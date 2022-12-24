@@ -1,11 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
-using TopAutoSpot.Views.Utilities;
 using TopAutoSpot.Services.EmailService;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.Utilities
 {
@@ -24,20 +24,20 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
         [BindProperty]
         public string VehicleId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string vehicleId, string reason)
+        public IActionResult OnGet(string vehicleId, string reason)
         {
             if (User.IsInRole("Administrator"))
             {
-                var refuseResult = await VehicleRefused(vehicleId);
+                bool refuseResult = VehicleRefused(vehicleId);
 
                 if (refuseResult)
                 {
                     VehicleId = vehicleId;
 
-                    var ownerId = await UserServices.GetVehicleOwner(_context, VehicleId);
-                    var owner = await UserServices.GetUserById(_context, ownerId);
+                    string ownerId = UserServices.GetVehicleOwner(_context, VehicleId);
+                    User owner = UserServices.GetUserById(_context, ownerId);
 
-                    var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
+                    string currentUserId = UserServices.GetCurrentUser(_context, User.Identity.Name);
 
                     if (ownerId == "" || ownerId == null || currentUserId == null || currentUserId == "")
                     {
@@ -45,7 +45,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
 
                     }
 
-                    var sendResult = await NotificationServices.Send(_context,
+                    bool sendResult = NotificationServices.Send(_context,
                         currentUserId,
                         ownerId,
                         DefaultNotificationMessages.LISTING_REFUSED_TITLE,
@@ -74,13 +74,13 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             return RedirectToPage("/NotFound");
         }
 
-        public async Task<bool> VehicleRefused(string vehicleId)
+        public bool VehicleRefused(string vehicleId)
         {
             if (_context.Cars.FirstOrDefault(c => c.Id == vehicleId) != null)
             {
                 _context.Cars
                     .FirstOrDefault(c => c.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
@@ -88,7 +88,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             {
                 _context.Motorcycles
                     .FirstOrDefault(m => m.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
@@ -96,7 +96,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             {
                 _context.Trucks
                     .FirstOrDefault(t => t.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
@@ -104,7 +104,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             {
                 _context.Trailers
                     .FirstOrDefault(t => t.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
@@ -112,14 +112,14 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             {
                 _context.Buses
                     .FirstOrDefault(b => b.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
             else if (_context.Boats.FirstOrDefault(b => b.Id == vehicleId) != null)
             {
                 _context.Boats.FirstOrDefault(b => b.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }

@@ -1,7 +1,7 @@
-﻿using MimeKit;
-using MimeKit.Text;
-using MailKit.Net.Smtp;
+﻿using MailKit.Net.Smtp;
 using MailKit.Security;
+using MimeKit;
+using MimeKit.Text;
 using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Services.EmailService
@@ -17,13 +17,13 @@ namespace TopAutoSpot.Services.EmailService
 
         public void SendEmail(EmailDto request)
         {
-            var email = new MimeMessage();
+            MimeMessage email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(_configuration["Email:Username"]));
             email.To.Add(MailboxAddress.Parse(request.To));
             email.Subject = request.Subject;
             email.Body = new TextPart(TextFormat.Html) { Text = request.Body };
 
-            using var smtp = new SmtpClient();
+            using SmtpClient smtp = new SmtpClient();
             smtp.Connect(_configuration["Email:Host"],
                 587,
                 SecureSocketOptions.StartTls);

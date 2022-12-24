@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace  TopAutoSpot.Areas.Identity.Pages.Account.Manage
+namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
 {
     public static class ManageNavPages
     {
@@ -30,7 +30,7 @@ namespace  TopAutoSpot.Areas.Identity.Pages.Account.Manage
 
         public static string PageNavClass(ViewContext viewContext, string page)
         {
-            var activePage = viewContext.ViewData["ActivePage"] as string
+            string? activePage = viewContext.ViewData["ActivePage"] as string
                 ?? Path.GetFileNameWithoutExtension(viewContext.ActionDescriptor.DisplayName);
             return string.Equals(activePage, page, StringComparison.OrdinalIgnoreCase) ? "active" : null;
         }

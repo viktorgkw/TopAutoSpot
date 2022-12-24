@@ -1,12 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using NewsAPI.Models;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
 using TopAutoSpot.Services.NewsServices;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
 
 namespace TopAutoSpot.Views.AuctionViews
 {
@@ -29,19 +28,19 @@ namespace TopAutoSpot.Views.AuctionViews
 
         public async Task<IActionResult> OnGetAsync()
         {
-            CurrentUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
-            
+            CurrentUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+
             News = await _newsService.GetNews(3);
 
-            StartingSoonAuctionsForCurrentUser = await _context.Auctions
+            StartingSoonAuctionsForCurrentUser = _context.Auctions
                 .Where(a => a.Bidders.Any(b => b.UserName == CurrentUser.UserName))
                 .Where(a => a.Status == AuctionStatusTypes.StartingSoon.ToString() ||
                             a.Status == AuctionStatusTypes.InProgress.ToString())
-                .ToListAsync();
+                .ToList();
 
-            ActiveAuctions = await _context.Auctions
+            ActiveAuctions = _context.Auctions
                 .Where(a => a.Status == AuctionStatusTypes.Active.ToString())
-                .ToListAsync();
+                .ToList();
 
             OverallAuctions = StartingSoonAuctionsForCurrentUser.Count + ActiveAuctions.Count;
 
@@ -50,8 +49,14 @@ namespace TopAutoSpot.Views.AuctionViews
 
         public string GetAuctionImage(string auctionId)
         {
-            var carId = _context.Auctions.First(a => a.Id == auctionId).VehicleId;
-            var data = _context.VehicleImages.First(i => i.VehicleId == carId).ImageData;
+            string carId = _context.Auctions
+                .First(a => a.Id == auctionId)
+                .VehicleId;
+
+            byte[] data = _context.VehicleImages
+                .First(i => i.VehicleId == carId)
+                .ImageData;
+
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
             return imgDataURL;
         }

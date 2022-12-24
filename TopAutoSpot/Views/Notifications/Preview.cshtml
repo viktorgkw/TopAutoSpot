@@ -2,7 +2,7 @@
 @model TopAutoSpot.Views.Notifications.PreviewModel
 @{
     ViewData["Title"] = "Notification Preview";
-    var fromUsername = await Model.GetFromUsername();
+    var fromUsername = Model.GetFromUsername();
 }
 <h1 class="fw-bold website-text-darker-nohover">@Model.Notification.Title</h1>
 <hr />

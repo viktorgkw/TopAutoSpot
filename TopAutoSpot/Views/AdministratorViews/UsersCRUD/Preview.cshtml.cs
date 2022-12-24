@@ -1,9 +1,8 @@
-using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
 {
@@ -20,11 +19,11 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
         [BindProperty]
         public User PreviewedUser { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string userId)
+        public IActionResult OnGet(string userId)
         {
             if (User.IsInRole("Administrator"))
             {
-                PreviewedUser = await _context.Users.FirstAsync(u => u.Id == userId);
+                PreviewedUser = _context.Users.First(u => u.Id == userId);
                 return Page();
             }
 

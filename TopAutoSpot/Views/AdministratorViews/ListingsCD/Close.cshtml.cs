@@ -1,11 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
-using TopAutoSpot.Views.Utilities;
 using TopAutoSpot.Services.EmailService;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
+using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
 {
@@ -21,23 +21,23 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             _emailService = emailService;
         }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (User.IsInRole("Administrator"))
             {
-                var closeResult = await CloseListing(id);
+                bool closeResult = CloseListing(id);
 
                 if (!closeResult)
                 {
                     return RedirectToPage("/UnknownError");
                 }
 
-                var ownerId = await UserServices.GetVehicleOwner(_context, id);
-                var owner = await UserServices.GetUserById(_context, ownerId);
+                string ownerId = UserServices.GetVehicleOwner(_context, id);
+                User owner = UserServices.GetUserById(_context, ownerId);
 
-                var currentUserId = await UserServices.GetCurrentUser(_context, User.Identity.Name);
+                string currentUserId = UserServices.GetCurrentUser(_context, User.Identity.Name);
 
-                var sendResult = await NotificationServices.Send(_context,
+                bool sendResult = NotificationServices.Send(_context,
                     currentUserId,
                     ownerId,
                     DefaultNotificationMessages.LISTING_CLOSED_TITLE,
@@ -61,13 +61,13 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             return RedirectToPage("/NotFound");
         }
 
-        private async Task<bool> CloseListing(string id)
+        private bool CloseListing(string id)
         {
             if (_context.Cars.FirstOrDefault(c => c.Id == id) != null)
             {
                 _context.Cars
                     .FirstOrDefault(c => c.Id == id).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
@@ -75,7 +75,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             {
                 _context.Motorcycles
                     .FirstOrDefault(m => m.Id == id).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
@@ -83,7 +83,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             {
                 _context.Trucks
                     .FirstOrDefault(t => t.Id == id).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
@@ -91,7 +91,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             {
                 _context.Trailers
                     .FirstOrDefault(t => t.Id == id).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
@@ -99,14 +99,14 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             {
                 _context.Buses
                     .FirstOrDefault(b => b.Id == id).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }
             else if (_context.Boats.FirstOrDefault(b => b.Id == id) != null)
             {
                 _context.Boats.FirstOrDefault(b => b.Id == id).Status = ListingStatusTypes.Closed.ToString();
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return true;
             }

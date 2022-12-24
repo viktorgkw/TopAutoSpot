@@ -1,10 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
 
 namespace TopAutoSpot.Views.AdministratorViews
 {
@@ -20,13 +19,13 @@ namespace TopAutoSpot.Views.AdministratorViews
 
         public List<Auction> Auctions { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             if (User.IsInRole("Administrator"))
             {
-                Auctions = await _context.Auctions
+                Auctions = _context.Auctions
                     .Where(a => a.Status == AuctionStatusTypes.WaitingApproval.ToString())
-                    .ToListAsync();
+                    .ToList();
 
                 return Page();
             }
@@ -36,8 +35,14 @@ namespace TopAutoSpot.Views.AdministratorViews
 
         public string GetAuctionImage(string auctionId)
         {
-            var carId = _context.Auctions.First(a => a.Id == auctionId).VehicleId;
-            var data = _context.VehicleImages.First(i => i.VehicleId == carId).ImageData;
+            string carId = _context.Auctions
+                .First(a => a.Id == auctionId)
+                .VehicleId;
+
+            byte[] data = _context.VehicleImages
+                .First(i => i.VehicleId == carId)
+                .ImageData;
+
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
             return imgDataURL;
         }

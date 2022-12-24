@@ -1,9 +1,8 @@
-﻿using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
 {
@@ -26,30 +25,30 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
         public Truck Truck { get; set; } = default!;
         public VehicleImage VehicleImage { get; set; } = default!;
 
-        public async Task<IActionResult> OnPostAsync(List<IFormFile> Images)
+        public IActionResult OnPost(List<IFormFile> Images)
         {
             if (!ModelState.IsValid || _context.Trucks == null || Truck == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            Truck.CreatedBy = _context.Users.FirstAsync(u => u.UserName == User.Identity.Name).Result.Id;
+            Truck.CreatedBy = _context.Users.First(u => u.UserName == User.Identity.Name).Id;
             _context.Trucks.Add(Truck);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
-            await AddImagesToVehicle(Images, Truck.Id);
+            AddImagesToVehicle(Images, Truck.Id);
 
             return RedirectToPage("/MyVehicles/Index");
         }
 
-        private async Task AddImagesToVehicle(List<IFormFile> images, string vehicleId)
+        private void AddImagesToVehicle(List<IFormFile> images, string vehicleId)
         {
-            
+
             images = images
                 .Where(i =>
-                    i.FileName.EndsWith(".png") ||
-                    i.FileName.EndsWith(".jpeg") ||
-                    i.FileName.EndsWith(".jpg"))
+                    i.FileName.ToLower().EndsWith(".png") ||
+                    i.FileName.ToLower().EndsWith(".jpeg") ||
+                    i.FileName.ToLower().EndsWith(".jpg"))
                 .ToList();
 
             if (images.Count > 0)
@@ -60,7 +59,7 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
                     {
                         image.CopyTo(ms);
 
-                        var vehicleImage = new VehicleImage()
+                        VehicleImage vehicleImage = new VehicleImage()
                         {
 
                             Id = Guid.NewGuid().ToString(),
@@ -69,8 +68,8 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
                             VehicleId = vehicleId,
                         };
 
-                        await _context.VehicleImages.AddAsync(vehicleImage);
-                        await _context.SaveChangesAsync();
+                        _context.VehicleImages.Add(vehicleImage);
+                        _context.SaveChanges();
                     }
                 }
             }

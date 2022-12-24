@@ -4,6 +4,6 @@ namespace TopAutoSpot.Services.PaymentServices
 {
     public interface IPaymentService
     {
-        Task<string> MakePayment(StripePayment paymentInfo);
+        string MakePayment(StripePayment paymentInfo);
     }
 }

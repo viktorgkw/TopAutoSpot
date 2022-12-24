@@ -1,14 +1,14 @@
-using TopAutoSpot.Models.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
+using TopAutoSpot.Models.Utilities;
 
 namespace TopAutoSpot.Views.PremiumAccount
 {
     [Authorize]
     public class IndexModel : PageModel
     {
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             if (!User.IsInRole(RoleTypes.User.ToString()))
             {

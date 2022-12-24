@@ -1,13 +1,12 @@
-﻿using System.Text;
-using System.ComponentModel.DataAnnotations;
-using TopAutoSpot.Models;
-using TopAutoSpot.Models.Utilities;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using TopAutoSpot.Models;
+using TopAutoSpot.Models.Utilities;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account
 {
@@ -77,7 +76,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                User user = CreateUser();
 
                 if (!_userManager.Users.Any(u => u.UserName == "Administrator") || !_userManager.Users.Any())
                 {
@@ -88,17 +87,17 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.Role = RoleTypes.User.ToString();
 
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
                 await _userManager.AddToRoleAsync(user, RoleTypes.User.ToString());
-                
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    string userId = await _userManager.GetUserIdAsync(user);
+                    string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
+                    string? callbackUrl = Url.Page(
                         "/Account/RegisterConfirmation",
                         pageHandler: null,
                         values: new { area = "Identity", userId, code, returnUrl },
@@ -114,7 +113,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
-                foreach (var error in result.Errors)
+                foreach (IdentityError error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
@@ -149,7 +148,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
 
         private async Task InitializeAdministrator()
         {
-            var administratorUser = new User()
+            User administratorUser = new User()
             {
                 UserName = "Administrator",
                 FirstName = "AdministratorFirst",

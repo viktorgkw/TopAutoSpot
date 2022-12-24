@@ -1,12 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using NewsAPI.Models;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
 using TopAutoSpot.Services.NewsServices;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using NewsAPI.Models;
 
 namespace TopAutoSpot.Views.Trade
 {
@@ -33,29 +32,29 @@ namespace TopAutoSpot.Views.Trade
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Boats = await _context.Boats
+            Boats = _context.Boats
                     .Where(boat => boat.Price == 0 && boat.Status == ListingStatusTypes.Active.ToString())
-                    .ToListAsync();
+                    .ToList();
 
-            Buses = await _context.Buses
+            Buses = _context.Buses
                     .Where(bus => bus.Price == 0 && bus.Status == ListingStatusTypes.Active.ToString())
-                    .ToListAsync();
+                    .ToList();
 
-            Cars = await _context.Cars
+            Cars = _context.Cars
                     .Where(car => car.Price == 0 && car.Status == ListingStatusTypes.Active.ToString())
-                    .ToListAsync();
+                    .ToList();
 
-            Motorcycles = await _context.Motorcycles
+            Motorcycles = _context.Motorcycles
                     .Where(motorcycle => motorcycle.Price == 0 && motorcycle.Status == ListingStatusTypes.Active.ToString())
-                    .ToListAsync();
+                    .ToList();
 
-            Trailers = await _context.Trailers
+            Trailers = _context.Trailers
                     .Where(trailer => trailer.Price == 0 && trailer.Status == ListingStatusTypes.Active.ToString())
-                    .ToListAsync();
+                    .ToList();
 
-            Trucks = await _context.Trucks
+            Trucks = _context.Trucks
                     .Where(truck => truck.Price == 0 && truck.Status == ListingStatusTypes.Active.ToString())
-                    .ToListAsync();
+                    .ToList();
 
             OverallCount = Boats.Count + Buses.Count + Cars.Count +
                     Motorcycles.Count + Trailers.Count + Trucks.Count;
@@ -67,7 +66,7 @@ namespace TopAutoSpot.Views.Trade
 
         public string GetImage(string carId)
         {
-            var data = _context.VehicleImages
+            byte[] data = _context.VehicleImages
                 .First(i => i.VehicleId == carId).ImageData;
 
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);

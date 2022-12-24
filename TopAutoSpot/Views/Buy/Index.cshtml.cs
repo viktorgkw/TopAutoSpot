@@ -1,8 +1,8 @@
-using NewsAPI.Models;
-using TopAutoSpot.Services.NewsServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
+using NewsAPI.Models;
+using TopAutoSpot.Services.NewsServices;
 
 namespace TopAutoSpot.Views.Buy
 {

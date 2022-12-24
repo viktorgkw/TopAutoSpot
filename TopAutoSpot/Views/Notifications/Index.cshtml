@@ -26,7 +26,7 @@
                     <div class="mb-5 mt-5">
                         <a class="text-decoration-none" asp-route-id="@notification.Id" asp-page="/Notifications/Preview">
                             <h2 class="fw-bold website-text-main">@notification.Title</h2>
-                            <h4 class="fw-bold">@await Model.GetNotificationSender(@notification.From)</h4>
+                            <h4 class="fw-bold">@Model.GetNotificationSender(@notification.From)</h4>
                         </a>
 
                         <a asp-page="/Notifications/NotificationRemoved" asp-route-id="@notification.Id" class="fw-bold btn-danger btn custom-rounded text-light">Delete</a>

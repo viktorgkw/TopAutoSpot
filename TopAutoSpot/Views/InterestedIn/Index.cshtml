@@ -30,7 +30,7 @@ else
             {
                 <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/CarPreview" asp-route-id="@listing.VehicleId">
-                        <p>@await Model.GetCarTitle(listing.VehicleId)</p>
+                        <p>@Model.GetCarTitle(listing.VehicleId)</p>
                     </a>
 
                     <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
@@ -40,7 +40,7 @@ else
             {
                 <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/MotorcyclePreview" asp-route-id="@listing.VehicleId">
-                        <p>@await Model.GetMotoTitle(listing.VehicleId)</p>
+                        <p>@Model.GetMotoTitle(listing.VehicleId)</p>
                     </a>
 
                     <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
@@ -50,7 +50,7 @@ else
             {
                 <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/TruckPreview" asp-route-id="@listing.VehicleId">
-                        <p>@await Model.GetTruckTitle(listing.VehicleId)</p>
+                        <p>@Model.GetTruckTitle(listing.VehicleId)</p>
                     </a>
 
                     <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
@@ -60,7 +60,7 @@ else
             {
                 <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/TrailerPreview" asp-route-id="@listing.VehicleId">
-                        <p>@await Model.GetTrailerTitle(listing.VehicleId)</p>
+                        <p>@Model.GetTrailerTitle(listing.VehicleId)</p>
                     </a>
 
                     <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
@@ -70,7 +70,7 @@ else
             {
                 <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/BoatPreview" asp-route-id="@listing.VehicleId">
-                        <p>@await Model.GetBoatTitle(listing.VehicleId)</p>
+                        <p>@Model.GetBoatTitle(listing.VehicleId)</p>
                     </a>
 
                     <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
@@ -80,7 +80,7 @@ else
             {
                 <div class="custom-rounded border border-dark dark-background mb-2 mt-2 pt-1 px-1">
                     <a class="text-decoration-none text-light fs-4" asp-page="/VehiclePreview/BusPreview" asp-route-id="@listing.VehicleId">
-                        <p>@await Model.GetBusTitle(listing.VehicleId)</p>
+                        <p>@Model.GetBusTitle(listing.VehicleId)</p>
                     </a>
                     <a class="btn btn-outline-warning mb-2 pb-2 fw-bold text-light" asp-page="/InterestedIn/RemoveInterest" asp-route-vehicleId="@listing.VehicleId">Remove💡</a>
                 </div>

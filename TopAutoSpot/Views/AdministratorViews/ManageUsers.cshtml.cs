@@ -1,9 +1,8 @@
-using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.AdministratorViews
 {
@@ -20,13 +19,13 @@ namespace TopAutoSpot.Views.AdministratorViews
         [BindProperty]
         public List<User> Users { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             if (User.IsInRole("Administrator"))
             {
-                Users = await _context.Users
+                Users = _context.Users
                     .OrderBy(u => u.Role)
-                    .ToListAsync();
+                    .ToList();
 
                 return Page();
             }

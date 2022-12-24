@@ -1,6 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
 
 namespace TopAutoSpot.Views.AdministratorViews.Utilities
 {
@@ -11,7 +11,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
         public string Reason { get; set; }
         public string VehicleId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string vehicleId)
+        public IActionResult OnGet(string vehicleId)
         {
             if (User.IsInRole("Administrator"))
             {
@@ -28,9 +28,10 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             return RedirectToPage("/NotFound");
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
-            return RedirectToPage("/AdministratorViews/ApprovalViews/RefuseVehicle", new { vehicleId = VehicleId, reason = Reason });
+            return RedirectToPage("/AdministratorViews/ApprovalViews/RefuseVehicle",
+                new { vehicleId = VehicleId, reason = Reason });
         }
     }
 }
