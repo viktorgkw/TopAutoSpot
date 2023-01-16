@@ -3,7 +3,6 @@
 @model TopAutoSpot.Views.AuctionViews.CreateModel
 @{
     ViewData["Title"] = "Create Auction";
-    var date = DateTime.Now.AddDays(1);
 }
 
 <h1 class="fw-bold website-text-darker-nohover">New Auction Description</h1>
@@ -58,7 +57,7 @@
 
             <div class="form-group mb-4">
                 <label asp-for="Auction.StartDay" class="control-label fw-bold website-text-nohover">Start Day</label>
-                <input min="@date.Year-@date.Month-@date.Day" type="date" asp-for="Auction.StartDay" class="form-control" />
+                <input type="date" asp-for="Auction.StartDay" class="form-control" />
                 <span asp-validation-for="Auction.StartDay" class="text-danger"></span>
             </div>
 

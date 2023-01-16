@@ -38,7 +38,8 @@ else
             <div class="d-flex flex-row flex-wrap mt-3">
                 @foreach (var auction in Model.StartingSoonAuctionsForCurrentUser)
                 {
-                    <a asp-page="/VehiclePreview/AuctionBid" asp-route-id="@auction.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
+                    <div class="row">
+                    <a asp-page="/AuctionViews/AuctionBid" asp-route-id="@auction.Id" class="text-decoration-none site-text-color-btn fw-bold car-title mb-1">
                         <img class="listing-image custom-rounded" src="@Model.GetAuctionImage(auction.Id)" />
 
                         @if (auction.Title.Length > 22)
@@ -51,6 +52,7 @@ else
                         }
                     </a>
                     <p class="fs-4 fw-bold website-text-nohover">Starting Price: $@auction.StartingPrice</p>
+                    </div>
                 }
             </div>
         }

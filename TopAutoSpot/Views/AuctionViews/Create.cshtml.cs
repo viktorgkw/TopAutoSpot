@@ -36,6 +36,11 @@ namespace TopAutoSpot.Views.AuctionViews
 
         public IActionResult OnPost()
         {
+            if (Auction.StartDay.CompareTo(DateTime.Now) <= 0)
+            {
+                return RedirectToPage("/AuctionViews/Index");
+            }
+
             Auction.AuctioneerId = UserServices.GetCurrentUser(_context, User.Identity.Name);
             Auction.VehicleId = UserServices.GetVehicleIdByTitle(_context, Auction.VehicleId);
 
