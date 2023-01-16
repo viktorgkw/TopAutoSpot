@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
 
@@ -11,9 +12,12 @@ namespace TopAutoSpot.Views.PremiumAccount
     public class PaymentResultModel : PageModel
     {
         private UserManager<User> _userManager;
-        public PaymentResultModel(UserManager<User> userManager)
+        private ApplicationDbContext _context;
+        public PaymentResultModel(UserManager<User> userManager,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         public string Status { get; set; }
@@ -29,8 +33,11 @@ namespace TopAutoSpot.Views.PremiumAccount
 
             if (Status == "succeeded")
             {
-                User? foundUser = await _userManager.FindByIdAsync(userId);
+                var foundUser = _context.Users.First(u => u.Id == userId);
+                await _userManager.RemoveFromRoleAsync(foundUser, "User");
                 await _userManager.AddToRoleAsync(foundUser, "Premium");
+                foundUser.Role = "Premium";
+                _context.SaveChanges();
             }
 
             return Page();

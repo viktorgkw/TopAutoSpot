@@ -34,7 +34,7 @@ namespace TopAutoSpot.Views.PremiumAccount
 
         public async Task<IActionResult> OnPostAsync()
         {
-            User? foundUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            var foundUser = await _userManager.FindByNameAsync(User.Identity.Name);
             StripePayment.Email = foundUser.Email;
 
             string[] years = new string[] { "2023", "2024", "2025", "2026", "2027", "2028" };

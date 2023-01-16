@@ -83,9 +83,10 @@ namespace TopAutoSpot.Views.AuctionViews
 
         public string GetLastBidderUsername()
         {
-            return _context.Users
-                .First(u => u.Id == Auction.LastBidderId)
-                .UserName;
+            var lastBidder = _context.Users
+                .FirstOrDefault(u => u.Id == Auction.LastBidderId);
+
+            return lastBidder is null ? null : lastBidder.UserName;
         }
 
         private string GetCurrentUserId()
