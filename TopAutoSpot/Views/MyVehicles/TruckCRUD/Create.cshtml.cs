@@ -27,7 +27,7 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
 
         public IActionResult OnPost(List<IFormFile> Images)
         {
-            if (!ModelState.IsValid || _context.Trucks == null || Truck == null)
+            if (!ModelState.IsValid || _context.Trucks.Count() == 0 || Truck == null)
             {
                 return RedirectToPage("/NotFound");
             }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
@@ -28,8 +29,7 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
         {
             if (User.IsInRole("Administrator"))
             {
-                AuctionToClose = _context.Auctions.First(u => u.Id == id);
-                AuctionToClose.Status = AuctionStatusTypes.Closed.ToString();
+                _context.Auctions.First(u => u.Id == id).Status = AuctionStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 User owner = UserServices.GetUserById(_context, AuctionToClose.AuctioneerId);

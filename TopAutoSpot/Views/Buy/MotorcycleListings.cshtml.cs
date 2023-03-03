@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using NewsAPI.Models;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
@@ -29,6 +30,7 @@ namespace TopAutoSpot.Views.Buy
         public async Task<IActionResult> OnGetAsync(string orderSetting)
         {
             Motorcycles = _context.Motorcycles
+                .AsNoTracking()
                 .Where(m => m.Status == ListingStatusTypes.Active.ToString() && m.Price > 0)
                 .ToList();
 
@@ -52,6 +54,7 @@ namespace TopAutoSpot.Views.Buy
         public string GetImage(string motorcycleId)
         {
             byte[] data = _context.VehicleImages
+                .AsNoTracking()
                 .First(i => i.VehicleId == motorcycleId)
                 .ImageData;
 
@@ -62,15 +65,19 @@ namespace TopAutoSpot.Views.Buy
         public bool HasAnyImages(string motorcycleId)
         {
             return _context.VehicleImages
+                .AsNoTracking()
                 .Where(img => img.VehicleId == motorcycleId)
                 .ToList().Count > 0;
         }
 
         public List<InterestedListing> GetInterestedVehicles()
         {
-            User currentUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            User currentUser = _context.Users
+                .AsNoTracking()
+                .First(u => u.UserName == User.Identity.Name);
 
             return _context.InterestedInListings
+                .AsNoTracking()
                 .Where(l => l.UserId == currentUser.Id)
                 .ToList();
         }

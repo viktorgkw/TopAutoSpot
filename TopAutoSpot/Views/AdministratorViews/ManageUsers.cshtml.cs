@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 
@@ -24,6 +25,7 @@ namespace TopAutoSpot.Views.AdministratorViews
             if (User.IsInRole("Administrator"))
             {
                 Users = _context.Users
+                    .AsNoTracking()
                     .OrderBy(u => u.Role)
                     .ToList();
 

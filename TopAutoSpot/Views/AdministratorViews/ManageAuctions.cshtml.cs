@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 
@@ -23,7 +24,9 @@ namespace TopAutoSpot.Views.AdministratorViews
         {
             if (User.IsInRole("Administrator"))
             {
-                Auctions = _context.Auctions.ToList();
+                Auctions = _context.Auctions
+                    .AsNoTracking()
+                    .ToList();
 
                 return Page();
             }
@@ -34,10 +37,12 @@ namespace TopAutoSpot.Views.AdministratorViews
         public string GetAuctionImage(string auctionId)
         {
             string carId = _context.Auctions
+                .AsNoTracking()
                 .First(a => a.Id == auctionId)
                 .VehicleId;
 
             byte[] data = _context.VehicleImages
+                .AsNoTracking()
                 .First(i => i.VehicleId == carId)
                 .ImageData;
 
