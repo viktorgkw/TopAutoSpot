@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NewsAPI.Models;
 using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+using TopAutoSpot.Data.Models;
 using TopAutoSpot.Services.NewsServices;
 
 namespace TopAutoSpot.Views.MyVehicles

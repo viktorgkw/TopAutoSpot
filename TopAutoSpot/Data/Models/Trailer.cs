@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TopAutoSpot.Models
+namespace TopAutoSpot.Data.Models
 {
     public class Trailer
     {

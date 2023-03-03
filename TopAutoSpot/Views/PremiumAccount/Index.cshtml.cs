@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Data.Models.Enums;
 
 namespace TopAutoSpot.Views.PremiumAccount
 {

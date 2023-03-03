@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
-using TopAutoSpot.Models;
+using TopAutoSpot.Data.Models;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account
 {

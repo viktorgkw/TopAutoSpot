@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+using TopAutoSpot.Data.Models;
 
 namespace TopAutoSpot.Views.MyVehicles.BusCRUD
 {

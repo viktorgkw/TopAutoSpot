@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
-using TopAutoSpot.Models;
+using TopAutoSpot.Data.Models;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
 {

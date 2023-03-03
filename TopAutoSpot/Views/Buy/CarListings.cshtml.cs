@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NewsAPI.Models;
 using TopAutoSpot.Data;
-using TopAutoSpot.Models;
-using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Data.Models;
+using TopAutoSpot.Data.Models.Enums;
 using TopAutoSpot.Services.NewsServices;
 using TopAutoSpot.Views.Utilities;
 

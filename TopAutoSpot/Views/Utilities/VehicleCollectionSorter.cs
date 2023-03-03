@@ -1,4 +1,4 @@
-﻿using TopAutoSpot.Models;
+﻿using TopAutoSpot.Data.Models;
 
 namespace TopAutoSpot.Views.Utilities
 {
