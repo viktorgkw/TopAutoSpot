@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
@@ -39,34 +40,40 @@ namespace TopAutoSpot.Views.AdministratorViews
         private void InitializeVehicles()
         {
             Boats = _context.Boats
-                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                        vehicle.Status == ListingStatusTypes.Closed.ToString())
+                .ToList();
 
             Buses = _context.Buses
-                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                        vehicle.Status == ListingStatusTypes.Closed.ToString())
+                .ToList();
 
             Cars = _context.Cars
-                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                        vehicle.Status == ListingStatusTypes.Closed.ToString())
+                .ToList();
 
             Motorcycles = _context.Motorcycles
-                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                        vehicle.Status == ListingStatusTypes.Closed.ToString())
+                .ToList();
 
             Trailers = _context.Trailers
-                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                        vehicle.Status == ListingStatusTypes.Closed.ToString())
+                .ToList();
 
             Trucks = _context.Trucks
-                    .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
-                            vehicle.Status == ListingStatusTypes.Closed.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(vehicle => vehicle.Status == ListingStatusTypes.WaitingApproval.ToString() ||
+                        vehicle.Status == ListingStatusTypes.Closed.ToString())
+                .ToList();
 
             OverallCount = Boats.Count + Buses.Count + Cars.Count +
                         Motorcycles.Count + Trailers.Count + Trucks.Count;
@@ -75,6 +82,7 @@ namespace TopAutoSpot.Views.AdministratorViews
         public string GetImage(string vehicleId)
         {
             byte[] data = _context.VehicleImages
+                .AsNoTracking()
                 .First(i => i.VehicleId == vehicleId)
                 .ImageData;
 

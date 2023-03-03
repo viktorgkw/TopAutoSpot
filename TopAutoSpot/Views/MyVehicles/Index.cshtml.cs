@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using NewsAPI.Models;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
@@ -34,36 +35,44 @@ namespace TopAutoSpot.Views.MyVehicles
         public async Task<IActionResult> OnGetAsync()
         {
             User currentUser = _context.Users
+                .AsNoTracking()
                 .First(u => u.UserName == User.Identity.Name);
 
             Boats = _context.Boats
-                    .Where(boat => boat.CreatedBy == currentUser.Id)
-                    .ToList();
+                .AsNoTracking()
+                .Where(boat => boat.CreatedBy == currentUser.Id)
+                .ToList();
 
             Buses = _context.Buses
-                    .Where(bus => bus.CreatedBy == currentUser.Id)
-                    .ToList();
+                .AsNoTracking()
+                .Where(bus => bus.CreatedBy == currentUser.Id)
+                .ToList();
 
             Cars = _context.Cars
-                    .Where(car => car.CreatedBy == currentUser.Id)
-                    .ToList();
+                .AsNoTracking()
+                .Where(car => car.CreatedBy == currentUser.Id)
+                .ToList();
 
             Motorcycles = _context.Motorcycles
-                    .Where(motorcycle => motorcycle.CreatedBy == currentUser.Id)
-                    .ToList();
+                .AsNoTracking()
+                .Where(motorcycle => motorcycle.CreatedBy == currentUser.Id)
+                .ToList();
 
             Trailers = _context.Trailers
-                    .Where(trailer => trailer.CreatedBy == currentUser.Id)
-                    .ToList();
+                .AsNoTracking()
+                .Where(trailer => trailer.CreatedBy == currentUser.Id)
+                .ToList();
 
             Trucks = _context.Trucks
-                    .Where(truck => truck.CreatedBy == currentUser.Id)
-                    .ToList();
+                .AsNoTracking()
+                .Where(truck => truck.CreatedBy == currentUser.Id)
+                .ToList();
 
             OverallCount = Boats.Count + Buses.Count + Cars.Count +
                     Motorcycles.Count + Trailers.Count + Trucks.Count;
 
             Auctions = _context.Auctions
+                .AsNoTracking()
                 .Where(auction => auction.AuctioneerId == currentUser.Id)
                 .ToList();
 
@@ -75,6 +84,7 @@ namespace TopAutoSpot.Views.MyVehicles
         public string GetImage(string carId)
         {
             byte[] data = _context.VehicleImages
+                .AsNoTracking()
                 .First(i => i.VehicleId == carId)
                 .ImageData;
 
@@ -85,10 +95,12 @@ namespace TopAutoSpot.Views.MyVehicles
         public string GetAuctionImage(string auctionId)
         {
             string carId = _context.Auctions
+                .AsNoTracking()
                 .First(a => a.Id == auctionId)
                 .VehicleId;
 
             byte[] data = _context.VehicleImages
+                .AsNoTracking()
                 .First(i => i.VehicleId == carId)
                 .ImageData;
 
@@ -99,6 +111,7 @@ namespace TopAutoSpot.Views.MyVehicles
         public bool HasAnyImages(string carId)
         {
             return _context.VehicleImages
+                .AsNoTracking()
                 .Where(img => img.VehicleId == carId)
                 .ToList().Count > 0;
         }

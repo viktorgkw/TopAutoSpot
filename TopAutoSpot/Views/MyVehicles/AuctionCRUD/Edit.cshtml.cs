@@ -22,7 +22,7 @@ namespace TopAutoSpot.Views.MyVehicles.AuctionCRUD
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Auctions == null)
+            if (id == null || _context.Auctions.Count() == 0)
             {
                 return RedirectToPage("/NotFound");
             }

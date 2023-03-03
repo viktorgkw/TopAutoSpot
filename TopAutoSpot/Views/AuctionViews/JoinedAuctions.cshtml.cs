@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using NewsAPI.Models;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
@@ -27,6 +28,7 @@ namespace TopAutoSpot.Views.AuctionViews
         {
             News = await _newsService.GetNews(3);
             Auctions = _context.Auctions
+                .AsNoTracking()
                 .Where(a => a.Bidders.Any(b => b.UserName == User.Identity.Name))
                 .Where(a => a.Status == AuctionStatusTypes.Active.ToString() ||
                             a.Status == AuctionStatusTypes.StartingSoon.ToString() ||
@@ -39,10 +41,12 @@ namespace TopAutoSpot.Views.AuctionViews
         public string GetAuctionImage(string auctionId)
         {
             string carId = _context.Auctions
+                .AsNoTracking()
                 .First(a => a.Id == auctionId)
                 .VehicleId;
 
             byte[] data = _context.VehicleImages
+                .AsNoTracking()
                 .First(i => i.VehicleId == carId)
                 .ImageData;
 

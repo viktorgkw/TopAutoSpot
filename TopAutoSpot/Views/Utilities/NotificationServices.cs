@@ -1,4 +1,5 @@
-﻿using TopAutoSpot.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.Utilities
@@ -16,7 +17,9 @@ namespace TopAutoSpot.Views.Utilities
             Notification foundNotification = _context.Notifications
                 .First(n => n.Id == notificationId);
 
-            User foundUser = _context.Users.First(u => u.UserName == userName);
+            User foundUser = _context.Users
+                .AsNoTracking()
+                .First(u => u.UserName == userName);
 
             if (foundNotification != null && foundUser != null && foundUser.Id == foundNotification.To)
             {
@@ -37,11 +40,14 @@ namespace TopAutoSpot.Views.Utilities
             }
 
             Notification? foundNotification = _context.Notifications
+                .AsNoTracking()
                 .FirstOrDefault(n => n.Id == notificationId);
 
             if (foundNotification != null)
             {
-                User foundUser = _context.Users.First(u => u.UserName == userName);
+                User foundUser = _context.Users
+                    .AsNoTracking()
+                    .First(u => u.UserName == userName);
 
                 if (foundUser != null && foundUser.Id == foundNotification.To)
                 {
@@ -56,6 +62,7 @@ namespace TopAutoSpot.Views.Utilities
             (ApplicationDbContext _context, string userId)
         {
             return _context.Notifications
+                .AsNoTracking()
                 .Where(n => n.To == userId)
                 .OrderByDescending(n => n.CreatedAt)
                 .ToList();
@@ -69,6 +76,7 @@ namespace TopAutoSpot.Views.Utilities
             }
 
             User? fromUser = _context.Users
+                .AsNoTracking()
                 .FirstOrDefault(u => u.Id == from);
 
             if (fromUser == null)
@@ -77,6 +85,7 @@ namespace TopAutoSpot.Views.Utilities
             }
 
             User? toUser = _context.Users
+                .AsNoTracking()
                 .FirstOrDefault(u => u.Id == to);
 
             if (toUser == null)
@@ -102,7 +111,9 @@ namespace TopAutoSpot.Views.Utilities
 
         public static string GetFromUsername(ApplicationDbContext _context, string from)
         {
-            return _context.Users.First(u => u.Id == from).UserName;
+            return _context.Users
+                .AsNoTracking()
+                .First(u => u.Id == from).UserName;
         }
 
         private static bool ValidateProperties(string[] props)

@@ -22,7 +22,7 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Trucks == null)
+            if (id == null || _context.Trucks.Count() == 0)
             {
                 return RedirectToPage("/NotFound");
             }
@@ -52,7 +52,7 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
 
         public IActionResult OnPost(string id)
         {
-            if (id == null || _context.Trucks == null)
+            if (id == null || _context.Trucks.Count() == 0)
             {
                 return RedirectToPage("/Index");
             }

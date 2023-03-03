@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
@@ -20,13 +21,18 @@ namespace TopAutoSpot.Views.VehiclePreview
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Cars == null)
+            if (id == null || _context.Cars.Count() == 0)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            Car? car = _context.Cars.FirstOrDefault(m => m.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            Car? car = _context.Cars
+                .AsNoTracking()
+                .FirstOrDefault(m => m.Id == id);
+
+            User foundUser = _context.Users
+                .AsNoTracking()
+                .First(u => u.UserName == User.Identity.Name);
 
             if (car == null)
             {
@@ -42,6 +48,7 @@ namespace TopAutoSpot.Views.VehiclePreview
             }
 
             Images = _context.VehicleImages
+                .AsNoTracking()
                 .Where(img => img.VehicleId == car.Id)
                 .ToList();
 
@@ -51,6 +58,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public string GetOwnerNumber()
         {
             User foundUser = _context.Users
+                .AsNoTracking()
                 .First(u => u.Id == Car.CreatedBy);
 
             return foundUser.PhoneNumber;
@@ -59,15 +67,20 @@ namespace TopAutoSpot.Views.VehiclePreview
         public string GetOwnerFullName()
         {
             User foundUser = _context.Users
+                .AsNoTracking()
                 .First(u => u.Id == Car.CreatedBy);
 
-            return foundUser.FirstName + " " + foundUser.LastName == " " ? foundUser.UserName :
-                foundUser.FirstName + " " + foundUser.LastName;
+            string? fullName = foundUser.FirstName + " " + foundUser.LastName == " "
+                ? foundUser.UserName
+                : foundUser.FirstName + " " + foundUser.LastName;
+
+            return fullName;
         }
 
         public string GetImage()
         {
             byte[] data = _context.VehicleImages
+                .AsNoTracking()
                 .Where(img => img.VehicleId == Car.Id)
                 .First()
                 .ImageData;
@@ -79,6 +92,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public bool HasAnyImages()
         {
             return _context.VehicleImages
+                .AsNoTracking()
                 .Where(img => img.VehicleId == Car.Id)
                 .ToList().Count > 0;
         }

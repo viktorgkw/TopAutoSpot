@@ -32,7 +32,7 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
 
         public IActionResult OnPost(List<IFormFile> Images)
         {
-            if (!ModelState.IsValid || _context.Trailers == null || Trailer == null)
+            if (!ModelState.IsValid || _context.Trailers.Count() == 0 || Trailer == null)
             {
                 return RedirectToPage("/NotFound");
             }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 
@@ -23,7 +24,9 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
         {
             if (User.IsInRole("Administrator"))
             {
-                PreviewedUser = _context.Users.First(u => u.Id == userId);
+                PreviewedUser = _context.Users
+                    .AsNoTracking()
+                    .First(u => u.Id == userId);
                 return Page();
             }
 

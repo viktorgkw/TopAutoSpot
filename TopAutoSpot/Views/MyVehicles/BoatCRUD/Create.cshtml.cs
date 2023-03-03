@@ -32,7 +32,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 
         public IActionResult OnPost(List<IFormFile> Images)
         {
-            if (!ModelState.IsValid || _context.Boats == null || Boat == null)
+            if (!ModelState.IsValid || _context.Boats.Count() == 0 || Boat == null)
             {
                 return RedirectToPage("/NotFound");
             }

@@ -49,7 +49,7 @@ namespace TopAutoSpot.Views.AuctionViews
                 return RedirectToPage("/NotFound");
             }
 
-            if (!ModelState.IsValid || _context.Auctions == null || Auction == null)
+            if (!ModelState.IsValid || _context.Auctions.Count() == 0 || Auction == null)
             {
                 return RedirectToPage("/NotFound");
             }

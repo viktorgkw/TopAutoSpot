@@ -32,7 +32,7 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
 
         public IActionResult OnPost(List<IFormFile> Images)
         {
-            if (!ModelState.IsValid || _context.Motorcycles == null || Motorcycle == null)
+            if (!ModelState.IsValid || _context.Motorcycles.Count() == 0 || Motorcycle == null)
             {
                 return RedirectToPage("/NotFound");
             }

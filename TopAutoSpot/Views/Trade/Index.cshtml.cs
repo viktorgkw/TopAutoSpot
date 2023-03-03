@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using NewsAPI.Models;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
@@ -33,28 +34,34 @@ namespace TopAutoSpot.Views.Trade
         public async Task<IActionResult> OnGetAsync()
         {
             Boats = _context.Boats
-                    .Where(boat => boat.Price == 0 && boat.Status == ListingStatusTypes.Active.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(boat => boat.Price == 0 && boat.Status == ListingStatusTypes.Active.ToString())
+                .ToList();
 
             Buses = _context.Buses
-                    .Where(bus => bus.Price == 0 && bus.Status == ListingStatusTypes.Active.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(bus => bus.Price == 0 && bus.Status == ListingStatusTypes.Active.ToString())
+                .ToList();
 
             Cars = _context.Cars
-                    .Where(car => car.Price == 0 && car.Status == ListingStatusTypes.Active.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(car => car.Price == 0 && car.Status == ListingStatusTypes.Active.ToString())
+                .ToList();
 
             Motorcycles = _context.Motorcycles
-                    .Where(motorcycle => motorcycle.Price == 0 && motorcycle.Status == ListingStatusTypes.Active.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(motorcycle => motorcycle.Price == 0 && motorcycle.Status == ListingStatusTypes.Active.ToString())
+                .ToList();
 
             Trailers = _context.Trailers
-                    .Where(trailer => trailer.Price == 0 && trailer.Status == ListingStatusTypes.Active.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(trailer => trailer.Price == 0 && trailer.Status == ListingStatusTypes.Active.ToString())
+                .ToList();
 
             Trucks = _context.Trucks
-                    .Where(truck => truck.Price == 0 && truck.Status == ListingStatusTypes.Active.ToString())
-                    .ToList();
+                .AsNoTracking()
+                .Where(truck => truck.Price == 0 && truck.Status == ListingStatusTypes.Active.ToString())
+                .ToList();
 
             OverallCount = Boats.Count + Buses.Count + Cars.Count +
                     Motorcycles.Count + Trailers.Count + Trucks.Count;
@@ -67,6 +74,7 @@ namespace TopAutoSpot.Views.Trade
         public string GetImage(string carId)
         {
             byte[] data = _context.VehicleImages
+                .AsNoTracking()
                 .First(i => i.VehicleId == carId).ImageData;
 
             string imgDataURL = "data:image;base64," + Convert.ToBase64String(data);
@@ -76,6 +84,7 @@ namespace TopAutoSpot.Views.Trade
         public bool HasAnyImages(string carId)
         {
             return _context.VehicleImages
+                .AsNoTracking()
                 .Where(img => img.VehicleId == carId)
                 .ToList().Count > 0;
         }

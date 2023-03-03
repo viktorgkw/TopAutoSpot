@@ -1,4 +1,5 @@
 ﻿using TopAutoSpot.Data;
+using TopAutoSpot.Models;
 
 namespace TopAutoSpot.Views.Utilities
 {
@@ -12,9 +13,10 @@ namespace TopAutoSpot.Views.Utilities
 
         public Task RemoveAllUserAuctions(string id)
         {
-            IQueryable<Models.Auction> auctions = _context.Auctions.Where(a => a.AuctioneerId == id);
+            IQueryable<Auction> auctions = _context.Auctions
+                .Where(a => a.AuctioneerId == id);
 
-            foreach (Models.Auction? auction in auctions)
+            foreach (Auction? auction in auctions)
             {
                 _context.Auctions.Remove(auction);
                 _context.SaveChangesAsync();
@@ -25,8 +27,11 @@ namespace TopAutoSpot.Views.Utilities
 
         public Task RemoveAllUserVehicles(string id)
         {
-            List<Models.Car> cars = _context.Cars.Where(v => v.CreatedBy == id).ToList();
-            foreach (Models.Car? car in cars)
+            List<Car> cars = _context.Cars
+                .Where(v => v.CreatedBy == id)
+                .ToList();
+
+            foreach (Car? car in cars)
             {
                 if (car.CreatedBy == id)
                 {
@@ -35,8 +40,11 @@ namespace TopAutoSpot.Views.Utilities
                 }
             }
 
-            List<Models.Motorcycle> motorcycles = _context.Motorcycles.Where(v => v.CreatedBy == id).ToList();
-            foreach (Models.Motorcycle? moto in motorcycles)
+            List<Motorcycle> motorcycles = _context.Motorcycles
+                .Where(v => v.CreatedBy == id)
+                .ToList();
+
+            foreach (Motorcycle? moto in motorcycles)
             {
                 if (moto.CreatedBy == id)
                 {
@@ -45,8 +53,11 @@ namespace TopAutoSpot.Views.Utilities
                 }
             }
 
-            List<Models.Truck> trucks = _context.Trucks.Where(v => v.CreatedBy == id).ToList();
-            foreach (Models.Truck? truck in trucks)
+            List<Truck> trucks = _context.Trucks
+                .Where(v => v.CreatedBy == id)
+                .ToList();
+
+            foreach (Truck? truck in trucks)
             {
                 if (truck.CreatedBy == id)
                 {
@@ -55,8 +66,11 @@ namespace TopAutoSpot.Views.Utilities
                 }
             }
 
-            List<Models.Trailer> trailers = _context.Trailers.Where(v => v.CreatedBy == id).ToList();
-            foreach (Models.Trailer? trailer in trailers)
+            List<Trailer> trailers = _context.Trailers
+                .Where(v => v.CreatedBy == id)
+                .ToList();
+
+            foreach (Trailer? trailer in trailers)
             {
                 if (trailer.CreatedBy == id)
                 {
@@ -65,8 +79,11 @@ namespace TopAutoSpot.Views.Utilities
                 }
             }
 
-            List<Models.Boat> boats = _context.Boats.Where(v => v.CreatedBy == id).ToList();
-            foreach (Models.Boat? boat in boats)
+            List<Boat> boats = _context.Boats
+                .Where(v => v.CreatedBy == id)
+                .ToList();
+
+            foreach (Boat? boat in boats)
             {
                 if (boat.CreatedBy == id)
                 {
@@ -75,8 +92,11 @@ namespace TopAutoSpot.Views.Utilities
                 }
             }
 
-            List<Models.Bus> buses = _context.Buses.Where(v => v.CreatedBy == id).ToList();
-            foreach (Models.Bus? bus in buses)
+            List<Bus> buses = _context.Buses
+                .Where(v => v.CreatedBy == id)
+                .ToList();
+
+            foreach (Bus? bus in buses)
             {
                 if (bus.CreatedBy == id)
                 {

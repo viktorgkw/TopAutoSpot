@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
@@ -20,13 +21,18 @@ namespace TopAutoSpot.Views.VehiclePreview
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Motorcycles == null)
+            if (id == null || _context.Motorcycles.Count() == 0)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            Motorcycle? moto = _context.Motorcycles.FirstOrDefault(m => m.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            Motorcycle? moto = _context.Motorcycles
+                .AsNoTracking()
+                .FirstOrDefault(m => m.Id == id);
+
+            User foundUser = _context.Users
+                .AsNoTracking()
+                .First(u => u.UserName == User.Identity.Name);
 
             if (moto == null)
             {
@@ -42,6 +48,7 @@ namespace TopAutoSpot.Views.VehiclePreview
             }
 
             Images = _context.VehicleImages
+                .AsNoTracking()
                 .Where(img => img.VehicleId == moto.Id)
                 .ToList();
 
@@ -51,6 +58,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public string GetOwnerNumber()
         {
             User foundUser = _context.Users
+                .AsNoTracking()
                 .First(u => u.Id == Motorcycle.CreatedBy);
 
             return foundUser.PhoneNumber;
@@ -59,6 +67,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public string GetOwnerFullName()
         {
             User foundUser = _context.Users
+                .AsNoTracking()
                 .First(u => u.Id == Motorcycle.CreatedBy);
 
             return foundUser.FirstName + " " + foundUser.LastName;
@@ -67,6 +76,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public string GetImage()
         {
             byte[] data = _context.VehicleImages
+                .AsNoTracking()
                 .Where(img => img.VehicleId == Motorcycle.Id)
                 .First()
                 .ImageData;
@@ -78,6 +88,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public bool HasAnyImages()
         {
             return _context.VehicleImages
+                .AsNoTracking()
                 .Where(img => img.VehicleId == Motorcycle.Id)
                 .ToList().Count > 0;
         }

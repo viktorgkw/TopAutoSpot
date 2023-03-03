@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 
@@ -28,17 +29,29 @@ namespace TopAutoSpot.Views.AdministratorViews
         {
             if (User.IsInRole("Administrator"))
             {
-                Boats = _context.Boats.ToList();
+                Boats = _context.Boats
+                    .AsNoTracking()
+                    .ToList();
 
-                Buses = _context.Buses.ToList();
+                Buses = _context.Buses
+                    .AsNoTracking()
+                    .ToList();
 
-                Cars = _context.Cars.ToList();
+                Cars = _context.Cars
+                    .AsNoTracking()
+                    .ToList();
 
-                Motorcycles = _context.Motorcycles.ToList();
+                Motorcycles = _context.Motorcycles
+                    .AsNoTracking()
+                    .ToList();
 
-                Trailers = _context.Trailers.ToList();
+                Trailers = _context.Trailers
+                    .AsNoTracking()
+                    .ToList();
 
-                Trucks = _context.Trucks.ToList();
+                Trucks = _context.Trucks
+                    .AsNoTracking()
+                    .ToList();
 
                 OverallCount = Boats.Count + Buses.Count + Cars.Count +
                         Motorcycles.Count + Trailers.Count + Trucks.Count;
@@ -52,6 +65,7 @@ namespace TopAutoSpot.Views.AdministratorViews
         public string GetImage(string carId)
         {
             byte[] data = _context.VehicleImages
+                .AsNoTracking()
                 .First(i => i.VehicleId == carId)
                 .ImageData;
 
@@ -62,6 +76,7 @@ namespace TopAutoSpot.Views.AdministratorViews
         public bool HasAnyImages(string carId)
         {
             return _context.VehicleImages
+                .AsNoTracking()
                 .Where(img => img.VehicleId == carId)
                 .ToList().Count > 0;
         }

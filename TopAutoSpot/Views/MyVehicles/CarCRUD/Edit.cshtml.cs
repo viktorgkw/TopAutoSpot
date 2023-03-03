@@ -23,7 +23,7 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Cars == null)
+            if (id == null || _context.Cars.Count() == 0)
             {
                 return RedirectToPage("/NotFound");
             }

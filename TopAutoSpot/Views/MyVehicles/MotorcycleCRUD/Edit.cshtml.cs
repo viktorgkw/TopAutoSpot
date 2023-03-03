@@ -23,7 +23,7 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Motorcycles == null)
+            if (id == null || _context.Motorcycles.Count() == 0)
             {
                 return RedirectToPage("/NotFound");
             }

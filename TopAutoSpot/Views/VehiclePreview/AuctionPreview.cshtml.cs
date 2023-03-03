@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Models;
 using TopAutoSpot.Models.Utilities;
@@ -19,13 +20,18 @@ namespace TopAutoSpot.Views.VehiclePreview
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Auctions == null)
+            if (id == null || _context.Auctions.Count() == 0)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            Auction? auction = _context.Auctions.FirstOrDefault(b => b.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            Auction? auction = _context.Auctions
+                .AsNoTracking()
+                .FirstOrDefault(b => b.Id == id);
+
+            User foundUser = _context.Users
+                .AsNoTracking()
+                .First(u => u.UserName == User.Identity.Name);
 
             if (auction == null)
             {
@@ -46,6 +52,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public string GetOwnerFullName()
         {
             User foundUser = _context.Users
+                .AsNoTracking()
                 .First(u => u.Id == Auction.AuctioneerId);
 
             return foundUser.FirstName + " " + foundUser.LastName;
@@ -54,6 +61,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         public string GetImage()
         {
             byte[] data = _context.VehicleImages
+                .AsNoTracking()
                 .Where(img => img.VehicleId == Auction.VehicleId)
                 .First()
                 .ImageData;
