@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
+using TopAutoSpot.Data.Models;
 
 namespace TopAutoSpot.Views.AuctionViews
 {
@@ -16,7 +17,7 @@ namespace TopAutoSpot.Views.AuctionViews
 
         public IActionResult OnGet(string id)
         {
-            Models.Auction? foundAuction = _context.Auctions.FirstOrDefault(a => a.Id == id);
+            Auction? foundAuction = _context.Auctions.FirstOrDefault(a => a.Id == id);
 
             if (foundAuction == null)
             {
@@ -28,7 +29,7 @@ namespace TopAutoSpot.Views.AuctionViews
                 return RedirectToPage("/AuctionViews/Index");
             }
 
-            Models.User? foundUser = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            User? foundUser = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
 
             if (foundUser == null)
             {

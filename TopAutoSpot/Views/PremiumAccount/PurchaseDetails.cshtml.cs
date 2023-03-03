@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Models;
-using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Data.Models;
+using TopAutoSpot.Data.Models.Enums;
 using TopAutoSpot.Services.PaymentServices;
 
 namespace TopAutoSpot.Views.PremiumAccount

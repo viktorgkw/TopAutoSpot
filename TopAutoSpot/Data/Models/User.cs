@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace TopAutoSpot.Models
+namespace TopAutoSpot.Data.Models
 {
     public class User : IdentityUser
     {

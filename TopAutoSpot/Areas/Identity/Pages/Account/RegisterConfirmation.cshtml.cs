@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
-using TopAutoSpot.Models;
+using TopAutoSpot.Data.Models;
 using TopAutoSpot.Services.EmailService;
 using TopAutoSpot.Views.Utilities;
 

@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using TopAutoSpot.Models;
-using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Data.Models;
+using TopAutoSpot.Data.Models.Enums;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account
 {

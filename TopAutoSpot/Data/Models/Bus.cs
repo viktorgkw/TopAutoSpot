@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TopAutoSpot.Models
+namespace TopAutoSpot.Data.Models
 {
-    public class Car
+    public class Bus
     {
         [Key]
         public string Id { get; set; }
@@ -20,6 +20,9 @@ namespace TopAutoSpot.Models
         public string Transmission { get; set; }
         public string EngineType { get; set; }
         public string EuroStandart { get; set; }
+        public int AxlesCount { get; set; }
+        public int SeatsCount { get; set; }
+        public double LoadCapacity { get; set; }
         public string Status { get; set; }
     }
 }

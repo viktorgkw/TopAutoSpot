@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
+using TopAutoSpot.Data.Models;
 
 namespace TopAutoSpot.Views.InterestedIn
 {
@@ -22,10 +23,10 @@ namespace TopAutoSpot.Views.InterestedIn
                 return RedirectToPage("/NotFound");
             }
 
-            Models.User currentUser = _context.Users
+            User currentUser = _context.Users
                 .First(u => u.UserName == User.Identity.Name);
 
-            Models.InterestedListing? foundInterestedListing = _context.InterestedInListings
+            InterestedListing? foundInterestedListing = _context.InterestedInListings
                 .FirstOrDefault(l => l.VehicleId == vehicleId);
 
             if (foundInterestedListing == null)

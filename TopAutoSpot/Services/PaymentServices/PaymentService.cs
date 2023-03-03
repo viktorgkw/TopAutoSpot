@@ -1,5 +1,5 @@
 ﻿using Stripe;
-using TopAutoSpot.Models;
+using TopAutoSpot.Data.Models;
 
 namespace TopAutoSpot.Services.PaymentServices
 {

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
+using TopAutoSpot.Data.Models;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account
 {
@@ -14,7 +15,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
         }
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            Models.User foundUser = await _context.Users.FirstAsync(u => u.Id == id);
+            User foundUser = await _context.Users.FirstAsync(u => u.Id == id);
 
             foundUser.EmailConfirmed = true;
             await _context.SaveChangesAsync();

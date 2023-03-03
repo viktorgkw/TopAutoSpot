@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Stripe;
 using TopAutoSpot.Data;
-using TopAutoSpot.Models;
+using TopAutoSpot.Data.Models;
 using TopAutoSpot.Services.AuctionServices;
 using TopAutoSpot.Services.EmailService;
 using TopAutoSpot.Services.NewsServices;

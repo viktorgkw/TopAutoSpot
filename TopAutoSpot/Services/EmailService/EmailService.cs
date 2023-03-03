@@ -2,7 +2,7 @@
 using MailKit.Security;
 using MimeKit;
 using MimeKit.Text;
-using TopAutoSpot.Models;
+using TopAutoSpot.Data.Models;
 
 namespace TopAutoSpot.Services.EmailService
 {

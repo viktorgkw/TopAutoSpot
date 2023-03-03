@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TopAutoSpot.Models
+namespace TopAutoSpot.Data.Models
 {
-    public class Truck
+    public class Car
     {
         [Key]
         public string Id { get; set; }
@@ -19,8 +19,6 @@ namespace TopAutoSpot.Models
         public double? Mileage { get; set; }
         public string Transmission { get; set; }
         public string EngineType { get; set; }
-        public int Payload { get; set; }
-        public int AxlesCount { get; set; }
         public string EuroStandart { get; set; }
         public string Status { get; set; }
     }

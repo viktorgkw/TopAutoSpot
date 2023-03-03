@@ -1,4 +1,4 @@
-﻿namespace TopAutoSpot.Models.Utilities
+﻿namespace TopAutoSpot.Data.Models.Enums
 {
     public enum ListingStatusTypes
     {

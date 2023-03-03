@@ -1,6 +1,6 @@
 ﻿using TopAutoSpot.Data;
-using TopAutoSpot.Models;
-using TopAutoSpot.Models.Utilities;
+using TopAutoSpot.Data.Models;
+using TopAutoSpot.Data.Models.Enums;
 using TopAutoSpot.Services.EmailService;
 using TopAutoSpot.Views.Utilities;
 
