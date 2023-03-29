@@ -4,7 +4,6 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-TopAutoSpot-21efad4c-114a-49d9-915d-0098fa2f6393</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
