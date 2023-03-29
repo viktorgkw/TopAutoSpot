@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopAutoSpot", "TopAutoSpot\TopAutoSpot.csproj", "{11B76A50-EE57-40A1-AF91-AE75829AE059}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopAutoSpot.Tests", "TopAutoSpot.Tests\TopAutoSpot.Tests.csproj", "{95A993F3-0A04-40CF-9CA5-03371AE4EBCB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopAutoSpot.Tests", "TopAutoSpot.Tests\TopAutoSpot.Tests.csproj", "{744CFFDC-22CD-44D6-8A30-A12356766BE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{11B76A50-EE57-40A1-AF91-AE75829AE059}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11B76A50-EE57-40A1-AF91-AE75829AE059}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11B76A50-EE57-40A1-AF91-AE75829AE059}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95A993F3-0A04-40CF-9CA5-03371AE4EBCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95A993F3-0A04-40CF-9CA5-03371AE4EBCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95A993F3-0A04-40CF-9CA5-03371AE4EBCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95A993F3-0A04-40CF-9CA5-03371AE4EBCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{744CFFDC-22CD-44D6-8A30-A12356766BE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{744CFFDC-22CD-44D6-8A30-A12356766BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{744CFFDC-22CD-44D6-8A30-A12356766BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{744CFFDC-22CD-44D6-8A30-A12356766BE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

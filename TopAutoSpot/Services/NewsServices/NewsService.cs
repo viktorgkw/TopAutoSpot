@@ -1,12 +1,13 @@
-﻿using NewsAPI;
-using NewsAPI.Constants;
-using NewsAPI.Models;
-
-namespace TopAutoSpot.Services.NewsServices
+﻿namespace TopAutoSpot.Services.NewsServices
 {
+    using NewsAPI;
+    using NewsAPI.Constants;
+    using NewsAPI.Models;
+
     public class NewsService : INewsService
     {
         private readonly IConfiguration _configuration;
+
         public NewsService(IConfiguration configuration)
         {
             _configuration = configuration;

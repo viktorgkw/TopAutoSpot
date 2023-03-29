@@ -20,13 +20,13 @@ namespace TopAutoSpot.Views.AdministratorViews
         [BindProperty]
         public List<Auction> Auctions { get; set; }
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             if (User.IsInRole("Administrator"))
             {
-                Auctions = _context.Auctions
+                Auctions = await _context.Auctions
                     .AsNoTracking()
-                    .ToList();
+                    .ToListAsync();
 
                 return Page();
             }
