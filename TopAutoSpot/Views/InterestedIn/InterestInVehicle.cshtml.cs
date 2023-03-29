@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
 
@@ -23,10 +25,10 @@ namespace TopAutoSpot.Views.InterestedIn
                 return RedirectToPage("/NotFound");
             }
 
-            User currentUser = _context.Users
-                .First(u => u.UserName == User.Identity.Name);
+            User currentUser = await _context.Users
+                .FirstAsync(u => u.UserName == User.Identity.Name);
 
-            _context.InterestedInListings.Add(new InterestedListing()
+            await _context.InterestedInListings.AddAsync(new InterestedListing()
             {
                 Id = Guid.NewGuid().ToString(),
                 UserId = currentUser.Id,
@@ -34,7 +36,7 @@ namespace TopAutoSpot.Views.InterestedIn
                 VehicleCategory = vehicleCategory
             });
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

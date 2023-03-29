@@ -9,7 +9,7 @@ namespace TopAutoSpot.Services.AuctionServices
     public class AuctionService : IAuctionService
     {
         private ApplicationDbContext _context;
-        private IEmailService _emailService;
+        private readonly IEmailService _emailService;
         public AuctionService(ApplicationDbContext context, IEmailService emailSerice)
         {
             _context = context;

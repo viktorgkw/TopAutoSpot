@@ -56,7 +56,8 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
             {
                 return RedirectToPage("/Index");
             }
-            Motorcycle? motorcycle = _context.Motorcycles.Find(id);
+
+            Motorcycle? motorcycle = await _context.Motorcycles.FindAsync(id);
 
             if (motorcycle != null)
             {
@@ -64,7 +65,7 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
 
                 Motorcycle = motorcycle;
                 _context.Motorcycles.Remove(Motorcycle);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
 
             return RedirectToPage("/MyVehicles/Index");
