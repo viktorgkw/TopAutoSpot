@@ -2,14 +2,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TopAutoSpot.Views.AdministratorViews.Utilities
+namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 {
     [Authorize]
     public class RefuseVehicleReasonModel : PageModel
     {
         [BindProperty]
-        public string Reason { get; set; }
-        public string VehicleId { get; set; }
+        public string Reason { get; set; } = null!;
+
+        public string VehicleId { get; set; } = null!;
 
         public IActionResult OnGet(string vehicleId)
         {

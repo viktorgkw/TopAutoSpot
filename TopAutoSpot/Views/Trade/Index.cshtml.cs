@@ -13,22 +13,30 @@ namespace TopAutoSpot.Views.Trade
     [Authorize]
     public class IndexModel : PageModel
     {
-        public ApplicationDbContext _context;
-        private INewsService _newsService;
+        private readonly ApplicationDbContext _context;
+
+        private readonly INewsService _newsService;
+
         public IndexModel(ApplicationDbContext db, INewsService newsService)
         {
             _context = db;
             _newsService = newsService;
         }
 
-        public List<Article> News = new List<Article>();
+        public List<Article> News = new();
 
-        public List<Boat> Boats { get; private set; }
-        public List<Bus> Buses { get; private set; }
-        public List<Car> Cars { get; private set; }
-        public List<Motorcycle> Motorcycles { get; private set; }
-        public List<Trailer> Trailers { get; private set; }
-        public List<Truck> Trucks { get; private set; }
+        public List<Boat> Boats { get; private set; } = null!;
+
+        public List<Bus> Buses { get; private set; } = null!;
+
+        public List<Car> Cars { get; private set; } = null!;
+
+        public List<Motorcycle> Motorcycles { get; private set; } = null!;
+
+        public List<Trailer> Trailers { get; private set; } = null!;
+
+        public List<Truck> Trucks { get; private set; } = null!;
+
         public int OverallCount { get; private set; }
 
         public async Task<IActionResult> OnGetAsync()

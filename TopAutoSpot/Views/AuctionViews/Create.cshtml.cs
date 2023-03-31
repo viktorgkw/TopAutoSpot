@@ -19,7 +19,7 @@ namespace TopAutoSpot.Views.AuctionViews
 
         public IActionResult OnGet()
         {
-            string currentUserId = UserServices.GetCurrentUser(_context, User.Identity.Name);
+            string currentUserId = UserServices.GetCurrentUser(_context, User.Identity!.Name!);
             CurrentUserVehicles = UserServices.GetUserVehicles(_context, currentUserId);
 
             if (CurrentUserVehicles.Count == 0)
@@ -41,7 +41,7 @@ namespace TopAutoSpot.Views.AuctionViews
                 return RedirectToPage("/AuctionViews/Index");
             }
 
-            Auction.AuctioneerId = UserServices.GetCurrentUser(_context, User.Identity.Name);
+            Auction.AuctioneerId = UserServices.GetCurrentUser(_context, User.Identity!.Name!);
             Auction.VehicleId = UserServices.GetVehicleIdByTitle(_context, Auction.VehicleId);
 
             if (Auction.VehicleId == "")
@@ -49,7 +49,7 @@ namespace TopAutoSpot.Views.AuctionViews
                 return RedirectToPage("/NotFound");
             }
 
-            if (!ModelState.IsValid || _context.Auctions.Count() == 0 || Auction == null)
+            if (!ModelState.IsValid || !_context.Auctions.Any() || Auction == null)
             {
                 return RedirectToPage("/NotFound");
             }

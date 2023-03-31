@@ -2,16 +2,18 @@ using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Stripe;
+
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
 using TopAutoSpot.Services.AuctionServices;
-using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Services.EmailServices;
 using TopAutoSpot.Services.NewsServices;
 using TopAutoSpot.Services.PaymentServices;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+    throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 // Database Configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -91,3 +93,6 @@ RecurringJob.AddOrUpdate<IAuctionService>(s => s.DailyCheckAndRemind(), Cron.Dai
 RecurringJob.AddOrUpdate<IAuctionService>(s => s.StartingAuctionsCheck(), Cron.Minutely);
 
 app.Run();
+
+// Added for testing
+public partial class Program { }

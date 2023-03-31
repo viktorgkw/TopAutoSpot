@@ -10,18 +10,24 @@ namespace TopAutoSpot.Views.AdministratorViews
     [Authorize]
     public class ManageListingsModel : PageModel
     {
-        public ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+
         public ManageListingsModel(ApplicationDbContext db)
         {
             _context = db;
         }
 
-        public List<Boat> Boats { get; private set; }
-        public List<Bus> Buses { get; private set; }
-        public List<Car> Cars { get; private set; }
-        public List<Motorcycle> Motorcycles { get; private set; }
-        public List<Trailer> Trailers { get; private set; }
-        public List<Truck> Trucks { get; private set; }
+        public List<Boat> Boats { get; private set; } = null!;
+
+        public List<Bus> Buses { get; private set; } = null!;
+
+        public List<Car> Cars { get; private set; } = null!;
+
+        public List<Motorcycle> Motorcycles { get; private set; } = null!;
+
+        public List<Trailer> Trailers { get; private set; } = null!;
+
+        public List<Truck> Trucks { get; private set; } = null!;
 
         public int OverallCount { get; private set; }
 

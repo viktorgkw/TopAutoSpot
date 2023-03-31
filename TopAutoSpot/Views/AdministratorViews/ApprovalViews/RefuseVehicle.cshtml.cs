@@ -4,16 +4,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
 using TopAutoSpot.Data.Models.Enums;
-using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Services.Common;
+using TopAutoSpot.Services.EmailServices;
 using TopAutoSpot.Views.Utilities;
 
-namespace TopAutoSpot.Views.AdministratorViews.Utilities
+namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 {
     [Authorize]
     public class RefuseVehicleModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private IEmailService _emailService;
+        private readonly ApplicationDbContext _context;
+
+        private readonly IEmailService _emailService;
 
         public RefuseVehicleModel(ApplicationDbContext context, IEmailService emailService)
         {
@@ -22,7 +24,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
         }
 
         [BindProperty]
-        public string VehicleId { get; set; }
+        public string VehicleId { get; set; } = null!;
 
         public IActionResult OnGet(string vehicleId, string reason)
         {
@@ -37,7 +39,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
                     string ownerId = UserServices.GetVehicleOwner(_context, VehicleId);
                     User owner = UserServices.GetUserById(_context, ownerId);
 
-                    string currentUserId = UserServices.GetCurrentUser(_context, User.Identity.Name);
+                    string currentUserId = UserServices.GetCurrentUser(_context, User.Identity!.Name!);
 
                     if (ownerId == "" || ownerId == null || currentUserId == null || currentUserId == "")
                     {
@@ -58,7 +60,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
 
                     _emailService.SendEmail(new EmailDto()
                     {
-                        To = owner.Email,
+                        To = owner.Email!,
                         Subject = DefaultNotificationMessages.LISTING_REFUSED_TITLE,
                         Body = reason
                     });
@@ -79,7 +81,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             if (_context.Cars.FirstOrDefault(c => c.Id == vehicleId) != null)
             {
                 _context.Cars
-                    .FirstOrDefault(c => c.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
+                    .First(c => c.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;
@@ -87,7 +89,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             else if (_context.Motorcycles.FirstOrDefault(m => m.Id == vehicleId) != null)
             {
                 _context.Motorcycles
-                    .FirstOrDefault(m => m.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
+                    .First(m => m.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;
@@ -95,7 +97,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             else if (_context.Trucks.FirstOrDefault(t => t.Id == vehicleId) != null)
             {
                 _context.Trucks
-                    .FirstOrDefault(t => t.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
+                    .First(t => t.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;
@@ -103,7 +105,7 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             else if (_context.Trailers.FirstOrDefault(t => t.Id == vehicleId) != null)
             {
                 _context.Trailers
-                    .FirstOrDefault(t => t.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
+                    .First(t => t.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;
@@ -111,14 +113,14 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
             else if (_context.Buses.FirstOrDefault(b => b.Id == vehicleId) != null)
             {
                 _context.Buses
-                    .FirstOrDefault(b => b.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
+                    .First(b => b.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;
             }
             else if (_context.Boats.FirstOrDefault(b => b.Id == vehicleId) != null)
             {
-                _context.Boats.FirstOrDefault(b => b.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
+                _context.Boats.First(b => b.Id == vehicleId).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;

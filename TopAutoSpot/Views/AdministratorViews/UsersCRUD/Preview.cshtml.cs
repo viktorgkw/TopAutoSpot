@@ -18,7 +18,7 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
         }
 
         [BindProperty]
-        public User PreviewedUser { get; set; }
+        public User PreviewedUser { get; set; } = null!;
 
         public IActionResult OnGet(string userId)
         {

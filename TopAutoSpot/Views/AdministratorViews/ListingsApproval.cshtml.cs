@@ -11,7 +11,7 @@ namespace TopAutoSpot.Views.AdministratorViews
     [Authorize]
     public class ListingsApprovalModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public ListingsApprovalModel(ApplicationDbContext context)
         {
@@ -19,12 +19,18 @@ namespace TopAutoSpot.Views.AdministratorViews
         }
 
         public int OverallCount { get; private set; }
-        public List<Car> Cars { get; set; }
-        public List<Motorcycle> Motorcycles { get; set; }
-        public List<Truck> Trucks { get; set; }
-        public List<Trailer> Trailers { get; set; }
-        public List<Boat> Boats { get; set; }
-        public List<Bus> Buses { get; set; }
+
+        public List<Car> Cars { get; set; } = null!;
+
+        public List<Motorcycle> Motorcycles { get; set; } = null!;
+
+        public List<Truck> Trucks { get; set; } = null!;
+
+        public List<Trailer> Trailers { get; set; } = null!;
+
+        public List<Boat> Boats { get; set; } = null!;
+
+        public List<Bus> Buses { get; set; } = null!;
 
         public IActionResult OnGet()
         {

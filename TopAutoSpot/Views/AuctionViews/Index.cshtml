@@ -83,7 +83,7 @@ else
                             <p class="fs-4 fw-bold website-text-nohover">Starting Price: $@auction.StartingPrice</p>
                         </a>
 
-                        @if (!auction.Bidders.Any(b => b.UserName == Model.CurrentUser.UserName))
+                        @if (!auction.Bidders!.Any(b => b.UserName == Model.CurrentUser.UserName))
                         {
                             <div>
                                 <a class="btn btn-warning text-light fw-bold" asp-page="/AuctionViews/Join" asp-route-id="@auction.Id">Join</a>
@@ -96,7 +96,7 @@ else
     </div>
 }
 
-@if (User.IsInRole(RoleTypes.User.ToString()) || !User.Identity.IsAuthenticated)
+@if (User.IsInRole(RoleTypes.User.ToString()) || !User.Identity!.IsAuthenticated)
 {
     <div class="mt-5">
         <h1 class="website-text-nohover fw-bold">News</h1>

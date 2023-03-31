@@ -17,11 +17,11 @@ namespace TopAutoSpot.Views.VehiclePreview
         }
 
         public Motorcycle Motorcycle { get; set; } = default!;
-        public List<VehicleImage> Images { get; set; }
+        public List<VehicleImage> Images { get; set; } = null!;
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Motorcycles.Count() == 0)
+            if (id == null || !_context.Motorcycles.Any())
             {
                 return RedirectToPage("/NotFound");
             }
@@ -32,7 +32,7 @@ namespace TopAutoSpot.Views.VehiclePreview
 
             User foundUser = _context.Users
                 .AsNoTracking()
-                .First(u => u.UserName == User.Identity.Name);
+                .First(u => u.UserName == User.Identity!.Name);
 
             if (moto == null)
             {
@@ -61,7 +61,7 @@ namespace TopAutoSpot.Views.VehiclePreview
                 .AsNoTracking()
                 .First(u => u.Id == Motorcycle.CreatedBy);
 
-            return foundUser.PhoneNumber;
+            return foundUser.PhoneNumber!;
         }
 
         public string GetOwnerFullName()

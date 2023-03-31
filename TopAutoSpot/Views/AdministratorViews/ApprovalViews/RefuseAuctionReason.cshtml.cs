@@ -8,10 +8,10 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
     public class RefuseAuctionReasonModel : PageModel
     {
         [BindProperty]
-        public string Reason { get; set; }
+        public string Reason { get; set; } = null!;
 
         [BindProperty]
-        public string AuctionId { get; set; }
+        public string AuctionId { get; set; } = null!;
 
         public IActionResult OnGet(string auctionId)
         {

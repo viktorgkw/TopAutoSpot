@@ -5,15 +5,15 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using TopAutoSpot.Data.Models;
-using TopAutoSpot.Services.EmailService;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.Common;
+using TopAutoSpot.Services.EmailServices;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
 {
     public class DeletePersonalDataModel : PageModel
     {
         private readonly UserManager<User> _userManager;
-        private IEmailService _emailService;
+        private readonly IEmailService _emailService;
 
         public DeletePersonalDataModel(
             UserManager<User> userManager,
@@ -24,13 +24,13 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input { get; set; } = null!;
 
         public class InputModel
         {
             [Required]
             [DataType(DataType.Password)]
-            public string Password { get; set; }
+            public string Password { get; set; } = null!;
         }
 
         public bool RequirePassword { get; set; }
@@ -67,9 +67,6 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
 
             string userId = await _userManager.GetUserIdAsync(user);
 
-            string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-
             string? callbackUrl = Url.Page(
                 "/Account/Manage/DeletePersonalDataConfirmation",
                 pageHandler: null,
@@ -78,7 +75,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
 
             _emailService.SendEmail(new EmailDto()
             {
-                To = user.Email,
+                To = user.Email!,
                 Subject = DefaultNotificationMessages.ACCOUNT_DELETE_CONFIRMATION_TITLE,
                 Body = string.Format(DefaultNotificationMessages.ACCOUNT_DELETE_CONFIRMATION_DESCRIPTION, callbackUrl)
             });

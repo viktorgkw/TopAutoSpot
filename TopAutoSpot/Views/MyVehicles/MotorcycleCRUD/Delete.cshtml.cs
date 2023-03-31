@@ -18,17 +18,17 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
 
         [BindProperty]
         public Motorcycle Motorcycle { get; set; } = default!;
-        public List<VehicleImage> Images { get; set; }
+        public List<VehicleImage> Images { get; set; } = null!;
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Motorcycles.Count() == 0)
+            if (id == null || !_context.Motorcycles.Any())
             {
                 return RedirectToPage("/NotFound");
             }
 
             Motorcycle? motorcycle = _context.Motorcycles.FirstOrDefault(m => m.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity!.Name);
 
             if (motorcycle == null)
             {
@@ -52,7 +52,7 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
 
         public async Task<IActionResult> OnPost(string id)
         {
-            if (id == null || _context.Motorcycles.Count() == 0)
+            if (id == null || !_context.Motorcycles.Any())
             {
                 return RedirectToPage("/Index");
             }

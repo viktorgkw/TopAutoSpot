@@ -37,7 +37,7 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
                 return RedirectToPage("/NotFound");
             }
 
-            Car.CreatedBy = _context.Users.First(u => u.UserName == User.Identity.Name).Id;
+            Car.CreatedBy = _context.Users.First(u => u.UserName == User.Identity!.Name).Id;
             _context.Cars.Add(Car);
             _context.SaveChanges();
 

@@ -5,7 +5,7 @@
     ViewData["Title"] = "Log in";
 }
 
-@if (!User.Identity.IsAuthenticated)
+@if (!User.Identity!.IsAuthenticated)
 {
     <div class="row">
         <div class="col-md-4 mx-auto mb-5 mt-5">

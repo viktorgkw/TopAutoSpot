@@ -10,7 +10,7 @@ namespace TopAutoSpot.Views.AdministratorViews
     [Authorize]
     public class ManageUsersModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public ManageUsersModel(ApplicationDbContext context)
         {
@@ -18,7 +18,7 @@ namespace TopAutoSpot.Views.AdministratorViews
         }
 
         [BindProperty]
-        public List<User> Users { get; set; }
+        public List<User> Users { get; set; } = null!;
 
         public IActionResult OnGet()
         {

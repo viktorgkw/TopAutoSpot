@@ -2,11 +2,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
-using System.Text;
 using TopAutoSpot.Data.Models;
-using TopAutoSpot.Services.EmailService;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.Common;
+using TopAutoSpot.Services.EmailServices;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account
 {
@@ -22,16 +20,14 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
             _emailService = emailService;
         }
 
-        public string EmailConfirmationUrl { get; set; }
+        public string EmailConfirmationUrl { get; set; } = null!;
 
-        public async Task<IActionResult> OnGetAsync(string id, string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
                 return RedirectToPage("/Index");
             }
-
-            returnUrl = returnUrl ?? Url.Content("~/");
 
             User? user = await _userManager.FindByIdAsync(id);
             if (user == null || user.Email == null)
@@ -41,13 +37,11 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
 
             string userId = await _userManager.GetUserIdAsync(user);
 
-            string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             EmailConfirmationUrl = Url.Page(
                 "/Account/ConfirmEmail",
                 pageHandler: null,
                 values: new { area = "Identity", id = userId },
-                protocol: Request.Scheme);
+                protocol: Request.Scheme)!;
 
             _emailService.SendEmail(new EmailDto()
             {

@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
 using TopAutoSpot.Data.Models.Enums;
-using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Services.Common;
+using TopAutoSpot.Services.EmailServices;
 using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
@@ -12,8 +13,9 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
     [Authorize]
     public class RefuseAuctionModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private IEmailService _emailService;
+        private readonly ApplicationDbContext _context;
+
+        private readonly IEmailService _emailService;
 
         public RefuseAuctionModel(ApplicationDbContext context, IEmailService emailService)
         {
@@ -22,7 +24,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
         }
 
         [BindProperty]
-        public string AuctionId { get; set; }
+        public string AuctionId { get; set; } = null!;
 
         public IActionResult OnGet(string auctionId, string reason)
         {
@@ -37,7 +39,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
                     string ownerId = UserServices.GetAuctionOwner(_context, AuctionId);
                     User owner = UserServices.GetUserById(_context, ownerId);
 
-                    string currentUserId = UserServices.GetCurrentUser(_context, User.Identity.Name);
+                    string currentUserId = UserServices.GetCurrentUser(_context, User.Identity!.Name!);
 
                     if (ownerId == "" || ownerId == null || currentUserId == null || currentUserId == "")
                     {
@@ -58,7 +60,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 
                     _emailService.SendEmail(new EmailDto()
                     {
-                        To = owner.Email,
+                        To = owner.Email!,
                         Subject = DefaultNotificationMessages.AUCTION_REFUSED_TITLE,
                         Body = reason
                     });
