@@ -9,7 +9,8 @@ namespace TopAutoSpot.Views.Notifications
     [Authorize]
     public class NotificationRemovedModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+
         public NotificationRemovedModel(ApplicationDbContext context)
         {
             _context = context;
@@ -22,7 +23,7 @@ namespace TopAutoSpot.Views.Notifications
                 return RedirectToPage("/NotFound");
             }
 
-            bool result = NotificationServices.RemoveNotification(_context, id, User.Identity.Name);
+            bool result = NotificationServices.RemoveNotification(_context, id, User.Identity!.Name!);
 
             if (result == false)
             {

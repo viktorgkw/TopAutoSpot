@@ -9,7 +9,7 @@ namespace TopAutoSpot.Views.InterestedIn
     [Authorize]
     public class RemoveInterestModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public RemoveInterestModel(ApplicationDbContext context)
         {
@@ -24,7 +24,7 @@ namespace TopAutoSpot.Views.InterestedIn
             }
 
             User currentUser = _context.Users
-                .First(u => u.UserName == User.Identity.Name);
+                .First(u => u.UserName == User.Identity!.Name);
 
             InterestedListing? foundInterestedListing = _context.InterestedInListings
                 .FirstOrDefault(l => l.VehicleId == vehicleId);

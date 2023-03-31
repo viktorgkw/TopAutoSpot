@@ -13,31 +13,37 @@ namespace TopAutoSpot.Views.AuctionViews
     [Authorize]
     public class IndexModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private INewsService _newsService;
+        private readonly ApplicationDbContext _context;
+
+        private readonly INewsService _newsService;
+
         public IndexModel(ApplicationDbContext context, INewsService newsService)
         {
             _context = context;
             _newsService = newsService;
         }
 
-        public User CurrentUser { get; set; }
-        public List<Auction> StartingSoonAuctionsForCurrentUser = new List<Auction>();
-        public List<Auction> ActiveAuctions = new List<Auction>();
-        public List<Article> News = new List<Article>();
+        public User CurrentUser { get; set; } = null!;
+
+        public List<Auction> StartingSoonAuctionsForCurrentUser = new();
+
+        public List<Auction> ActiveAuctions = new();
+
+        public List<Article> News = new();
+
         public int OverallAuctions { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
             CurrentUser = _context.Users
                 .AsNoTracking()
-                .First(u => u.UserName == User.Identity.Name);
+                .First(u => u.UserName == User.Identity!.Name);
 
             News = await _newsService.GetNews(3);
 
             StartingSoonAuctionsForCurrentUser = _context.Auctions
                 .AsNoTracking()
-                .Where(a => a.Bidders.Any(b => b.UserName == CurrentUser.UserName))
+                .Where(a => a.Bidders!.Any(b => b.UserName == CurrentUser.UserName))
                 .Where(a => a.Status == AuctionStatusTypes.StartingSoon.ToString() ||
                             a.Status == AuctionStatusTypes.InProgress.ToString())
                 .ToList();

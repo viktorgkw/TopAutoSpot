@@ -13,8 +13,9 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
     [Authorize]
     public class CloseModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private IEmailService _emailService;
+        private readonly ApplicationDbContext _context;
+
+        private readonly IEmailService _emailService;
 
         public CloseModel(ApplicationDbContext context, IEmailService emailService)
         {
@@ -23,7 +24,7 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
         }
 
         [BindProperty]
-        public Auction AuctionToClose { get; set; }
+        public Auction AuctionToClose { get; set; } = null!;
 
         public IActionResult OnGet(string id)
         {
@@ -32,8 +33,8 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
                 _context.Auctions.First(u => u.Id == id).Status = AuctionStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
-                User owner = UserServices.GetUserById(_context, AuctionToClose.AuctioneerId);
-                string currentUser = UserServices.GetCurrentUser(_context, User.Identity.Name);
+                User owner = UserServices.GetUserById(_context, AuctionToClose.AuctioneerId!);
+                string currentUser = UserServices.GetCurrentUser(_context, User.Identity!.Name!);
 
                 NotificationServices.Send(_context,
                     currentUser,
@@ -43,7 +44,7 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
 
                 _emailService.SendEmail(new EmailDto()
                 {
-                    To = owner.Email,
+                    To = owner.Email!,
                     Subject = DefaultNotificationMessages.AUCTION_CLOSED_TITLE,
                     Body = DefaultNotificationMessages.AUCTION_CLOSED_DESCRIPTION
                 });

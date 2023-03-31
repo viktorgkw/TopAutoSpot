@@ -10,18 +10,18 @@ namespace TopAutoSpot.Views.Notifications
     [Authorize]
     public class IndexModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public List<Notification> Notifications { get; set; }
+        public List<Notification> Notifications { get; set; } = null!;
 
         public IActionResult OnGet()
         {
-            User currentUser = UserServices.GetUserByName(_context, User.Identity.Name);
+            User currentUser = UserServices.GetUserByName(_context, User.Identity!.Name!);
 
             Notifications = NotificationServices.GetAll(_context, currentUser.Id);
 
@@ -30,7 +30,7 @@ namespace TopAutoSpot.Views.Notifications
 
         public string GetNotificationSender(string senderId)
         {
-            return NotificationServices.GetFromUsername(_context, senderId);
+            return NotificationServices.GetFromUsername(_context, senderId)!;
         }
     }
 }

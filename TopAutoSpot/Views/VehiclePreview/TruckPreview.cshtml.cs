@@ -17,7 +17,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         }
 
         public Truck Truck { get; set; } = default!;
-        public List<VehicleImage> Images { get; set; }
+        public List<VehicleImage> Images { get; set; } = null!;
 
         public IActionResult OnGet(string id)
         {
@@ -32,7 +32,7 @@ namespace TopAutoSpot.Views.VehiclePreview
 
             User foundUser = _context.Users
                 .AsNoTracking()
-                .First(u => u.UserName == User.Identity.Name);
+                .First(u => u.UserName == User.Identity!.Name);
 
             if (truck == null)
             {
@@ -62,7 +62,7 @@ namespace TopAutoSpot.Views.VehiclePreview
                 .AsNoTracking()
                 .First(u => u.Id == Truck.CreatedBy);
 
-            return foundUser.PhoneNumber;
+            return foundUser.PhoneNumber!;
         }
 
         public string GetOwnerFullName()

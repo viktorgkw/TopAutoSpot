@@ -29,7 +29,7 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
             }
 
             Car? car = _context.Cars.FirstOrDefault(m => m.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity!.Name);
 
             if (car == null)
             {

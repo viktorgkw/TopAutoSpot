@@ -10,7 +10,7 @@ namespace TopAutoSpot.Views.AdministratorViews
     [Authorize]
     public class ManageAuctionsModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public ManageAuctionsModel(ApplicationDbContext context)
         {
@@ -18,7 +18,7 @@ namespace TopAutoSpot.Views.AdministratorViews
         }
 
         [BindProperty]
-        public List<Auction> Auctions { get; set; }
+        public List<Auction> Auctions { get; set; } = null!;
 
         public async Task<IActionResult> OnGetAsync()
         {

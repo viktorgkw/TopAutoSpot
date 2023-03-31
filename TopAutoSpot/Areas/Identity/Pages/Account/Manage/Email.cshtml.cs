@@ -13,7 +13,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
     public class EmailModel : PageModel
     {
         private readonly UserManager<User> _userManager;
-        private IEmailService _emailService;
+        private readonly IEmailService _emailService;
 
         public EmailModel(
             UserManager<User> userManager,
@@ -23,34 +23,37 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
             _emailService = emailService;
         }
 
-        public string Email { get; set; }
+        public string Email { get; set; } = null!;
 
         public bool IsEmailConfirmed { get; set; }
 
         [TempData]
-        public string StatusMessage { get; set; }
+        public string StatusMessage { get; set; } = null!;
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input { get; set; } = null!;
 
         public class InputModel
         {
             [Required]
             [EmailAddress]
             [Display(Name = "New email")]
-            public string NewEmail { get; set; }
+            public string NewEmail { get; set; } = null!;
         }
 
         private async Task LoadAsync(User user)
         {
             string? email = await _userManager.GetEmailAsync(user);
-            Email = email;
+
+            Email = email!;
+
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
             User? user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -85,12 +88,12 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
                 string? callbackUrl = Url.Page(
                     "/Account/ConfirmEmailChange",
                     pageHandler: null,
-                    values: new { area = "Identity", userId = userId, email = Input.NewEmail, code = code },
+                    values: new { area = "Identity", userId, email = Input.NewEmail, code },
                     protocol: Request.Scheme);
 
                 _emailService.SendEmail(new EmailDto()
                 {
-                    To = email,
+                    To = email!,
                     Subject = DefaultNotificationMessages.CHANGE_EMAIL_CONFIRMATION_TITLE,
                     Body = string.Format(DefaultNotificationMessages.CHANGE_EMAIL_CONFIRMATION_DESCRIPTION,
                         callbackUrl)
@@ -127,12 +130,12 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
             string? callbackUrl = Url.Page(
                 "/Account/ConfirmEmail",
                 pageHandler: null,
-                values: new { area = "Identity", userId = userId, code = code },
+                values: new { area = "Identity", userId, code },
                 protocol: Request.Scheme);
 
             _emailService.SendEmail(new EmailDto()
             {
-                To = email,
+                To = email!,
                 Subject = DefaultNotificationMessages.CHANGE_EMAIL_CONFIRMATION_TITLE,
                 Body = string.Format(DefaultNotificationMessages.CHANGE_EMAIL_CONFIRMATION_DESCRIPTION,
                         callbackUrl)

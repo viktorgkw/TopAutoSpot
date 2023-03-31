@@ -2,11 +2,11 @@
 {
     public enum AuctionStatusTypes
     {
-        WaitingApproval,
-        Active,
-        StartingSoon,
-        InProgress,
-        Ended,
-        Closed
+        WaitingApproval = 0,
+        Active = 1,
+        StartingSoon = 2,
+        InProgress = 3,
+        Ended = 4,
+        Closed = 5,
     }
 }

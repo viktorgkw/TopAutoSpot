@@ -13,23 +13,26 @@ namespace TopAutoSpot.Views.AuctionViews
     [Authorize]
     public class JoinedAuctionsModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private INewsService _newsService;
+        private readonly ApplicationDbContext _context;
+
+        private readonly INewsService _newsService;
+
         public JoinedAuctionsModel(ApplicationDbContext context, INewsService newsService)
         {
             _context = context;
             _newsService = newsService;
         }
 
-        public List<Article> News { get; set; }
-        public List<Auction> Auctions { get; set; }
+        public List<Article> News { get; set; } = null!;
+
+        public List<Auction> Auctions { get; set; } = null!;
 
         public async Task<IActionResult> OnGetAsync()
         {
             News = await _newsService.GetNews(3);
             Auctions = _context.Auctions
                 .AsNoTracking()
-                .Where(a => a.Bidders.Any(b => b.UserName == User.Identity.Name))
+                .Where(a => a.Bidders!.Any(b => b.UserName == User.Identity!.Name))
                 .Where(a => a.Status == AuctionStatusTypes.Active.ToString() ||
                             a.Status == AuctionStatusTypes.StartingSoon.ToString() ||
                             a.Status == AuctionStatusTypes.InProgress.ToString())

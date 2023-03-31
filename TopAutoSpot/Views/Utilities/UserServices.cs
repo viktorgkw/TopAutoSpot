@@ -158,7 +158,7 @@ namespace TopAutoSpot.Views.Utilities
         {
             return _context.Auctions
                 .AsNoTracking()
-                .First(a => a.Id == auctionId).AuctioneerId;
+                .First(a => a.Id == auctionId).AuctioneerId!;
         }
     }
 }

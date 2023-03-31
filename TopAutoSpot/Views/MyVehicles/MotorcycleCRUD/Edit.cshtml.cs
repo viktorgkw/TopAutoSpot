@@ -29,7 +29,7 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
             }
 
             Motorcycle? motorcycle = _context.Motorcycles.FirstOrDefault(m => m.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity!.Name);
 
             if (motorcycle == null)
             {

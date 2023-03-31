@@ -74,7 +74,7 @@
 
 </div>
 
-@if (User.IsInRole(RoleTypes.User.ToString()) || !User.Identity.IsAuthenticated)
+@if (User.IsInRole(RoleTypes.User.ToString()) || !User.Identity!.IsAuthenticated)
 {
     <div class="mt-5">
         <h1 class="website-text-nohover fw-bold">News</h1>

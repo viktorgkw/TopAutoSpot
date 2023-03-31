@@ -15,11 +15,9 @@
 
         public async Task<List<Article>> GetNews(int returnNewsCount)
         {
-            NewsApiClient newsApiClient = new NewsApiClient(_configuration["NewsAPI:Key"]);
-            ArticlesResult articlesResponse = await newsApiClient.GetEverythingAsync(new EverythingRequest
-            {
-                Q = "Vehicles"
-            });
+            NewsApiClient newsApiClient = new(_configuration["NewsAPI:Key"]);
+            ArticlesResult articlesResponse = await newsApiClient
+                .GetEverythingAsync(new EverythingRequest { Q = "Vehicles" });
 
             if (articlesResponse.Status == Statuses.Ok)
             {
@@ -33,17 +31,17 @@
                 }
                 else
                 {
-                    return null;
+                    return new List<Article>();
                 }
             }
 
-            return null;
+            return new List<Article>();
         }
 
-        private List<Article> GetRandomArticles(ArticlesResult articlesResponse, int returnCount)
+        private static List<Article> GetRandomArticles(ArticlesResult articlesResponse, int returnCount)
         {
-            Dictionary<int, string> articlesTitles = new Dictionary<int, string>();
-            Random random = new Random();
+            Dictionary<int, string> articlesTitles = new();
+            Random random = new();
 
             while (articlesTitles.Count != returnCount)
             {
@@ -55,7 +53,7 @@
                 }
             }
 
-            List<Article> foundArticles = new List<Article>();
+            List<Article> foundArticles = new();
 
             foreach (KeyValuePair<int, string> articleTitle in articlesTitles)
             {

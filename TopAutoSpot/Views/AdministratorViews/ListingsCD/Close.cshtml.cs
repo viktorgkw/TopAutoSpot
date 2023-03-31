@@ -12,8 +12,8 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
     [Authorize]
     public class CloseModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private IEmailService _emailService;
+        private readonly ApplicationDbContext _context;
+        private readonly IEmailService _emailService;
 
         public CloseModel(ApplicationDbContext context, IEmailService emailService)
         {
@@ -35,7 +35,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
                 string ownerId = UserServices.GetVehicleOwner(_context, id);
                 User owner = UserServices.GetUserById(_context, ownerId);
 
-                string currentUserId = UserServices.GetCurrentUser(_context, User.Identity.Name);
+                string currentUserId = UserServices.GetCurrentUser(_context, User.Identity!.Name!);
 
                 bool sendResult = NotificationServices.Send(_context,
                     currentUserId,
@@ -50,7 +50,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
 
                 _emailService.SendEmail(new EmailDto()
                 {
-                    To = owner.Email,
+                    To = owner.Email!,
                     Subject = DefaultNotificationMessages.LISTING_CLOSED_TITLE,
                     Body = DefaultNotificationMessages.LISTING_CLOSED_DESCRIPTION
                 });
@@ -66,7 +66,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             if (_context.Cars.FirstOrDefault(c => c.Id == id) != null)
             {
                 _context.Cars
-                    .FirstOrDefault(c => c.Id == id).Status = ListingStatusTypes.Closed.ToString();
+                    .First(c => c.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;
@@ -74,7 +74,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             else if (_context.Motorcycles.FirstOrDefault(m => m.Id == id) != null)
             {
                 _context.Motorcycles
-                    .FirstOrDefault(m => m.Id == id).Status = ListingStatusTypes.Closed.ToString();
+                    .First(m => m.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;
@@ -82,7 +82,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             else if (_context.Trucks.FirstOrDefault(t => t.Id == id) != null)
             {
                 _context.Trucks
-                    .FirstOrDefault(t => t.Id == id).Status = ListingStatusTypes.Closed.ToString();
+                    .First(t => t.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;
@@ -90,7 +90,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             else if (_context.Trailers.FirstOrDefault(t => t.Id == id) != null)
             {
                 _context.Trailers
-                    .FirstOrDefault(t => t.Id == id).Status = ListingStatusTypes.Closed.ToString();
+                    .First(t => t.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;
@@ -98,14 +98,14 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             else if (_context.Buses.FirstOrDefault(b => b.Id == id) != null)
             {
                 _context.Buses
-                    .FirstOrDefault(b => b.Id == id).Status = ListingStatusTypes.Closed.ToString();
+                    .First(b => b.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;
             }
             else if (_context.Boats.FirstOrDefault(b => b.Id == id) != null)
             {
-                _context.Boats.FirstOrDefault(b => b.Id == id).Status = ListingStatusTypes.Closed.ToString();
+                _context.Boats.First(b => b.Id == id).Status = ListingStatusTypes.Closed.ToString();
                 _context.SaveChanges();
 
                 return true;

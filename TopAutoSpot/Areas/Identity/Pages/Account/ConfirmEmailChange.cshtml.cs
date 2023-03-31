@@ -19,7 +19,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
         }
 
         [TempData]
-        public string StatusMessage { get; set; }
+        public string StatusMessage { get; set; } = null!;
 
         public async Task<IActionResult> OnGetAsync(string userId, string email, string code)
         {
