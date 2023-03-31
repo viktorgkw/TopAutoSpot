@@ -1,7 +1,8 @@
-﻿namespace TopAutoSpot.Views.Utilities
+﻿namespace TopAutoSpot.Services.Common
 {
     public static class DefaultNotificationMessages
     {
+        // Listing
         public readonly static string LISTING_REFUSED_TITLE = "Your listing was refused!";
         public readonly static string LISTING_APPROVED_TITLE = "Your listing was approved!";
         public readonly static string LISTING_APPROVED_DESCRIPTION = "Your listing was approved! You can see it on the Vehicles Buy page at the specified Category! Note that each time you edit the listing, you have to wait for approval again!";
@@ -9,6 +10,8 @@
         public readonly static string LISTING_DELETED_DESCRIPTION = "You listing was deleted! We are sorry to inform you that the listing you had published is now deleted. Contact support for more details!";
         public readonly static string LISTING_CLOSED_TITLE = "Your listing was closed!";
         public readonly static string LISTING_CLOSED_DESCRIPTION = "You listing was closed! We are sorry to inform you that the listing you had published is now closed. Contact support for more details!";
+
+        // Account
         public readonly static string ACCOUNT_CLOSED_TITLE = "Your account was closed!";
         public readonly static string ACCOUNT_CLOSED_DESCRIPTION = "We are sorry to inform you that your account at (www.topautospotbulgaria.com) was closed! For further details please contact the support at YOUR_EMAIL !";
         public readonly static string ACCOUNT_EDITED_TITLE = "Your account was edited!";
@@ -21,6 +24,8 @@
         public readonly static string ACCOUNT_DELETE_CONFIRMATION_DESCRIPTION = "By clicking this link => {0} , you confirm that your account is going to be permanently deleted from www.topautospot.com's database!";
         public readonly static string ACCOUNT_DELETED_SUCCESSFULLY_TITLE = "Account deleted successfully!";
         public readonly static string ACCOUNT_DELETED_SUCCESSFULLY_DESCRIPTION = "You account was successfully deleted from our database! We no longer have any of your data!";
+
+        // Auction
         public readonly static string AUCTION_REFUSED_TITLE = "Your auction was refused!";
         public readonly static string AUCTION_APPROVED_TITLE = "Your auction was approved!";
         public readonly static string AUCTION_APPROVED_DESCRIPTION = "Your auction was approved! You can see it on the Vehicles Buy page at the specified Category! Note that each time you edit the auction, you have to wait for approval again!";

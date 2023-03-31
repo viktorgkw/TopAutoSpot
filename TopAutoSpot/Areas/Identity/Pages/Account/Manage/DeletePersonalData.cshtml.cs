@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using TopAutoSpot.Data.Models;
-using TopAutoSpot.Services.EmailService;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.Common;
+using TopAutoSpot.Services.EmailServices;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
 {

@@ -1,6 +1,6 @@
 ﻿using TopAutoSpot.Data.Models;
 
-namespace TopAutoSpot.Services.EmailService
+namespace TopAutoSpot.Services.EmailServices
 {
     public interface IEmailService
     {

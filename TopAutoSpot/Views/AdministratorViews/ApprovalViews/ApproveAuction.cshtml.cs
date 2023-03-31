@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
 using TopAutoSpot.Data.Models.Enums;
-using TopAutoSpot.Services.EmailService;
+using TopAutoSpot.Services.Common;
+using TopAutoSpot.Services.EmailServices;
 using TopAutoSpot.Views.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews

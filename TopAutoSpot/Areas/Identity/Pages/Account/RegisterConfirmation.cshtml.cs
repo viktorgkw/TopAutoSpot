@@ -2,11 +2,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
-using System.Text;
 using TopAutoSpot.Data.Models;
-using TopAutoSpot.Services.EmailService;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.Common;
+using TopAutoSpot.Services.EmailServices;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account
 {
