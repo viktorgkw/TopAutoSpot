@@ -14,8 +14,8 @@ namespace TopAutoSpot.Views.Buy
     [Authorize]
     public class TrailerListingsModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private INewsService _newsService;
+        private readonly ApplicationDbContext _context;
+        private readonly INewsService _newsService;
         public TrailerListingsModel(ApplicationDbContext db, INewsService newsService)
         {
             _context = db;
@@ -23,9 +23,9 @@ namespace TopAutoSpot.Views.Buy
         }
 
         [BindProperty]
-        public string OrderSetting { get; set; }
-        public List<Trailer> Trailers { get; set; }
-        public List<Article> News = new List<Article>();
+        public string? OrderSetting { get; set; }
+        public List<Trailer> Trailers { get; set; } = null!;
+        public List<Article> News = new();
 
         public async Task<IActionResult> OnGetAsync(string orderSetting)
         {
@@ -74,7 +74,7 @@ namespace TopAutoSpot.Views.Buy
         {
             User currentUser = _context.Users
                 .AsNoTracking()
-                .First(u => u.UserName == User.Identity.Name);
+                .First(u => u.UserName == User.Identity!.Name);
 
             return _context.InterestedInListings
                 .AsNoTracking()

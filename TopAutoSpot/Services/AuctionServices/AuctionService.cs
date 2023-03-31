@@ -8,8 +8,9 @@ namespace TopAutoSpot.Services.AuctionServices
 {
     public class AuctionService : IAuctionService
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IEmailService _emailService;
+
         public AuctionService(ApplicationDbContext context, IEmailService emailSerice)
         {
             _context = context;
@@ -45,7 +46,7 @@ namespace TopAutoSpot.Services.AuctionServices
 
                         _emailService.SendEmail(new EmailDto()
                         {
-                            To = winner.Email,
+                            To = winner.Email!,
                             Subject = DefaultNotificationMessages.AUCTION_WINNER_TITLE,
                             Body = string.Format(DefaultNotificationMessages.AUCTION_WINNER_DESCRIPTION,
                                 auction.Title)
@@ -65,7 +66,7 @@ namespace TopAutoSpot.Services.AuctionServices
 
             foreach (Auction? auction in auctionsToday)
             {
-                if (auction.Bidders.Count < 3)
+                if (auction.Bidders!.Count < 3)
                 {
                     auction.Status = AuctionStatusTypes.Closed.ToString();
                     _context.SaveChanges();
@@ -81,7 +82,7 @@ namespace TopAutoSpot.Services.AuctionServices
                 {
                     _emailService.SendEmail(new EmailDto()
                     {
-                        To = bidder.Email,
+                        To = bidder.Email!,
                         Subject = DefaultNotificationMessages.AUCTION_REMINDER_TITLE,
                         Body = string.Format(DefaultNotificationMessages.AUCTION_REMINDER_DESCRIPTION, auction.Title)
                     });

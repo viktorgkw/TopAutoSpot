@@ -11,8 +11,9 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
     [Authorize]
     public class DeleteModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private IEmailService _emailService;
+        private readonly ApplicationDbContext _context;
+
+        private readonly IEmailService _emailService;
 
         public DeleteModel(ApplicationDbContext context, IEmailService emailService)
         {
@@ -21,7 +22,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
         }
 
         [BindProperty]
-        public string VehicleId { get; set; }
+        public string VehicleId { get; set; } = null!;
 
         public IActionResult OnGet(string id)
         {
@@ -32,7 +33,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
                 string ownerId = UserServices.GetVehicleOwner(_context, VehicleId);
                 User owner = UserServices.GetUserById(_context, ownerId);
 
-                string currentUserId = UserServices.GetCurrentUser(_context, User.Identity.Name);
+                string currentUserId = UserServices.GetCurrentUser(_context, User.Identity!.Name!);
 
                 bool sendResult = NotificationServices.Send(_context,
                     currentUserId,
@@ -54,7 +55,7 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
 
                 _emailService.SendEmail(new EmailDto()
                 {
-                    To = owner.Email,
+                    To = owner.Email!,
                     Subject = DefaultNotificationMessages.LISTING_DELETED_TITLE,
                     Body = DefaultNotificationMessages.LISTING_DELETED_DESCRIPTION
                 });

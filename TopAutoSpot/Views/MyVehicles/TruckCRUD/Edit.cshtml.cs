@@ -23,13 +23,13 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Trucks.Count() == 0)
+            if (id == null || !_context.Trucks.Any())
             {
                 return RedirectToPage("/NotFound");
             }
 
             Truck? truck = _context.Trucks.FirstOrDefault(m => m.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity!.Name);
 
             if (truck == null)
             {
@@ -88,22 +88,20 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
 
                 foreach (IFormFile image in images)
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    using MemoryStream ms = new();
+                    image.CopyTo(ms);
+
+                    VehicleImage vehicleImage = new()
                     {
-                        image.CopyTo(ms);
 
-                        VehicleImage vehicleImage = new VehicleImage()
-                        {
+                        Id = Guid.NewGuid().ToString(),
+                        ImageName = image.FileName,
+                        ImageData = ms.ToArray(),
+                        VehicleId = vehicleId,
+                    };
 
-                            Id = Guid.NewGuid().ToString(),
-                            ImageName = image.FileName,
-                            ImageData = ms.ToArray(),
-                            VehicleId = vehicleId,
-                        };
-
-                        _context.VehicleImages.Add(vehicleImage);
-                        _context.SaveChanges();
-                    }
+                    _context.VehicleImages.Add(vehicleImage);
+                    _context.SaveChanges();
                 }
             }
         }
@@ -121,7 +119,7 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
             }
         }
 
-        private List<IFormFile> FilterImages(List<IFormFile> images)
+        private static List<IFormFile> FilterImages(List<IFormFile> images)
         {
             images = images
                 .Where(i =>

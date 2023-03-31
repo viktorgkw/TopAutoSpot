@@ -12,14 +12,15 @@ namespace TopAutoSpot.Views.AuctionViews
     [BindProperties]
     public class AuctionBidModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         public AuctionBidModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public int OutbidAmount { get; set; }
-        public Auction Auction { get; set; }
+
+        public Auction? Auction { get; set; }
 
         public IActionResult OnGet(string id)
         {
@@ -36,7 +37,7 @@ namespace TopAutoSpot.Views.AuctionViews
                 return RedirectToPage("/NotFound");
             }
 
-            if (!Auction.Bidders.Any(u => u.Id == currentUser))
+            if (!Auction.Bidders!.Any(u => u.Id == currentUser))
             {
                 return RedirectToPage("/NotFound");
             }
@@ -55,7 +56,7 @@ namespace TopAutoSpot.Views.AuctionViews
 
         public IActionResult OnPost()
         {
-            Auction auctionToUpdateBid = _context.Auctions.First(a => a.Id == Auction.Id);
+            Auction auctionToUpdateBid = _context.Auctions.First(a => a.Id == Auction!.Id);
 
             auctionToUpdateBid.LastBidderId = GetCurrentUserId();
             auctionToUpdateBid.CurrentBidPrice += OutbidAmount;
@@ -64,7 +65,7 @@ namespace TopAutoSpot.Views.AuctionViews
 
             OutbidAmount = 0;
 
-            return RedirectToPage("/AuctionViews/AuctionBid", new { id = Auction.Id });
+            return RedirectToPage("/AuctionViews/AuctionBid", new { id = Auction!.Id });
         }
 
         public string GetAuctionImage(string auctionId)
@@ -81,18 +82,18 @@ namespace TopAutoSpot.Views.AuctionViews
             return imgDataURL;
         }
 
-        public string GetLastBidderUsername()
+        public string? GetLastBidderUsername()
         {
             var lastBidder = _context.Users
-                .FirstOrDefault(u => u.Id == Auction.LastBidderId);
+                .FirstOrDefault(u => u.Id == Auction!.LastBidderId);
 
-            return lastBidder is null ? null : lastBidder.UserName;
+            return lastBidder?.UserName;
         }
 
         private string GetCurrentUserId()
         {
             return _context.Users
-                .First(u => u.UserName == User.Identity.Name)
+                .First(u => u.UserName == User.Identity!.Name)
                 .Id;
         }
     }

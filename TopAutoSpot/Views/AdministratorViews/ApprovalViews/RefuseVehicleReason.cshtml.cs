@@ -8,8 +8,9 @@ namespace TopAutoSpot.Views.AdministratorViews.Utilities
     public class RefuseVehicleReasonModel : PageModel
     {
         [BindProperty]
-        public string Reason { get; set; }
-        public string VehicleId { get; set; }
+        public string Reason { get; set; } = null!;
+
+        public string VehicleId { get; set; } = null!;
 
         public IActionResult OnGet(string vehicleId)
         {

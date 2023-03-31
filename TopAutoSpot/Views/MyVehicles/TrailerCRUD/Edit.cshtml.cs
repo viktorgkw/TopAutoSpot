@@ -29,7 +29,7 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
             }
 
             Trailer? trailer = _context.Trailers.FirstOrDefault(m => m.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity!.Name);
 
             if (trailer == null)
             {

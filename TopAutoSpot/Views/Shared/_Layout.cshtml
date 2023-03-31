@@ -50,7 +50,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-light website-background-main fw-bold custom-rounded px-3 mx-1" asp-page="/AuctionViews/Index">Auctions</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity!.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-light website-background-main fw-bold custom-rounded px-3 mx-1" asp-page="/MyVehicles/Index">My Vehicles</a>

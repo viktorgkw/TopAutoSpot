@@ -10,6 +10,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<User> _signInManager;
+
         private readonly ILogger<LoginModel> _logger;
 
         public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger)
@@ -19,30 +20,28 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input { get; set; } = null!;
 
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
-        public string ReturnUrl { get; set; }
+        public string ReturnUrl { get; set; } = null!;
 
         [TempData]
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage { get; set; } = null!;
 
         public class InputModel
         {
             [Required]
             [DataType(DataType.Text)]
-            public string UserName { get; set; }
+            public string UserName { get; set; } = null!;
 
             [Required]
             [DataType(DataType.Password)]
-            public string Password { get; set; }
+            public string Password { get; set; } = null!;
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string returnUrl)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
@@ -53,16 +52,12 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
 
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl)
         {
             returnUrl ??= Url.Content("~/");
-
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
             {

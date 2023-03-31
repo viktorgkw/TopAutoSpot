@@ -1,6 +1,6 @@
 ﻿namespace TopAutoSpot.Data.Models.Enums
 {
-    enum RoleTypes
+    public enum RoleTypes
     {
         User = 0,
         Administrator = 1,

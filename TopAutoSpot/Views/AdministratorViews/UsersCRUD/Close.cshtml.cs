@@ -11,9 +11,9 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
     [Authorize]
     public class CloseModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private IEmailService _emailService;
-        private VehicleRemover _vehicleRemover;
+        private readonly ApplicationDbContext _context;
+        private readonly IEmailService _emailService;
+        private readonly VehicleRemover _vehicleRemover;
 
         public CloseModel(ApplicationDbContext context, IEmailService emailService)
         {
@@ -23,7 +23,7 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
         }
 
         [BindProperty]
-        public User UserToClose { get; set; }
+        public User UserToClose { get; set; } = null!;
 
         public IActionResult OnGet(string userId)
         {
@@ -39,7 +39,7 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
 
                 _emailService.SendEmail(new EmailDto()
                 {
-                    To = UserToClose.Email,
+                    To = UserToClose.Email!,
                     Subject = DefaultNotificationMessages.ACCOUNT_CLOSED_TITLE,
                     Body = DefaultNotificationMessages.ACCOUNT_CLOSED_DESCRIPTION
                 });

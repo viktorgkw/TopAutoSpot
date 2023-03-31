@@ -11,8 +11,9 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
     [Authorize]
     public class DeleteModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private IEmailService _emailService;
+        private readonly ApplicationDbContext _context;
+
+        private readonly IEmailService _emailService;
 
         public DeleteModel(ApplicationDbContext context, IEmailService emailService)
         {
@@ -21,7 +22,7 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
         }
 
         [BindProperty]
-        public Auction AuctionToDelete { get; set; }
+        public Auction AuctionToDelete { get; set; } = null!;
 
         public IActionResult OnGet(string id)
         {
@@ -29,7 +30,7 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
             {
                 AuctionToDelete = _context.Auctions.First(u => u.Id == id);
                 User owner = _context.Users.First(u => u.Id == AuctionToDelete.AuctioneerId);
-                string currentUser = UserServices.GetCurrentUser(_context, User.Identity.Name);
+                string currentUser = UserServices.GetCurrentUser(_context, User.Identity!.Name!);
 
                 _context.Auctions.Remove(AuctionToDelete);
                 _context.SaveChanges();
@@ -42,7 +43,7 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
 
                 _emailService.SendEmail(new EmailDto()
                 {
-                    To = owner.Email,
+                    To = owner.Email!,
                     Subject = DefaultNotificationMessages.AUCTION_DELETED_TITLE,
                     Body = DefaultNotificationMessages.AUCTION_DELETED_DESCRIPTION
                 });

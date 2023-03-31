@@ -7,13 +7,14 @@ namespace TopAutoSpot.Views
 {
     public class IndexModel : PageModel
     {
-        private INewsService _newsService;
+        private readonly INewsService _newsService;
+
         public IndexModel(INewsService newsService)
         {
             _newsService = newsService;
         }
 
-        public List<Article> News = new List<Article>();
+        public List<Article> News = new();
 
         public async Task<IActionResult> OnGetAsync()
         {

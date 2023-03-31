@@ -38,7 +38,7 @@ namespace TopAutoSpot.Views.MyVehicles.MotorcycleCRUD
             }
 
             Motorcycle.CreatedBy = _context.Users
-                .First(u => u.UserName == User.Identity.Name).Id;
+                .First(u => u.UserName == User.Identity!.Name).Id;
 
             _context.Motorcycles.Add(Motorcycle);
             _context.SaveChanges();

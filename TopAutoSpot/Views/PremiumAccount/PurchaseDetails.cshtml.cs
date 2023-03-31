@@ -11,8 +11,10 @@ namespace TopAutoSpot.Views.PremiumAccount
     [Authorize]
     public class PurchaseDetailsModel : PageModel
     {
-        private IPaymentService _paymentService;
-        private UserManager<User> _userManager;
+        private readonly IPaymentService _paymentService;
+
+        private readonly UserManager<User> _userManager;
+
         public PurchaseDetailsModel(IPaymentService paymentService, UserManager<User> userManager)
         {
             _paymentService = paymentService;
@@ -20,7 +22,7 @@ namespace TopAutoSpot.Views.PremiumAccount
         }
 
         [BindProperty]
-        public StripePayment StripePayment { get; set; }
+        public StripePayment StripePayment { get; set; } = null!;
 
         public IActionResult OnGet()
         {
@@ -34,8 +36,8 @@ namespace TopAutoSpot.Views.PremiumAccount
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var foundUser = await _userManager.FindByNameAsync(User.Identity.Name);
-            StripePayment.Email = foundUser.Email;
+            var foundUser = await _userManager.FindByNameAsync(User.Identity!.Name!);
+            StripePayment.Email = foundUser!.Email!;
 
             string[] years = new string[] { "2023", "2024", "2025", "2026", "2027", "2028" };
 

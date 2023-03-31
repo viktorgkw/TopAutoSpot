@@ -6,7 +6,9 @@ namespace TopAutoSpot.Data.Models
     {
         // Id, Email, Password, Username and PhoneNumber come from IdentityUser
         public string? FirstName { get; set; }
+
         public string? LastName { get; set; }
-        public string Role { get; set; }
+
+        public string Role { get; set; } = null!;
     }
 }

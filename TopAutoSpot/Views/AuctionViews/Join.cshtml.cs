@@ -9,7 +9,7 @@ namespace TopAutoSpot.Views.AuctionViews
     [Authorize]
     public class JoinModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         public JoinModel(ApplicationDbContext context)
         {
             _context = context;
@@ -29,19 +29,19 @@ namespace TopAutoSpot.Views.AuctionViews
                 return RedirectToPage("/AuctionViews/Index");
             }
 
-            User? foundUser = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            User? foundUser = _context.Users.FirstOrDefault(u => u.UserName == User.Identity!.Name);
 
             if (foundUser == null)
             {
                 return RedirectToPage("/UnknownError");
             }
 
-            if (foundAuction.Bidders.Any(b => b.UserName == foundUser.UserName))
+            if (foundAuction.Bidders!.Any(b => b.UserName == foundUser.UserName))
             {
                 return RedirectToPage("/AuctionViews/Index");
             }
 
-            foundAuction.Bidders.Add(foundUser);
+            foundAuction.Bidders!.Add(foundUser);
             _context.SaveChanges();
 
             return RedirectToPage("/AuctionViews/Index");

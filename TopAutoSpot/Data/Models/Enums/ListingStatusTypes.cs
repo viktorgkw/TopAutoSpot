@@ -2,9 +2,9 @@
 {
     public enum ListingStatusTypes
     {
-        Active,
-        WaitingApproval,
-        Sold,
-        Closed,
+        Active = 0,
+        WaitingApproval = 1,
+        Sold = 2,
+        Closed = 3,
     }
 }

@@ -11,14 +11,14 @@ namespace TopAutoSpot.Views.AdministratorViews
     [Authorize]
     public class AuctionsApprovalModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public AuctionsApprovalModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public List<Auction> Auctions { get; set; }
+        public List<Auction> Auctions { get; set; } = null!;
 
         public IActionResult OnGet()
         {

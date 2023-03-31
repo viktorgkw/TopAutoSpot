@@ -31,7 +31,7 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
             Bus? bus = _context.Buses
                 .FirstOrDefault(b => b.Id == id);
             User foundUser = _context.Users
-                .First(u => u.UserName == User.Identity.Name);
+                .First(u => u.UserName == User.Identity!.Name);
 
             if (bus == null)
             {

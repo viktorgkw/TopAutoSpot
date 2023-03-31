@@ -2,15 +2,15 @@
 {
     public class StripePayment
     {
-        public string Id { get; set; }
-        public string CustomerName { get; set; }
-        public string Email { get; set; }
-        public string CardNumber { get; set; }
-        public string ExpYear { get; set; }
-        public string ExpMonth { get; set; }
-        public string CVC { get; set; }
+        public string Id { get; set; } = null!;
+        public string CustomerName { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string CardNumber { get; set; } = null!;
+        public string ExpYear { get; set; } = null!;
+        public string ExpMonth { get; set; } = null!;
+        public string CVC { get; set; } = null!;
         public long ChargeAmount { get; set; }
-        public string Currency { get; set; }
-        public string Description { get; set; }
+        public string Currency { get; set; } = null!;
+        public string Description { get; set; } = null!;
     }
 }
