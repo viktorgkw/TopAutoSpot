@@ -1,5 +1,6 @@
 ﻿namespace TopAutoSpot.Services.NewsServices
 {
+    using Microsoft.Extensions.Configuration;
     using NewsAPI;
     using NewsAPI.Constants;
     using NewsAPI.Models;

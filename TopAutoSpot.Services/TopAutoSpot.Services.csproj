@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="3.6.0" />
+    <PackageReference Include="MimeKit" Version="3.6.1" />
+    <PackageReference Include="NewsAPI" Version="0.6.0" />
+    <PackageReference Include="Stripe.net" Version="41.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TopAutoSpot.Data\TopAutoSpot.Data.csproj" />
+    <ProjectReference Include="..\TopAutoSpot.Services.Common\TopAutoSpot.Services.Common.csproj" />
+  </ItemGroup>
+
 </Project>

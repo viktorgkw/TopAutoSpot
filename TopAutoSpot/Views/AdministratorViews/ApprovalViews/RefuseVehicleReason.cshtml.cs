@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TopAutoSpot.Views.AdministratorViews.Utilities
+namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 {
     [Authorize]
     public class RefuseVehicleReasonModel : PageModel
