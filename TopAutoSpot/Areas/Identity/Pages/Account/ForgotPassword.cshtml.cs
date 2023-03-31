@@ -13,6 +13,7 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<User> _userManager;
+
         private readonly IEmailSender _emailSender;
 
         public ForgotPasswordModel(UserManager<User> userManager, IEmailSender emailSender)
@@ -22,13 +23,13 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input { get; set; } = null!;
 
         public class InputModel
         {
             [Required]
             [EmailAddress]
-            public string Email { get; set; }
+            public string Email { get; set; } = null!;
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -43,11 +44,11 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
 
                 string code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                string? callbackUrl = Url.Page(
+                string callbackUrl = Url.Page(
                     "/Account/ResetPassword",
                     pageHandler: null,
                     values: new { area = "Identity", code },
-                    protocol: Request.Scheme);
+                    protocol: Request.Scheme)!;
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,

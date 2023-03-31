@@ -37,7 +37,7 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
                 return RedirectToPage("/NotFound");
             }
 
-            Trailer.CreatedBy = _context.Users.First(u => u.UserName == User.Identity.Name).Id;
+            Trailer.CreatedBy = _context.Users.First(u => u.UserName == User.Identity!.Name).Id;
             _context.Trailers.Add(Trailer);
             _context.SaveChanges();
 

@@ -27,12 +27,12 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
 
         public IActionResult OnPost(List<IFormFile> Images)
         {
-            if (!ModelState.IsValid || _context.Trucks.Count() == 0 || Truck == null)
+            if (!ModelState.IsValid || !_context.Trucks.Any() || Truck == null)
             {
                 return RedirectToPage("/NotFound");
             }
 
-            Truck.CreatedBy = _context.Users.First(u => u.UserName == User.Identity.Name).Id;
+            Truck.CreatedBy = _context.Users.First(u => u.UserName == User.Identity!.Name).Id;
             _context.Trucks.Add(Truck);
             _context.SaveChanges();
 
@@ -55,22 +55,20 @@ namespace TopAutoSpot.Views.MyVehicles.TruckCRUD
             {
                 foreach (IFormFile image in images)
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    using MemoryStream ms = new();
+                    image.CopyTo(ms);
+
+                    VehicleImage vehicleImage = new()
                     {
-                        image.CopyTo(ms);
 
-                        VehicleImage vehicleImage = new VehicleImage()
-                        {
+                        Id = Guid.NewGuid().ToString(),
+                        ImageName = image.FileName,
+                        ImageData = ms.ToArray(),
+                        VehicleId = vehicleId,
+                    };
 
-                            Id = Guid.NewGuid().ToString(),
-                            ImageName = image.FileName,
-                            ImageData = ms.ToArray(),
-                            VehicleId = vehicleId,
-                        };
-
-                        _context.VehicleImages.Add(vehicleImage);
-                        _context.SaveChanges();
-                    }
+                    _context.VehicleImages.Add(vehicleImage);
+                    _context.SaveChanges();
                 }
             }
         }

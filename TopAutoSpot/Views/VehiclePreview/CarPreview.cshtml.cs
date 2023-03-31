@@ -17,11 +17,11 @@ namespace TopAutoSpot.Views.VehiclePreview
         }
 
         public Car Car { get; set; } = default!;
-        public List<VehicleImage> Images { get; set; }
+        public List<VehicleImage> Images { get; set; } = null!;
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Cars.Count() == 0)
+            if (id == null || !_context.Cars.Any())
             {
                 return RedirectToPage("/NotFound");
             }
@@ -32,7 +32,7 @@ namespace TopAutoSpot.Views.VehiclePreview
 
             User foundUser = _context.Users
                 .AsNoTracking()
-                .First(u => u.UserName == User.Identity.Name);
+                .First(u => u.UserName == User.Identity!.Name);
 
             if (car == null)
             {
@@ -61,7 +61,7 @@ namespace TopAutoSpot.Views.VehiclePreview
                 .AsNoTracking()
                 .First(u => u.Id == Car.CreatedBy);
 
-            return foundUser.PhoneNumber;
+            return foundUser.PhoneNumber!;
         }
 
         public string GetOwnerFullName()
@@ -74,7 +74,7 @@ namespace TopAutoSpot.Views.VehiclePreview
                 ? foundUser.UserName
                 : foundUser.FirstName + " " + foundUser.LastName;
 
-            return fullName;
+            return fullName!;
         }
 
         public string GetImage()

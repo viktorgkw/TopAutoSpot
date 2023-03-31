@@ -11,8 +11,10 @@ namespace TopAutoSpot.Views.PremiumAccount
     [Authorize]
     public class PaymentResultModel : PageModel
     {
-        private UserManager<User> _userManager;
-        private ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
+
+        private readonly ApplicationDbContext _context;
+
         public PaymentResultModel(UserManager<User> userManager,
             ApplicationDbContext context)
         {
@@ -20,7 +22,7 @@ namespace TopAutoSpot.Views.PremiumAccount
             _context = context;
         }
 
-        public string Status { get; set; }
+        public string Status { get; set; } = null!;
 
         public async Task<IActionResult> OnGetAsync(string status, string userId)
         {

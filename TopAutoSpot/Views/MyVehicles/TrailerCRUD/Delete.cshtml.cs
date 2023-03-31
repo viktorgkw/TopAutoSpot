@@ -18,17 +18,17 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
 
         [BindProperty]
         public Trailer Trailer { get; set; } = default!;
-        public List<VehicleImage> Images { get; set; }
+        public List<VehicleImage> Images { get; set; } = null!;
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Trailers.Count() == 0)
+            if (id == null || !_context.Trailers.Any())
             {
                 return RedirectToPage("/NotFound");
             }
 
             Trailer? trailer = _context.Trailers.FirstOrDefault(m => m.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity!.Name);
 
             if (trailer == null)
             {
@@ -52,7 +52,7 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
 
         public IActionResult OnPost(string id)
         {
-            if (id == null || _context.Trailers.Count() == 0)
+            if (id == null || !_context.Trailers.Any())
             {
                 return RedirectToPage("/Index");
             }

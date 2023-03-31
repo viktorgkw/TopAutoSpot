@@ -9,7 +9,8 @@ namespace TopAutoSpot.Views.AuctionViews
     [Authorize]
     public class LeaveModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+
         public LeaveModel(ApplicationDbContext context)
         {
             _context = context;
@@ -29,19 +30,19 @@ namespace TopAutoSpot.Views.AuctionViews
                 return RedirectToPage("/AuctionViews/Index");
             }
 
-            User? foundUser = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            User? foundUser = _context.Users.FirstOrDefault(u => u.UserName == User.Identity!.Name);
 
             if (foundUser == null)
             {
                 return RedirectToPage("/UnknownError");
             }
 
-            if (!foundAuction.Bidders.Any(b => b.UserName == foundUser.UserName))
+            if (!foundAuction.Bidders!.Any(b => b.UserName == foundUser.UserName))
             {
                 return RedirectToPage("/AuctionViews/Index");
             }
 
-            foundAuction.Bidders.Remove(foundUser);
+            foundAuction.Bidders!.Remove(foundUser);
             _context.SaveChanges();
 
             return RedirectToPage("/AuctionViews/JoinedAuctions");

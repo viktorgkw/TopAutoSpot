@@ -10,7 +10,7 @@
 
     <div class="mt-5 mb-3">
         @{
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity!.IsAuthenticated)
             {
                 <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
                     <button type="submit" class="btn btn-danger fw-bold text-light custom-rounded">Logout</button>

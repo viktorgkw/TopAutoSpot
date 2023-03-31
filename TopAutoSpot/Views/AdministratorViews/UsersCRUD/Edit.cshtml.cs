@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
-using TopAutoSpot.Services.EmailService;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.Common;
+using TopAutoSpot.Services.EmailServices;
 
 namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
 {
     [Authorize]
     public class EditModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private IEmailService _emailService;
+        private readonly ApplicationDbContext _context;
+        private readonly IEmailService _emailService;
 
         public EditModel(ApplicationDbContext context, IEmailService emailService)
         {
@@ -50,8 +50,8 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
                 return Page();
             }
 
-            UserToEdit.NormalizedUserName = UserToEdit.UserName.ToUpper();
-            UserToEdit.NormalizedEmail = UserToEdit.Email.ToUpper();
+            UserToEdit.NormalizedUserName = UserToEdit.UserName!.ToUpper();
+            UserToEdit.NormalizedEmail = UserToEdit.Email!.ToUpper();
 
             _context.Attach(UserToEdit).State = EntityState.Modified;
 

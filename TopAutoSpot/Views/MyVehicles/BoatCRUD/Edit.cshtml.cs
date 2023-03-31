@@ -23,13 +23,13 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Boats.Count() == 0)
+            if (id == null || !_context.Boats.Any())
             {
                 return RedirectToPage("/NotFound");
             }
 
             Boat? boat = _context.Boats.FirstOrDefault(m => m.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity!.Name);
 
             if (boat == null)
             {
@@ -91,22 +91,20 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 
                 foreach (IFormFile image in images)
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    using MemoryStream ms = new();
+                    image.CopyTo(ms);
+
+                    VehicleImage vehicleImage = new()
                     {
-                        image.CopyTo(ms);
 
-                        VehicleImage vehicleImage = new VehicleImage()
-                        {
+                        Id = Guid.NewGuid().ToString(),
+                        ImageName = image.FileName,
+                        ImageData = ms.ToArray(),
+                        VehicleId = vehicleId,
+                    };
 
-                            Id = Guid.NewGuid().ToString(),
-                            ImageName = image.FileName,
-                            ImageData = ms.ToArray(),
-                            VehicleId = vehicleId,
-                        };
-
-                        _context.VehicleImages.Add(vehicleImage);
-                        _context.SaveChanges();
-                    }
+                    _context.VehicleImages.Add(vehicleImage);
+                    _context.SaveChanges();
                 }
             }
         }
@@ -124,7 +122,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
             }
         }
 
-        private List<IFormFile> FilterImages(List<IFormFile> images)
+        private static List<IFormFile> FilterImages(List<IFormFile> images)
         {
             images = images
                 .Where(i =>

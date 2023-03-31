@@ -18,7 +18,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 
         [BindProperty]
         public Boat Boat { get; set; } = default!;
-        public List<VehicleImage> Images { get; set; }
+        public List<VehicleImage> Images { get; set; } = null!;
 
         public IActionResult OnGet(string id)
         {
@@ -28,7 +28,7 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
             }
 
             Boat? boat = _context.Boats.FirstOrDefault(m => m.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity!.Name);
 
             if (boat == null)
             {

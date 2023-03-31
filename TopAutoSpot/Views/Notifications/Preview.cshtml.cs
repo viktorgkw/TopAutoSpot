@@ -10,7 +10,7 @@ namespace TopAutoSpot.Views.Notifications
     [Authorize]
     public class PreviewModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public PreviewModel(ApplicationDbContext context)
         {
@@ -18,7 +18,7 @@ namespace TopAutoSpot.Views.Notifications
         }
 
         [BindProperty]
-        public Notification Notification { get; set; }
+        public Notification Notification { get; set; } = null!;
 
         public IActionResult OnGet(string id)
         {
@@ -27,7 +27,7 @@ namespace TopAutoSpot.Views.Notifications
                 return RedirectToPage("/NotFound");
             }
 
-            Notification = NotificationServices.Get(_context, id, User.Identity.Name);
+            Notification = NotificationServices.Get(_context, id, User.Identity!.Name!)!;
 
             if (Notification == null)
             {
@@ -37,7 +37,7 @@ namespace TopAutoSpot.Views.Notifications
             return Page();
         }
 
-        public string GetFromUsername()
+        public string? GetFromUsername()
         {
             return NotificationServices.GetFromUsername(_context, Notification.From);
         }

@@ -27,7 +27,7 @@ namespace TopAutoSpot.Views.MyVehicles.AuctionCRUD
             }
 
             Auction? auction = _context.Auctions.FirstOrDefault(m => m.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity!.Name);
 
             if (auction == null)
             {

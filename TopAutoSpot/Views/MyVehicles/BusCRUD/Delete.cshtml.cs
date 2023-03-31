@@ -18,7 +18,7 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
 
         [BindProperty]
         public Bus Bus { get; set; } = default!;
-        public List<VehicleImage> Images { get; set; }
+        public List<VehicleImage> Images { get; set; } = null!;
 
         public IActionResult OnGet(string id)
         {
@@ -28,7 +28,7 @@ namespace TopAutoSpot.Views.MyVehicles.BusCRUD
             }
 
             Bus? bus = _context.Buses.FirstOrDefault(b => b.Id == id);
-            User foundUser = _context.Users.First(u => u.UserName == User.Identity.Name);
+            User foundUser = _context.Users.First(u => u.UserName == User.Identity!.Name);
 
             if (bus == null)
             {

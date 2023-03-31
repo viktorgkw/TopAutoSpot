@@ -31,7 +31,7 @@ namespace TopAutoSpot.Views.Utilities
             return false;
         }
 
-        public static Notification Get(
+        public static Notification? Get(
             ApplicationDbContext _context, string notificationId, string userName)
         {
             if (ValidateProperties(new string[] { notificationId }) == false)
@@ -93,7 +93,7 @@ namespace TopAutoSpot.Views.Utilities
                 return false;
             }
 
-            Notification newNotification = new Notification()
+            Notification newNotification = new()
             {
                 Id = Guid.NewGuid().ToString(),
                 From = fromUser.Id,
@@ -109,7 +109,7 @@ namespace TopAutoSpot.Views.Utilities
             return true;
         }
 
-        public static string GetFromUsername(ApplicationDbContext _context, string from)
+        public static string? GetFromUsername(ApplicationDbContext _context, string from)
         {
             return _context.Users
                 .AsNoTracking()

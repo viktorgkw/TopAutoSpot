@@ -10,19 +10,20 @@ namespace TopAutoSpot.Views.InterestedIn
     [Authorize]
     public class IndexModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+
         public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public List<InterestedListing> InterestedListings { get; set; }
+        public List<InterestedListing> InterestedListings { get; set; } = null!;
 
         public IActionResult OnGet()
         {
             User currentUser = _context.Users
                 .AsNoTracking()
-                .First(u => u.UserName == User.Identity.Name);
+                .First(u => u.UserName == User.Identity!.Name);
 
             InterestedListings = _context.InterestedInListings
                 .AsNoTracking()
