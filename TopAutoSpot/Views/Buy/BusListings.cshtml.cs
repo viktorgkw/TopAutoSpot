@@ -7,7 +7,7 @@ using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
 using TopAutoSpot.Data.Models.Enums;
 using TopAutoSpot.Services.NewsServices;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.Utilities;
 
 namespace TopAutoSpot.Views.Buy
 {

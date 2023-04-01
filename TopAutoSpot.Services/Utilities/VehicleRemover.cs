@@ -1,7 +1,7 @@
 ﻿using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
 
-namespace TopAutoSpot.Views.Utilities
+namespace TopAutoSpot.Services.Utilities
 {
     public class VehicleRemover
     {

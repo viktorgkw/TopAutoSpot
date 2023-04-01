@@ -7,7 +7,7 @@ using TopAutoSpot.Data.Models;
 using TopAutoSpot.Data.Models.Enums;
 using TopAutoSpot.Services.Common;
 using TopAutoSpot.Services.EmailServices;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.Utilities;
 
 namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
 {

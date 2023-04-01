@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.Utilities;
 
 namespace TopAutoSpot.Views.Notifications
 {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.Utilities;
 
 namespace TopAutoSpot.Views.Notifications
 {

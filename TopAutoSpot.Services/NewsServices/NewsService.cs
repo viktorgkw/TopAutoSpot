@@ -1,10 +1,10 @@
-﻿namespace TopAutoSpot.Services.NewsServices
-{
-    using Microsoft.Extensions.Configuration;
-    using NewsAPI;
-    using NewsAPI.Constants;
-    using NewsAPI.Models;
+﻿using Microsoft.Extensions.Configuration;
+using NewsAPI;
+using NewsAPI.Constants;
+using NewsAPI.Models;
 
+namespace TopAutoSpot.Services.NewsServices
+{
     public class NewsService : INewsService
     {
         private readonly IConfiguration _configuration;
