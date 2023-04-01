@@ -2,7 +2,7 @@
 using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
 
-namespace TopAutoSpot.Views.Utilities
+namespace TopAutoSpot.Services.Utilities
 {
     public static class UserServices
     {

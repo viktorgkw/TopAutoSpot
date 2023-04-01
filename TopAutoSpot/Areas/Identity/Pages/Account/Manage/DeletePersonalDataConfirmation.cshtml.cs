@@ -5,7 +5,7 @@ using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
 using TopAutoSpot.Services.Common;
 using TopAutoSpot.Services.EmailServices;
-using TopAutoSpot.Views.Utilities;
+using TopAutoSpot.Services.Utilities;
 
 namespace TopAutoSpot.Areas.Identity.Pages.Account.Manage
 {

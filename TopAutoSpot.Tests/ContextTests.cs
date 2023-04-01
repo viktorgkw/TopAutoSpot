@@ -1,10 +1,10 @@
-﻿namespace TopAutoSpot.Tests
+﻿using Microsoft.EntityFrameworkCore;
+
+using TopAutoSpot.Data;
+using TopAutoSpot.Data.Models;
+
+namespace TopAutoSpot.Tests
 {
-    using Microsoft.EntityFrameworkCore;
-
-    using TopAutoSpot.Data;
-    using TopAutoSpot.Data.Models;
-
     public class ContextTests
     {
         private readonly DbContextOptions<ApplicationDbContext> options;
@@ -22,49 +22,79 @@
         [Fact]
         public void TestDatabaseConnection()
         {
+            // Assert
             Assert.True(context.Database.CanConnect());
-        }
-
-        [Fact]
-        public void TestDatabaseInsert()
-        {
-            var newCar = GetTestCar();
-
-            context.Cars.Add(newCar);
-            context.SaveChanges();
-
-            Assert.NotNull(newCar.Id);
         }
 
         [Fact]
         public void TestDatabaseSelect()
         {
-            var newCar = GetTestCar();
+            // Arrange
+            Car newCar = GetTestCar();
 
+            // Act
             context.Cars.Add(newCar);
             context.SaveChanges();
 
-            var selectedCar = context.Cars
+            Car? selectedCar = context.Cars
                 .FirstOrDefault(e => e.Id == newCar.Id);
 
+            // Assert
             Assert.NotNull(selectedCar);
             Assert.Equal(newCar.Title, selectedCar.Title);
         }
 
         [Fact]
-        public void TestDatabaseDelete()
+        public void TestDatabaseInsert()
         {
-            var newCar = GetTestCar();
+            // Arrange
+            Car newCar = GetTestCar();
 
+            // Act
             context.Cars.Add(newCar);
             context.SaveChanges();
 
-            var foundCar = context.Cars.First();
+            // Assert
+            Assert.NotNull(context.Cars.First());
+        }
+
+        [Fact]
+        public void TestDatabaseDelete()
+        {
+            // Arrange
+            Car newCar = GetTestCar();
+
+            // Act
+            context.Cars.Add(newCar);
+            context.SaveChanges();
+
+            Car foundCar = context.Cars.First();
 
             context.Cars.Remove(foundCar);
             context.SaveChanges();
 
+            // Assert
             Assert.Null(context.Cars.FirstOrDefault(c => c.Id == foundCar.Id));
+        }
+
+        [Fact]
+        public void TestDatabaseEdit()
+        {
+            // Arrange
+            Car newCar = GetTestCar();
+            string startName = newCar.Title;
+            string newName = "Edited New Car";
+
+            // Act
+            context.Cars.Add(newCar);
+            context.SaveChanges();
+
+            newCar.Title = newName;
+            context.SaveChanges();
+
+            // Assert
+            Assert.False(context.Cars.Any(c => c.Title == startName));
+            Assert.True(context.Cars.Any(c => c.Title == newName));
         }
 
         private static Car GetTestCar()

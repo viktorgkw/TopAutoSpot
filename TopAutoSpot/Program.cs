@@ -94,5 +94,6 @@ RecurringJob.AddOrUpdate<IAuctionService>(s => s.StartingAuctionsCheck(), Cron.M
 
 app.Run();
 
-// Added for testing
+// Added to make testing possible
+// Error: (Program is inaccessible due its protection level.)
 public partial class Program { }

@@ -198,7 +198,7 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Auctions");
+                    b.ToTable("Auctions", (string)null);
                 });
 
             modelBuilder.Entity("TopAutoSpot.Data.Models.Boat", b =>
@@ -263,7 +263,7 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Boats");
+                    b.ToTable("Boats", (string)null);
                 });
 
             modelBuilder.Entity("TopAutoSpot.Data.Models.Bus", b =>
@@ -336,7 +336,7 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Buses");
+                    b.ToTable("Buses", (string)null);
                 });
 
             modelBuilder.Entity("TopAutoSpot.Data.Models.Car", b =>
@@ -400,7 +400,7 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("TopAutoSpot.Data.Models.InterestedListing", b =>
@@ -422,7 +422,7 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InterestedInListings");
+                    b.ToTable("InterestedInListings", (string)null);
                 });
 
             modelBuilder.Entity("TopAutoSpot.Data.Models.Motorcycle", b =>
@@ -492,7 +492,7 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Motorcycles");
+                    b.ToTable("Motorcycles", (string)null);
                 });
 
             modelBuilder.Entity("TopAutoSpot.Data.Models.Notification", b =>
@@ -521,7 +521,7 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Notifications", (string)null);
                 });
 
             modelBuilder.Entity("TopAutoSpot.Data.Models.Trailer", b =>
@@ -565,7 +565,7 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Trailers");
+                    b.ToTable("Trailers", (string)null);
                 });
 
             modelBuilder.Entity("TopAutoSpot.Data.Models.Truck", b =>
@@ -635,7 +635,7 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Trucks");
+                    b.ToTable("Trucks", (string)null);
                 });
 
             modelBuilder.Entity("TopAutoSpot.Data.Models.User", b =>
@@ -737,7 +737,7 @@ namespace TopAutoSpot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleImages");
+                    b.ToTable("VehicleImages", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
