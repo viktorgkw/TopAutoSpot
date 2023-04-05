@@ -21,19 +21,19 @@
         <div class="m-2 px-4">
             <div class="form-group mb-4">
                 <label asp-for="Auction.Title" class="control-label fw-bold website-text-nohover"></label>
-                <input asp-for="Auction.Title" class="form-control" />
+                <input minlength="10" maxlength="60" asp-for="Auction.Title" class="form-control" />
                 <span asp-validation-for="Auction.Title" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-4">
                 <label asp-for="Auction.Description" class="control-label fw-bold website-text-nohover"></label>
-                <input asp-for="Auction.Description" class="form-control" />
+                <input minlength="30" maxlength="150" asp-for="Auction.Description" class="form-control" />
                 <span asp-validation-for="Auction.Description" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-4">
                 <label asp-for="Auction.StartingPrice" class="control-label fw-bold website-text-nohover"></label>
-                <input min="10" max="1000000" asp-for="Auction.StartingPrice" class="form-control" />
+                <input min="100" max="1000000" asp-for="Auction.StartingPrice" class="form-control" />
                 <span asp-validation-for="Auction.StartingPrice" class="text-danger"></span>
             </div>
 
@@ -57,7 +57,7 @@
 
             <div class="form-group mb-4">
                 <label asp-for="Auction.StartDay" class="control-label fw-bold website-text-nohover">Start Day</label>
-                <input type="date" asp-for="Auction.StartDay" class="form-control" />
+                <input min="@DateTime.Today.AddDays(1)" max="@DateTime.Today.AddDays(45)" type="date" asp-for="Auction.StartDay" class="form-control" />
                 <span asp-validation-for="Auction.StartDay" class="text-danger"></span>
             </div>
 
