@@ -1,21 +1,33 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-
-namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
+﻿namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+
+    /// <summary>
+    /// A page model class that handles the creation of a new Boat listing. Requires authorization.
+    /// </summary>
     [Authorize]
     public class CreateModel : PageModel
     {
         protected readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateModel"/> class.
+        /// </summary>
+        /// <param name="context">The database context.</param>
         public CreateModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Called when the "Create" page is loaded via HTTP GET request.
+        /// </summary>
+        /// <returns>The page.</returns>
         public IActionResult OnGet()
         {
             if (User?.Identity?.Name == null)
@@ -26,10 +38,22 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
             return Page();
         }
 
+        /// <summary>
+        /// The Boat object to be created, bound to the Razor page form. 
+        /// </summary>
         [BindProperty]
         public Boat Boat { get; set; } = default!;
+
+        /// <summary>
+        /// The vehicle image object bound to the Razor page form.
+        /// </summary>
         public VehicleImage VehicleImage { get; set; } = default!;
 
+        /// <summary>
+        /// Handles the HTTP POST request to create a new Boat listing.
+        /// </summary>
+        /// <param name="Images">A list of form files representing the images to be associated with the listing.</param>
+        /// <returns>The "MyVehicles/Index" page on success or "NotFound" on failure.</returns>
         public IActionResult OnPost(List<IFormFile> Images)
         {
             if (!ModelState.IsValid || !_context.Boats.Any() || Boat == null)
@@ -49,6 +73,11 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
             return RedirectToPage("/MyVehicles/Index");
         }
 
+        /// <summary>
+        /// Adds the provided images to the newly created vehicle listing.
+        /// </summary>
+        /// <param name="images">A list of form files representing the images to be associated with the listing.</param>
+        /// <param name="vehicleId">The ID of the newly created vehicle listing.</param>
         private void AddImagesToVehicle(List<IFormFile> images, string vehicleId)
         {
             images = images

@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-
-namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
+﻿namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+
+    /// <summary>
+    /// Controller for editing a Boat in the application, with authorization required.
+    /// </summary>
     [Authorize]
     public class EditModel : PageModel
     {
@@ -17,10 +21,22 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
             _context = context;
         }
 
+        /// <summary>
+        /// Boat to be edited, bound to form data.
+        /// </summary>
         [BindProperty]
         public Boat Boat { get; set; } = default!;
+
+        /// <summary>
+        /// Vehicle image associated with the Boat to be edited.
+        /// </summary>
         public VehicleImage VehicleImage { get; set; } = default!;
 
+        /// <summary>
+        /// Gets the Boat to be edited and verifies that the current user has permission to edit it.
+        /// </summary>
+        /// <param name="id">The ID of the Boat to be edited.</param>
+        /// <returns>The edit page if the Boat can be edited, otherwise a redirect to the appropriate page.</returns>
         public IActionResult OnGet(string id)
         {
             if (id == null || !_context.Boats.Any())
@@ -47,6 +63,11 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
             return Page();
         }
 
+        /// <summary>
+        /// Updates the Boat and its associated images with the submitted form data.
+        /// </summary>
+        /// <param name="Images">List of form files containing the updated vehicle images.</param>
+        /// <returns>A redirect to the user's vehicles index page.</returns>
         public IActionResult OnPost(List<IFormFile> Images)
         {
             if (!ModelState.IsValid)
@@ -76,11 +97,21 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
             return RedirectToPage("/MyVehicles/Index");
         }
 
+        /// <summary>
+        /// Checks whether a Boat with the specified ID exists in the database.
+        /// </summary>
+        /// <param name="id">The ID of the Boat to check.</param>
+        /// <returns>True if a Boat with the specified ID exists, otherwise false.</returns>
         private bool BoatExists(string id)
         {
             return (_context.Boats?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        /// <summary>
+        /// Adds the given images to the specified vehicle, replacing any existing images.
+        /// </summary>
+        /// <param name="images">The list of images to add to the vehicle.</param>
+        /// <param name="vehicleId">The ID of the vehicle to add the images to.</param>
         private void AddImagesToVehicle(List<IFormFile> images, string vehicleId)
         {
             images = FilterImages(images);
@@ -109,6 +140,10 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
             }
         }
 
+        /// <summary>
+        /// Removes all vehicle images associated with the specified vehicle.
+        /// </summary>
+        /// <param name="vehicleId">The ID of the vehicle to remove images for.</param>
         private void RemoveExistingVehicleImages(string vehicleId)
         {
             List<VehicleImage> foundImages = _context.VehicleImages
@@ -122,6 +157,11 @@ namespace TopAutoSpot.Views.MyVehicles.BoatCRUD
             }
         }
 
+        /// <summary>
+        /// Filters the given list of images to include only PNG, JPEG, and JPG files.
+        /// </summary>
+        /// <param name="images">The list of images to filter.</param>
+        /// <returns>The filtered list of images.</returns>
         private static List<IFormFile> FilterImages(List<IFormFile> images)
         {
             images = images

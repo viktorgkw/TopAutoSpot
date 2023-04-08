@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-
-namespace TopAutoSpot.Views.MyVehicles.AuctionCRUD
+﻿namespace TopAutoSpot.Views.MyVehicles.AuctionCRUD
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+
+    /// <summary>
+    /// The EditModel class is a PageModel used for editing Auction items.
+    /// This class is decorated with the [Authorize] attribute to ensure that only authenticated users can access it.
+    /// </summary>
     [Authorize]
     public class EditModel : PageModel
     {
@@ -20,6 +25,10 @@ namespace TopAutoSpot.Views.MyVehicles.AuctionCRUD
         [BindProperty]
         public Auction Auction { get; set; } = default!;
 
+        /// <summary>
+        /// Retrieves data for the specified Auction item.
+        /// </summary>
+        /// <param name="id">The ID of the Auction to retrieve.</param>
         public IActionResult OnGet(string id)
         {
             if (id == null || _context.Auctions.Count() == 0)
@@ -46,6 +55,9 @@ namespace TopAutoSpot.Views.MyVehicles.AuctionCRUD
             return Page();
         }
 
+        /// <summary>
+        /// Submits edited Auction data to the database.
+        /// </summary>
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
@@ -74,6 +86,10 @@ namespace TopAutoSpot.Views.MyVehicles.AuctionCRUD
             return RedirectToPage("/MyVehicles/Index");
         }
 
+        /// <summary>
+        /// Checks if an Auction with a given ID exists.
+        /// </summary>
+        /// <param name="id">The ID of the Auction to check for.</param>
         private bool AuctionExists(string id)
         {
             return (_context.Auctions?.Any(e => e.Id == id)).GetValueOrDefault();

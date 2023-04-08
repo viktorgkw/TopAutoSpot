@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-
-namespace TopAutoSpot.Views.MyVehicles.CarCRUD
+﻿namespace TopAutoSpot.Views.MyVehicles.CarCRUD
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+
+    /// <summary>
+    /// Controller for editing a car in the application, with authorization required.
+    /// </summary>
     [Authorize]
     public class EditModel : PageModel
     {
@@ -17,10 +21,22 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
             _context = context;
         }
 
+        /// <summary>
+        /// car to be edited, bound to form data.
+        /// </summary>
         [BindProperty]
         public Car Car { get; set; } = default!;
+
+        /// <summary>
+        /// Vehicle image associated with the car to be edited.
+        /// </summary>
         public VehicleImage VehicleImage { get; set; } = default!;
 
+        /// <summary>
+        /// Gets the car to be edited and verifies that the current user has permission to edit it.
+        /// </summary>
+        /// <param name="id">The ID of the car to be edited.</param>
+        /// <returns>The edit page if the car can be edited, otherwise a redirect to the appropriate page.</returns>
         public IActionResult OnGet(string id)
         {
             if (id == null || _context.Cars.Count() == 0)
@@ -47,6 +63,11 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
             return Page();
         }
 
+        /// <summary>
+        /// Updates the car and its associated images with the submitted form data.
+        /// </summary>
+        /// <param name="Images">List of form files containing the updated vehicle images.</param>
+        /// <returns>A redirect to the user's vehicles index page.</returns>
         public IActionResult OnPost(List<IFormFile> Images)
         {
             if (!ModelState.IsValid)
@@ -76,11 +97,21 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
             return RedirectToPage("/MyVehicles/Index");
         }
 
+        /// <summary>
+        /// Checks whether a car with the specified ID exists in the database.
+        /// </summary>
+        /// <param name="id">The ID of the car to check.</param>
+        /// <returns>True if a car with the specified ID exists, otherwise false.</returns>
         private bool CarExists(string id)
         {
             return (_context.Cars?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        /// <summary>
+        /// Adds the given images to the specified vehicle, replacing any existing images.
+        /// </summary>
+        /// <param name="images">The list of images to add to the vehicle.</param>
+        /// <param name="vehicleId">The ID of the vehicle to add the images to.</param>
         private void AddImagesToVehicle(List<IFormFile> images, string vehicleId)
         {
             images = FilterImages(images);
@@ -111,6 +142,10 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
             }
         }
 
+        /// <summary>
+        /// Removes all vehicle images associated with the specified vehicle.
+        /// </summary>
+        /// <param name="vehicleId">The ID of the vehicle to remove images for.</param>
         private void RemoveExistingVehicleImages(string vehicleId)
         {
             List<VehicleImage> foundImages = _context.VehicleImages
@@ -124,7 +159,12 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
             }
         }
 
-        private List<IFormFile> FilterImages(List<IFormFile> images)
+        /// <summary>
+        /// Filters the given list of images to include only PNG, JPEG, and JPG files.
+        /// </summary>
+        /// <param name="images">The list of images to filter.</param>
+        /// <returns>The filtered list of images.</returns>
+        private static List<IFormFile> FilterImages(List<IFormFile> images)
         {
             images = images
                 .Where(i =>
