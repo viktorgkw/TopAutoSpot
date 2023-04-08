@@ -15,7 +15,7 @@
         /// <returns>Status of the payment.</returns>
         public string MakePayment(StripePayment paymentInfo)
         {
-            TokenCreateOptions tokenOptions = new TokenCreateOptions
+            TokenCreateOptions tokenOptions = new()
             {
                 Card = new TokenCardOptions
                 {
@@ -26,10 +26,10 @@
                 }
             };
 
-            TokenService tokenService = new TokenService();
+            TokenService tokenService = new();
             Token token = tokenService.Create(tokenOptions);
 
-            ChargeCreateOptions chargeOptions = new ChargeCreateOptions
+            ChargeCreateOptions chargeOptions = new()
             {
                 Amount = paymentInfo.ChargeAmount,
                 Currency = paymentInfo.Currency,
@@ -37,7 +37,7 @@
                 Source = token.Id
             };
 
-            ChargeService chargeService = new ChargeService();
+            ChargeService chargeService = new();
             Charge charge = chargeService.Create(chargeOptions);
 
             return charge.Status;

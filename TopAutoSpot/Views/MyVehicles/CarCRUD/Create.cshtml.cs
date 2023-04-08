@@ -59,11 +59,11 @@ namespace TopAutoSpot.Views.MyVehicles.CarCRUD
             {
                 foreach (IFormFile image in images)
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    using (MemoryStream ms = new())
                     {
                         image.CopyTo(ms);
 
-                        VehicleImage vehicleImage = new VehicleImage()
+                        VehicleImage vehicleImage = new()
                         {
 
                             Id = Guid.NewGuid().ToString(),

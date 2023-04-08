@@ -15,7 +15,7 @@ namespace TopAutoSpot.Views.Buy
             _newsService = newsService;
         }
 
-        public List<Article> News = new List<Article>();
+        public List<Article> News = new();
 
         public async Task<IActionResult> OnGetAsync()
         {

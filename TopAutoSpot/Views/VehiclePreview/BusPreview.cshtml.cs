@@ -65,7 +65,7 @@ namespace TopAutoSpot.Views.VehiclePreview
             return Page();
         }
 
-        
+
         public string GetOwnerNumber()
         {
             User foundUser = _context.Users

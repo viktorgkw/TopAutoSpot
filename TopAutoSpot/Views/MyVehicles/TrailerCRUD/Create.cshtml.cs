@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-
-namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
+﻿namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+
     /// <summary>
     /// A page model class that handles the creation of a new Trailer listing. Requires authorization.
     /// </summary>
@@ -55,7 +56,7 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
         /// <returns>The "MyVehicles/Index" page on success or "NotFound" on failure.</returns>
         public IActionResult OnPost(List<IFormFile> Images)
         {
-            if (!ModelState.IsValid || _context.Trailers.Count() == 0 || Trailer == null)
+            if (!ModelState.IsValid || !_context.Trailers.Any() || Trailer == null)
             {
                 return RedirectToPage("/NotFound");
             }
@@ -88,22 +89,20 @@ namespace TopAutoSpot.Views.MyVehicles.TrailerCRUD
             {
                 foreach (IFormFile image in images)
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    using MemoryStream ms = new();
+                    image.CopyTo(ms);
+
+                    VehicleImage vehicleImage = new()
                     {
-                        image.CopyTo(ms);
 
-                        VehicleImage vehicleImage = new VehicleImage()
-                        {
+                        Id = Guid.NewGuid().ToString(),
+                        ImageName = image.FileName,
+                        ImageData = ms.ToArray(),
+                        VehicleId = vehicleId,
+                    };
 
-                            Id = Guid.NewGuid().ToString(),
-                            ImageName = image.FileName,
-                            ImageData = ms.ToArray(),
-                            VehicleId = vehicleId,
-                        };
-
-                        _context.VehicleImages.Add(vehicleImage);
-                        _context.SaveChanges();
-                    }
+                    _context.VehicleImages.Add(vehicleImage);
+                    _context.SaveChanges();
                 }
             }
         }

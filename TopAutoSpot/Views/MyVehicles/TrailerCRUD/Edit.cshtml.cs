@@ -39,7 +39,7 @@
         /// <returns>The edit page if the trailer can be edited, otherwise a redirect to the appropriate page.</returns>
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Trailers.Count() == 0)
+            if (id == null || !_context.Trailers.Any())
             {
                 return RedirectToPage("/NotFound");
             }
@@ -119,22 +119,20 @@
 
                 foreach (IFormFile image in images)
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    using MemoryStream ms = new();
+                    image.CopyTo(ms);
+
+                    VehicleImage vehicleImage = new()
                     {
-                        image.CopyTo(ms);
 
-                        VehicleImage vehicleImage = new VehicleImage()
-                        {
+                        Id = Guid.NewGuid().ToString(),
+                        ImageName = image.FileName,
+                        ImageData = ms.ToArray(),
+                        VehicleId = vehicleId,
+                    };
 
-                            Id = Guid.NewGuid().ToString(),
-                            ImageName = image.FileName,
-                            ImageData = ms.ToArray(),
-                            VehicleId = vehicleId,
-                        };
-
-                        _context.VehicleImages.Add(vehicleImage);
-                        _context.SaveChanges();
-                    }
+                    _context.VehicleImages.Add(vehicleImage);
+                    _context.SaveChanges();
                 }
             }
         }
@@ -161,7 +159,7 @@
         /// </summary>
         /// <param name="images">The list of images to filter.</param>
         /// <returns>The filtered list of images.</returns>
-        private List<IFormFile> FilterImages(List<IFormFile> images)
+        private static List<IFormFile> FilterImages(List<IFormFile> images)
         {
             images = images
                 .Where(i =>

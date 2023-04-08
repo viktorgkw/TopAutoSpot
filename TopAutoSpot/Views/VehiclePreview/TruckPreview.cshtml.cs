@@ -31,7 +31,7 @@ namespace TopAutoSpot.Views.VehiclePreview
         /// <returns>The page to display the truck preview.</returns>
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Trucks.Count() == 0)
+            if (id == null || !_context.Trucks.Any())
             {
                 return RedirectToPage("/NotFound");
             }
