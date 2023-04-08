@@ -1,30 +1,46 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Data.Models.Enums;
-using TopAutoSpot.Services.Common;
-using TopAutoSpot.Services.EmailServices;
-using TopAutoSpot.Services.Utilities;
-
 namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Data.Models.Enums;
+    using TopAutoSpot.Services.Common;
+    using TopAutoSpot.Services.EmailServices;
+    using TopAutoSpot.Services.Utilities;
+
+    /// <summary>
+    /// A page model to handle approving an auction by an administrator.
+    /// </summary>
     [Authorize]
     public class ApproveAuctionModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-
         private readonly IEmailService _emailService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApproveAuctionModel"/> class.
+        /// </summary>
+        /// <param name="context">The application database context.</param>
+        /// <param name="emailService">The email service used to send notifications.</param>
         public ApproveAuctionModel(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
             _emailService = emailService;
         }
 
+        /// <summary>
+        /// Gets or sets the ID of the auction to approve.
+        /// </summary>
         public string AuctionId { get; set; } = null!;
 
+        /// <summary>
+        /// Handles GET requests to the page.
+        /// </summary>
+        /// <param name="auctionId">The ID of the auction to approve.</param>
+        /// <returns>The page result.</returns>
         public IActionResult OnGet(string auctionId)
         {
             if (User.IsInRole("Administrator"))
@@ -69,6 +85,11 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
             return RedirectToPage("/NotFound");
         }
 
+        /// <summary>
+        /// Approves the specified auction.
+        /// </summary>
+        /// <param name="auctionId">The ID of the auction to approve.</param>
+        /// <returns><c>true</c> if the auction was approved successfully; otherwise, <c>false</c>.</returns>
         public bool AuctionApproved(string auctionId)
         {
             _context.Auctions.First(a => a.Id == auctionId).Status = ListingStatusTypes.Active.ToString();

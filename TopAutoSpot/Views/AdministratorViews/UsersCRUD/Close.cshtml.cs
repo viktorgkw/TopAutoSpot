@@ -1,14 +1,19 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Services.Common;
-using TopAutoSpot.Services.EmailServices;
-using TopAutoSpot.Services.Utilities;
-
 namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Services.Common;
+    using TopAutoSpot.Services.EmailServices;
+    using TopAutoSpot.Services.Utilities;
+
+    /// <summary>
+    /// Page model for closing a user account.
+    /// Requires authorization, only accessible to administrators.
+    /// </summary>
     [Authorize]
     public class CloseModel : PageModel
     {
@@ -16,6 +21,11 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
         private readonly IEmailService _emailService;
         private readonly VehicleRemover _vehicleRemover;
 
+        /// <summary>
+        /// Constructor for CloseModel.
+        /// </summary>
+        /// <param name="context">The ApplicationDbContext.</param>
+        /// <param name="emailService">The IEmailService.</param>
         public CloseModel(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
@@ -26,6 +36,11 @@ namespace TopAutoSpot.Views.AdministratorViews.UsersCRUD
         [BindProperty]
         public User UserToClose { get; set; } = null!;
 
+        /// <summary>
+        /// GET request method for closing a user account.
+        /// </summary>
+        /// <param name="userId">The ID of the user account to be closed.</param>
+        /// <returns>The page if the user is an administrator, else NotFound.</returns>
         public IActionResult OnGet(string userId)
         {
             if (User.IsInRole("Administrator"))

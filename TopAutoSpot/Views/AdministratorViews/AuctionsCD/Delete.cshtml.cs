@@ -1,30 +1,46 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Services.Common;
-using TopAutoSpot.Services.EmailServices;
-using TopAutoSpot.Services.Utilities;
-
 namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Services.Common;
+    using TopAutoSpot.Services.EmailServices;
+    using TopAutoSpot.Services.Utilities;
+
+    /// <summary>
+    /// Represents the page model for deleting an auction with authorization.
+    /// </summary>
     [Authorize]
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-
         private readonly IEmailService _emailService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeleteModel"/> class with the specified dependencies.
+        /// </summary>
+        /// <param name="context">The application database context.</param>
+        /// <param name="emailService">The email service.</param>
         public DeleteModel(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
             _emailService = emailService;
         }
 
+        /// <summary>
+        /// Gets or sets the auction to be deleted.
+        /// </summary>
         [BindProperty]
         public Auction AuctionToDelete { get; set; } = null!;
 
+        /// <summary>
+        /// Handles GET requests for deleting an auction.
+        /// </summary>
+        /// <param name="id">The ID of the auction to be deleted.</param>
+        /// <returns>The page result.</returns>
         public IActionResult OnGet(string id)
         {
             if (User.IsInRole("Administrator"))

@@ -1,30 +1,46 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Services.Common;
-using TopAutoSpot.Services.EmailServices;
-using TopAutoSpot.Services.Utilities;
-
 namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Services.Common;
+    using TopAutoSpot.Services.EmailServices;
+    using TopAutoSpot.Services.Utilities;
+
+    /// <summary>
+    /// This class handles the deletion of vehicles from the database, including sending a notification email to the owner of the vehicle.
+    /// </summary>
     [Authorize]
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-
         private readonly IEmailService _emailService;
 
+        /// <summary>
+        /// Constructor for the DeleteModel class.
+        /// </summary>
+        /// <param name="context">The application database context.</param>
+        /// <param name="emailService">The email service to use for sending notification emails.</param>
         public DeleteModel(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
             _emailService = emailService;
         }
 
+        /// <summary>
+        /// The ID of the vehicle to be deleted, bound to a property for easy access.
+        /// </summary>
         [BindProperty]
         public string VehicleId { get; set; } = null!;
 
+        /// <summary>
+        /// Handles HTTP GET requests to the page, deleting the specified vehicle and sending a notification email to the owner.
+        /// </summary>
+        /// <param name="id">The ID of the vehicle to delete.</param>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
         public IActionResult OnGet(string id)
         {
             if (User.IsInRole("Administrator"))
@@ -67,6 +83,11 @@ namespace TopAutoSpot.Views.AdministratorViews.ListingsCD
             return RedirectToPage("/NotFound");
         }
 
+        /// <summary>
+        /// Deletes the specified vehicle from the database.
+        /// </summary>
+        /// <param name="id">The ID of the vehicle to delete.</param>
+        /// <returns>True if the deletion was successful, false otherwise.</returns>
         private bool DeleteVehicle(string id)
         {
             if (_context.Cars.FirstOrDefault(c => c.Id == id) != null)

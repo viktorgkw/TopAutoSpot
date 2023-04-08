@@ -1,20 +1,30 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-
 namespace TopAutoSpot.Views.AuctionViews
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+
+    /// <summary>
+    /// Represents the Join page model for joining an auction.
+    /// </summary>
     [Authorize]
     public class JoinModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+
         public JoinModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Handles the GET request to the Join page.
+        /// </summary>
+        /// <param name="id">The ID of the auction to join.</param>
+        /// <returns>The appropriate IActionResult.</returns>
         public IActionResult OnGet(string id)
         {
             Auction? foundAuction = _context.Auctions.FirstOrDefault(a => a.Id == id);

@@ -1,20 +1,23 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Data.Models.Enums;
-using TopAutoSpot.Services.Common;
-using TopAutoSpot.Services.EmailServices;
-using TopAutoSpot.Services.Utilities;
-
 namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Data.Models.Enums;
+    using TopAutoSpot.Services.Common;
+    using TopAutoSpot.Services.EmailServices;
+    using TopAutoSpot.Services.Utilities;
+
+    /// <summary>
+    /// The CloseModel class represents a PageModel used to close an auction.
+    /// </summary>
     [Authorize]
     public class CloseModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-
         private readonly IEmailService _emailService;
 
         public CloseModel(ApplicationDbContext context, IEmailService emailService)
@@ -23,9 +26,17 @@ namespace TopAutoSpot.Views.AdministratorViews.AuctionsCD
             _emailService = emailService;
         }
 
+        /// <summary>
+        /// Gets or sets the auction to close.
+        /// </summary>
         [BindProperty]
         public Auction AuctionToClose { get; set; } = null!;
 
+        /// <summary>
+        /// Handles the GET request for the Close page.
+        /// </summary>
+        /// <param name="id">The ID of the auction to close.</param>
+        /// <returns>The result of the action.</returns>
         public IActionResult OnGet(string id)
         {
             if (User.IsInRole("Administrator"))

@@ -1,30 +1,46 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Data.Models.Enums;
-using TopAutoSpot.Services.Common;
-using TopAutoSpot.Services.EmailServices;
-using TopAutoSpot.Services.Utilities;
-
 namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Data.Models.Enums;
+    using TopAutoSpot.Services.Common;
+    using TopAutoSpot.Services.EmailServices;
+    using TopAutoSpot.Services.Utilities;
+
+    /// <summary>
+    /// Page model for approving a vehicle listing by an administrator.
+    /// </summary>
     [Authorize]
     public class ApproveVehicleModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-
         private readonly IEmailService _emailService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApproveVehicleModel"/> class with the specified context and email service.
+        /// </summary>
+        /// <param name="context">The database context.</param>
+        /// <param name="emailService">The email service.</param>
         public ApproveVehicleModel(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
             _emailService = emailService;
         }
 
+        /// <summary>
+        /// Gets or sets the ID of the vehicle to approve.
+        /// </summary>
         public string VehicleId { get; set; } = null!;
 
+        /// <summary>
+        /// Handles the GET request for approving a vehicle listing. 
+        /// </summary>
+        /// <param name="vehicleId">The ID of the vehicle to approve.</param>
+        /// <returns>The page result.</returns>
         public IActionResult OnGet(string vehicleId)
         {
             if (User.IsInRole("Administrator"))
@@ -69,6 +85,11 @@ namespace TopAutoSpot.Views.AdministratorViews.ApprovalViews
             return RedirectToPage("/NotFound");
         }
 
+        /// <summary>
+        /// Approves the specified vehicle listing.
+        /// </summary>
+        /// <param name="vehicleId">The ID of the vehicle to approve.</param>
+        /// <returns><c>true</c> if the vehicle was approved successfully; otherwise, <c>false</c>.</returns>
         public bool VehicleApproved(string vehicleId)
         {
             if (_context.Cars.FirstOrDefault(c => c.Id == vehicleId) != null)

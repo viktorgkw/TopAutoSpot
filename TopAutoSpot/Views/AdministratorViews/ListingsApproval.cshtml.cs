@@ -1,13 +1,17 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Data.Models.Enums;
-
 namespace TopAutoSpot.Views.AdministratorViews
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Data.Models.Enums;
+
+    /// <summary>
+    /// PageModel class for managing vehicle listings approval, accessible to administrators only.
+    /// </summary>
     [Authorize]
     public class ListingsApprovalModel : PageModel
     {
@@ -32,6 +36,10 @@ namespace TopAutoSpot.Views.AdministratorViews
 
         public List<Bus> Buses { get; set; } = null!;
 
+        /// <summary>
+        /// Handles HTTP GET requests to display listings that are waiting approval or closed.
+        /// </summary>
+        /// <returns>The PageResult object.</returns>
         public IActionResult OnGet()
         {
             if (User.IsInRole("Administrator"))
@@ -85,6 +93,11 @@ namespace TopAutoSpot.Views.AdministratorViews
                         Motorcycles.Count + Trailers.Count + Trucks.Count;
         }
 
+        /// <summary>
+        /// Gets the image data URL for a vehicle with the specified ID.
+        /// </summary>
+        /// <param name="vehicleId">The ID of the vehicle.</param>
+        /// <returns>The image data URL as a string.</returns>
         public string GetImage(string vehicleId)
         {
             byte[] data = _context.VehicleImages
@@ -96,6 +109,11 @@ namespace TopAutoSpot.Views.AdministratorViews
             return imgDataURL;
         }
 
+        /// <summary>
+        /// Determines whether a vehicle with the specified ID has any images.
+        /// </summary>
+        /// <param name="vehicleId">The ID of the vehicle.</param>
+        /// <returns>True if the vehicle has at least one image; otherwise, false.</returns>
         public bool HasAnyImages(string vehicleId)
         {
             return _context.VehicleImages
