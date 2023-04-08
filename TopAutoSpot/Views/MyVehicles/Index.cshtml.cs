@@ -1,14 +1,18 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using NewsAPI.Models;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Services.NewsServices;
-
 namespace TopAutoSpot.Views.MyVehicles
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+    using NewsAPI.Models;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Services.NewsServices;
+
+    /// <summary>
+    /// Page model for the Index page that displays a list of articles and vehicle listings.
+    /// </summary>
     [Authorize]
     public class IndexModel : PageModel
     {
@@ -16,30 +20,66 @@ namespace TopAutoSpot.Views.MyVehicles
 
         private readonly INewsService _newsService;
 
+        /// <summary>
+        /// Initializes a new instance of the IndexModel class with the given database context and news service.
+        /// </summary>
+        /// <param name="db">The application database context.</param>
+        /// <param name="newsService">The news service.</param>
         public IndexModel(ApplicationDbContext db, INewsService newsService)
         {
             _context = db;
             _newsService = newsService;
         }
 
+        /// <summary>
+        /// Gets or sets the list of news articles to display on the Index page.
+        /// </summary>
         public List<Article> News = new();
 
+        /// <summary>
+        /// Gets or sets the list of boats to display on the Index page.
+        /// </summary>
         public List<Boat> Boats { get; private set; } = null!;
 
+        /// <summary>
+        /// Gets or sets the list of buses to display on the Index page.
+        /// </summary>
         public List<Bus> Buses { get; private set; } = null!;
 
+        /// <summary>
+        /// Gets or sets the list of cars to display on the Index page.
+        /// </summary>
         public List<Car> Cars { get; private set; } = null!;
 
+        /// <summary>
+        /// Gets or sets the list of motorcycles to display on the Index page.
+        /// </summary>
         public List<Motorcycle> Motorcycles { get; private set; } = null!;
 
+        /// <summary>
+        /// Gets or sets the list of trailers to display on the Index page.
+        /// </summary>
         public List<Trailer> Trailers { get; private set; } = null!;
 
+        /// <summary>
+        /// Gets or sets the list of trucks to display on the Index page.
+        /// </summary>
         public List<Truck> Trucks { get; private set; } = null!;
 
+        /// <summary>
+        /// Gets or sets the list of auctions to display on the Index page.
+        /// </summary>
         public List<Auction> Auctions { get; private set; } = null!;
 
+        /// <summary>
+        /// Gets or sets the overall count of all listings to display on the Index page.
+        /// </summary>
         public int OverallCount { get; private set; }
 
+        /// <summary>
+        /// Handles the HTTP GET request for the Index page.
+        /// </summary>
+        /// <returns>The IActionResult for the page.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             User currentUser = _context.Users
@@ -89,6 +129,11 @@ namespace TopAutoSpot.Views.MyVehicles
             return Page();
         }
 
+        /// <summary>
+        /// Retrieves the image data in base64 format for a given car ID.
+        /// </summary>
+        /// <param name="carId">The ID of the car to retrieve the image for.</param>
+        /// <returns>The image data in base64 format.</returns>
         public string GetImage(string carId)
         {
             byte[] data = _context.VehicleImages
@@ -100,6 +145,11 @@ namespace TopAutoSpot.Views.MyVehicles
             return imgDataURL;
         }
 
+        /// <summary>
+        /// Retrieves the image data in base64 format for a given auction ID.
+        /// </summary>
+        /// <param name="auctionId">The ID of the auction to retrieve the image for.</param>
+        /// <returns>The image data in base64 format.</returns>
         public string GetAuctionImage(string auctionId)
         {
             string carId = _context.Auctions
@@ -116,6 +166,11 @@ namespace TopAutoSpot.Views.MyVehicles
             return imgDataURL;
         }
 
+        /// <summary>
+        /// Determines if a given car ID has any images associated with it.
+        /// </summary>
+        /// <param name="carId">The ID of the car to check for images.</param>
+        /// <returns>True if the car has at least one image, false otherwise.</returns>
         public bool HasAnyImages(string carId)
         {
             return _context.VehicleImages

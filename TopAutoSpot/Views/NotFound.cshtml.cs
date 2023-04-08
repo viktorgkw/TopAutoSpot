@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
 namespace TopAutoSpot.Views
 {
-    public class NotFoundModel : PageModel
-    {
-        public void OnGet()
-        {
-        }
-    }
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    /// <summary>
+    /// This is a model for the NotFound page.
+    /// </summary>
+    public class NotFoundModel : PageModel { }
 }

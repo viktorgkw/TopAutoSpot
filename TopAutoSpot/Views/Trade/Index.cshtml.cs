@@ -1,15 +1,19 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using NewsAPI.Models;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Data.Models.Enums;
-using TopAutoSpot.Services.NewsServices;
-
 namespace TopAutoSpot.Views.Trade
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+    using NewsAPI.Models;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Data.Models.Enums;
+    using TopAutoSpot.Services.NewsServices;
+
+    /// <summary>
+    /// Represents the page model for the Trading Index page.
+    /// </summary>
     [Authorize]
     public class IndexModel : PageModel
     {
@@ -39,6 +43,13 @@ namespace TopAutoSpot.Views.Trade
 
         public int OverallCount { get; private set; }
 
+        /// <summary>
+        /// This method handles the HTTP GET request for the Index page, retrieving all the vehicles with a price of zero and a status of "Active"
+        /// from each vehicle category (boats, buses, cars, motorcycles, trailers, and trucks) from the database context, and storing them in
+        /// corresponding lists. It also calculates the overall count of such vehicles. Additionally, it retrieves the latest three news articles
+        /// using the injected INewsService, and returns the Index page.
+        /// </summary>
+        /// <returns>An IActionResult representing the Index page.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             Boats = _context.Boats
@@ -79,6 +90,10 @@ namespace TopAutoSpot.Views.Trade
             return Page();
         }
 
+        /// <summary>
+        /// Gets the data URL of the main image of the vehicle.
+        /// </summary>
+        /// <returns>The data URL of the main image of the vehicle.</returns>
         public string GetImage(string carId)
         {
             byte[] data = _context.VehicleImages
@@ -89,6 +104,10 @@ namespace TopAutoSpot.Views.Trade
             return imgDataURL;
         }
 
+        /// <summary>
+        /// Checks if the vehicle has any images.
+        /// </summary>
+        /// <returns>True if the vehicle has any images, false otherwise.</returns>
         public bool HasAnyImages(string carId)
         {
             return _context.VehicleImages

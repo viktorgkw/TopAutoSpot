@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
 namespace TopAutoSpot.Views.PrivacyPolicy
 {
-    public class IndexModel : PageModel
-    {
-        public void OnGet()
-        {
-        }
-    }
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    /// <summary>
+    /// Represents the page model for the Privacy Policy Index page.
+    /// </summary>
+    public class IndexModel : PageModel { }
 }

@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
 namespace TopAutoSpot.Views
 {
-    public class UnknownErrorModel : PageModel
-    {
-        public void OnGet()
-        {
-        }
-    }
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    /// <summary>
+    /// This is a model for the page UnknownError.
+    /// </summary>
+    public class UnknownErrorModel : PageModel { }
 }

@@ -1,12 +1,16 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Data.Models.Enums;
-
 namespace TopAutoSpot.Views.VehiclePreview
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Data.Models.Enums;
+
+    /// <summary>
+    /// Page model for displaying a preview of a Auction listing.
+    /// </summary>
     public class AuctionPreviewModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -18,6 +22,11 @@ namespace TopAutoSpot.Views.VehiclePreview
 
         public Auction Auction { get; set; } = default!;
 
+        /// <summary>
+        /// Handles the GET request and returns the page to display the Auction preview.
+        /// </summary>
+        /// <param name="id">The ID of the Auction to display.</param>
+        /// <returns>The page to display the Auction preview.</returns>
         public IActionResult OnGet(string id)
         {
             if (id == null || !_context.Auctions.Any())
@@ -49,6 +58,10 @@ namespace TopAutoSpot.Views.VehiclePreview
             return Page();
         }
 
+        /// <summary>
+        /// Gets the full name of the owner of the Auction.
+        /// </summary>
+        /// <returns>The full name of the Auction owner.</returns>
         public string GetOwnerFullName()
         {
             User foundUser = _context.Users
@@ -58,6 +71,10 @@ namespace TopAutoSpot.Views.VehiclePreview
             return foundUser.FirstName + " " + foundUser.LastName;
         }
 
+        /// <summary>
+        /// Gets the data URL of the main image of the Auction.
+        /// </summary>
+        /// <returns>The data URL of the main image of the Auction.</returns>
         public string GetImage()
         {
             byte[] data = _context.VehicleImages

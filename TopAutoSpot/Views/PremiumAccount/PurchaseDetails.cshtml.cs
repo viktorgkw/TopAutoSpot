@@ -1,13 +1,17 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Data.Models.Enums;
-using TopAutoSpot.Services.PaymentServices;
-
 namespace TopAutoSpot.Views.PremiumAccount
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Data.Models.Enums;
+    using TopAutoSpot.Services.PaymentServices;
+
+    /// <summary>
+    /// Page model for PurchaseDetails page that handles payment processing and redirects to payment result page based on payment outcome.
+    /// </summary>
     [Authorize]
     public class PurchaseDetailsModel : PageModel
     {
@@ -15,15 +19,27 @@ namespace TopAutoSpot.Views.PremiumAccount
 
         private readonly UserManager<User> _userManager;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PurchaseDetailsModel"/> class.
+        /// </summary>
+        /// <param name="paymentService">The payment service.</param>
+        /// <param name="userManager">The user manager.</param>
         public PurchaseDetailsModel(IPaymentService paymentService, UserManager<User> userManager)
         {
             _paymentService = paymentService;
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Gets or sets the Stripe payment.
+        /// </summary>
         [BindProperty]
         public StripePayment StripePayment { get; set; } = null!;
 
+        /// <summary>
+        /// HTTP GET method for PurchaseDetails page. Ensures user is logged in with 'User' role, otherwise redirects to NotFound page.
+        /// </summary>
+        /// <returns>The page.</returns>
         public IActionResult OnGet()
         {
             if (!User.IsInRole(RoleTypes.User.ToString()))
@@ -34,6 +50,10 @@ namespace TopAutoSpot.Views.PremiumAccount
             return Page();
         }
 
+        /// <summary>
+        /// HTTP POST method for PurchaseDetails page. Handles payment processing and redirects to payment result page based on payment outcome.
+        /// </summary>
+        /// <returns>The payment result page.</returns>
         public async Task<IActionResult> OnPostAsync()
         {
             var foundUser = await _userManager.FindByNameAsync(User.Identity!.Name!);
