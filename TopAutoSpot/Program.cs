@@ -32,6 +32,12 @@ builder.Services.Configure<IdentityOptions>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
     options.SignIn.RequireConfirmedEmail = true;
+
+    options.Password.RequiredLength = 8;
+    options.Password.RequiredUniqueChars = 6;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
 });
 
 // Razor Pages Configuration
@@ -44,7 +50,7 @@ builder.Services.AddRazorPages(options =>
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddTransient<IAuctionService, AuctionService>();
+builder.Services.AddScoped<IAuctionService, AuctionService>();
 
 builder.Services.AddControllersWithViews();
 
