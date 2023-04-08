@@ -9,7 +9,7 @@
     using TopAutoSpot.Data.Models;
 
     /// <summary>
-    /// Controller for editing a Bus in the application, with authorization required.
+    /// Page model for editing a Bus in the application, with authorization required.
     /// </summary>
     [Authorize]
     public class EditModel : PageModel
@@ -39,7 +39,7 @@
         /// <returns>The edit page if the Bus can be edited, otherwise a redirect to the appropriate page.</returns>
         public IActionResult OnGet(string id)
         {
-            if (id == null || _context.Buses.Count() == 0)
+            if (id == null || !_context.Buses.Any())
             {
                 return RedirectToPage("/NotFound");
             }
@@ -124,22 +124,20 @@
 
                 foreach (IFormFile image in images)
                 {
-                    using (MemoryStream ms = new())
+                    using MemoryStream ms = new();
+                    image.CopyTo(ms);
+
+                    VehicleImage vehicleImage = new()
                     {
-                        image.CopyTo(ms);
 
-                        VehicleImage vehicleImage = new()
-                        {
+                        Id = Guid.NewGuid().ToString(),
+                        ImageName = image.FileName,
+                        ImageData = ms.ToArray(),
+                        VehicleId = vehicleId,
+                    };
 
-                            Id = Guid.NewGuid().ToString(),
-                            ImageName = image.FileName,
-                            ImageData = ms.ToArray(),
-                            VehicleId = vehicleId,
-                        };
-
-                        _context.VehicleImages.Add(vehicleImage);
-                        _context.SaveChanges();
-                    }
+                    _context.VehicleImages.Add(vehicleImage);
+                    _context.SaveChanges();
                 }
             }
         }

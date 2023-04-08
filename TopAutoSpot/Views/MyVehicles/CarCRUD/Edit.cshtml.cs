@@ -9,7 +9,7 @@
     using TopAutoSpot.Data.Models;
 
     /// <summary>
-    /// Controller for editing a car in the application, with authorization required.
+    /// Page model for editing a car in the application, with authorization required.
     /// </summary>
     [Authorize]
     public class EditModel : PageModel
