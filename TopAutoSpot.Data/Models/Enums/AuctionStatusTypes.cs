@@ -1,5 +1,8 @@
 ﻿namespace TopAutoSpot.Data.Models.Enums
 {
+    /// <summary>
+    /// Enum representing the various status types of an auction.
+    /// </summary>
     public enum AuctionStatusTypes
     {
         WaitingApproval = 0,

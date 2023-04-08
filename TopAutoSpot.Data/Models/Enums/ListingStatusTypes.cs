@@ -1,5 +1,8 @@
 ﻿namespace TopAutoSpot.Data.Models.Enums
 {
+    /// <summary>
+    /// This enum represents the possible status types for a listing.
+    /// </summary>
     public enum ListingStatusTypes
     {
         Active = 0,
