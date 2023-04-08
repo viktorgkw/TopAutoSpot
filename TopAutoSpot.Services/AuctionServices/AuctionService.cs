@@ -1,11 +1,14 @@
-﻿using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-using TopAutoSpot.Data.Models.Enums;
-using TopAutoSpot.Services.Common;
-using TopAutoSpot.Services.EmailServices;
-
-namespace TopAutoSpot.Services.AuctionServices
+﻿namespace TopAutoSpot.Services.AuctionServices
 {
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+    using TopAutoSpot.Data.Models.Enums;
+    using TopAutoSpot.Services.Common;
+    using TopAutoSpot.Services.EmailServices;
+
+    /// <summary>
+    /// This class realizes the functionality to check for starting auctions and remind clients that have joined starting auctions.
+    /// </summary>
     public class AuctionService : IAuctionService
     {
         private readonly ApplicationDbContext _context;
@@ -17,6 +20,10 @@ namespace TopAutoSpot.Services.AuctionServices
             _emailService = emailSerice;
         }
 
+        /// <summary>
+        /// This method is executed each minute to check for starting auctions or auctions that have ended to change their status and notify the auction winner.
+        /// </summary>
+        /// <returns>Nothing.</returns>
         public Task StartingAuctionsCheck()
         {
             List<Auction> auctionsToday = _context.Auctions
@@ -58,6 +65,11 @@ namespace TopAutoSpot.Services.AuctionServices
             return Task.FromResult(0);
         }
 
+        /// <summary>
+        /// This method is executed daily to change the status of auctions that start today to Starting Soon or close auctions that have less than 3 bidders.
+        /// This method also reminds all bidders that the auction starts today.
+        /// </summary>
+        /// <returns>Nothing.</returns>
         public Task DailyCheckAndRemind()
         {
             List<Auction> auctionsToday = _context.Auctions

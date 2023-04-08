@@ -1,10 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
-using NewsAPI;
-using NewsAPI.Constants;
-using NewsAPI.Models;
-
-namespace TopAutoSpot.Services.NewsServices
+﻿namespace TopAutoSpot.Services.NewsServices
 {
+    using Microsoft.Extensions.Configuration;
+    using NewsAPI;
+    using NewsAPI.Constants;
+    using NewsAPI.Models;
+
+    /// <summary>
+    /// This class is a service class for news.
+    /// </summary>
     public class NewsService : INewsService
     {
         private readonly IConfiguration _configuration;
@@ -14,6 +17,11 @@ namespace TopAutoSpot.Services.NewsServices
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// This method returns specific amount of news retrieved via the News API.
+        /// </summary>
+        /// <param name="returnNewsCount">Number of news that you want to retrieve.</param>
+        /// <returns>List of retrieved Articles.</returns>
         public async Task<List<Article>> GetNews(int returnNewsCount)
         {
             NewsApiClient newsApiClient = new(_configuration["NewsAPI:Key"]);
@@ -39,6 +47,12 @@ namespace TopAutoSpot.Services.NewsServices
             return new List<Article>();
         }
 
+        /// <summary>
+        /// This method ensures that each Article will be unique and there will be no repeated ones.
+        /// </summary>
+        /// <param name="articlesResponse">List of all Articles</param>
+        /// <param name="returnCount">Number of news that you want to retrieve.</param>
+        /// <returns>List of retrieved unique Articles.</returns>
         private static List<Article> GetRandomArticles(ArticlesResult articlesResponse, int returnCount)
         {
             Dictionary<int, string> articlesTitles = new();

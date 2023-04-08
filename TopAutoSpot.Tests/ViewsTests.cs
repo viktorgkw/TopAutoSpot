@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-
-namespace TopAutoSpot.Tests
+﻿namespace TopAutoSpot.Tests
 {
+    using Microsoft.AspNetCore.Mvc.Testing;
+
+    /// <summary>
+    /// This class contains Unit Tests to verify that the views of the project are functioning correctly.
+    /// </summary>
     public class ViewsTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly WebApplicationFactory<Program> _factory;
@@ -11,6 +14,11 @@ namespace TopAutoSpot.Tests
             _factory = factory;
         }
 
+        /// <summary>
+        /// This test method verifies that each page that does not require users to be authorized will return status Ok.
+        /// </summary>
+        /// <param name="url">URL of the page.</param>
+        /// <returns>Nothing.</returns>
         [Theory]
         [InlineData("/Index")]
         [InlineData("/NotFound")]
@@ -35,6 +43,11 @@ namespace TopAutoSpot.Tests
                 response.Content.Headers.ContentType!.ToString());
         }
 
+        /// <summary>
+        /// This test method verifies that each administrator view will redirect the user so they can't access it.
+        /// </summary>
+        /// <param name="url">URL of the page.</param>
+        /// <returns>Nothing.</returns>
         [Theory]
         [InlineData("/AdministratorViews/ApprovalViews/ApproveAuction")]
         [InlineData("/AdministratorViews/ApprovalViews/ApproveVehicle")]
@@ -71,6 +84,11 @@ namespace TopAutoSpot.Tests
             Assert.True(statusCodeIsRedirect);
         }
 
+        /// <summary>
+        /// This test method verifies that each page that does require users to be authorized will redirect users to Register/Login page.
+        /// </summary>
+        /// <param name="url">URL of the page.</param>
+        /// <returns>Nothing.</returns>
         [Theory]
         // Auction Views
         [InlineData("/AuctionViews/AuctionBid")]

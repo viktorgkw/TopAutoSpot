@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using TopAutoSpot.Data;
-using TopAutoSpot.Data.Models;
-
-namespace TopAutoSpot.Tests
+﻿namespace TopAutoSpot.Tests
 {
+    using Microsoft.EntityFrameworkCore;
+
+    using TopAutoSpot.Data;
+    using TopAutoSpot.Data.Models;
+
+    /// <summary>
+    /// This class contains Unit Tests to verify that the database context is functioning correctly.
+    /// </summary>
     public class ContextTests
     {
         private readonly DbContextOptions<ApplicationDbContext> options;
@@ -19,6 +22,10 @@ namespace TopAutoSpot.Tests
             context.Database.EnsureCreated();
         }
 
+        /// <summary>
+        /// This test method verifies whether the context's database can be connected to or not.
+        /// It uses the Assert.True method to ensure that the connection is successful.
+        /// </summary>
         [Fact]
         public void TestDatabaseConnection()
         {
@@ -26,6 +33,9 @@ namespace TopAutoSpot.Tests
             Assert.True(context.Database.CanConnect());
         }
 
+        /// <summary>
+        /// This test method verifies that the database can add, save and retrieve entities successfully.
+        /// </summary>
         [Fact]
         public void TestDatabaseSelect()
         {
@@ -44,6 +54,9 @@ namespace TopAutoSpot.Tests
             Assert.Equal(newCar.Title, selectedCar.Title);
         }
 
+        /// <summary>
+        /// This test method verifies that the database can insert and save entities successfully.
+        /// </summary>
         [Fact]
         public void TestDatabaseInsert()
         {
@@ -58,6 +71,9 @@ namespace TopAutoSpot.Tests
             Assert.NotNull(context.Cars.First());
         }
 
+        /// <summary>
+        /// This test method verifies that the database can delete entities successfully.
+        /// </summary>
         [Fact]
         public void TestDatabaseDelete()
         {
@@ -77,6 +93,9 @@ namespace TopAutoSpot.Tests
             Assert.Null(context.Cars.FirstOrDefault(c => c.Id == foundCar.Id));
         }
 
+        /// <summary>
+        /// This test method verifies that the database can edit entities successfully.
+        /// </summary>
         [Fact]
         public void TestDatabaseEdit()
         {
@@ -97,6 +116,9 @@ namespace TopAutoSpot.Tests
             Assert.True(context.Cars.Any(c => c.Title == newName));
         }
 
+        /// <summary>
+        /// This a static class that returns instance of a Car that is used for testing.
+        /// </summary>
         private static Car GetTestCar()
             => new()
             {

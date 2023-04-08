@@ -1,12 +1,15 @@
-﻿using MailKit.Net.Smtp;
-using MailKit.Security;
-using Microsoft.Extensions.Configuration;
-using MimeKit;
-using MimeKit.Text;
-using TopAutoSpot.Data.Models;
-
-namespace TopAutoSpot.Services.EmailServices
+﻿namespace TopAutoSpot.Services.EmailServices
 {
+    using MailKit.Net.Smtp;
+    using MailKit.Security;
+    using Microsoft.Extensions.Configuration;
+    using MimeKit;
+    using MimeKit.Text;
+    using TopAutoSpot.Data.Models;
+
+    /// <summary>
+    /// This class realizes the emailing services used through the website to email clients.
+    /// </summary>
     public class EmailService : IEmailService
     {
         private readonly IConfiguration _configuration;
@@ -16,6 +19,11 @@ namespace TopAutoSpot.Services.EmailServices
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// This method sends email to the specified client.
+        /// The client data is stored in the EmailDto parameter.
+        /// </summary>
+        /// <param name="request">This is EmailDto which contains data about the client's email.</param>
         public void SendEmail(EmailDto request)
         {
             MimeMessage email = new();

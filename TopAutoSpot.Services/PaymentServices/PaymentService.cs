@@ -1,10 +1,18 @@
-﻿using Stripe;
-using TopAutoSpot.Data.Models;
-
-namespace TopAutoSpot.Services.PaymentServices
+﻿namespace TopAutoSpot.Services.PaymentServices
 {
+    using Stripe;
+    using TopAutoSpot.Data.Models;
+
+    /// <summary>
+    /// This class is a service class for payments.
+    /// </summary>
     public class PaymentService : IPaymentService
     {
+        /// <summary>
+        /// This class realizes a payment with given payment info.
+        /// </summary>
+        /// <param name="paymentInfo">Payment Info</param>
+        /// <returns>Status of the payment.</returns>
         public string MakePayment(StripePayment paymentInfo)
         {
             TokenCreateOptions tokenOptions = new TokenCreateOptions
