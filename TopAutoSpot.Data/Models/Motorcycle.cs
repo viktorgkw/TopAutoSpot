@@ -8,93 +8,93 @@
     public class Motorcycle
     {
         /// <summary>
-        /// Gets or sets the unique identifier of the motorcycle.
+        /// The unique identifier of the motorcycle.
         /// </summary>
         [Key]
         public string Id { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the name of the user who created the motorcycle listing.
+        /// The name of the user who created the motorcycle listing.
         /// </summary>
         public string CreatedBy { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the date and time when the motorcycle listing was created.
+        /// The date and time when the motorcycle listing was created.
         /// </summary>
         public DateTime CreatedAt { get; set; }
 
         /// <summary>
-        /// Gets or sets the location where the motorcycle is located.
+        /// The location where the motorcycle is located.
         /// </summary>
         public string Location { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the title of the motorcycle listing.
+        /// The title of the motorcycle listing.
         /// </summary>
         public string Title { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the description of the motorcycle listing.
+        /// The description of the motorcycle listing.
         /// </summary>
         public string? Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the price of the motorcycle.
+        /// The price of the motorcycle.
         /// </summary>
         public double Price { get; set; }
 
         /// <summary>
-        /// Gets or sets the make of the motorcycle.
+        /// The make of the motorcycle.
         /// </summary>
         public string Make { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the model of the motorcycle.
+        /// The model of the motorcycle.
         /// </summary>
         public string Model { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the date when the motorcycle was manufactured.
+        /// The date when the motorcycle was manufactured.
         /// </summary>
         public DateTime ManufactureDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the horsepower of the motorcycle.
+        /// The horsepower of the motorcycle.
         /// </summary>
         public int? HorsePower { get; set; }
 
         /// <summary>
-        /// Gets or sets the mileage of the motorcycle.
+        /// The mileage of the motorcycle.
         /// </summary>
         public double? Mileage { get; set; }
 
         /// <summary>
-        /// Gets or sets the transmission type of the motorcycle.
+        /// The transmission type of the motorcycle.
         /// </summary>
         public string Transmission { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the engine type of the motorcycle.
+        /// The engine type of the motorcycle.
         /// </summary>
         public string EngineType { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the cubic capacity of the motorcycle's engine.
+        /// The cubic capacity of the motorcycle's engine.
         /// </summary>
         public double CubicCapacity { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of engine strokes of the motorcycle.
+        /// The number of engine strokes of the motorcycle.
         /// </summary>
         public int EngineStrokes { get; set; }
 
         /// <summary>
-        /// Gets or sets the cooling type of the motorcycle.
+        /// The cooling type of the motorcycle.
         /// </summary>
         public string CoolingType { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the status of the motorcycle listing.
+        /// The status of the motorcycle listing.
         /// </summary>
         public string Status { get; set; } = null!;
     }
