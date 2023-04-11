@@ -2,13 +2,13 @@
 
 ## Navigation
 
-- **[About](#about)**
+- ** [About](#about) **
 
-- **[Building the project](#building-the-project)**
+- ** [Building the project](#building-the-project) **
 
-- **[Built with](#built-with)**
+- ** [Built with](#built-with) **
 
-- **[License](#license)**
+- ** [License](#license) **
 
 ## About📝
 
