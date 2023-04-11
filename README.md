@@ -16,9 +16,9 @@
 
 **The website also has its own Notifications System.**
 
-## Building the project ⚙️
+## Building the project
 
-### In order to build the project you will have to:
+**In order to build the project you will have to:**
 
 1. **Initialize the database**
 
