@@ -16,7 +16,7 @@
 
 **The website also has its own Notifications System.**
 
-## Building the project⚙️
+## Building the project ⚙️
 
 ### In order to build the project you will have to:
 
