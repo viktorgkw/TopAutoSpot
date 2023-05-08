@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using TopAutoSpot.Data;
 using TopAutoSpot.Data.Models;
 using TopAutoSpot.Data.Models.Enums;
 
@@ -15,19 +16,19 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
         private readonly UserManager<User> _userManager;
         private readonly IUserStore<User> _userStore;
         private readonly IUserEmailStore<User> _emailStore;
-        private readonly ILogger<RegisterModel> _logger;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<User> userManager,
             IUserStore<User> userStore,
             SignInManager<User> signInManager,
-            ILogger<RegisterModel> logger)
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
-            _logger = logger;
+            _context = context;
         }
 
         [BindProperty]
@@ -63,6 +64,8 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                await EnsureRolesExist();
+
                 User user = CreateUser();
 
                 if (!_userManager.Users.Any(u => u.UserName == "Administrator") || !_userManager.Users.Any())
@@ -79,8 +82,6 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
-
                     string userId = await _userManager.GetUserIdAsync(user);
                     string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -107,6 +108,15 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
             }
 
             return Page();
+        }
+
+        private async Task EnsureRolesExist()
+        {
+            if (!_context.Roles.Any())
+            {
+                await _context.Roles.AddAsync(new IdentityRole("User"));
+                await _context.Roles.AddAsync(new IdentityRole("Administrator"));
+            }
         }
 
         private User CreateUser()
