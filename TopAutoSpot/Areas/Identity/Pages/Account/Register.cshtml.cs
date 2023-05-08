@@ -114,8 +114,23 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
         {
             if (!_context.Roles.Any())
             {
-                await _context.Roles.AddAsync(new IdentityRole("User"));
-                await _context.Roles.AddAsync(new IdentityRole("Administrator"));
+                await _context.Roles.AddAsync(new()
+                {
+                    Name = "User",
+                    NormalizedName = "USER"
+                });
+                await _context.Roles.AddAsync(new()
+                {
+                    Name = "Administrator",
+                    NormalizedName = "ADMINISTRATOR"
+                });
+                await _context.Roles.AddAsync(new()
+                {
+                    Name = "Premium",
+                    NormalizedName = "PREMIUM"
+                });
+
+                await _context.SaveChangesAsync();
             }
         }
 

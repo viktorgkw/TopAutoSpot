@@ -4,10 +4,11 @@
 @{
     ViewData["Title"] = "Vehicle Approved";
 }
+<div class="mt-5">
+    <h1 class="website-text-darker-nohover fw-bold">Vehicle Approved!</h1>
+    <hr />
 
-<h1 class="website-text-darker-nohover fw-bold">Vehicle Approved!</h1>
-<hr />
+    <p class="fs-3 website-text-nohover mb-5 mt-5">Vehicle Listing with Id: @Model.VehicleId was <span class="fw-bold text-success">Approved succesfully</span>!</p>
 
-<p class="fs-3 website-text-nohover">Vehicle with Id: @Model.VehicleId was <span class="fw-bold text-success">Approved succesfully</span>!</p>
-
-<a class="btn website-background-outline-main fw-bold custom-rounded" asp-page="/AdministratorViews/ListingsApproval">Go Back</a>
+    <a class="btn website-background-outline-main fw-bold custom-rounded mb-5" asp-page="/AdministratorViews/ListingsApproval">Go Back</a>
+</div>

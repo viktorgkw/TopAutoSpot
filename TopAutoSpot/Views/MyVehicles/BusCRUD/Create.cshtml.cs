@@ -56,7 +56,7 @@
         /// <returns>The "MyVehicles/Index" page on success or "NotFound" on failure.</returns>
         public IActionResult OnPost(List<IFormFile> Images)
         {
-            if (!ModelState.IsValid || !_context.Buses.Any() || Bus == null)
+            if (!ModelState.IsValid || Bus == null)
             {
                 return RedirectToPage("/NotFound");
             }

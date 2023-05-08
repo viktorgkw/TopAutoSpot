@@ -22,8 +22,6 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
         [BindProperty]
         public InputModel Input { get; set; } = null!;
 
-        public string ReturnUrl { get; set; } = null!;
-
         [TempData]
         public string ErrorMessage { get; set; } = null!;
 
@@ -51,30 +49,18 @@ namespace TopAutoSpot.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl)
+        public async Task<IActionResult> OnPostAsync()
         {
-            returnUrl ??= Url.Content("~/");
-
             if (ModelState.IsValid)
             {
                 Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect("/Index");
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
                 }
                 else
                 {
