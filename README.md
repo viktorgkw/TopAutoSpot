@@ -1,5 +1,13 @@
 # <div align="center">TopAutoSpot🚦</div>
 
+## Before you start reading ❗
+
+**TopAutoSpot is my first ever ASP.NET project and I started with zero experience in ASP.NET.**
+
+**Everything I've used in the project are things I learned while developing.**
+
+**There will be messy code, so feel free to contribute!**
+
 ## Navigation
 
 - **[About](#about)**
